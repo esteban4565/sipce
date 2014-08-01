@@ -125,6 +125,9 @@
                     
                     <?php if (Session::get('loggedIn') == true): ?>  
                         <li>
+                            <a href="<?php echo URL; ?>horario">Horario</a>
+                        </li>
+                        <li>
                             <a href="<?php echo URL; ?>index"><img src="<?php echo URL; ?>public/images/botones/home.png" width="25" height="25"/></a>
                         </li>
                         <li>
