@@ -1,6 +1,6 @@
 <?php
 
-class Horario_Model extends Model {
+class Horario_Model extends Models {
 
     //El constructor invoca al padre que esta en "libs/Model", este posee una variable llamada "db" con el acceso a la BD
     //db es un objeto "Database" y posee las siguientes funciones: select, insert, update y delete

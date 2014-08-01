@@ -1,6 +1,6 @@
 <?php
 
-class Horario extends Controller {
+class Horario extends Controllers {
 
     //Cuando se crea el constructor se verifica si inicio sesion y si tiene permiso
     public function __construct() {
