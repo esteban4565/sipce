@@ -1,26 +1,26 @@
 $(function() 
 {
     //Carga los cantones//
-    $("#provincias").change(function(){
-        $("#cantones,#distritos").empty();
-        var idP = $("#provincias").val();
+    $("#tf_provincias").change(function(){
+        $("#tf_cantones,tf_#distritos").empty();
+        var idP = $("#tf_provincias").val();
         $.getJSON('../persona/cargaCantones/'+ idP,function(canton){
-            $('#cantones').append('<option value="">Seleccione</option>');
+            $('#tf_cantones').append('<option value="">Seleccione</option>');
             for (var iP = 0; iP < canton.length; iP++){
-                $("#cantones").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
+                $("#tf_cantones").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
             }
         });
     });
     
     //Carga los distritos//
-    $("#cantones").change(function(){
-        $("#distritos").empty();
-        var idD = $("#cantones").val();
+    $("#tf_cantones").change(function(){
+        $("#tf_distritos").empty();
+        var idD = $("#tf_cantones").val();
         //var ids = $(this).attr('rel');
         $.getJSON('../persona/cargaDistritos/'+ idD,function(distrito){
-            $('#distritos').append('<option value="">Seleccione</option>');
+            $('#tf_distritos').append('<option value="">Seleccione</option>');
             for (var iD = 0; iD < distrito.length; iD++){
-                $("#distritos").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
+                $("#tf_distritos").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
             }
         });
     }); 

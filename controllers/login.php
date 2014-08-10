@@ -4,9 +4,15 @@ class Login extends Controllers {
         parent::__construct();
     }
     function index(){
-        $this->view->title = 'login'; 
+        $this->view->title = 'Iniciar sesión'; 
         $this->view->render('header');
         $this->view->render('login/index');
+        $this->view->render('footer');
+    }
+    function recuperarClave(){
+        $this->view->title = 'Recuperar Password'; 
+        $this->view->render('header');
+        $this->view->render('login/recuperarClave');
         $this->view->render('footer');
     }
     function run(){

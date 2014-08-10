@@ -65,36 +65,30 @@ class Persona_Model extends Models{
         }
          
     } 
-    public function create($data){
+    public function saveDocenteEstudiante($data){
         
-        $this->db->insert('tbl_user', array(
+        $this->db->insert('sipce_persona', array(
            
-           'cedula'    =>$data['cedula'], 
-           'ape1'      =>$data['ape1'], 
-           'ape2'      =>$data['ape2'], 
-           'nombre'    =>$data['nombre'], 
-           'sexo'      =>$data['sexo'], 
-           'username'  =>$data['username'], 
-           'password'  =>Hash::create('md5',$data['password'], HASH_PASSWORD_KEY), 
-           'role'      =>$data['role'], 
-           'email'     =>$data['email']
-                
+        'cedula'=>$data['cedulaP'],
+        'sexo'=>$data['sexoP'],
+        'apellido1'=>$data['ape1P'],
+        'apellido2'=>$data['ape2P'],
+        'nombre'=>$data['nombreP'],
+        //'fechaNacimiento'=>$data['fnacimientoP'],
+        //'nacionalidad'=>$data['nacionalidadP'],
+        //'estadoCivil'=>$data['estadocivilP'],
+        //'telefonoCelular'=>$data['telcelularP'],
+        //'telefonoCasa'=>$data['telcasaP'],
+        //'domicilio'=>$data['domicilioP'],
+        //'IdProvincia'=>$data['provinciaP'],
+        //'IdCanton'=>$data['cantonP'],
+        //'IdDistrito'=>$data['distritoP'],
+        //'password'=>Hash::create('md5',$data['password'], HASH_PASSWORD_KEY),
+        //'email'=>$data['emailP'],
+        //'role'=>$data['roleP'],
+        //'estadoActual'=>$data['estadoactualP']      
         )); 
         /*
-        $sth = $this->db->prepare("INSERT INTO tbl_user 
-            (`cedula`,`nombre`,`ape1`,`ape2`,`username`,`role`,`email`,`sexo`,`password`)
-            VALUES(:cedula, :nombre, :ape1, :ape2, :usuario, :role,  :email, :sexo,:clave)");
-        $sth->execute(array(
-           ':cedula'    =>$data['cedula'], 
-           ':ape1'      =>$data['ape1'], 
-           ':ape2'      =>$data['ape2'], 
-           ':nombre'    =>$data['nombre'], 
-           ':sexo'      =>$data['sexo'], 
-           ':usuario'   =>$data['usuario'], 
-           ':clave'     =>Hash::create('md5',$data['clave'], HASH_PASSWORD_KEY), 
-           ':role'      =>$data['role'], 
-           ':email'     =>$data['email'] 
-        ));
         return $sth->fetchAll();
         */
     }

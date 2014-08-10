@@ -20,6 +20,7 @@ class Persona extends Controllers {
     }
     /*METODOS DE BUSQUEDA*/
     function buscarDocente(){
+        $this->view->title = 'Buscar docente';
         $this->view->render('header');
         $this->view->render('persona/buscarDocente');
         $this->view->render('footer');
@@ -30,7 +31,6 @@ class Persona extends Controllers {
         $this->view->render('footer');
     }
     /*METODOS DE RESULTADOS DE BUSQUEDAS*/
-    
     function resultadoBuscarDocente(){
         
         /*CARGAMOS PROVINCIAS*/
@@ -53,25 +53,25 @@ class Persona extends Controllers {
         
         if ($cedula != "") {
             if ($count_bd_sipce > 0) {
-                $this->view->msg = "EL DOCENTE YA ESTA REGISTRADO EN EL SISTEMA, SÓLO SE PODRAN ACTUALIZAR SUS DATOS";
+                $this->view->msg = "El docente ya esta registrado en el sistema, sólo se podrá actualizar la información";
                 $this->view->estado = "2";
-                $this->view->title = 'Resultado Busqueda';
+                $this->view->title = 'Resultado de la busqueda';
                 $this->view->render('header');
                 $this->view->render('persona/errorBusqueda');
                 $this->view->render('footer');
             } else {
                 if($count_bd_padron > 0){
                     $this->view->personaNueva = $this->model->personaUnicaLista($cedula,"bd_padron");
-                    $this->view->msg = "DOCENTE ENCONTRADO";
+                    $this->view->msg = "Docente encontrado";
                     $this->view->estado = "0";
-                    $this->view->title = 'Nuevo Docente';
+                    $this->view->title = 'Registrar docente';
                     $this->view->render('header');
                     $this->view->render('persona/resultadoBuscarDocente');
                     $this->view->render('footer'); 
                 }
             }
         } else {
-                $this->view->msg = "VALOR DE BUSQUEDA INVALIDO";
+                $this->view->msg = "Valor de busqueda invalido";
                 $this->view->estado = "3";
                 $this->view->title = 'Resultado Busqueda';
                 $this->view->render('header');
@@ -127,7 +127,8 @@ class Persona extends Controllers {
         $this->view->render('persona/ListaEstudiantes');
         $this->view->render('footer');
     }
-    function create(){
+    /*Funcion que permite guardar el registro de un docente o estudiante*/
+    function saveDocenteEstudiante(){
         
         $data = array();      
         $data['cedulaP']        = $_POST['tf_cedula'];
@@ -135,28 +136,29 @@ class Persona extends Controllers {
         $data['ape1P']          = $_POST['tf_ape1'];
         $data['ape2P']          = $_POST['tf_ape2'];
         $data['nombreP']        = $_POST['tf_nombre'];
-        $data['fnacimientoP']   = $_POST['tf_fnacpersona'];
-        $data['nacionalidadP']  = $_POST['tf_nacionalidad'];
-        $data['estadocivilP']   = $_POST['tf_estadocivil'];
-        $data['telcelularP']    = $_POST['tf_telcelular'];
-        $data['telcasaP']       = $_POST['tf_telcasa'];
-        $data['domicilioP']     = $_POST['tf_domicilio'];
-        $data['provinciaP']     = $_POST['tf_provincia'];
-        $data['cantonP']        = $_POST['tf_canton'];
-        $data['distritoP']      = $_POST['tf_distrito'];
-        $data['usernameP']      = $_POST['tf_usuario'];
-        $data['passwordP']      = $_POST['tf_clave'];
-        $data['emailP']         = $_POST['tf_email'];
-        $data['roleP']          = $_POST['tf_role'];
-        $data['estadoactualP']  = $_POST['tf_estadoactual'];
-        
+        //$data['fnacimientoP']   = $_POST['tf_fnacpersona'];
+        //$data['nacionalidadP']  = $_POST['tf_nacionalidad'];
+        //$data['estadocivilP']   = $_POST['tf_estadocivil'];
+        //$data['telcelularP']    = $_POST['tf_telcelular'];
+        //$data['telcasaP']       = $_POST['tf_telcasa'];
+        //$data['domicilioP']     = $_POST['tf_domicilio'];
+        //$data['provinciaP']     = $_POST['tf_provincias'];
+        //$data['cantonP']        = $_POST['tf_cantones'];
+        //$data['distritoP']      = $_POST['tf_distritos'];
+        //$data['passwordP']      = $_POST['tf_cedula'];
+        //$data['emailP']         = $_POST['tf_email'];
+        //$data['roleP']          = $_POST['tf_role'];
+        //$data['estadoactualP']  = $_POST['tf_estadoactual'];
         
         print_r($data);
         die;
         //Checar los errores
-        $this->model->create($data);
-        
-        header('location:'. URL .'persona');
+        $this->model->saveDocenteEstudiante($data);
+        //header('location:'. URL .'persona');
+        //$this->view->title = 'Buscar docente';
+        //$this->view->render('header');
+        //$this->view->render('persona/buscarDocente');
+        //$this->view->render('footer');
     }
     function edit($cedula){
         //fetch individual de personas

@@ -1,5 +1,4 @@
 <?php
-
 require 'config.php';
 require 'util/Auth.php';
 //usar un autoloader

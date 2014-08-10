@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="<?php  echo URL;?>public/images/logoctpcarrizal.png"/>
-        <html xml:lang="es" xmlns="http://www.w3.org/1999/xhtml"></html>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title><?= (isset($this->title)) ? $this->title : ''; ?></title>   
-        <link rel="stylesheet" type="text/css" href="<?php  echo URL;?>public/default.css" media="all"></script>
-        <link rel="stylesheet" type="text/css" media="all" href="<?php  echo URL;?>public/css/smoothness/jquery-ui-1.8.24.custom.css"></script>
-        <link rel="stylesheet" type="text/css" media="all" href="<?php  echo URL;?>public/css/jQueryValidationEngine/validationEngine.jquery.css"></script>
-        <link rel="stylesheet" type="text/css" media="all" href="<?php  echo URL;?>public/css/jQueryValidationEngine/template.css"></script>
+        <meta charset="UTF-8"/>
+        <title><?= (isset($this->title)) ? $this->title : ''; ?></title>
+        <link rel="stylesheet" type="text/css" href="<?php  echo URL;?>public/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         
+        <link rel="stylesheet" href="<?php  echo URL;?>public/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="<?php  echo URL;?>public/font-awesome/css/font-awesome.min.css">
+        
+        <link rel="stylesheet" type="text/css" media="all" href="<?php  echo URL;?>public/css/smoothness/jquery-ui-1.8.24.custom.css">
+        <link rel="stylesheet" type="text/css" media="all" href="<?php  echo URL;?>public/css/jQueryValidationEngine/validationEngine.jquery.css">
+        <link rel="stylesheet" type="text/css" media="all" href="<?php  echo URL;?>public/css/jQueryValidationEngine/template.css">
+        
         <script type="text/javascript" src="<?php  echo URL;?>public/js/jquery-1.8.2.min.js"></script>
-        <script type="text/javascript" src="<?php  echo URL;?>public/js/jquery-ui-1.8.24.custom.min.js"></script>
+        <script type="text/javascript" src="<?php  echo URL;?>public/js/jquery-ui-1.8.24.custom.min.js"></script>        
         <script type="text/javascript" src="<?php  echo URL;?>public/js/jQueryValidationEngine/jquery.validationEngine.js"></script>
         <script type="text/javascript" src="<?php  echo URL;?>public/js/jQueryValidationEngine/languages/jquery.validationEngine-es.js"></script>
-        <script type="text/javascript" src="<?php  echo URL;?>public/images/menu"></script>
-        <script type="text/javascript" src="<?php echo URL; ?>public/default.js"></script>
-        <script type="text/javascript" src="<?php echo URL; ?>public/js/hora.js"></script>
-               
+        
+        <!--<script src="<?php  echo URL;?>public/js/jquery-1.11.1.js"></script>-->
+	<script src="<?php  echo URL;?>public/js/bootstrap.min.js"></script>  
         <?php 
         if (isset($this->js)) 
         {
@@ -31,194 +34,146 @@
             //validar campos       
             jQuery("#MyForm").validationEngine();
             //mostrar mensaje    
-            $(".mensajes").show();
+            //$(".mensajes").show();
             
-        }); 
-        /*Solo mayusculas*/    
-        function mayusculas(campo){
-            campo.value = campo.value.toUpperCase();
-        }
-        //para cargar imagen de foto
-        $(window).load(function(){
-
-            $(function() {
-                $('#imagen').change(function(e) {
-                addImage(e); 
-            });
-
-            function addImage(e){
-                
-                var file = e.target.files[0],
-                imageType = /image.*/;
-                /*Si es una imagen y ademas menor a 1MB*/
-                if (file.type.match(imageType) && file.size <= 1000000){
-                    var reader = new FileReader();
-                    reader.onload = fileOnload;
-                    reader.readAsDataURL(file); 
-                }else{
-                    alert("Lo Sentimos debe seleccionar un formato de imagen y un menor a un tamaño menor 1MB!!!");
-                    return;
-                }   
-            }
-            function fileOnload(e) {
-                var result=e.target.result;
-                $('#imgSalida').attr("src",result);
-            }
-            });
         });
-        /*Para cargar la hora*/
-        $(document).ready(function(){
-            $('#time').jTime();
-            $("#b2").click(function() {
-                $("#dialogo2").dialog({
-                    width: 590,
-                    height: 350,
-                    show: "scale",
-                    hide: "scale",
-                    resizable: "false",
-                    position: "center"     
-                });
-            });
-        });
-        
-        </script>
+        </script> 
     </head>
     <body>
-               
         <?php Session::init();?>
-        <div id="contenedor">
-            <div id="header">
-                <table width="100%">
-                    <tr>
-                        <td rowspan="4" width="140">
-                            <div id="logo">
-                                <img src="<?php echo URL; ?>public/images/logosipce.png" width="140"/>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="nombreSitioSipce">SIPCE</span>
-                        </td>
-                        <td>
-                            <div class="loggerusuario">
-                                <img src="<?php echo URL;?>public/images/foto.png" width="35" height="35"/></a>
-                                <?php echo $_SESSION['nombre'];?>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <div id="nombre">
-                                <span class="nombreSitioSistema">SISTEMA DE INFORMACION PARA CENTROS EDUCATIVOS</span>
-                            </div>
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <p><span id="fechaactual"></span>, <span id="time"></span></p>
-                        </td>
-                    </tr>
-                </table>    
+        <div class="container">
+            <br/>
+            <br/>
+            <br/>
+            <div class="row">
+                <div class="col-lg-1">
+                    <img src="<?php echo URL; ?>public/img/logosipce.png" alt="Logo Sipce" class="img-rounded pull-left">
+                </div>
+                <div class="col-lg-10 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>Sistema de Informacón para Centros Educativos</h1>
+                            <h4><p class="text-success">Colegio Ténico Profesional de Carrizal, Dirección Regional de Alajuela Circuito -01-</p></h4>
+                            <h4><p class="text-succes">Telefax: 2483-055</p></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <img src="<?php echo URL; ?>public/img/logoctpcarrizal.png" alt="Logo CTPC" class="img-rounded pull-right">
+                </div>
             </div>
-            <div id="menus">
-                <ul id="menu">
-                    
-                    <?php if (Session::get('loggedIn') == true): ?>  
-                        <li>
-                            <a href="<?php echo URL; ?>horario">Horario</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo URL; ?>index"><img src="<?php echo URL; ?>public/images/botones/home.png" width="25" height="25"/></a>
-                        </li>
-                        <li>
-                            <img src="<?php echo URL; ?>public/images/botones/separator.png"/>
-                            <img src="<?php echo URL; ?>public/images/botones/ayuda.png"/>
-                            <a href="<?php echo URL; ?>help">Ayuda</a>
-                        </li>
-                        <li>
-                            <img src="<?php echo URL; ?>public/images/botones/separator.png"/>
-                            <img src="<?php echo URL; ?>public/images/botones/profesores.png"/>
-                            <a href="<?php echo URL; ?>persona/index">Docentes</a>
-                            <ul>
-                                <li>
-                                    <a href="<?php echo URL; ?>persona/buscarDocente">
-                                        <img src="<?php echo URL; ?>public/images/botones/new.png" width="25" height="25"/>
-                                        Nuevo Docente Arriba</a>
-                                </li>
-                                <li>
-                                    
-                                    <a href="<?php echo URL; ?>persona/ListaEstudiantes">
-                                        <img src="<?php echo URL; ?>public/images/botones/update.png" width="25" height="25"/>
-                                        Actualizar Datos</a></li>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">
-                                        <img src="<?php echo URL; ?>public/images/botones/delete.png" width="25" height="25"/>
-                                        Eliminar</a></li>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">
-                                        <img src="<?php echo URL; ?>public/images/botones/buscar.png" width="25" height="25"/>
-                                        Buscar</a></li>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">
-                                        <img src="<?php echo URL; ?>public/images/botones/list.png" width="25" height="25"/>
-                                        Listar</a></li>
-                            </ul>
-                        </li>
-                        <li><img src="<?php echo URL; ?>public/images/botones/separator.png"/></li>
-                        <li>
-                            <img src="<?php echo URL; ?>public/images/botones/estudiante.png"/>
-                            <a href="<?php echo URL; ?>persona/ListaEstudiantes">Estudiantes</a>
-                            <ul>
-                                <li>
-                                    <a href="<?php echo URL; ?>persona/buscarEstudiante">
-                                        <img src="<?php echo URL; ?>public/images/botones/new.png" width="25" height="25"/>
-                                        Nuevo</a>
-                                </li>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">
-                                        <img src="<?php echo URL; ?>public/images/botones/update.png" width="25" height="25"/>
-                                        Actualizar</a></li>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">
-                                        <img src="<?php echo URL; ?>public/images/botones/delete.png" width="25" height="25"/>
-                                        Eliminar</a></li>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">
-                                        <img src="<?php echo URL; ?>public/images/botones/buscar.png" width="25" height="25"/>
-                                        Buscar</a></li>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">
-                                        <img src="<?php echo URL; ?>public/images/botones/list.png" width="25" height="25"/>
-                                        Listar</a></li>
-                            </ul>
-                        </li>
-                        <li><img src="<?php echo URL; ?>public/images/botones/separator.png"/></li>
-                        <li>
-                            <img src="<?php echo URL; ?>public/images/botones/matricula.png"/>
-                            <a href="<?php echo URL; ?>persona/index">Matricula</a>
-                            <ul>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">Pre-Matricula</a></li>
-                                <li><a href="<?php echo URL; ?>persona/ListaEstudiantes">Matricula</a></li>
-                            </ul>
-                        </li>
-                        <li><img src="<?php echo URL; ?>public/images/botones/separator.png"/></li>
-                        <li>
-                            <img src="<?php echo URL; ?>public/images/botones/contacts.png" width="25" height="25"/>
-                            <a href="<?php echo URL; ?>dashboard/logout">Contactenos</a>
-                        </li>
-                        <li><img src="<?php echo URL; ?>public/images/botones/separator.png"/></li>
-                        <li>
-                            <img src="<?php echo URL; ?>public/images/botones/salir.png"/>
-                            <a href="<?php echo URL; ?>dashboard/logout">Salir</a>
-                        </li>
-                        <img style="float:left;" alt="" src="<?php echo URL; ?>public/images/botones/menu_right2.png"/>
-                    <?php else: ?>
-                        <li><a href="<?php echo URL; ?>index"><img src="<?php echo URL; ?>public/images/botones/home.png" width="25" height="25"/></a></li>
-                        <li><img src="<?php echo URL; ?>public/images/botones/separator.png"/></li>
-                        <li>
-                            <img src="<?php echo URL; ?>public/images/botones/ayuda.png"/>
-                            <a href="<?php echo URL; ?>help">Ayuda</a>
-                        </li> 
-                        <li><img src="<?php echo URL; ?>public/images/botones/separator.png"/></li>
-                        <li>
-                            <img src="<?php echo URL; ?>public/images/botones/sesion.png"/>
-                            <a href="<?php echo URL; ?>login">Iniciar Sesión</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        <div id ="content">
-        
+            
+            <br/>
+            <!--Si esta logeded-->
+            <?php if (Session::get('loggedIn') == true): ?> 
+            <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                            <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header">
+                                    <a class="navbar-brand" href="#">Inicio</a>
+                                </div>
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="#">Registro</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docentes <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="<?php echo URL;?>persona/buscarDocente">Agregar docente</a></li>
+                                                <li><a href="#">Modificar Docentes</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Buscar Docentes</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Lista Docentes</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Eliminar Docentes</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Lista Docentes</a></li>
+                                                <li class="divider"></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <!--Estudiantes-->
+                                    <ul class="nav navbar-nav">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Estudiantes <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                
+                                                <li><a href="<?php echo URL; ?>persona/buscarDocente">Agregar Estudiante</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Modificar Estudiante</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Buscar Estudiante</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Lista Estudiante</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Eliminar Estudiante</a></li>
+                                                <li class="divider"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Matricula <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="<?php echo URL; ?>persona/buscarDocente">Pre-Matricula</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Matricula</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Buscar Estudiante</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Lista Estudiante</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Eliminar Estudiante</a></li>
+                                                <li class="divider"></li>
+                                            </ul>
+                                        </li>
+                                        <form class="navbar-form navbar-left" role="search">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control input-sm" placeholder="Buscar">
+                                            </div>
+                                            <button type="submit" class="btn btn-default btn-sm">Buscar</button>
+                                        </form>
+                                    </ul>
+                                    <!--Barra derecha-->
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> <?php echo $_SESSION['nombre'];?> <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Editar perfil</a></li>
+                                                <li><a href="<?php echo URL; ?>dashboard/logout">Salir</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div><!-- /.navbar-collapse -->
+                            </div><!-- /.container-fluid -->
+                        </nav>
+                    </div>
+                </div>
+            <!--Si no esta loged-->
+            <?php else: ?>
+            <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                            <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header">
+                                    <a class="navbar-brand" href="#">Inicio</a>
+                                </div>
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="<?php echo URL; ?>login">Iniciar Sesión</a></li>
+                                </div>
+                            </div><!-- /.container-fluid -->
+                        </nav>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <!--Contenido para mostrar todas las paginas-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="jumbotron">
+                
+            
+            

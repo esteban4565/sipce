@@ -1,7 +1,19 @@
 <center>
-<h2>Error</h2>
-<?php
-echo "<div id='infoDiv' class='error mesages'>".$this->msg."</div>"; 
-?>    
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Error</h2>
+                </div>
+                <div class="panel-body">
+                    <?php
+                    echo $this->msg;
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
 </center>
 

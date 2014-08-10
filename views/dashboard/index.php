@@ -1,3 +1,4 @@
 <center>
-<h3>Bienvenid@ <?php echo $_SESSION['nombre'];?></h3>
+<h2>Bienvenid@</h2>
+    <?php echo $_SESSION['nombre'];?>
 </center>
