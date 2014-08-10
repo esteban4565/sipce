@@ -12,7 +12,7 @@ class Horario_Model extends Models {
     public function profeLista() {
         //La sentencia SQL se manda a la variable db del Model y se ejecuta la funcion, 
         //dependiendo de la tarea devuelve un registro o simplemente hace un insert en la BD
-        return $this->db->select('SELECT cedula, nombre, apellido1, apellido2 FROM sipce_persona WHERE tipo = :texto', array('texto' => 'docente'));
+        return $this->db->select('SELECT cedula, nombre, apellido1, apellido2 FROM sipce_persona WHERE tipoUsuario = 4');
     }
 
     //esta funcion retorna una matriz que posee el codigo y nombre de las asignaturas que imparte un docente en especifico
@@ -78,7 +78,7 @@ class Horario_Model extends Models {
         $leccion = 1;
         while ($leccion < 13) {
             //inserto la leccion en la tabla Horario
-            $this->db->insert('horario', array(
+            $this->db->insert('sipce_horario', array(
                 'ced_docente' => $cedula,
                 'dia' => $dia,
                 'leccion' => $leccion,

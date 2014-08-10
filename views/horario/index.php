@@ -20,7 +20,7 @@ Dale clic al boton "Editar" para modificar/crear el Horario del profesor
         //a las funciones "public function profeSingleList($cedula)", "public function asignaturasDocente($cedula)" y
         //"public function gruposLista()" del Model_Horario
         echo '<td><a href="'. URL . 'horario/edit/' . $value['cedula'].'">Editar</a></td>';
-        echo '<td><a class="delete" href="'. URL . 'horario/delete/' . $value['cedula'].'">Eliminar</a></td>';
+        echo '<td><a class="" href="'. URL . 'horario/delete/' . $value['cedula'].'">Eliminar</a></td>';
         echo '</tr>';
     }
 ?>
