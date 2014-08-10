@@ -67,7 +67,7 @@ class Persona_Model extends Models{
     } 
     public function saveDocenteEstudiante($data){
         
-        $this->db->insert('sipce_persona', array(
+        $this->db->insert('sipce_usuarios', array(
            
         'cedula'=>$data['cedulaP'],
         'sexo'=>$data['sexoP'],

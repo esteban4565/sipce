@@ -65,6 +65,7 @@
             
             <br/>
             <!--Si esta logeded-->
+            <!--Menu-->
             <?php if (Session::get('loggedIn') == true): ?> 
             <div class="row">
                     <div class="col-lg-12">
@@ -78,6 +79,7 @@
                                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
                                     <ul class="nav navbar-nav">
                                         <li><a href="#">Registro</a></li>
+                                        <li><a href="<?php echo URL;?>horario/index">Horario</a></li>
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docentes <b class="caret"></b></a>
                                             <ul class="dropdown-menu">

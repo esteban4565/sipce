@@ -150,8 +150,8 @@ class Persona extends Controllers {
         //$data['roleP']          = $_POST['tf_role'];
         //$data['estadoactualP']  = $_POST['tf_estadoactual'];
         
-        print_r($data);
-        die;
+        //print_r($data);
+        //die;
         //Checar los errores
         $this->model->saveDocenteEstudiante($data);
         //header('location:'. URL .'persona');
