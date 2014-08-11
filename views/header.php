@@ -19,7 +19,8 @@
         <script type="text/javascript" src="<?php  echo URL;?>public/js/jQueryValidationEngine/languages/jquery.validationEngine-es.js"></script>
         
         <!--<script src="<?php  echo URL;?>public/js/jquery-1.11.1.js"></script>-->
-	<script src="<?php  echo URL;?>public/js/bootstrap.min.js"></script>  
+	<script src="<?php  echo URL;?>public/js/bootstrap.min.js"></script> 
+        <script type="text/javascript" src="<?php echo URL; ?>public/js/hora.js"></script>
         <?php 
         if (isset($this->js)) 
         {
@@ -35,11 +36,12 @@
             jQuery("#MyForm").validationEngine();
             //mostrar mensaje    
             //$(".mensajes").show();
-            
+            //$('#datetime').jTime();
         });
+        
         </script> 
     </head>
-    <body>
+    <body onload="fechaHora();">
         <?php Session::init();?>
         <div class="container">
             <br/>
@@ -55,6 +57,7 @@
                             <h1>Sistema de Informacón para Centros Educativos</h1>
                             <h4><p class="text-success">Colegio Ténico Profesional de Carrizal, Dirección Regional de Alajuela Circuito -01-</p></h4>
                             <h4><p class="text-succes">Telefax: 2483-055</p></h4>
+                            <!--<label id="datetime" size="50"></label>-->
                         </div>
                     </div>
                 </div>
@@ -62,7 +65,6 @@
                     <img src="<?php echo URL; ?>public/img/logoctpcarrizal.png" alt="Logo CTPC" class="img-rounded pull-right">
                 </div>
             </div>
-            
             <br/>
             <!--Si esta logeded-->
             <!--Menu-->
@@ -73,7 +75,7 @@
                             <div class="container-fluid">
                                 <!-- Brand and toggle get grouped for better mobile display -->
                                 <div class="navbar-header">
-                                    <a class="navbar-brand" href="#">Inicio</a>
+                                    <a class="navbar-brand" href="<?php echo URL;?>index/index">Inicio</a>
                                 </div>
                                 <!-- Collect the nav links, forms, and other content for toggling -->
                                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 

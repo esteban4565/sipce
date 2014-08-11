@@ -74,19 +74,19 @@ class Persona_Model extends Models{
         'apellido1'=>$data['ape1P'],
         'apellido2'=>$data['ape2P'],
         'nombre'=>$data['nombreP'],
-        //'fechaNacimiento'=>$data['fnacimientoP'],
-        //'nacionalidad'=>$data['nacionalidadP'],
-        //'estadoCivil'=>$data['estadocivilP'],
-        //'telefonoCelular'=>$data['telcelularP'],
-        //'telefonoCasa'=>$data['telcasaP'],
-        //'domicilio'=>$data['domicilioP'],
-        //'IdProvincia'=>$data['provinciaP'],
-        //'IdCanton'=>$data['cantonP'],
-        //'IdDistrito'=>$data['distritoP'],
-        //'password'=>Hash::create('md5',$data['password'], HASH_PASSWORD_KEY),
-        //'email'=>$data['emailP'],
-        //'role'=>$data['roleP'],
-        //'estadoActual'=>$data['estadoactualP']      
+        'fechaNacimiento'=>$data['fnacimientoP'],
+        'nacionalidad'=>$data['nacionalidadP'],
+        'estadoCivil'=>$data['estadocivilP'],
+        'telefonoCelular'=>$data['telcelularP'],
+        'telefonoCasa'=>$data['telcasaP'],
+        'domicilio'=>$data['domicilioP'],
+        'idProvincia'=>$data['provinciaP'],
+        'idCanton'=>$data['cantonP'],
+        'idDistrito'=>$data['distritoP'],
+        'passwords'=>Hash::create('md5',$data['passwordP'], HASH_PASSWORD_KEY),
+        'email'=>$data['emailP'],
+        'tipoUsuario'=>$data['roleP'],
+        'estadoActual'=>$data['estadoactualP']      
         )); 
         /*
         return $sth->fetchAll();
