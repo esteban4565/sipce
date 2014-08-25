@@ -1,4 +1,5 @@
-<h1><?=(isset($this->title)) ? $this->title : 'Modulo Horario'; ?></h1>
+<h3>Modulo Horario - Modificar</h3>
+<hr>
 
 <form method="post" action="<?php echo URL;?>horario/ingresarHorario/<?php echo $this->horario[0]['ced_docente']; ?>">
 <?php
@@ -386,7 +387,7 @@ if($this->estado==0)
 else 
     {
     echo '<input type="hidden" name="ced_docente" value="'.$this->horario[0]['ced_docente'].'">';
-    echo '<input type="submit" name="modificarHorario" value="ModificarHorario">';  
+    echo '<button type="submit" name="modificarHorario" class="btn btn-success">Modificar Horario</button>';  
     echo '</form>';
     }
 

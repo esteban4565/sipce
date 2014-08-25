@@ -38,6 +38,31 @@
             //$(".mensajes").show();
             //$('#datetime').jTime();
         });
+        //para cargar imagen de foto
+        $(window).load(function(){
+            $(function() {
+                $('#imagen').change(function(e) {
+                addImage(e); 
+            });
+            function addImage(e){
+                var file = e.target.files[0],
+                imageType = /image.*/;
+                /*Si es una imagen y ademas menor a 1MB*/
+                if (file.type.match(imageType) && file.size <= 1000000){
+                    var reader = new FileReader();
+                    reader.onload = fileOnload;
+                    reader.readAsDataURL(file); 
+                }else{
+                    alert("Lo Sentimos debe seleccionar un formato de imagen y un tamaño menor a 1 MB !!!");
+                    return;
+                }   
+            }
+            function fileOnload(e) {
+                var result=e.target.result;
+                $('#imgSalida').attr("src",result);
+            }
+            });
+        });
         
         </script> 
     </head>
@@ -56,7 +81,7 @@
                         <div class="col-lg-12">
                             <h1>Sistema de Informacón para Centros Educativos</h1>
                             <h4><p class="text-success">Colegio Ténico Profesional de Carrizal, Dirección Regional de Alajuela Circuito -01-</p></h4>
-                            <h4><p class="text-succes">Telefax: 2483-055</p></h4>
+                            <h4><p class="text-succes">Telefax: 2483-0055</p></h4>
                             <!--<label id="datetime" size="50"></label>-->
                         </div>
                     </div>
