@@ -2,7 +2,18 @@
 Dale clic al boton "Editar" para modificar/crear el Horario del profesor
 <br/><hr />
 
-<table>
+<table class="table table-bordered table-striped table-condensed">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido 1</th>
+            <th>Apellido 2</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    
 <?php
 //Al cargar la pagina de "Horario", lo primero que hace es recorrer el Array "profeLista"
 //este fue creado en la funcion "Index" del Controller "Horario", su funcion es recopilar todos
@@ -19,11 +30,12 @@ Dale clic al boton "Editar" para modificar/crear el Horario del profesor
         //que se encuentra en la funcion "public function edit($cedula)" del Controller, que a su vez llama
         //a las funciones "public function profeSingleList($cedula)", "public function asignaturasDocente($cedula)" y
         //"public function gruposLista()" del Model_Horario
-        echo '<td><a href="'. URL . 'horario/edit/' . $value['cedula'].'">Editar</a></td>';
-        echo '<td><a class="" href="'. URL . 'horario/delete/' . $value['cedula'].'">Eliminar</a></td>';
+        echo '<td><a class="btn btn-success btn-xs" href="'. URL . 'horario/edit/' . $value['cedula'].'">Editar </a>';
+        echo '<a class="btn btn-primary btn-xs" href="'. URL . 'horario/delete/' . $value['cedula'].'"> Eliminar</a></td>';
         echo '</tr>';
     }
 ?>
+    </tbody>
 </table>
 
 <script>

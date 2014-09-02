@@ -37,11 +37,14 @@ if($this->estado==0)
         for ($i = 1; $i <= 12; $i++) 
                 {
                 echo '<td>';
+                
+                echo '<div class="form-group">';
                 //L1= Lunes leccion n°1
-                echo 'Sec: <select name="cod_seccion_L'.$i.'">'; 
+                echo 'Sec: <select class="form-control" name="cod_seccion_L'.$i.'">'; 
                 //esta funcion se encarga de cargar todas las secciones de la institucion a los "Options" del "Selectc"
                 llenar_grupos($cantidad_Secciones, $matrizGrupos);
                 echo '</select>';
+                echo '</div>';
                 echo '<br>';
 
                 echo 'Asig: <select name="asignatura_L'.$i.'">';

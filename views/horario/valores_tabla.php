@@ -1,36 +1,39 @@
 <?php
 
 function encabezado_tabla(){
-echo '<table border="1">';
+echo '<table class="table table-bordered table-striped table-condensed">';
+    echo '<thead>';
     echo '<tr>';
-            echo '<td>';
-            echo '<B>Leccion</B>';
-            echo '</td>';
+            echo '<th>';
+            echo 'Leccion';
+            echo '</th>';
 
-            echo '<td>';
-            echo '<B>Hora</B>';
-            echo '</td>';
+            echo '<th>';
+            echo 'Hora';
+            echo '</th>';
 
-            echo '<td>';
-            echo '<B>Lunes</B>';
-            echo '</td>';
+            echo '<th>';
+            echo 'Lunes';
+            echo '</th>';
 
-            echo '<td>';
-            echo '<B>Martes</B>';
-            echo '</td>';
+            echo '<th>';
+            echo 'Martes';
+            echo '</th>';
 
-            echo '<td>';
-            echo '<B>Miercoles</B>';
-            echo '</td>';
+            echo '<th>';
+            echo 'Miercoles';
+            echo '</th>';
 
-            echo '<td>';
-            echo '<B>Jueves</B>';
-            echo '</td>';
+            echo '<th>';
+            echo 'Jueves';
+            echo '</th>';
 
-            echo '<td>';
-            echo '<B>Viernes</B>';
-            echo '</td>';
+            echo '<th>';
+            echo 'Viernes';
+            echo '</th>';
     echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
     echo '<tr>';
             echo '<td>';
             echo '1';
@@ -175,6 +178,7 @@ function duodecima_linea(){
 
 function pie_tabla(){
     echo '</tr>';
+    echo '</tbody>';
 echo '</table>';
 echo '<br/><br/>';
 }
