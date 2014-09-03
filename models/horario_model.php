@@ -39,7 +39,7 @@ class Horario_Model extends Models {
     //esta funcion consulta en la BD si el docente en especifico ya posee el horario en la tabla "horario"
     //Si no se encuentra se devuelve vacio al Controller
     public function profeSingleList($cedula) {
-        return $this->db->select('SELECT * FROM sipce_horario WHERE ced_docente = :cedula', array('cedula' => $cedula));
+        return $this->db->select('SELECT * FROM sipce_horario WHERE ced_docente = :cedula ORDER BY leccion, dia', array('cedula' => $cedula));
     }
 
     //esta funcion consulta en la BD cuantas secciones existen en la institucion, 
@@ -71,21 +71,42 @@ class Horario_Model extends Models {
         ));
     }
 
-    public function ingresarHorario($cedula, $matrizHorario) {
-
-        //Este while ingresa el horario del dia Lunes del profesor
+    public function ingresarHorario($ced_docente, $matrizHorario, $estado) {
         $dia = 1;
-        $leccion = 1;
-        while ($leccion < 13) {
-            //inserto la leccion en la tabla Horario
-            $this->db->insert('sipce_horario', array(
-                'ced_docente' => $cedula,
-                'dia' => $dia,
-                'leccion' => $leccion,
-                'cod_grupo' => $matrizHorario[$dia][$leccion]['cod_grupo'],
-                'cod_asignatura' => $matrizHorario[$dia][$leccion]['cod_asignatura']
-            ));
-            $leccion++;
+        if($estado==0){
+            //Este while ingresa el horario de cada dia
+            while ($dia < 6) {
+                $leccion = 1;
+                //Este while ingresa el horario de las lecciones del dia
+                while ($leccion < 13) {
+                    //inserto la leccion en la tabla Horario
+                    $this->db->insert('sipce_horario', array(
+                        'ced_docente' => $ced_docente,
+                        'dia' => $dia,
+                        'leccion' => $leccion,
+                        'cod_grupo' => $matrizHorario[$dia][$leccion]['cod_grupo'],
+                        'cod_asignatura' => $matrizHorario[$dia][$leccion]['cod_asignatura']
+                    ));
+                    $leccion++;
+                }
+                $dia++;
+            }
+        }
+        else {
+            //Este while ingresa el horario de cada dia
+            while ($dia < 6) {
+                $leccion = 1;
+                //Este while ingresa el horario de las lecciones del dia
+                while ($leccion < 13) {
+                $postData = array(
+                                'cod_grupo' => $matrizHorario[$dia][$leccion]['cod_grupo'],
+                                'cod_asignatura' => $matrizHorario[$dia][$leccion]['cod_asignatura']
+                            );
+                $this->db->update('sipce_horario', $postData, "`ced_docente` = '{$ced_docente}' AND dia = '{$dia}' AND leccion = '{$leccion}'");
+                $leccion++;
+                }
+                $dia++;
+            }
         }
     }
 

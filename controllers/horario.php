@@ -58,17 +58,23 @@ class Horario extends Controllers {
     public function ingresarHorario($cedula) {
         //Este while ingresa el horario del dia Lunes del profesor
         $dia = 1;
-        $leccion = 1;
         $matrizHorario = null;
-        while ($leccion < 13) {
-            $cod_grupo = 'cod_seccion_L' . $leccion;
-            $cod_asignatura = 'asignatura_L' . $leccion;
-            $matrizHorario[$dia][$leccion]['cod_grupo'] = $_POST[$cod_grupo];
-            $matrizHorario[$dia][$leccion]['cod_asignatura'] = $_POST[$cod_asignatura];
-            $leccion++;
+        while ($dia < 6) {
+            $leccion = 1;
+            while ($leccion < 13) {
+                $cod_grupo = 'cod_seccion_L' . $leccion;
+                $cod_asignatura = 'asignatura_L' . $leccion;
+                $matrizHorario[$dia][$leccion]['cod_grupo'] = $_POST[$cod_grupo];
+                $matrizHorario[$dia][$leccion]['cod_asignatura'] = $_POST[$cod_asignatura];
+                $leccion++;
+            }
+            $dia++;
         }
 
-        $this->model->ingresarHorario($cedula, $matrizHorario);
+        $this->model->ingresarHorario($cedula, $matrizHorario, $_POST['estado']);
+        
+        //Se manda a ejecutar el header, contenido principal (views/horario/index) y el footer
+        header('location: ' . URL . 'horario');
     }
 
     public function delete($id) {

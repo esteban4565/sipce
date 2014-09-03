@@ -1,184 +1,210 @@
 <?php
 
 function encabezado_tabla(){
-echo '<table class="table table-bordered table-striped table-condensed">';
-    echo '<thead>';
-    echo '<tr>';
-            echo '<th>';
-            echo 'Leccion';
-            echo '</th>';
+?>
+<table class="table table-bordered table-striped table-condensed">
+    <thead>
+    <tr>
+        <th>
+        Leccion
+        </th>
 
-            echo '<th>';
-            echo 'Hora';
-            echo '</th>';
+        <th>
+        Hora
+        </th>
 
-            echo '<th>';
-            echo 'Lunes';
-            echo '</th>';
+        <th>
+        Lunes
+        </th>
 
-            echo '<th>';
-            echo 'Martes';
-            echo '</th>';
+        <th>
+        Martes
+        </th>
 
-            echo '<th>';
-            echo 'Miercoles';
-            echo '</th>';
+        <th>
+        Miercoles
+        </th>
 
-            echo '<th>';
-            echo 'Jueves';
-            echo '</th>';
+        <th>
+        Jueves
+        </th>
 
-            echo '<th>';
-            echo 'Viernes';
-            echo '</th>';
-    echo '</tr>';
-    echo '</thead>';
-    echo '<tbody>';
-    echo '<tr>';
-            echo '<td>';
-            echo '1';
-            echo '</td>';
+        <th>
+        Viernes
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+            <td>
+            1
+            </td>
 
-            echo '<td>';
-            echo '7:00 - 7:40';
-            echo '</td>';
+            <td>
+            7:00 - 7:40
+            </td>
+<?php           
 }
 
 function segunda_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '2';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            2
+        </td>
 
-        echo '<td>';
-            echo '7:40 - 8:20';
-        echo '</td>';
+        <td>
+            7:40 - 8:20
+        </td>
+<?php
 }
 
 function tercera_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '3';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            3
+        </td>
 
-        echo '<td>';
-            echo '8:20 - 9:00';
-        echo '</td>';
+        <td>
+            8:20 - 9:00
+        </td>
+<?php
 }
 
 function cuarta_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '4';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            4
+        </td>
 
-        echo '<td>';
-            echo '9:20 - 10:00';
-        echo '</td>';
+        <td>
+            9:20 - 10:00
+        </td>
+<?php
 }
 
 function quinta_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '5';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            5
+        </td>
 
-        echo '<td>';
-            echo '10:00 - 10:40';
-        echo '</td>';
+        <td>
+            10:00 - 10:40
+        </td>
+<?php
 }
 
 function sexta_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '6';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            6
+        </td>
 
-        echo '<td>';
-            echo '10:40 - 11:20';
-        echo '</td>';
+        <td>
+            10:40 - 11:20
+        </td>
+<?php
 }
 
 function setima_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '7';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            7
+        </td>
 
-        echo '<td>';
-            echo '12:00 - 12:40';
-        echo '</td>';
+        <td>
+            12:00 - 12:40
+        </td>
+<?php
 }
 
 function octava_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '8';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            8
+        </td>
 
-        echo '<td>';
-            echo '12:40 - 1:20';
-        echo '</td>';
+        <td>
+            12:40 - 1:20
+        </td>
+<?php
 }
 
 function novena_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '9';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            9
+        </td>
 
-        echo '<td>';
-            echo '1:20 - 2:00';
-        echo '</td>';
+        <td>
+            1:20 - 2:00
+        </td>
+<?php
 }
 
 function decima_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '10';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            10
+        </td>
 
-        echo '<td>';
-            echo '2:20 - 3:00';
-        echo '</td>';
+        <td>
+            2:20 - 3:00
+        </td>
+<?php
 }
 
 function undecima_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '11';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            11
+        </td>
 
-        echo '<td>';
-            echo '3:00 - 3:40';
-        echo '</td>';
+        <td>
+            3:00 - 3:40
+        </td>
+<?php
 }
 
 function duodecima_linea(){
-    echo '</tr>';
-    echo '<tr>';
-        echo '<td>';
-            echo '12';
-        echo '</td>';
+?>
+    </tr>
+    <tr>
+        <td>
+            12
+        </td>
 
-        echo '<td>';
-            echo '3:40 - 4:20';
-        echo '</td>';
+        <td>
+            3:40 - 4:20
+        </td>
+<?php
 }
 
 function pie_tabla(){
-    echo '</tr>';
-    echo '</tbody>';
-echo '</table>';
-echo '<br/><br/>';
+?>
+    </tr>
+    </tbody>
+</table>
+<br/><br/>
+<?php
 }
