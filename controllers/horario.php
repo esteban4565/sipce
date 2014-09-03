@@ -77,6 +77,11 @@ class Horario extends Controllers {
         header('location: ' . URL . 'horario');
     }
 
+    public function actualizarDatosDocente() {
+        $this->model->actualizarDatosDocente();
+        $this->index();
+    }
+    
     public function delete($id) {
         $this->model->delete($id);
         header('location: ' . URL . 'note');

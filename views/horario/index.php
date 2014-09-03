@@ -37,7 +37,9 @@ Dale clic al boton "Editar" para modificar/crear el Horario del profesor
 ?>
     </tbody>
 </table>
-
+<br/><hr />
+<h4>Actualizar Datos Docente</h4>
+<a class="btn btn-success btn-xs" href="<?php echo URL . 'horario/actualizarDatosDocente';?>">Actualizar </a>
 <script>
 $(function() {
     

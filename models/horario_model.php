@@ -110,6 +110,37 @@ class Horario_Model extends Models {
         }
     }
 
+    public function actualizarDatosDocente() {
+        $consulta_cedulas = $this->db->select('SELECT cedula FROM  sipce_persona WHERE tipoUsuario= :tipoUsuario', array('tipoUsuario' =>4));
+        
+            //recorro el registro de la consulta, le asigno la cedula a la variable $estudiante (array)
+            foreach ($consulta_cedulas as $key => $docente) {
+        	//consulto si existe la cedula en el padron...
+                $consulta_datos = $this->db->select('SELECT nombre, primerApellido, segundoApellido, sexo, fechaNacimiento FROM tpersonapadron 
+                                                            WHERE cedula= :cedula', array('cedula' => $docente['cedula']));
+                
+		//si el resultado de la consulta es diferente a nulo, si existe
+		if($consulta_datos != null){
+                    //recorro el registro de la consulta y realizo el update en la tabla sipce_persona
+                    foreach ($consulta_datos as $key => $value) {
+                        $postData = array('nombre' => $value['nombre'],
+                                                         'apellido1' => $value['primerApellido'],
+                                                         'apellido2' => $value['segundoApellido'],
+                                                        'sexo' => $value['sexo'],
+                                                         'fechaNacimiento' => $value['fechaNacimiento'],
+                                            );
+                        $this->db->update('sipce_persona', $postData, "`cedula` = '{$docente['cedula']}'");
+                    }
+		//si es nulo realizo un update para colocarle 3 en el campo sexo, para identificarlo posteriormente
+                }else{
+                    $postData = array('sexo' =>3,
+                                          'fechaNacimiento' => 0,
+                                            );
+                    $this->db->update('sipce_persona', $postData, "`cedula` = '{$docente['cedula']}'");
+                }
+            }
+    }
+    
     public function editSave($data) {
         $postData = array(
             'title' => $data['title'],
