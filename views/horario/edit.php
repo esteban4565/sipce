@@ -19,11 +19,13 @@ $matriz=$this->asignaturasDocente;
 $cantidad_Asignaturas=count($matriz)-1;
 
 //Ver arreglo
+/*
 if($this->estado==1){
     echo '<pre>';
     print_r($this->horario);
     echo '</pre>';
 }
+ */
 echo '<br/><br/><br/>';
 encabezado_tabla();
 

@@ -57,18 +57,46 @@ class Horario extends Controllers {
 
     public function ingresarHorario($cedula) {
         //Este while ingresa el horario del dia Lunes del profesor
-        $dia = 1;
         $matrizHorario = null;
-        while ($dia < 6) {
-            $leccion = 1;
-            while ($leccion < 13) {
-                $cod_grupo = 'cod_seccion_L' . $leccion;
-                $cod_asignatura = 'asignatura_L' . $leccion;
-                $matrizHorario[$dia][$leccion]['cod_grupo'] = $_POST[$cod_grupo];
-                $matrizHorario[$dia][$leccion]['cod_asignatura'] = $_POST[$cod_asignatura];
-                $leccion++;
-            }
+        for($leccion = 1; $leccion <= 12; $leccion++) {
+            $dia = 1;
+            //Lunes
+            $cod_grupo = 'cod_seccion_L'.$leccion;
+            $cod_asignatura = 'asignatura_L'.$leccion;
+            $matrizHorario[$dia][$leccion]['cod_grupo'] = $_POST[$cod_grupo];
+            $matrizHorario[$dia][$leccion]['cod_asignatura'] = $_POST[$cod_asignatura];
+            
             $dia++;
+            
+            //Martes
+            $cod_grupo = 'cod_seccion_K'.$leccion;
+            $cod_asignatura = 'asignatura_K'.$leccion;
+            $matrizHorario[$dia][$leccion]['cod_grupo'] = $_POST[$cod_grupo];
+            $matrizHorario[$dia][$leccion]['cod_asignatura'] = $_POST[$cod_asignatura];
+            
+            $dia++;
+            
+            //Miercoles
+            $cod_grupo = 'cod_seccion_M'.$leccion;
+            $cod_asignatura = 'asignatura_M'.$leccion;
+            $matrizHorario[$dia][$leccion]['cod_grupo'] = $_POST[$cod_grupo];
+            $matrizHorario[$dia][$leccion]['cod_asignatura'] = $_POST[$cod_asignatura];
+            
+            $dia++;
+            
+            //Jueves
+            $cod_grupo = 'cod_seccion_J'.$leccion;
+            $cod_asignatura = 'asignatura_J'.$leccion;
+            $matrizHorario[$dia][$leccion]['cod_grupo'] = $_POST[$cod_grupo];
+            $matrizHorario[$dia][$leccion]['cod_asignatura'] = $_POST[$cod_asignatura];
+            
+            $dia++;
+            
+            //Viernes
+            $cod_grupo = 'cod_seccion_V'.$leccion;
+            $cod_asignatura = 'asignatura_V'.$leccion;
+            $matrizHorario[$dia][$leccion]['cod_grupo'] = $_POST[$cod_grupo];
+            $matrizHorario[$dia][$leccion]['cod_asignatura'] = $_POST[$cod_asignatura];
         }
 
         $this->model->ingresarHorario($cedula, $matrizHorario, $_POST['estado']);
