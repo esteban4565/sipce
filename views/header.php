@@ -107,6 +107,7 @@
                                     <ul class="nav navbar-nav">
                                         <li><a href="#">Registro</a></li>
                                         <li><a href="<?php echo URL;?>horario/index">Horario</a></li>
+                                        <li><a href="<?php echo URL;?>actualizarestudiantes/index">Actualizar Cedulas BD</a></li>
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docentes <b class="caret"></b></a>
                                             <ul class="dropdown-menu">

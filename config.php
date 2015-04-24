@@ -14,4 +14,7 @@ define('HASH_GENERAL_KEY','ctpcarrizalalajuela2');
 
 /*ESTE ES PARA LA BASE DE DATOS SOLAMENTE*/
 define('HASH_PASSWORD_KEY','ctpcarrizalalajuela2');
+
+//Forma de Encriptacion del Password
+//echo Hash::create('sha256', 'admin', HASH_PASSWORD_KEY);
 ?>
