@@ -120,11 +120,11 @@ class Persona extends Controllers {
                 $this->view->render('footer');
         }
     } 
-    function ListaEstudiantes(){
+    function listaEstudiantes(){
         $this->view->title = 'Estudintes'; 
-        $this->view->ListaEstudiantes = $this->model->ListaEstudiantes();
+        $this->view->listaEstudiantes = $this->model->listaEstudiantes();
         $this->view->render('header');
-        $this->view->render('persona/ListaEstudiantes');
+        $this->view->render('persona/listaEstudiantes');
         $this->view->render('footer');
     }
     /*Funcion que permite guardar el registro de un docente o estudiante*/

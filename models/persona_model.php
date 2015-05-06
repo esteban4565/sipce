@@ -33,8 +33,12 @@ class Persona_Model extends Models{
         echo json_encode($resultado);  
     }
     /*Retorna la lista de todo los usuarios*/
-    public function ListaEstudiantes(){
-       return $this->db->select("SELECT * FROM sipce_persona ORDER BY apellido1, apellido2", array()); 
+    public function listaEstudiantes(){
+       return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
+                                ."FROM sipce_persona, sipce_grupos "
+                                ."WHERE cedula = ced_estudiante "
+                                ."AND tipoUsuario = 3 "
+                                ."ORDER BY apellido1,apellido2"); 
     }
 
     /*Retorna los roles de permisos*/

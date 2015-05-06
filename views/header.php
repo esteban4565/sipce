@@ -137,7 +137,7 @@
                                                 <li class="divider"></li>
                                                 <li><a href="#">Buscar Estudiante</a></li>
                                                 <li class="divider"></li>
-                                                <li><a href="#">Lista Estudiante</a></li>
+                                                <li><a href="<?php echo URL; ?>persona/listaEstudiantes">Lista Estudiante</a></li>
                                                 <li class="divider"></li>
                                                 <li><a href="#">Eliminar Estudiante</a></li>
                                                 <li class="divider"></li>
