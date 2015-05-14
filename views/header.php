@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="utf-8"/>
         <title><?= (isset($this->title)) ? $this->title : ''; ?></title>
         <link rel="stylesheet" type="text/css" href="<?php  echo URL;?>public/css/bootstrap.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,6 +121,19 @@
                                                 <li><a href="#">Eliminar Docentes</a></li>
                                                 <li class="divider"></li>
                                                 <li><a href="#">Lista Docentes</a></li>
+                                                <li class="divider"></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <!--Secciones-->
+                                    <ul class="nav navbar-nav">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Secciones <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                
+                                                <li><a href="<?php echo URL; ?>persona/agregarSeccion">Agregar Seccion</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="<?php echo URL; ?>seccion/listaSecciones">Lista Secciones</a></li>
                                                 <li class="divider"></li>
                                             </ul>
                                         </li>
