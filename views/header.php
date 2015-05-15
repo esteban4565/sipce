@@ -131,7 +131,7 @@
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Secciones <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
                                                 
-                                                <li><a href="<?php echo URL; ?>persona/agregarSeccion">Agregar Seccion</a></li>
+                                                <li><a href="<?php echo URL; ?>seccion/index">Index</a></li>
                                                 <li class="divider"></li>
                                                 <li><a href="<?php echo URL; ?>seccion/listaSecciones">Lista Secciones</a></li>
                                                 <li class="divider"></li>
