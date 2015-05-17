@@ -21,22 +21,27 @@ class ActualizarEstudiantes_Model extends Models {
             //recorro el registro de la consulta, le asigno la cedula a la variable $estudiante (array)
             foreach ($consulta_cedulas as $key => $estudiante) {
         	//consulto si existe la cedula en el padron...
-                $consulta_datos = $this->db->select('SELECT sexo, fechaNacimiento FROM tpersonapadron 
+                $consulta_datos = $this->db->select('SELECT nombre, primerApellido, segundoApellido, sexo, fechaNacimiento FROM tpersonapadron 
                                                             WHERE cedula= :cedula', array('cedula' => $estudiante['cedula']));
                 
 		//si el resultado de la consulta es diferente a nulo, si existe
 		if($consulta_datos != null){
                     //recorro el registro de la consulta y realizo el update en la tabla sipce_persona
                     foreach ($consulta_datos as $key => $value) {
-                        $postData = array('sexo' => $value['sexo'],
+                        $postData = array('nombre' => $value['nombre'],
+                                          'apellido1' => $value['primerApellido'],
+                                          'apellido2' => $value['segundoApellido'],
+                                          'sexo' => $value['sexo'],
                                           'fechaNacimiento' => $value['fechaNacimiento'],
+                                          'nacionalidad' => '506',
                                             );
                         $this->db->update('sipce_persona', $postData, "`cedula` = '{$estudiante['cedula']}'");
                     }
 		//si es nulo realizo un update para colocarle 3 en el campo sexo, para identificarlo posteriormente
                 }else{
                     $postData = array('sexo' =>3,
-                                          'fechaNacimiento' => 0,
+                                      'fechaNacimiento' => 0,
+                                      'nacionalidad' => 0,
                                             );
                     $this->db->update('sipce_persona', $postData, "`cedula` = '{$estudiante['cedula']}'");
                 }
