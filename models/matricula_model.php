@@ -44,10 +44,18 @@ class Matricula_Model extends Models{
     
     /*Retorna la informacion del Estudiante*/
     public function infoEstudiante($cedulaEstudiante){
-       return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,sexo,fechaNacimiento "
-                                ."FROM sipce_persona "
+       return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,sexo,fechaNacimiento,"
+                                ."telefonoCelular,email,domicilio,escuela_procedencia "
+                                ."FROM sipce_persona  "
                                 ."WHERE cedula = '".$cedulaEstudiante."' "
                                 ."AND tipoUsuario = 3 "); 
+    }
+    
+    /*Retorna enfermedades del Estudiante*/
+    public function enfermedadEstudiante($cedulaEstudiante){
+       return $this->db->select("SELECT descripcion "
+                                ."FROM sipce_enfermedades  "
+                                ."WHERE cedula = '".$cedulaEstudiante."' "); 
     }
 }
 

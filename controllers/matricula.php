@@ -37,6 +37,12 @@ class Matricula extends Controllers {
     function ratificarEstudiante($cedulaEstudiante){
         $this->view->title = 'Ratificar Matricula';
         
+        /*CARGAMOS PROVINCIAS*/
+        $this->view->consultaProvincias = $this->model->consultaProvincias();
+        
+        /*Cargo informacion de las enfermedades del Estudiante*/
+        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
+        
         /*CARGAMOS LA LISTA DE ESTADO CIVIL*/
         $this->view->estadoCivilList = $this->model->estadoCivilList();
         
