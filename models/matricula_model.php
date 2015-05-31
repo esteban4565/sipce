@@ -111,7 +111,7 @@ class Matricula_Model extends Models {
     public function personaEmergenciaEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT ced_personaEmergencia,nombre_personaEmergencia,apellido1_personaEmergencia,"
                         . "apellido2_personaEmergencia,telefonoCasaPersonaEmergencia,telefonoCelularPersonaEmergencia "
-                        . "FROM sipce_personaEmergencia  "
+                        . "FROM sipce_personaemergencia  "
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }
 
