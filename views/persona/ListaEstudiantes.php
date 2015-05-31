@@ -1,61 +1,61 @@
 <center>
-<h2>Modulo Estudiantes</h2>
-<?php
-//print_r($this->listaEstudiantes);
-?>
-<table class="table">
-    <tr>
-        <td colspan="5" class="nombreTabla">LISTA DE ESTUDIANTES</td>
-    </tr>
-    <tr>
-        <th>N°</th>
-        <th>IDENTIFICACION</th>
-        <th>1.ER APELLIDO</th>
-        <th>2.DO APELLIDO</th>
-        <th>NOMBRE</th>
-        <th>NIVEL</th>
-        <th>GRUPO</th>
-        <th>SUBGRUPO</th>
-    </tr>
+    <h2>Modulo Estudiantes</h2>
     <?php
-    $con = 1;
-    foreach ($this->listaEstudiantes as $lista => $value){
-        echo '<tr>';
+//print_r($this->listaEstudiantes);
+    ?>
+    <table class="table table-condensed">
+        <tr>
+            <th colspan="8" class="nombreTabla text-center">LISTA DE ESTUDIANTES</th>
+        </tr>
+        <tr>
+            <th>N°</th>
+            <th>Identificación</th>
+            <th>1º Apellido</th>
+            <th>2º Apellido</th>
+            <th>Nombre</th>
+            <th>Nivel</th>
+            <th>Grupo</th>
+            <th>SubGrupo</th>
+        </tr>
+        <?php
+        $con = 1;
+        foreach ($this->listaEstudiantes as $lista => $value) {
+            echo '<tr>';
             echo '<td>';
-                echo $con;
+            echo $con;
             echo '</td>';
             echo '<td>';
-                echo $value['cedula'];
+            echo $value['cedula'];
             echo '</td>';
             echo '<td>';
-                echo $value['apellido1'];
+            echo $value['apellido1'];
             echo '</td>';
             echo '<td>';
-                echo $value['apellido2'];
+            echo $value['apellido2'];
             echo '</td>';
             echo '<td>';
-                echo $value['nombre'];
+            echo $value['nombre'];
             echo '</td>';
             echo '<td>';
-                echo $value['nivel'];
+            echo $value['nivel'];
             echo '</td>';
             echo '<td>';
-                echo $value['grupo'];
+            echo $value['grupo'];
             echo '</td>';
             echo '<td>';
-                echo $value['sub_grupo'];
+            echo $value['sub_grupo'];
             echo '</td>';
-        echo '</tr>';
-        $con++;
-    }
-    
-    //print_r($this->personaList);
-?>
-    <tr>
-        <td colspan='5' class="lineaFin"></td>
-    </tr>
-    <tr>
-        <td colspan='5'>Ultima linea</td>
-    </tr>
-</table>
+            echo '</tr>';
+            $con++;
+        }
+
+        //print_r($this->personaList);
+        ?>
+        <tr>
+            <td colspan='8' class="text-center"></td>
+        </tr>
+        <tr>
+            <td colspan='8'class="text-center">Ultima linea</td>
+        </tr>
+    </table>
 </center>
