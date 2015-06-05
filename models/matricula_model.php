@@ -30,7 +30,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT * FROM sipce_distritos ORDER BY Distrito", array());
     }
 
-    /* Carga los cantones de una Provincia en especifico*/
+    /* Carga los cantones de una Provincia en especifico */
 
     public function cargaCantones($idProvincia) {
 
@@ -38,7 +38,7 @@ class Matricula_Model extends Models {
         echo json_encode($resultado);
     }
 
-    /* Carga los distritos de un Canton en especifico*/
+    /* Carga los distritos de un Canton en especifico */
 
     public function cargaDistritos($idCanton) {
 
@@ -54,8 +54,14 @@ class Matricula_Model extends Models {
 
     /* Retorna la lista de paises */
 
-    public function paisesList() {
+    public function consultaPaises() {
         return $this->db->select("SELECT * FROM sipce_paises", array());
+    }
+
+    /* Retorna la lista de Especialidades */
+
+    public function consultaEspecialidades() {
+        return $this->db->select("SELECT * FROM sipce_especialidad", array());
     }
 
     /* Retorna la lista de todo los usuarios */
@@ -72,11 +78,19 @@ class Matricula_Model extends Models {
 
     public function infoEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
-                        . "p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
+                        . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
                         . "FROM sipce_persona as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' ");
+    }
+
+    /* Retorna la informacion de la especialidad del Estudiante */
+
+    public function especialidadEstudiante($cedulaEstudiante) {
+        return $this->db->select("SELECT cod_especialidad "
+                        . "FROM sipce_especialidad_estudiante  "
+                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }
 
     /* Retorna la informacion del encargado Legal Estudiante */
@@ -210,12 +224,14 @@ class Matricula_Model extends Models {
 
         //Actualizo datos del expediente Estudiante
         $posData = array(
+            'nacionalidad' => $datos['tf_nacionalidad'],
             'cedula' => $datos['tf_cedulaEstudiante'],
             'apellido1' => $datos['tf_ape1'],
             'apellido2' => $datos['tf_ape2'],
             'nombre' => $datos['tf_nombre'],
             'sexo' => $datos['tf_genero'],
             'fechaNacimiento' => $datos['tf_fnacpersona'],
+            'telefonoCasa' => $datos['tf_telHabitEstudiante'],
             'telefonoCelular' => $datos['tf_telcelular'],
             'escuela_procedencia' => $datos['tf_primaria'],
             'email' => $datos['tf_email'],
@@ -225,10 +241,29 @@ class Matricula_Model extends Models {
             'IdDistrito' => $datos['tf_distritos']);
 
         $this->db->update('sipce_persona', $posData, "`cedula` = '{$datos['tf_cedulaEstudiante']}'");
-        /* Falta        
-          'nacionalidad'=>$datos['nacionalidadP'],
+        /* Falta
           'estadoCivil'=>$datos['estadocivilP'],
           'telefonoCasa'=>$datos['telcasaP'], */
+
+
+        //Consulto si el nivel es superio a Noveno
+        if ($datos['sl_nivelMatricular'] >= 9) {
+            //Consulto si ya tiene asignado una especialidad
+            $consultaExistenciaEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante "
+                    . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+            if ($consultaExistenciaEspecialidad != null) {
+                //Actualizo datos de la especialidad
+                $posData = array(
+                    'cod_especialidad' => $datos['tf_especialidad']);
+                $this->db->update('sipce_especialidad_estudiante', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            } else {
+                //Sino Inserto especialidad matriculada
+                $this->db->insert('sipce_especialidad_estudiante', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'cod_especialidad' => $datos['tf_especialidad']));
+            }
+        }
 
         //Consulto si ya existe Encargado Legal
         $consultaExistenciaEncargado = $this->db->select("SELECT * FROM sipce_encargado WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
@@ -273,7 +308,7 @@ class Matricula_Model extends Models {
                 'nombre_padre' => $datos['tf_nombrePadre'],
                 'apellido1_padre' => $datos['tf_ape1Padre'],
                 'apellido2_padre' => $datos['tf_ape2Padre'],
-                'telefonoCasaPadre' => $datos['tf_telHabitPadre'],
+                'telefonoCasaPadre' => $datos['tf_telCelPadre'],
                 'ocupacionPadre' => $datos['tf_ocupacionPadre']);
             $this->db->update('sipce_padre', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
         } else {
@@ -284,7 +319,7 @@ class Matricula_Model extends Models {
                 'nombre_padre' => $datos['tf_nombrePadre'],
                 'apellido1_padre' => $datos['tf_ape1Padre'],
                 'apellido2_padre' => $datos['tf_ape2Padre'],
-                'telefonoCasaPadre' => $datos['tf_telHabitPadre'],
+                'telefonoCasaPadre' => $datos['tf_telCelPadre'],
                 'ocupacionPadre' => $datos['tf_ocupacionPadre']));
         }
 
@@ -298,7 +333,7 @@ class Matricula_Model extends Models {
                 'nombre_madre' => $datos['tf_nombreMadre'],
                 'apellido1_madre' => $datos['tf_ape1Madre'],
                 'apellido2_madre' => $datos['tf_ape2Madre'],
-                'telefonoCasaMadre' => $datos['tf_telHabitMadre'],
+                'telefonoCasaMadre' => $datos['tf_telCelMadre'],
                 'ocupacionMadre' => $datos['tf_ocupacionMadre']);
             $this->db->update('sipce_madre', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
         } else {
@@ -309,7 +344,7 @@ class Matricula_Model extends Models {
                 'nombre_madre' => $datos['tf_nombreMadre'],
                 'apellido1_madre' => $datos['tf_ape1Madre'],
                 'apellido2_madre' => $datos['tf_ape2Madre'],
-                'telefonoCasaMadre' => $datos['tf_telHabitMadre'],
+                'telefonoCasaMadre' => $datos['tf_telCelMadre'],
                 'ocupacionMadre' => $datos['tf_ocupacionMadre']));
         }
 
@@ -380,10 +415,8 @@ class Matricula_Model extends Models {
                         . "WHERE cedula = ced_estudiante");
     }
 
-    
-    
-    
-    /*Ejemplo clasico de join entre tablas*/
+    /* Ejemplo clasico de join entre tablas */
+
     public function ejemploJoin($cedulaEstudiante) {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
                         . "p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
@@ -395,6 +428,7 @@ class Matricula_Model extends Models {
                         . "AND p.IdCanton = c.IdCanton "
                         . "AND p.IdDistrito = d.IdDistrito");
     }
+
 }
 
 ?>

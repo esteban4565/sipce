@@ -28,12 +28,6 @@ class Matricula extends Controllers {
         $this->view->anio = $this->model->anio();
         $this->view->listaEstudiantes = $this->model->listaEstudiantes();
 
-        /* CARGAMOS LA LISTA DE ESTADO CIVIL */
-        $this->view->estadoCivilList = $this->model->estadoCivilList();
-
-        /* CARGAMOS LA LISTA DE PAISES */
-        $this->view->paisesList = $this->model->paisesList();
-
         $this->view->render('header');
         $this->view->render('matricula/ratificar');
         $this->view->render('footer');
@@ -56,10 +50,16 @@ class Matricula extends Controllers {
         $this->view->estadoCivilList = $this->model->estadoCivilList();
 
         /* CARGAMOS LA LISTA DE PAISES */
-        $this->view->paisesList = $this->model->paisesList();
+        $this->view->consultaPaises = $this->model->consultaPaises();
+
+        /* CARGAMOS LA LISTA DE ESPECIALIDADES */
+        $this->view->consultaEspecialidades = $this->model->consultaEspecialidades();
 
         /* Cargo informacion del Estudiante */
         $this->view->infoEstudiante = $this->model->infoEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la especialidad del Estudiante */
+        $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);
 
         /* Cargo informacion del encargado Legal del Estudiante */
         $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);
@@ -101,6 +101,8 @@ class Matricula extends Controllers {
 
     function guardarRatificacion() {
         $datos = array();
+        $datos['tf_nacionalidad'] = $_POST['tf_nacionalidad'];
+        $datos['tf_telHabitEstudiante'] = $_POST['tf_telHabitEstudiante'];
         $datos['tf_cedulaEstudiante'] = $_POST['tf_cedulaEstudiante'];
         $datos['tf_genero'] = $_POST['tf_genero'];
         $datos['tf_ape1'] = $_POST['tf_ape1'];
@@ -131,14 +133,14 @@ class Matricula extends Controllers {
         $datos['tf_ape1Madre'] = $_POST['tf_ape1Madre'];
         $datos['tf_ape2Madre'] = $_POST['tf_ape2Madre'];
         $datos['tf_nombreMadre'] = $_POST['tf_nombreMadre'];
-        $datos['tf_telHabitMadre'] = $_POST['tf_telHabitMadre'];
+        $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
         $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
         
         $datos['tf_cedulaPadre'] = $_POST['tf_cedulaPadre'];
         $datos['tf_ape1Padre'] = $_POST['tf_ape1Padre'];
         $datos['tf_ape2Padre'] = $_POST['tf_ape2Padre'];
         $datos['tf_nombrePadre'] = $_POST['tf_nombrePadre'];
-        $datos['tf_telHabitPadre'] = $_POST['tf_telHabitPadre'];
+        $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
         $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
         
         $datos['tf_cedulaPersonaEmergencia'] = $_POST['tf_cedulaPersonaEmergencia'];
@@ -148,6 +150,9 @@ class Matricula extends Controllers {
         $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
         $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
         $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];
+        if ($_POST['sl_nivelMatricular'] > 9) {
+            $datos['tf_especialidad'] = $_POST['tf_especialidad'];
+        }
         $datos['sl_condicion'] = $_POST['sl_condicion'];
         $datos['sl_adelanta'] = $_POST['sl_adelanta'];
         $datos['sl_adecuacion'] = $_POST['sl_adecuacion'];
