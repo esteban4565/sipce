@@ -1,5 +1,14 @@
 <?php
-//print_r($this->especialidadEstudiante);
+//print_r($this->infoEstudiante);
+//echo '<br>';
+//print_r($this->encargadoLegal);
+//echo '<br>';
+//print_r($this->madreEstudiante);
+//echo '<br>';
+//print_r($this->padreEstudiante);
+//echo '<br>';
+//print_r($this->personaEmergenciaEstudiante);
+//echo '<br>';
 //die;
 ?>
 <div class="row">
@@ -26,25 +35,6 @@
                     <div class="col-lg-2">
                         <input type="text" class="form-control input-sm" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante" value='<?php echo $this->infoEstudiante[0]['cedula']; ?>'/>
                     </div>
-                    <label for="tf_genero" class="col-lg-2 control-label">Genero:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control input-sm" name="tf_genero" id="tf_genero">
-                            <option value="">Seleccione</option>
-                                <?php
-                                if ($this->infoEstudiante[0]['sexo'] == 0) {
-                                    ?>
-                                <option value="0" selected>Femenino</option>
-                                <option value="1" >Masculino</option>
-                                    <?php
-                                } else {
-                                    ?>
-                                <option value="1" selected>Masculino</option>
-                                <option value="0" >Femenino</option>
-                                    <?php
-                                }
-                                ?>
-                        </select> 
-                    </div>
                 </div> 
                 <!--L2 Nombre Estudiante (Formulario Hugo)-->
                 <div class="form-group">
@@ -69,7 +59,26 @@
                     </div>
                     <label for="tf_edad" class="col-lg-2 control-label">Edad:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_edad" name="tf_edad" value='<?php echo 2015 - (date(substr($this->infoEstudiante[0]['fechaNacimiento'], 0, 4))); ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_edad" name="tf_edad" value='<?php if ($this->anio != null) echo $this->anio - (date(substr($this->infoEstudiante[0]['fechaNacimiento'], 0, 4))); ?>' onkeyup="mayusculas(this)"/>
+                    </div>
+                    <label for="tf_genero" class="col-lg-2 control-label">Genero:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control input-sm" name="tf_genero" id="tf_genero">
+                            <option value="">Seleccione</option>
+                                <?php
+                                if ($this->infoEstudiante[0]['sexo'] == 0) {
+                                    ?>
+                                <option value="0" selected>Femenino</option>
+                                <option value="1" >Masculino</option>
+                                    <?php
+                                } else {
+                                    ?>
+                                <option value="1" selected>Masculino</option>
+                                <option value="0" >Femenino</option>
+                                    <?php
+                                }
+                                ?>
+                        </select> 
                     </div>
                 </div>
                 <!--L4 Telefono y email *Tel.Casa (Nuevo)(Formulario Hugo)-->
@@ -378,8 +387,8 @@
                     </div>
                     <?php
                     if(($this->infoEstudiante[0]['nivel'] + 1)>9){
-                        echo '<label for="tf_especialidad" class="col-lg-2 control-label">Especialidad:</label>';
-                        echo '<div class="col-lg-2">';
+                        echo '<label for="tf_especialidad" class="col-lg-2 control-label" id="especialidadLabel" style="display:none;">Especialidad:</label>';
+                        echo '<div class="col-lg-2" id="especialidad" style="display:none;">';
                         echo '<select class="form-control input-sm" name="tf_especialidad" id="tf_especialidad">';
                         echo '<option value="">Seleccione</option>';
                         
@@ -431,9 +440,10 @@
                     <div class="col-lg-2">
                         <input type="text" class="form-control input-sm" name="tf_polizaVence" id="tf_polizaVence" value='<?php if ($this->polizaEstudiante != null) echo $this->polizaEstudiante[0]['fecha_vence']; ?>'/>
                 </div>
-                    <label for="tf_adelanta" class="col-lg-2 control-label">Adelanta:</label>
+                    <label for="tf_adelanta" class="col-lg-2 control-label" id="sl_adelantaLabel" style="display:none;">Adelanta:</label>
                     <div class="col-lg-2">
-                        <select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta">
+                        <select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta" style="display:none;">
+                            <option value="">Seleccione</option>
                             <option value="si" <?php if ($this->infoAdelanta != null) echo 'selected'; ?>>Si</option>
                             <option value="no" <?php if ($this->infoAdelanta == null) echo 'selected'; ?>>No</option>
                         </select> 

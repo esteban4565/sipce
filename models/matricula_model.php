@@ -161,6 +161,15 @@ class Matricula_Model extends Models {
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }
 
+    /* Retorna datos del Estudiante */
+
+    public function buscarEstudiante($ced_estudiante) {
+        $resultado = $this->db->select("SELECT * "
+                . "FROM tpersonapadron "
+                . "WHERE cedula = '" . $ced_estudiante . "' ");
+        echo json_encode($resultado);
+    }
+
     /* Retorna datos del Encargado */
 
     public function buscarEncargado($ced_encargado) {
@@ -197,29 +206,49 @@ class Matricula_Model extends Models {
         echo json_encode($resultado);
     }
 
-    /* Inserta estudiante matriculado */
+    /* Ratifica(Update) estudiante en la BD */
 
     public function guardarRatificacion($datos) {
-        //Consulto si ya existe la matricula (para editarla)
+        //'estado' 1 = Matricula Ratificada
+        //'estado' 2 = Matricula Ratificada Editada
+        //'estado' 3 = Matricula Nuevo Ingreso
+        //Consulto si ya existe la matricula
         $consultaExistenciaMatricula = $this->db->select("SELECT * FROM sipce_matricularatificacion "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
                 . "AND anio = " . $datos['anio']);
 
         if ($consultaExistenciaMatricula != null) {
-            //Actualizo datos de la matricula
+            //Actualizo datos y 'estado' Matricula Ratificada Editada
             $posData = array(
                 'nivel' => $datos['sl_nivelMatricular'],
                 'condicion' => $datos['sl_condicion'],
                 'estado' => 2);
             $this->db->update('sipce_matricularatificacion', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
         } else {
-            //Sino Inserto estado matriculado año proximo
+            //Sino Inserto datos y 'estado' Matricula Ratificada
             $this->db->insert('sipce_matricularatificacion', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'anio' => $datos['anio'],
                 'nivel' => $datos['sl_nivelMatricular'],
                 'condicion' => $datos['sl_condicion'],
                 'estado' => 1));
+        }
+
+        //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
+        $consultaExistenciaNivel = $this->db->select("SELECT * FROM sipce_grupos "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaNivel != null) {
+            //Actualizo nivel del Estudiante
+            $datosNivel = array(
+                'nivel' => $datos['sl_nivelMatricular']);
+
+            $this->db->update('sipce_grupos', $datosNivel, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+        } else {
+            //Sino Inserto datos en sipce_grupos
+            $this->db->insert('sipce_grupos', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'nivel' => $datos['sl_nivelMatricular']));
         }
 
         //Actualizo datos del expediente Estudiante
@@ -369,7 +398,8 @@ class Matricula_Model extends Models {
                 'nombre_personaEmergencia' => $datos['tf_nombrePersonaEmergencia'],
                 'apellido1_personaEmergencia' => $datos['tf_ape1PersonaEmergencia'],
                 'apellido2_personaEmergencia' => $datos['tf_ape2PersonaEmergencia'],
-                'telefonoCasaPersonaEmergencia' => $datos['tf_telHabitPersonaEmergencia']));
+                'telefonoCasaPersonaEmergencia' => $datos['tf_telHabitPersonaEmergencia'],
+                'telefonoCelularPersonaEmergencia' => $datos['tf_telcelularPersonaEmergencia']));
         }
 
         //Consulto si ya existe Poliza
@@ -389,21 +419,218 @@ class Matricula_Model extends Models {
                 'fecha_vence' => $datos['tf_polizaVence']));
         }
 
-        //Consulto si ya existe Adelanto/Arraste
-        $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+        if ($datos['sl_nivelMatricular'] == "si") {
+            //Consulto si ya existe Adelanto/Arraste
+            $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
 
-        if ($consultaExistenciaAdelta != null) {
-            //Si ya existe  Adelanto/Arraste, actualizo
-            $posData = array(
-                'anio' => $datos['anio'],
-                'nivel' => $datos['sl_nivelMatricular']);
-            $this->db->update('sipce_adelanta', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            if ($consultaExistenciaAdelta != null) {
+                //Si ya existe  Adelanto/Arraste, actualizo
+                $posData = array(
+                    'anio' => $datos['anio'],
+                    'nivel' => $datos['sl_nivelMatricular']);
+                $this->db->update('sipce_adelanta', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            } else {
+                //Si no, inserto los datos de la Poliza
+                $this->db->insert('sipce_adelanta', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'nivel' => $datos['sl_nivelMatricular']));
+            }
+        }
+    }
+
+    /* Inserta estudiante Nuevo Ingreso en la BD */
+
+    public function guardarNuevoIngreso($datos) {
+        //'estado' 1 = Matricula Ratificada
+        //'estado' 2 = Matricula Ratificada Editada
+        //'estado' 3 = Matricula Nuevo Ingreso
+        //Consulto si ya existe la matricula
+        $consultaExistenciaMatricula = $this->db->select("SELECT * FROM sipce_matricularatificacion "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($consultaExistenciaMatricula != null) {
+            //No se puede hacer nuevo ingreso xq ya existe
+            die;
         } else {
-            //Si no, inserto los datos de la Poliza
-            $this->db->insert('sipce_adelanta', array(
+            //Sino Inserto datos y 'estado' Matricula Nuevo Ingreso
+            $this->db->insert('sipce_matricularatificacion', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'anio' => $datos['anio'],
+                'nivel' => $datos['sl_nivelMatricular'],
+                'condicion' => $datos['sl_condicion'],
+                'estado' => 3));
+        }
+
+        //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
+        $consultaExistenciaNivel = $this->db->select("SELECT * FROM sipce_grupos "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaNivel != null) {
+            //No deberia estar asignado a ningun grupoya que es Nuevo Ingreso
+            die;
+        } else {
+            //Sino Inserto datos en sipce_grupos
+            $this->db->insert('sipce_grupos', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'nivel' => $datos['sl_nivelMatricular']));
+        }
+
+        //Consulto si ya existe datos en el expediente (para editarla)
+        $consultaExistenciaEstudiante = $this->db->select("SELECT * FROM sipce_persona "
+                . "WHERE cedula = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaEstudiante != null) {
+            //No se puede hacer nuevo ingreso xq ya existe
+            die;
+        } else {
+            //Sino Inserto datos del expediente Estudiante
+            $this->db->insert('sipce_persona', array(
+                'nacionalidad' => $datos['tf_nacionalidad'],
+                'cedula' => $datos['tf_cedulaEstudiante'],
+                'apellido1' => $datos['tf_ape1'],
+                'apellido2' => $datos['tf_ape2'],
+                'nombre' => $datos['tf_nombre'],
+                'sexo' => $datos['tf_genero'],
+                'fechaNacimiento' => $datos['tf_fnacpersona'],
+                'telefonoCasa' => $datos['tf_telHabitEstudiante'],
+                'telefonoCelular' => $datos['tf_telcelular'],
+                'escuela_procedencia' => $datos['tf_primaria'],
+                'email' => $datos['tf_email'],
+                'domicilio' => $datos['tf_domicilio'],
+                'idProvincia' => $datos['tf_provincias'],
+                'IdCanton' => $datos['tf_cantones'],
+                'IdDistrito' => $datos['tf_distritos']));
+        }
+        /* Falta
+          'estadoCivil'=>$datos['estadocivilP']
+         */
+
+
+        //Consulto si el nivel es superio a Noveno
+        if ($datos['sl_nivelMatricular'] >= 9) {
+            //Consulto si ya tiene asignado una especialidad
+            $consultaExistenciaEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante "
+                    . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+            if ($consultaExistenciaEspecialidad != null) {
+                //Actualizo datos de la especialidad
+                $posData = array(
+                    'cod_especialidad' => $datos['tf_especialidad']);
+                $this->db->update('sipce_especialidad_estudiante', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            } else {
+                //Sino Inserto especialidad matriculada
+                $this->db->insert('sipce_especialidad_estudiante', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'cod_especialidad' => $datos['tf_especialidad']));
+            }
+        }
+
+        //Consulto si ya existe Encargado Legal
+        $consultaExistenciaEncargado = $this->db->select("SELECT * FROM sipce_encargado WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaEncargado != null) {
+            //No puede existir xq es Nuevo Ingreso
+            die;
+        } else {
+            //Si no, inserto los datos del Encargado Legal
+            $this->db->insert('sipce_encargado', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'ced_encargado' => $datos['tf_cedulaEncargado'],
+                'parentesco' => $datos['sel_parentesco'],
+                'anio' => $datos['anio'],
+                'nombre_encargado' => $datos['tf_nombreEncargado'],
+                'apellido1_encargado' => $datos['tf_ape1Encargado'],
+                'apellido2_encargado' => $datos['tf_ape2Encargado'],
+                'telefonoCasaEncargado' => $datos['tf_telHabitEncargado'],
+                'telefonoCelularEncargado' => $datos['tf_telcelularEncargado'],
+                'ocupacionEncargado' => $datos['tf_ocupacionEncargado'],
+                'emailEncargado' => $datos['tf_emailEncargado']));
+        }
+
+        //Consulto si ya existe Padre
+        $consultaExistenciaPadre = $this->db->select("SELECT * FROM sipce_padre WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaPadre != null) {
+            //No puede existir xq es Nuevo Ingreso
+            die;
+        } else {
+            //Si no, inserto los datos del Padre
+            $this->db->insert('sipce_padre', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'ced_padre' => $datos['tf_cedulaPadre'],
+                'nombre_padre' => $datos['tf_nombrePadre'],
+                'apellido1_padre' => $datos['tf_ape1Padre'],
+                'apellido2_padre' => $datos['tf_ape2Padre'],
+                'telefonoCasaPadre' => $datos['tf_telCelPadre'],
+                'ocupacionPadre' => $datos['tf_ocupacionPadre']));
+        }
+
+        //Consulto si ya existe Madre
+        $consultaExistenciaMadre = $this->db->select("SELECT * FROM sipce_madre WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaMadre != null) {
+            //No puede existir xq es Nuevo Ingreso
+            die;
+        } else {
+            //Si no, inserto los datos de la Madre
+            $this->db->insert('sipce_madre', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'ced_madre' => $datos['tf_cedulaMadre'],
+                'nombre_madre' => $datos['tf_nombreMadre'],
+                'apellido1_madre' => $datos['tf_ape1Madre'],
+                'apellido2_madre' => $datos['tf_ape2Madre'],
+                'telefonoCasaMadre' => $datos['tf_telCelMadre'],
+                'ocupacionMadre' => $datos['tf_ocupacionMadre']));
+        }
+
+        //Consulto si ya existe Persona Emergencia
+        $consultaExistenciaPersonaEmergencia = $this->db->select("SELECT * FROM sipce_personaemergencia WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaPersonaEmergencia != null) {
+            //No puede existir xq es Nuevo Ingreso
+            die;
+        } else {
+            //Si no, inserto los datos de la Persona Emergencia
+            $this->db->insert('sipce_personaemergencia', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'ced_personaEmergencia' => $datos['tf_cedulaPersonaEmergencia'],
+                'nombre_personaEmergencia' => $datos['tf_nombrePersonaEmergencia'],
+                'apellido1_personaEmergencia' => $datos['tf_ape1PersonaEmergencia'],
+                'apellido2_personaEmergencia' => $datos['tf_ape2PersonaEmergencia'],
+                'telefonoCasaPersonaEmergencia' => $datos['tf_telHabitPersonaEmergencia'],
+                'telefonoCelularPersonaEmergencia' => $datos['tf_telcelularPersonaEmergencia']));
+        }
+
+        //Consulto si ya existe Poliza
+        $consultaExistenciaPoliza = $this->db->select("SELECT * FROM sipce_poliza WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaPoliza != null) {
+            //No puede existir xq es Nuevo Ingreso
+            die;
+        } else {
+            //Si no, inserto los datos de la Poliza
+            $this->db->insert('sipce_poliza', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'numero_poliza' => $datos['tf_poliza'],
+                'fecha_vence' => $datos['tf_polizaVence']));
+        }
+
+        if ($datos['sl_nivelMatricular'] == "si") {
+            //Consulto si ya existe Adelanto/Arraste
+            $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+            if ($consultaExistenciaAdelta != null) {
+                //No puede existir xq es Nuevo Ingreso
+                die;
+            } else {
+                //Si no, inserto los datos de la Poliza
+                $this->db->insert('sipce_adelanta', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'nivel' => $datos['sl_nivelMatricular']));
+            }
         }
     }
 
