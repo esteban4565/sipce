@@ -117,6 +117,63 @@ class Matricula extends Controllers {
         $this->view->render('footer');
     }
 
+    function editarMatricula($cedulaEstudiante) {
+        $this->view->title = 'Editar Matricula';
+        $this->view->anio = $this->model->anio();
+
+        /* CARGAMOS TODAS LAS PROVINCIAS */
+        $this->view->consultaProvincias = $this->model->consultaProvincias();
+        
+        /* CARGAMOS TODOS LOS CANTONES */
+        $this->view->consultaCantones = $this->model->consultaCantones();
+        
+        /* CARGAMOS TODOS LOS DISTRITOS */
+        $this->view->consultaDistritos = $this->model->consultaDistritos();
+
+        /* CARGAMOS LA LISTA DE ESTADO CIVIL */
+        $this->view->estadoCivilList = $this->model->estadoCivilList();
+
+        /* CARGAMOS LA LISTA DE PAISES */
+        $this->view->consultaPaises = $this->model->consultaPaises();
+
+        /* CARGAMOS LA LISTA DE ESPECIALIDADES */
+        $this->view->consultaEspecialidades = $this->model->consultaEspecialidades();
+
+        /* Cargo informacion del Estudiante */
+        $this->view->infoEstudiante = $this->model->infoEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la especialidad del Estudiante */
+        $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion del encargado Legal del Estudiante */
+        $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);
+
+        /* Cargo informacion de la Madre del Estudiante */
+        $this->view->madreEstudiante = $this->model->madreEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion del Padre del Estudiante */
+        $this->view->padreEstudiante = $this->model->padreEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la Persona en caso de Emergencia del Estudiante */
+        $this->view->personaEmergenciaEstudiante = $this->model->personaEmergenciaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de las enfermedades del Estudiante */
+        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la poliza del Estudiante */
+        $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la Condicion de Matricula */
+        $this->view->infoCondicionMatricula = $this->model->infoCondicionMatricula($cedulaEstudiante);
+
+        /* Cargo informacion de Adelanto/Arrastre */
+        $this->view->infoAdelanta = $this->model->infoAdelanta($cedulaEstudiante);
+
+        $this->view->render('header');
+        $this->view->render('matricula/editarMatricula');
+        $this->view->render('footer');
+    }
+
     function estudiantesMatriculados() {
         //Consulto Cantidad Estudiantes Matriculados
         $this->view->estadoMatricula = $this->model->estadoMatricula();
@@ -124,6 +181,13 @@ class Matricula extends Controllers {
         $this->view->render('header');
         $this->view->render('matricula/estudiantesMatriculados');
         $this->view->render('footer');
+    }
+
+    function reportePdfMatricula($cedulaEstudiante) {
+        //Muestro documento pdf para impresion
+        $this->view->html = $this->model->reportePdfMatricula($cedulaEstudiante);
+        
+        $this->view->render('matricula/reportePdfMatricula');
     }
 
     function guardarRatificacion() {
@@ -207,10 +271,6 @@ class Matricula extends Controllers {
         $datos['tf_ape2'] = $_POST['tf_ape2'];
         $datos['tf_nombre'] = $_POST['tf_nombre'];
         $datos['tf_fnacpersona'] = $_POST['tf_fnacpersona'];
-//        print_r($_POST['tf_fnacpersona']);
-//        echo '<br>';
-//        print_r($datos['tf_fnacpersona']);
-//        die;
         $datos['tf_genero'] = $_POST['tf_genero'];
         $datos['tf_telHabitEstudiante'] = $_POST['tf_telHabitEstudiante'];
         $datos['tf_telcelular'] = $_POST['tf_telcelular'];
@@ -265,6 +325,9 @@ class Matricula extends Controllers {
         $datos['tf_poliza'] = $_POST['tf_poliza'];
         $datos['tf_polizaVence'] = $_POST['tf_polizaVence'];
         $datos['anio'] = $this->model->anio();
+        
+//        print_r($datos);
+//        die;
         
         $this->model->guardarNuevoIngreso($datos);
 

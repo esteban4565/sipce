@@ -69,7 +69,8 @@ class Matricula_Model extends Models {
     public function listaEstudiantes() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
                         . "FROM sipce_persona, sipce_grupos "
-                        . "WHERE cedula = ced_estudiante "
+                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
+                        . "AND cedula = ced_estudiante "
                         . "AND tipoUsuario = 3 "
                         . "ORDER BY apellido1,apellido2");
     }
@@ -452,6 +453,7 @@ class Matricula_Model extends Models {
 
         if ($consultaExistenciaMatricula != null) {
             //No se puede hacer nuevo ingreso xq ya existe
+            echo '<h1>ya existe estudiante en sipce_matricularatificacion';
             die;
         } else {
             //Sino Inserto datos y 'estado' Matricula Nuevo Ingreso
@@ -463,12 +465,17 @@ class Matricula_Model extends Models {
                 'estado' => 3));
         }
 
+//        print_r($datos['tf_cedulaEstudiante']);
+//        echo '<br>';
+//        print_r($datos['sl_nivelMatricular']);
+//        die;
         //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
         $consultaExistenciaNivel = $this->db->select("SELECT * FROM sipce_grupos "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
 
         if ($consultaExistenciaNivel != null) {
             //No deberia estar asignado a ningun grupoya que es Nuevo Ingreso
+            echo '<h1>ya existe estudiante en sipce_grupos';
             die;
         } else {
             //Sino Inserto datos en sipce_grupos
@@ -483,6 +490,7 @@ class Matricula_Model extends Models {
 
         if ($consultaExistenciaEstudiante != null) {
             //No se puede hacer nuevo ingreso xq ya existe
+            echo '<h1>ya existe estudiante en sipce_persona';
             die;
         } else {
             //Sino Inserto datos del expediente Estudiante
@@ -532,6 +540,7 @@ class Matricula_Model extends Models {
 
         if ($consultaExistenciaEncargado != null) {
             //No puede existir xq es Nuevo Ingreso
+            echo '<h1>ya existe estudiante en sipce_encargado';
             die;
         } else {
             //Si no, inserto los datos del Encargado Legal
@@ -554,6 +563,7 @@ class Matricula_Model extends Models {
 
         if ($consultaExistenciaPadre != null) {
             //No puede existir xq es Nuevo Ingreso
+            echo '<h1>ya existe estudiante en sipce_padre';
             die;
         } else {
             //Si no, inserto los datos del Padre
@@ -572,6 +582,7 @@ class Matricula_Model extends Models {
 
         if ($consultaExistenciaMadre != null) {
             //No puede existir xq es Nuevo Ingreso
+            echo '<h1>ya existe estudiante en sipce_madre';
             die;
         } else {
             //Si no, inserto los datos de la Madre
@@ -590,6 +601,7 @@ class Matricula_Model extends Models {
 
         if ($consultaExistenciaPersonaEmergencia != null) {
             //No puede existir xq es Nuevo Ingreso
+            echo '<h1>ya existe estudiante en sipce_personaemergencia';
             die;
         } else {
             //Si no, inserto los datos de la Persona Emergencia
@@ -608,6 +620,7 @@ class Matricula_Model extends Models {
 
         if ($consultaExistenciaPoliza != null) {
             //No puede existir xq es Nuevo Ingreso
+            echo '<h1>ya existe estudiante en sipce_poliza';
             die;
         } else {
             //Si no, inserto los datos de la Poliza
@@ -623,6 +636,7 @@ class Matricula_Model extends Models {
 
             if ($consultaExistenciaAdelta != null) {
                 //No puede existir xq es Nuevo Ingreso
+                echo '<h1>ya existe estudiante en sipce_adelanta';
                 die;
             } else {
                 //Si no, inserto los datos de la Poliza
@@ -642,6 +656,34 @@ class Matricula_Model extends Models {
                         . "WHERE cedula = ced_estudiante");
     }
 
+    public function reportePdfMatricula($cedulaEstudiante) {
+        $consultaDatos = $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
+                . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
+                . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
+                . "FROM sipce_persona as p,sipce_grupos as g "
+                . "WHERE p.cedula = g.ced_estudiante "
+                . "AND p.cedula = '" . $cedulaEstudiante . "' ");
+
+        $html = '<div align="center">COLEGIO TÉCNICO PROFESIONAL DE CARRIZAL<br>DIRECCIÓN REGIONAL DE ALAJUELA CIRCUITO -01-<br>TELFAX 2483-0055</div><br>';
+        $html = $html . '<div align="left">Curso Lectivo: ' . 2016 . '</div><div align="right">ID: ' . $consultaDatos[0]["cedula"].'</div><br>';
+        $html = $html . '<table>';
+        $html = $html . '<tr><td>cedula</td><td>nombre</td><td>apellido1</td><td>apellido2</td><td>sexo</td></tr>';
+        $html = $html . '<tr>';
+        $html = $html . '<td>';
+        $html = $html . $consultaDatos[0]["cedula"];
+        $html = $html . '</td><td>';
+        $html = $html . $consultaDatos[0]["nombre"];
+        $html = $html . '</td><td>';
+        $html = $html . $consultaDatos[0]["apellido1"];
+        $html = $html . '</td><td>';
+        $html = $html . $consultaDatos[0]["apellido2"];
+        $html = $html . '</td><td>';
+        $html = $html . $consultaDatos[0]["sexo"];
+        $html = $html . '</td></tr>';
+        $html = $html . '</table>';
+        return ($html);
+    }
+
     /* Ejemplo clasico de join entre tablas */
 
     public function ejemploJoin($cedulaEstudiante) {
@@ -657,5 +699,7 @@ class Matricula_Model extends Models {
     }
 
 }
+
+
 
 ?>

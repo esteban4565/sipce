@@ -3,7 +3,7 @@
 //die;
 ?>
 <div class="row">
-    <form id="formNuevoIngreso" action="<?php echo URL; ?>matricula/guardarNuevoIngreso" method="POST" enctype="multipart/form-data" class="form-horizontal">
+    <form id="MyForm" action="<?php echo URL; ?>matricula/guardarNuevoIngreso" method="POST" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <legend class="text-center">DATOS DEL ESTUDIANTE</legend>
             <!--L1 Cedula y Genero *Nacionalidad (Nuevo)(Formulario Hugo)-->
@@ -22,7 +22,7 @@
                     </div>
                     <label for="tf_cedulaEstudiante" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante" />
+                        <input type="text" class="form-control input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante"/>
                     </div>
                     <div class="col-lg-2">
                         <input type="button" class="btn-sm btn-success" id="buscarEstudiante" value="Buscar"  style="display:block;"/>
@@ -32,31 +32,31 @@
                 <div class="form-group">
                     <label for="tf_ape1" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape1" name="tf_ape1" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_ape1" name="tf_ape1"/>
                     </div>
                     <label for="tf_ape2" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2" name="tf_ape2" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_ape2" name="tf_ape2"/>
                     </div>
                     <label for="tf_nombre" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_nombre" name="tf_nombre" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_nombre" name="tf_nombre"/>
                     </div> 
                 </div> 
                 <!--L3 Fecha Nacimiento (Formulario Hugo)-->
                 <div class="form-group">
                     <label for="tf_fnacpersona" class="col-lg-2 control-label">Fecha de Nacimiento (Año-Mes-Día):</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_fnacpersona" name="tf_fnacpersona"/>
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_fnacpersona" name="tf_fnacpersona"/>
                     </div>
                     <!--OJO.. el año axtual esta quemado en el documento javascript, se debe cambiar año a año o buscar solucion -->
                     <label for="tf_edad" class="col-lg-2 control-label">Edad:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_edad" name="tf_edad" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_edad" name="tf_edad"/>
                     </div>
                     <label for="tf_genero" class="col-lg-2 control-label">Genero:</label>
                     <div class="col-lg-2">
-                        <select class="form-control input-sm" name="tf_genero" id="tf_genero">
+                        <select class="form-control input-sm validate[required]" name="tf_genero" id="tf_genero">
                             <option value="">Seleccione</option>
                                 <option value="0">Femenino</option>
                                 <option value="1" >Masculino</option>
@@ -75,14 +75,14 @@
                     </div>
                     <label for="tf_email" class="col-lg-2 control-label">Email:</label>
                     <div class="col-lg-2">
-                        <input class="form-control input-sm" type="text" name="tf_email" id="tf_email"/>
+                        <input class="form-control input-sm" type="email" name="tf_email" id="tf_email" data-error="Atención, esta dirección de email es invalida"/>
                     </div>
                 </div>
                 <!--L5 Domicilio (Formulario Hugo)-->
                 <div class="form-group">
                     <label for="tf_domicilio" class="col-lg-2 control-label">Domicilio:</label>
                     <div class="col-lg-10">
-                        <textarea class="form-control" rows="1" name="tf_domicilio" id="tf_domicilio"></textarea>
+                        <textarea class="form-control validate[required]" rows="1" name="tf_domicilio" id="tf_domicilio"></textarea>
                     </div>
                     <div class="col-lg-4"></div>
                 </div>
@@ -90,7 +90,7 @@
                 <div class="form-group">
                     <label for="tf_provincias_NI" class="col-lg-2 control-label">Provincia:</label>
                     <div class="col-lg-2">
-                        <select class="form-control input-sm" name="tf_provincias_NI" id="tf_provincias_NI">
+                        <select class="form-control input-sm validate[required]" name="tf_provincias_NI" id="tf_provincias_NI">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
@@ -103,7 +103,7 @@
                     </div>
                     <label for="tf_cantones_NI" class="col-lg-2 control-label">Canton:</label>
                     <div class="col-lg-2">
-                        <select class="form-control input-sm" name="tf_cantones_NI" id="tf_cantones_NI">
+                        <select class="form-control input-sm validate[required]" name="tf_cantones_NI" id="tf_cantones_NI">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaCantones as $value) {
@@ -116,7 +116,7 @@
                     </div>
                     <label for="tf_distritos_NI" class="col-lg-2 control-label">Distrito:</label>
                     <div class="col-lg-2">
-                        <select  class="form-control input-sm" name="tf_distritos_NI" id="tf_distritos_NI">  
+                        <select  class="form-control input-sm validate[required]" name="tf_distritos_NI" id="tf_distritos_NI">  
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaDistritos as $value) {
@@ -132,7 +132,7 @@
                 <div class="form-group">
                     <label for="tf_primaria" class="col-lg-2 control-label">Primaria:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_primaria" id="tf_primaria" />
+                        <input type="text" class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria" />
                     </div>
                 </div>
                 <!--L8 Enfermedad (Formulario Hugo)-->
@@ -155,7 +155,7 @@
                 <div class="form-group"> 
                     <label for="tf_cedulaEncargado_NI" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm " name="tf_cedulaEncargado_NI" id="tf_cedulaEncargado_NI"/>
+                        <input type="text" class="form-control input-sm validate[required]" name="tf_cedulaEncargado_NI" id="tf_cedulaEncargado_NI"/>
                     </div>
                     <div class="col-lg-2">
                         <input type="button" class="btn-sm btn-success" id="buscarEncargado_NI" value="Buscar" />
@@ -165,15 +165,15 @@
                 <div class="form-group">
                     <label for="tf_ape1Encargado_NI" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape1Encargado_NI" name="tf_ape1Encargado_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_ape1Encargado_NI" name="tf_ape1Encargado_NI"/>
                     </div>
                     <label for="tf_ape2Encargado_NI" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2Encargado_NI" name="tf_ape2Encargado_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_ape2Encargado_NI" name="tf_ape2Encargado_NI"/>
                     </div>
                     <label for="tf_nombreEncargado_NI" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_nombreEncargado_NI" name="tf_nombreEncargado_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_nombreEncargado_NI" name="tf_nombreEncargado_NI"/>
                     </div> 
                 </div> 
                 <!--L11 Telefono Habitacion y celular (Formulario Hugo)-->
@@ -191,21 +191,20 @@
                 <div class="form-group">
                     <label for="tf_ocupacionEncargado" class="col-lg-2 control-label">Ocupación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_ocupacionEncargado" id="tf_ocupacionEncargado"/>
+                        <input type="text" class="form-control input-sm validate[required]" name="tf_ocupacionEncargado" id="tf_ocupacionEncargado"/>
                     </div>
                     <label for="tf_emailEncargado" class="col-lg-2 control-label">Email:</label>
                     <div class="col-lg-2">
                         <input class="form-control input-sm" type="text" name="tf_emailEncargado" id="tf_emailEncargado"/>
                     </div>
-
                     <label for="tf_parentesco" class="col-lg-2 control-label">Parentesco:</label>
                     <div class="col-lg-2">
-                        <select  class="form-control input-sm" name="sel_parentesco" id="sel_parentesco">  
-                            <option value="seleccione">Seleccione</option> 
-                            <option value="Padre">Padre</option> 
+                        <select class="form-control input-sm validate[required]" name="sel_parentesco" id="sel_parentesco">
+                            <option value="">Seleccione</option>
+                            <option value="Padre">Padre</option>
                             <option value="Madre">Madre</option>
                             <option value="Otro">Otro</option>
-                        </select>
+                        </select> 
                     </div>
                 </div>
 
@@ -224,15 +223,15 @@
                 <div class="form-group">
                     <label for="tf_ape1Madre_NI" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape1Madre_NI" name="tf_ape1Madre_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_ape1Madre_NI" name="tf_ape1Madre_NI"/>
                     </div>
                     <label for="tf_ape2Madre_NI" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2Madre_NI" name="tf_ape2Madre_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_ape2Madre_NI" name="tf_ape2Madre_NI"/>
                     </div>
                     <label for="tf_nombreMadre_NI" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_nombreMadre_NI" name="tf_nombreMadre_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_nombreMadre_NI" name="tf_nombreMadre_NI"/>
                     </div> 
                 </div> 
                 <!--L15 Telefonos y Ocupación de la Madre (Formulario Hugo)-->
@@ -262,15 +261,15 @@
                 <div class="form-group">
                     <label for="tf_ape1Padre_NI" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape1Padre_NI" name="tf_ape1Padre_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_ape1Padre_NI" name="tf_ape1Padre_NI"/>
                     </div>
                     <label for="tf_ape2Padre_NI" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2Padre_NI" name="tf_ape2Padre_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_ape2Padre_NI" name="tf_ape2Padre_NI"/>
                     </div>
                     <label for="tf_nombrePadre_NI" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_nombrePadre_NI" name="tf_nombrePadre_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_nombrePadre_NI" name="tf_nombrePadre_NI"/>
                     </div> 
                 </div> 
                 <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
@@ -290,7 +289,7 @@
                 <div class="form-group"> 
                     <label for="tf_cedulaPersonaEmergencia_NI" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm " name="tf_cedulaPersonaEmergencia_NI" id="tf_cedulaPersonaEmergencia_NI"/>
+                        <input type="text" class="form-control input-sm validate[required]" name="tf_cedulaPersonaEmergencia_NI" id="tf_cedulaPersonaEmergencia_NI"/>
                     </div>
                     <div class="col-lg-2">
                         <input type="button" class="btn-sm btn-success" id="buscarPersonaEmergencia_NI" value="Buscar" />
@@ -300,15 +299,15 @@
                 <div class="form-group">
                     <label for="tf_ape1PersonaEmergencia_NI" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape1PersonaEmergencia_NI" name="tf_ape1PersonaEmergencia_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_ape1PersonaEmergencia_NI" name="tf_ape1PersonaEmergencia_NI"/>
                     </div>
                     <label for="tf_ape2PersonaEmergencia_NI" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2PersonaEmergencia_NI" name="tf_ape2PersonaEmergencia_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm"  id="tf_ape2PersonaEmergencia_NI" name="tf_ape2PersonaEmergencia_NI"/>
                     </div>
                     <label for="tf_nombrePersonaEmergencia_NI" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_nombrePersonaEmergencia_NI" name="tf_nombrePersonaEmergencia_NI" onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_nombrePersonaEmergencia_NI" name="tf_nombrePersonaEmergencia_NI"/>
                     </div> 
                 </div> 
                 <!--L21 Telefonos de la Persona En Caso de Emergencia (Formulario Hugo)-->
@@ -328,7 +327,7 @@
                 <div class="form-group"> 
                     <label for="tf_nivelMatricular" class="col-lg-2 control-label">Nivel a Matricular:</label>
                     <div class="col-lg-2">
-                        <select class="form-control input-sm" name="sl_nivelMatricular" id="sl_nivelMatricular">
+                        <select class="form-control input-sm validate[required]" name="sl_nivelMatricular" id="sl_nivelMatricular">
                             <option value="">Seleccione</option>
                             <option value="7">7</option>
                             <option value="8">8</option>
@@ -340,7 +339,7 @@
                     </div>
                     <label for="tf_condicion" class="col-lg-2 control-label">Condición:</label>
                     <div class="col-lg-2">
-                        <select class="form-control input-sm" name="sl_condicion" id="sl_condicion">
+                        <select class="form-control input-sm validate[required]" name="sl_condicion" id="sl_condicion">
                             <option value="">Seleccione</option>
                             <option value="Regular">Regular</option>
                             <option value="Repite">Repite</option>

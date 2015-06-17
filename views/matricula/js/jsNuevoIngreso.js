@@ -34,13 +34,17 @@ $(function()
     $("#buscarEstudiante").click(function(event) {
         var idD = $("#tf_cedulaEstudiante").val();
         $.getJSON('buscarEstudiante/' + idD, function(resulBusqueda) {
-            $("#tf_ape1").val(resulBusqueda[0].primerApellido);
-            $("#tf_ape2").val(resulBusqueda[0].segundoApellido);
-            $("#tf_nombre").val(resulBusqueda[0].nombre);
-            $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
-            var anioNacimiento = 2015 - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
-            $("#tf_edad").val(anioNacimiento);
-            $("#tf_genero").val(resulBusqueda[0].sexo);
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombre").val(resulBusqueda[0].nombre);
+                $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
+                var anioNacimiento = 2015 - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
+                $("#tf_edad").val(anioNacimiento);
+                $("#tf_genero").val(resulBusqueda[0].sexo);
+            }
         });
     });
 
@@ -48,13 +52,17 @@ $(function()
     $("#buscarEncargado_NI").click(function(event) {
         var idD = $("#tf_cedulaEncargado_NI").val();
         $.getJSON('buscarEncargado/' + idD, function(resulBusqueda) {
-            $("#tf_ape1Encargado_NI").val(resulBusqueda[0].primerApellido);
-            $("#tf_ape2Encargado_NI").val(resulBusqueda[0].segundoApellido);
-            $("#tf_nombreEncargado_NI").val(resulBusqueda[0].nombre);
-            $("#tf_telHabitEncargado").val("");
-            $("#tf_telcelularEncargado").val("");
-            $("#tf_ocupacionEncargado").val("");
-            $("#tf_emailEncargado").val("");
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Encargado_NI").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Encargado_NI").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombreEncargado_NI").val(resulBusqueda[0].nombre);
+                $("#tf_telHabitEncargado").val("");
+                $("#tf_telcelularEncargado").val("");
+                $("#tf_ocupacionEncargado").val("");
+                $("#tf_emailEncargado").val("");
+            }
         });
     });
 
@@ -62,11 +70,15 @@ $(function()
     $("#buscarMadre_NI").click(function(event) {
         var idD = $("#tf_cedulaMadre_NI").val();
         $.getJSON('buscarMadre/' + idD, function(resulBusqueda) {
-            $("#tf_ape1Madre_NI").val(resulBusqueda[0].primerApellido);
-            $("#tf_ape2Madre_NI").val(resulBusqueda[0].segundoApellido);
-            $("#tf_nombreMadre_NI").val(resulBusqueda[0].nombre);
-            $("#tf_telCelMadre").val("");
-            $("#tf_ocupacionMadre").val("");
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Madre_NI").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Madre_NI").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombreMadre_NI").val(resulBusqueda[0].nombre);
+                $("#tf_telCelMadre").val("");
+                $("#tf_ocupacionMadre").val("");
+            }
         });
     });
 
@@ -74,11 +86,15 @@ $(function()
     $("#buscarPadre_NI").click(function(event) {
         var idD = $("#tf_cedulaPadre_NI").val();
         $.getJSON('buscarPadre/' + idD, function(resulBusqueda) {
-            $("#tf_ape1Padre_NI").val(resulBusqueda[0].primerApellido);
-            $("#tf_ape2Padre_NI").val(resulBusqueda[0].segundoApellido);
-            $("#tf_nombrePadre_NI").val(resulBusqueda[0].nombre);
-            $("#tf_telCelPadre").val("");
-            $("#tf_ocupacionPadre").val("");
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Padre_NI").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Padre_NI").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombrePadre_NI").val(resulBusqueda[0].nombre);
+                $("#tf_telCelPadre").val("");
+                $("#tf_ocupacionPadre").val("");
+            }
         });
     });
 
@@ -124,8 +140,8 @@ $(function()
         if (nivel > 9) {
             document.getElementById("especialidadLabel").style.display = 'block';
             document.getElementById("especialidad").style.display = 'block';
-        } 
-        else{
+        }
+        else {
             document.getElementById("especialidadLabel").style.display = 'none';
             document.getElementById("especialidad").style.display = 'none';
         }
@@ -137,8 +153,8 @@ $(function()
         if (condicion === "Repite") {
             document.getElementById("sl_adelantaLabel").style.display = 'block';
             document.getElementById("sl_adelanta").style.display = 'block';
-        } 
-        else{
+        }
+        else {
             document.getElementById("sl_adelantaLabel").style.display = 'none';
             document.getElementById("sl_adelanta").style.display = 'none';
         }
@@ -149,8 +165,8 @@ $(function()
         var codigoPais = $("#tf_nacionalidad").val();
         if (codigoPais !== "506") {
             document.getElementById("buscarEstudiante").style.display = 'none';
-        } 
-        else{
+        }
+        else {
             document.getElementById("buscarEstudiante").style.display = 'block';
         }
     });

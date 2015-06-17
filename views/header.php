@@ -164,8 +164,6 @@
                                                 <li class="divider"></li>
                                                 <li><a href="<?php echo URL; ?>matricula/nuevoIngreso">Nuevo Ingreso</a></li>
                                                 <li class="divider"></li>
-                                                <li><a href="<?php echo URL; ?>matricula/adelanto">Adelanto-Arraste</a></li>
-                                                <li class="divider"></li>
                                                 <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculados">Matriculados</a></li>
                                                 
                                             </ul>

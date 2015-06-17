@@ -5,7 +5,7 @@
 <center>
     <table class="table table-condensed">
         <tr>
-            <th colspan="8" class="nombreTabla text-center">ESTUDIANTES MATRICULADOS</th>
+            <th colspan="9" class="nombreTabla text-center">ESTUDIANTES MATRICULADOS</th>
         </tr>
         <tr>
             <th>N°</th>
@@ -15,7 +15,7 @@
             <th>Nombre</th>
             <th>Nivel</th>
             <th>Condicón</th>
-            <th>Acción</th>
+            <th colspan="2" class="text-center">Acción</th>
         </tr>
         <?php
         $con = 1;
@@ -42,8 +42,11 @@
             echo '<td>';
             echo $value['condicion'];
             echo '</td>';
+            echo '<td class="text-right" >';
+            echo '<a class="btn-sm btn-primary" href="editarMatricula/' . $value['cedula'] . '">Editar</a>';
+            echo '</td>';
             echo '<td>';
-            echo '<a class="btn-sm btn-primary" href="ratificarEstudiante/' . $value['cedula'] . '">Editar</a>';
+            echo '<a class="btn-sm btn-warning text-left" href="reportePdfMatricula/' . $value['cedula'] . '"  target="_blank">Imprimir</a>';
             echo '</td>';
             echo '</tr>';
             $con++;
