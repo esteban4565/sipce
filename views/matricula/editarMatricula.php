@@ -59,7 +59,7 @@
                     </div>
                     <label for="tf_edad" class="col-lg-2 control-label">Edad:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_edad" name="tf_edad" value='<?php if ($this->anio != null) echo $this->anio - (date(substr($this->infoEstudiante[0]['fechaNacimiento'], 0, 4))); ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad" value='<?php if ($this->anio != null) echo $this->anio - (date(substr($this->infoEstudiante[0]['fechaNacimiento'], 0, 4))); ?>' onkeyup="mayusculas(this)"/>
                     </div>
                     <label for="tf_genero" class="col-lg-2 control-label">Genero:</label>
                     <div class="col-lg-2">
@@ -74,15 +74,15 @@
                 <div class="form-group">
                     <label for="tf_telHabitEstudiante" class="col-lg-2 control-label">Tel. Habitación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telHabitEstudiante" id="tf_telHabitEstudiante" value='<?php if ($this->infoEstudiante != null) echo $this->infoEstudiante[0]['telefonoCasa']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEstudiante" id="tf_telHabitEstudiante" value='<?php if ($this->infoEstudiante != null) echo $this->infoEstudiante[0]['telefonoCasa']; ?>'/>
                     </div>
                     <label for="tf_telcelular" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telcelular" id="tf_telcelular" value='<?php echo $this->infoEstudiante[0]['telefonoCelular']; ?>'>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelular" id="tf_telcelular" value='<?php echo $this->infoEstudiante[0]['telefonoCelular']; ?>'>
                     </div>
                     <label for="tf_email" class="col-lg-2 control-label">Email:</label>
                     <div class="col-lg-2">
-                        <input class="form-control input-sm" type="text" name="tf_email" id="tf_email" value='<?php echo $this->infoEstudiante[0]['email']; ?>'>
+                        <input class="form-control input-sm" type="email" name="tf_email" id="tf_email" value='<?php echo $this->infoEstudiante[0]['email']; ?>'>
                     </div>
                 </div>
                 <!--L5 Domicilio (Formulario Hugo)-->
@@ -194,11 +194,11 @@
                 <div class="form-group">
                     <label for="tf_telHabitEncargado" class="col-lg-2 control-label">Tel. Habitación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telHabitEncargado" id="tf_telHabitEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['telefonoCasaEncargado']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEncargado" id="tf_telHabitEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['telefonoCasaEncargado']; ?>'/>
                     </div>
                     <label for="tf_telcelularEncargado" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telcelularEncargado" id="tf_telcelularEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['telefonoCelularEncargado']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularEncargado" id="tf_telcelularEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['telefonoCelularEncargado']; ?>'/>
                     </div>
                 </div>
                 <!--L12 Ocupación y email (Formulario Hugo)-->
@@ -209,7 +209,7 @@
                     </div>
                     <label for="tf_emailEncargado" class="col-lg-2 control-label">Email:</label>
                     <div class="col-lg-2">
-                        <input class="form-control input-sm" type="text" name="tf_emailEncargado" id="tf_emailEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['emailEncargado']; ?>'/>
+                        <input class="form-control input-sm" type="email" name="tf_emailEncargado" id="tf_emailEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['emailEncargado']; ?>'/>
                     </div>
 
                     <label for="tf_parentesco" class="col-lg-2 control-label">Parentesco:</label>
@@ -253,11 +253,11 @@
                 <div class="form-group">
                     <label for="tf_telCelMadre" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telCelMadre" id="tf_telCelMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['telefonoCasaMadre']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelMadre" id="tf_telCelMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['telefonoCasaMadre']; ?>'/>
                     </div>
                     <label for="tf_ocupacionMadre" class="col-lg-2 control-label">Ocupación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_ocupacionMadre" id="tf_ocupacionMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['ocupacionMadre']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_ocupacionMadre" id="tf_ocupacionMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['ocupacionMadre']; ?>'/>
                     </div> 
                 </div>
 
@@ -291,7 +291,7 @@
                 <div class="form-group">
                     <label for="tf_telCelPadre" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telCelPadre" id="tf_telCelPadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['telefonoCasaPadre']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelPadre" id="tf_telCelPadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['telefonoCasaPadre']; ?>'/>
                     </div>
                     <label for="tf_ocupacionPadre" class="col-lg-2 control-label">Ocupación:</label>
                     <div class="col-lg-2">
@@ -329,11 +329,11 @@
                 <div class="form-group">
                     <label for="tf_telHabitPersonaEmergencia" class="col-lg-2 control-label">Tel. Habit:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telHabitPersonaEmergencia" id="tf_telHabitPersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitPersonaEmergencia" id="tf_telHabitPersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia']; ?>'/>
                     </div>
                     <label for="tf_telcelularPersonaEmergencia" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telcelularPersonaEmergencia" id="tf_telcelularPersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['telefonoCelularPersonaEmergencia']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularPersonaEmergencia" id="tf_telcelularPersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['telefonoCelularPersonaEmergencia']; ?>'/>
                     </div>
                 </div>
                 <br><br>

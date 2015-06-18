@@ -64,7 +64,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT * FROM sipce_especialidad", array());
     }
 
-    /* Retorna la lista de todo los usuarios */
+    /* Retorna la lista de todo los Estudiantes por Ratificar */
 
     public function listaEstudiantes() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
@@ -73,6 +73,18 @@ class Matricula_Model extends Models {
                         . "AND cedula = ced_estudiante "
                         . "AND tipoUsuario = 3 "
                         . "ORDER BY apellido1,apellido2");
+    }
+
+    /* Retorna Datos de Estudiante por Ratificar */
+
+    public function buscarEstuRatif($ced_estudiante) {
+        $resultado = $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
+                        . "FROM sipce_persona, sipce_grupos "
+                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
+                        . "AND cedula = ced_estudiante "
+                        . "AND cedula = '".$ced_estudiante."'");
+        
+        echo json_encode($resultado);
     }
 
     /* Retorna la informacion del Estudiante */

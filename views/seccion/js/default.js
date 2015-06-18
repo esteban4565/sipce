@@ -49,7 +49,7 @@ $(function()
                     '<th colspan="5">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + ' B' + '</th>' +
                     '</tr><tr>' +
                     '<th>N°</th>' +
-                    '<th>Cedula</th>' +
+                    '<th>Identificación</th>' +
                     '<th>1º Apellido</th>' +
                     '<th>2º Apellido</th>' +
                     '<th>Nombre</th>' +
@@ -58,7 +58,7 @@ $(function()
                     '<th colspan="5">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + ' C' + '</th>' +
                     '</tr><tr>' +
                     '<th>N°</th>' +
-                    '<th>Cedula</th>' +
+                    '<th>Identificación</th>' +
                     '<th>1º Apellido</th>' +
                     '<th>2º Apellido</th>' +
                     '<th>Nombre</th>' +

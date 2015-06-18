@@ -1,14 +1,25 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12 text-center">
         <h2>Modulo Matricula</h2>
     </div>
 </div>
 
 <div class="row">
+    <div class="col-lg-3">
+    Buscar por Identificación:
+    </div>
+    <div class="col-lg-2">
+        <input type="text" class="input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante" />
+    </div>
+    <div class="col-lg-2">
+        <input type="button" class="btn-sm btn-success" id="buscarEstudianteRatificar" value="Buscar" />
+    </div>
+    <div class="col-lg-offset-5"></div>
+    <div class="col-lg-12"><br></div>
     <div class="col-lg-10">
-        <table class="table table-condensed">
+        <table class="table table-condensed" id="tablaRatificar">
             <tr>
-                <td colspan="5" class="nombreTabla">LISTA DE ESTUDIANTES</td>
+                <td colspan="5" class="nombreTabla">LISTA DE ESTUDIANTES POR RATIFICAR</td>
             </tr>
             <tr>
                 <th>N°</th>
@@ -50,7 +61,7 @@
                 echo $value['sub_grupo'];
                 echo '</td>';
                 echo '<td>';
-                echo '<a class="btn-sm btn-primary" href="ratificarEstudiante/'.$value['cedula'].'">Ratificar</a>';
+                echo '<a class="btn-sm btn-primary" href="ratificarEstudiante/' . $value['cedula'] . '">Ratificar</a>';
                 echo '</td>';
                 echo '</tr>';
                 $con++;

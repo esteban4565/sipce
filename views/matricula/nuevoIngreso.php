@@ -52,7 +52,7 @@
                     <!--OJO.. el año axtual esta quemado en el documento javascript, se debe cambiar año a año o buscar solucion -->
                     <label for="tf_edad" class="col-lg-2 control-label">Edad:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_edad" name="tf_edad"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad"/>
                     </div>
                     <label for="tf_genero" class="col-lg-2 control-label">Genero:</label>
                     <div class="col-lg-2">
@@ -67,11 +67,11 @@
                 <div class="form-group">
                     <label for="tf_telHabitEstudiante" class="col-lg-2 control-label">Tel. Habitación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telHabitEstudiante" id="tf_telHabitEstudiante"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEstudiante" id="tf_telHabitEstudiante"/>
                     </div>
                     <label for="tf_telcelular" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telcelular" id="tf_telcelular"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelular" id="tf_telcelular"/>
                     </div>
                     <label for="tf_email" class="col-lg-2 control-label">Email:</label>
                     <div class="col-lg-2">
@@ -180,11 +180,11 @@
                 <div class="form-group">
                     <label for="tf_telHabitEncargado" class="col-lg-2 control-label">Tel. Habitación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telHabitEncargado" id="tf_telHabitEncargado"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEncargado" id="tf_telHabitEncargado"/>
                     </div>
                     <label for="tf_telcelularEncargado" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telcelularEncargado" id="tf_telcelularEncargado"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularEncargado" id="tf_telcelularEncargado"/>
                     </div>
                 </div>
                 <!--L12 Ocupación y email (Formulario Hugo)-->
@@ -238,7 +238,7 @@
                 <div class="form-group">
                     <label for="tf_telCelMadre" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telCelMadre" id="tf_telCelMadre"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelMadre" id="tf_telCelMadre"/>
                     </div>
                     <label for="tf_ocupacionMadre" class="col-lg-2 control-label">Ocupación:</label>
                     <div class="col-lg-2">
@@ -276,7 +276,7 @@
                 <div class="form-group">
                     <label for="tf_telCelPadre" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telCelPadre" id="tf_telCelPadre"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelPadre" id="tf_telCelPadre"/>
                     </div>
                     <label for="tf_ocupacionPadre" class="col-lg-2 control-label">Ocupación:</label>
                     <div class="col-lg-2">
@@ -314,11 +314,11 @@
                 <div class="form-group">
                     <label for="tf_telHabitPersonaEmergencia" class="col-lg-2 control-label">Tel. Habit:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telHabitPersonaEmergencia" id="tf_telHabitPersonaEmergencia"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitPersonaEmergencia" id="tf_telHabitPersonaEmergencia"/>
                     </div>
                     <label for="tf_telcelularPersonaEmergencia" class="col-lg-2 control-label">Tel. Celular:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_telcelularPersonaEmergencia" id="tf_telcelularPersonaEmergencia"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularPersonaEmergencia" id="tf_telcelularPersonaEmergencia"/>
                     </div>
                 </div>
                 <br><br>

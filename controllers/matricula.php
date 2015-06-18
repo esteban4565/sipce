@@ -370,6 +370,10 @@ class Matricula extends Controllers {
         $this->model->buscarPersonaEmergencia($ced_personaEmergencia);
     }
 
+    function buscarEstuRatif($ced_estudiante) {
+        $this->model->buscarEstuRatif($ced_estudiante);
+    }
+
 }
 
 ?>
