@@ -79,11 +79,11 @@ class Matricula_Model extends Models {
 
     public function buscarEstuRatif($ced_estudiante) {
         $resultado = $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
-                        . "FROM sipce_persona, sipce_grupos "
-                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
-                        . "AND cedula = ced_estudiante "
-                        . "AND cedula = '".$ced_estudiante."'");
-        
+                . "FROM sipce_persona, sipce_grupos "
+                . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
+                . "AND cedula = ced_estudiante "
+                . "AND cedula = '" . $ced_estudiante . "'");
+
         echo json_encode($resultado);
     }
 
@@ -668,32 +668,13 @@ class Matricula_Model extends Models {
                         . "WHERE cedula = ced_estudiante");
     }
 
-    public function reportePdfMatricula($cedulaEstudiante) {
-        $consultaDatos = $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
+    public function imprimirMatricula($cedulaEstudiante) {
+        return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
                 . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
                 . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
                 . "FROM sipce_persona as p,sipce_grupos as g "
                 . "WHERE p.cedula = g.ced_estudiante "
                 . "AND p.cedula = '" . $cedulaEstudiante . "' ");
-
-        $html = '<div align="center">COLEGIO TÉCNICO PROFESIONAL DE CARRIZAL<br>DIRECCIÓN REGIONAL DE ALAJUELA CIRCUITO -01-<br>TELFAX 2483-0055</div><br>';
-        $html = $html . '<div align="left">Curso Lectivo: ' . 2016 . '</div><div align="right">ID: ' . $consultaDatos[0]["cedula"].'</div><br>';
-        $html = $html . '<table>';
-        $html = $html . '<tr><td>cedula</td><td>nombre</td><td>apellido1</td><td>apellido2</td><td>sexo</td></tr>';
-        $html = $html . '<tr>';
-        $html = $html . '<td>';
-        $html = $html . $consultaDatos[0]["cedula"];
-        $html = $html . '</td><td>';
-        $html = $html . $consultaDatos[0]["nombre"];
-        $html = $html . '</td><td>';
-        $html = $html . $consultaDatos[0]["apellido1"];
-        $html = $html . '</td><td>';
-        $html = $html . $consultaDatos[0]["apellido2"];
-        $html = $html . '</td><td>';
-        $html = $html . $consultaDatos[0]["sexo"];
-        $html = $html . '</td></tr>';
-        $html = $html . '</table>';
-        return ($html);
     }
 
     /* Ejemplo clasico de join entre tablas */
@@ -711,7 +692,5 @@ class Matricula_Model extends Models {
     }
 
 }
-
-
 
 ?>

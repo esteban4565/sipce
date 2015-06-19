@@ -183,11 +183,11 @@ class Matricula extends Controllers {
         $this->view->render('footer');
     }
 
-    function reportePdfMatricula($cedulaEstudiante) {
-        //Muestro documento pdf para impresion
-        $this->view->html = $this->model->reportePdfMatricula($cedulaEstudiante);
+    function imprimirMatricula($cedulaEstudiante) {
+        //Muestro documento para impresion
+        $this->view->consultaDatos = $this->model->imprimirMatricula($cedulaEstudiante);
         
-        $this->view->render('matricula/reportePdfMatricula');
+        $this->view->render('matricula/imprimirMatricula');
     }
 
     function guardarRatificacion() {

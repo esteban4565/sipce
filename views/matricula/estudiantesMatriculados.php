@@ -46,7 +46,7 @@
             echo '<a class="btn-sm btn-primary" href="editarMatricula/' . $value['cedula'] . '">Editar</a>';
             echo '</td>';
             echo '<td>';
-            echo '<a class="btn-sm btn-warning text-left" href="reportePdfMatricula/' . $value['cedula'] . '"  target="_blank">Imprimir</a>';
+            echo '<a class="btn-sm btn-warning text-left" href="imprimirMatricula/' . $value['cedula'] . '"  target="_blank">Imprimir</a>';
             echo '</td>';
             echo '</tr>';
             $con++;
