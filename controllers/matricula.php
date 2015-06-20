@@ -185,7 +185,35 @@ class Matricula extends Controllers {
 
     function imprimirMatricula($cedulaEstudiante) {
         //Muestro documento para impresion
-        $this->view->consultaDatos = $this->model->imprimirMatricula($cedulaEstudiante);
+        $this->view->anio = $this->model->anio();
+        $this->view->consultaDatosEstudiante = $this->model->consultaDatosEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de las enfermedades del Estudiante */
+        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion del encargado Legal del Estudiante */
+        $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);
+
+        /* Cargo informacion de la Madre del Estudiante */
+        $this->view->madreEstudiante = $this->model->madreEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion del Padre del Estudiante */
+        $this->view->padreEstudiante = $this->model->padreEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la Persona en caso de Emergencia del Estudiante */
+        $this->view->personaEmergenciaEstudiante = $this->model->personaEmergenciaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la poliza del Estudiante */
+        $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la Condicion de Matricula */
+        $this->view->infoCondicionMatricula = $this->model->infoCondicionMatricula($cedulaEstudiante);
+
+        /* Cargo informacion de la especialidad del Estudiante */
+        $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de Adelanto/Arrastre */
+        $this->view->infoAdelanta = $this->model->infoAdelanta($cedulaEstudiante);
         
         $this->view->render('matricula/imprimirMatricula');
     }

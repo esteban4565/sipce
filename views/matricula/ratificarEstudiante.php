@@ -154,7 +154,6 @@
                         </select>
                     </div>
                     <div class="col-lg-2">
-
                         <?php
                         if ($this->enfermedadEstudiante != null) {
                             echo '<input type="text" class="form-control input-sm" name="tf_enfermedadDescripcion" id="tf_enfermedadDescripcion" value="' . $this->enfermedadEstudiante[0]['descripcion'] . '"/>';
@@ -432,14 +431,25 @@
                     <div class="col-lg-2">
                         <input type="text" class="form-control input-sm" name="tf_polizaVence" id="tf_polizaVence" value='<?php if ($this->polizaEstudiante != null) echo $this->polizaEstudiante[0]['fecha_vence']; ?>'/>
                 </div>
-                    <label for="tf_adelanta" class="col-lg-2 control-label" id="sl_adelantaLabel" style="display:none;">Adelanta:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta" style="display:none;">
-                            <option value="">Seleccione</option>
-                            <option value="si" <?php if ($this->infoAdelanta != null) echo 'selected'; ?>>Si</option>
-                            <option value="no" <?php if ($this->infoAdelanta == null) echo 'selected'; ?>>No</option>
-                        </select> 
-                    </div>
+                        <?php
+                        if ($this->infoAdelanta != null) {
+                            echo '<label for="tf_adelanta" class="col-lg-2 control-label" id="sl_adelantaLabel">Adelanta:</label>';
+                            echo '<div class="col-lg-2">';
+                            echo '<select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta">';
+                            echo '<option value="si" selected>Si</option>';
+                            echo '<option value="no">No</option>';
+                            echo '</select>';
+                            echo '</div>';
+                        }else{
+                            echo '<label for="tf_adelanta" class="col-lg-2 control-label" id="sl_adelantaLabel" style="display:none;">Adelanta:</label>';
+                            echo '<div class="col-lg-2">';
+                            echo '<select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta" style="display:none;">';
+                            echo '<option value="si">Si</option>';
+                            echo '<option value="no" selected>No</option>';
+                            echo '</select>';
+                            echo '</div>'; 
+                        }
+                        ?>
             </div>
             <br><br>
             <!--L25 Imprimir y Guardar (Formulario Hugo)-->

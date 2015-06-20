@@ -2,7 +2,9 @@
 <html lang="es">
     <head>
         <meta charset="utf-8"/>
+        <!Bootstrap Normal>
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/css/bootstrap335.min.css">
+        
         <link rel="stylesheet" href="<?php echo URL; ?>public/font-awesome/css/font-awesome.min.css">
     </head>
 <body>
@@ -10,7 +12,7 @@
     <div class="row" id="docPrint"> 
       <!Linea#1>
       <div class="col-xs-2">
-        <img src="<?php echo URL; ?>public/img/logomep.png" alt="Logo Mep" class="img-rounded pull-left">
+        <img src="<?php echo URL; ?>public/img/logomep.png" alt="Logo Mep" class="img-rounded pull-left" width="80" height="71">
       </div>
       <div class="col-xs-8 text-center">
         COLEGIO TÉCNICO PROFESIONAL DE CARRIZAL<br>
@@ -18,32 +20,32 @@
         TELFAX 2483-0055
       </div>
       <div class="col-xs-2">
-        <img src="<?php echo URL; ?>public/img/logoctpcarrizal.png" alt="Logo CTP Carrizal" class="img-rounded pull-right">
+        <img src="<?php echo URL; ?>public/img/logoctpcarrizal.png" alt="Logo CTP Carrizal" class="img-rounded pull-right" width="80" height="79">
       </div> 
       <!Linea#2>
       <div class="col-xs-4">
-        Curso Lectivo 2016
+        Curso Lectivo <?php echo $this->anio; ?>
       </div>
       <div class="col-xs-4">
       </div>
       <div class="col-xs-4 text-right">
-        ID  2-0820-0696
+        ID: <?php echo $this->consultaDatosEstudiante[0]['cedula']; ?>
       </div> 
       <div class="col-xs-12">
           <br>
       </div>
       <!Linea#3>
-      <div class="col-xs-4">
+      <div class="col-xs-4 text-right">
       Nombre del estudiante:
       </div>
       <div class="col-xs-2 text-center">
-      ALVAREZ
+      <?php echo $this->consultaDatosEstudiante[0]['apellido1']; ?>
       </div>
       <div class="col-xs-3 text-center">
-      MONTERO
+      <?php echo $this->consultaDatosEstudiante[0]['apellido2']; ?>
       </div>
       <div class="col-xs-3 text-center">
-      PAULA REBECA
+      <?php echo $this->consultaDatosEstudiante[0]['nombre']; ?>
       </div>
       <div class="col-xs-4">
       </div>
@@ -60,20 +62,20 @@
           <br>
       </div>
       <!Linea#4>
-      <div class="col-xs-4">
+      <div class="col-xs-4 text-right">
       Fecha de nacimiento:
       </div>
       <div class="col-xs-2 text-center">
-      26
+      <?php echo substr($this->consultaDatosEstudiante[0]['fechaNacimiento'],8,2); ?>
       </div>
       <div class="col-xs-2 text-center">
-      8
+      <?php echo substr($this->consultaDatosEstudiante[0]['fechaNacimiento'],5,2); ?>
       </div>
       <div class="col-xs-2 text-center">
-      2001
+      <?php echo substr($this->consultaDatosEstudiante[0]['fechaNacimiento'],0,4); ?>
       </div>
       <div class="col-xs-2 text-center">
-      14
+      <?php echo $this->anio - (date(substr($this->consultaDatosEstudiante[0]['fechaNacimiento'], 0, 4))); ?>
       </div>
       <div class="col-xs-4">
       </div>
@@ -89,6 +91,300 @@
       <div class="col-xs-2 text-center">
       (Edad)
       </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#5>
+      <div class="col-xs-4 text-right">
+      Tel. Cel:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['telefonoCelular']; ?>
+      </div>
+      <div class="col-xs-2 text-right">
+      Email:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['email']; ?>
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#6>
+      <div class="col-xs-4 text-right">
+      Domicilio:&nbsp;
+      </div>
+      <div class="col-xs-8 text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['domicilio']; ?>
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#7>
+      <div class="col-xs-4 text-right">
+      Distrito:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['Distrito']; ?>
+      </div>
+      <div class="col-xs-1 text-right">
+      Cantón:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['Canton']; ?>
+      </div>
+      <div class="col-xs-1 text-right">
+      Provincia:&nbsp;
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->consultaDatosEstudiante[0]['nombreProvincia']; ?>
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#8>
+      <div class="col-xs-4 text-right">
+      Primaria:&nbsp;
+      </div>
+      <div class="col-xs-8 text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['escuela_procedencia']; ?>
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#9>
+      <div class="col-xs-4 text-right">
+      ¿Posee alguna enfermedad?&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php if($this->enfermedadEstudiante != null) {echo 'Si';} else {echo 'No';} ?>
+      </div>
+      <div class="col-xs-6 text-left">
+      <?php if($this->enfermedadEstudiante != null) echo $this->enfermedadEstudiante[0]['descripcion']; ?>
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#10>
+      <div class="col-xs-12 text-center">
+          DATOS DEL HOGAR
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#11>
+      <div class="col-xs-4 text-right">
+      Nombre del encargado legal:&nbsp;
+      </div>
+      <div class="col-xs-1 text-center">
+      <?php echo $this->encargadoLegal[0]['apellido1_encargado']; ?>
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->encargadoLegal[0]['apellido2_encargado']; ?>
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->encargadoLegal[0]['nombre_encargado']; ?>
+      </div>
+      <div class="col-xs-1 text-center">
+      Cédula#
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->encargadoLegal[0]['ced_encargado']; ?>
+      </div>
+<!--      <div class="col-xs-12">
+          <br>
+      </div>-->
+      <!Linea#12>
+      <div class="col-xs-4 text-right">
+      Teléfono habitación:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->encargadoLegal[0]['telefonoCasaEncargado']; ?>
+      </div>
+      <div class="col-xs-2 text-right">
+      Celular:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      <?php echo $this->encargadoLegal[0]['telefonoCelularEncargado']; ?>
+      </div>
+<!--      <div class="col-xs-12">
+          <br>
+      </div>-->
+      <!Linea#13>
+      <div class="col-xs-4 text-right">
+      Ocupación:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->encargadoLegal[0]['ocupacionEncargado']; ?>
+      </div>
+      <div class="col-xs-2 text-right">
+      Email:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      <?php echo $this->encargadoLegal[0]['emailEncargado']; ?>
+      </div>
+<!--      <div class="col-xs-12">
+          <br>
+      </div>-->
+      <!Linea#14>
+      <div class="col-xs-4 text-right">
+      Nombre de la madre:&nbsp;
+      </div>
+      <div class="col-xs-1 text-center">
+      <?php echo $this->madreEstudiante[0]['apellido1_madre']; ?>
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->madreEstudiante[0]['apellido2_madre']; ?>
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->madreEstudiante[0]['nombre_madre']; ?>
+      </div>
+      <div class="col-xs-1 text-center">
+      Cédula#
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->madreEstudiante[0]['ced_madre']; ?>
+      </div>
+<!--      <div class="col-xs-12">
+          <br>
+      </div>-->
+      <!Linea#15>
+      <div class="col-xs-4 text-right">
+      Celular:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->madreEstudiante[0]['telefonoCasaMadre']; ?>
+      </div>
+      <div class="col-xs-2 text-right">
+      Ocupación:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      <?php echo $this->madreEstudiante[0]['ocupacionMadre']; ?>
+      </div>
+<!--      <div class="col-xs-12">
+          <br>
+      </div>-->
+      <!Linea#16>
+      <div class="col-xs-4 text-right">
+      Nombre del padre:&nbsp;
+      </div>
+      <div class="col-xs-1 text-center">
+      <?php echo $this->padreEstudiante[0]['apellido1_padre']; ?>
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->padreEstudiante[0]['apellido2_padre']; ?>
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->padreEstudiante[0]['nombre_padre']; ?>
+      </div>
+      <div class="col-xs-1 text-center">
+      Cédula#
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->padreEstudiante[0]['ced_padre']; ?>
+      </div>
+<!--      <div class="col-xs-12">
+          <br>
+      </div>-->
+      <!Linea#17>
+      <div class="col-xs-4 text-right">
+      Celular:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->padreEstudiante[0]['telefonoCasaPadre']; ?>
+      </div>
+      <div class="col-xs-2 text-right">
+      Ocupación:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      <?php echo $this->padreEstudiante[0]['ocupacionPadre']; ?>
+      </div>
+<!--      <div class="col-xs-12">
+          <br>
+      </div>-->
+      <!Linea#18>
+      <div class="col-xs-4 text-right">
+      En caso de emergencia llamar a:&nbsp;
+      </div>
+      <div class="col-xs-1 text-center">
+      <?php echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia']; ?>
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->personaEmergenciaEstudiante[0]['apellido2_personaEmergencia']; ?>
+      </div>
+      <div class="col-xs-2 text-center">
+      <?php echo $this->personaEmergenciaEstudiante[0]['nombre_personaEmergencia']; ?>
+      </div>
+      <div class="col-xs-1 text-center">
+      Cédula#
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->personaEmergenciaEstudiante[0]['ced_personaEmergencia']; ?>
+      </div>
+<!--      <div class="col-xs-12">
+          <br>
+      </div>-->
+      <!Linea#19>
+      <div class="col-xs-4 text-right">
+      Teléfono habitación:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia']; ?>
+      </div>
+      <div class="col-xs-2 text-right">
+      Celular:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      <?php echo $this->personaEmergenciaEstudiante[0]['telefonoCelularPersonaEmergencia']; ?>
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#20>
+      <div class="col-xs-12 text-center">
+          DATOS DE LA INSTITUCIÓN
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#21>
+      <div class="col-xs-4 text-right">
+      Nivel a matricular:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['nivel'] . '°'; ?>
+      </div>
+      <div class="col-xs-4 text-right">
+      Condición:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['condicion']; ?>
+      </div>
+      <!Linea#22>
+      <div class="col-xs-4 text-right">
+      Adelanta:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+          <?php if($this->infoAdelanta != null) {echo 'Si';} else {echo 'No';} ?>
+      </div>
+      <?php if($this->infoAdelanta != null) {?>
+      <div class="col-xs-4 text-right">
+      Nivel:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php echo $this->infoAdelanta[0]['nivel_adelanta'];?>
+      </div>
+      <?php }else{?>
+      <div class="col-xs-12">
+      </div>
+      <?php }?>
+      <!Linea#23>
+      <div class="col-xs-4 text-right">
+      Adecuación curricular:&nbsp;
+      </div>
+      <div class="col-xs-8 text-left">
+      
+      </div>
   </div>
   <div class="row">
     <div class="col-lg-3">
@@ -101,13 +397,14 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="<?php echo URL; ?>public/js/bootstrap.min.js"></script>
   <script src="<?php echo URL; ?>public/js/jquery-printme.js"></script>
+  <!-- Bootstrap Modificado -->
   <script>
   $("#btn1").click(function() {
-    $("#docPrint").printMe({ "path": "<?php echo URL; ?>public/css/bootstrap335.min.css"});
+    $("#docPrint").printMe({ "path": "<?php echo URL; ?>public/css/bootstrap335modif.min.css"});
   });
   </script>
 </body>
 </html>
 <?php
-print_r($this->consultaDatos);
+print_r("");
 ?>

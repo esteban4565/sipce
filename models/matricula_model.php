@@ -247,6 +247,32 @@ class Matricula_Model extends Models {
                 'estado' => 1));
         }
 
+        //Consulto si ya existe la Enfermedad
+        $consultaExistenciaEnfermedad = $this->db->select("SELECT * FROM sipce_enfermedades "
+                . "WHERE cedula = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sel_enfermedad'] == 1) {
+            if ($consultaExistenciaEnfermedad != null) {
+                //Actualizo datos
+                $posData = array(
+                    'descripcion' => $datos['tf_enfermedadDescripcion']);
+                $this->db->update('sipce_enfermedades', $posData, "`cedula` = '{$datos['tf_cedulaEstudiante']}'");
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_enfermedades', array(
+                    'cedula' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'descripcion' => $datos['tf_enfermedadDescripcion']));
+            }
+        } else {
+            if ($consultaExistenciaEnfermedad != null) {
+                //Borro datos
+                $sth = $this->db->prepare("DELETE FROM sipce_enfermedades WHERE cedula ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
+                $sth->execute();
+            }
+        }
+
         //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
         $consultaExistenciaNivel = $this->db->select("SELECT * FROM sipce_grupos "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
@@ -432,22 +458,30 @@ class Matricula_Model extends Models {
                 'fecha_vence' => $datos['tf_polizaVence']));
         }
 
-        if ($datos['sl_nivelMatricular'] == "si") {
-            //Consulto si ya existe Adelanto/Arraste
-            $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+        //Consulto si ya existe Adelanto/Arraste
+        $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
 
+        if ($datos['sl_adelanta'] == "si" && $datos['sl_condicion'] == "Repite") {
             if ($consultaExistenciaAdelta != null) {
                 //Si ya existe  Adelanto/Arraste, actualizo
                 $posData = array(
                     'anio' => $datos['anio'],
-                    'nivel' => $datos['sl_nivelMatricular']);
+                    'nivel' => $datos['sl_nivelMatricular'],
+                    'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1);
                 $this->db->update('sipce_adelanta', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
             } else {
                 //Si no, inserto los datos de la Poliza
                 $this->db->insert('sipce_adelanta', array(
                     'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                     'anio' => $datos['anio'],
-                    'nivel' => $datos['sl_nivelMatricular']));
+                    'nivel' => $datos['sl_nivelMatricular'],
+                    'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1));
+            }
+        } else {
+            if ($consultaExistenciaEnfermedad != null) {
+                //Borro datos
+                $sth = $this->db->prepare("DELETE FROM sipce_adelanta WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
+                $sth->execute();
             }
         }
     }
@@ -475,6 +509,25 @@ class Matricula_Model extends Models {
                 'nivel' => $datos['sl_nivelMatricular'],
                 'condicion' => $datos['sl_condicion'],
                 'estado' => 3));
+        }
+
+        //Consulto si ya existe la Enfermedad
+        $consultaExistenciaEnfermedad = $this->db->select("SELECT * FROM sipce_enfermedades "
+                . "WHERE cedula = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sel_enfermedad'] == 1) {
+            if ($consultaExistenciaEnfermedad != null) {
+                //No se puede hacer nuevo ingreso xq ya existe
+                echo '<h1>ya existe estudiante en sipce_enfermedades';
+                die;
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_enfermedades', array(
+                    'cedula' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'descripcion' => $datos['tf_enfermedadDescripcion']));
+            }
         }
 
 //        print_r($datos['tf_cedulaEstudiante']);
@@ -642,20 +695,30 @@ class Matricula_Model extends Models {
                 'fecha_vence' => $datos['tf_polizaVence']));
         }
 
-        if ($datos['sl_nivelMatricular'] == "si") {
-            //Consulto si ya existe Adelanto/Arraste
-            $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+        //Consulto si ya existe Adelanto/Arraste
+        $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
 
+        if ($datos['sl_adelanta'] == "si" && $datos['sl_condicion'] == "Repite") {
             if ($consultaExistenciaAdelta != null) {
-                //No puede existir xq es Nuevo Ingreso
-                echo '<h1>ya existe estudiante en sipce_adelanta';
-                die;
+                //Si ya existe  Adelanto/Arraste, actualizo
+                $posData = array(
+                    'anio' => $datos['anio'],
+                    'nivel' => $datos['sl_nivelMatricular'],
+                    'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1);
+                $this->db->update('sipce_adelanta', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
             } else {
                 //Si no, inserto los datos de la Poliza
                 $this->db->insert('sipce_adelanta', array(
                     'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                     'anio' => $datos['anio'],
-                    'nivel' => $datos['sl_nivelMatricular']));
+                    'nivel' => $datos['sl_nivelMatricular'],
+                    'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1));
+            }
+        } else {
+            if ($consultaExistenciaEnfermedad != null) {
+                //Borro datos
+                $sth = $this->db->prepare("DELETE FROM sipce_adelanta WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
+                $sth->execute();
             }
         }
     }
@@ -668,14 +731,25 @@ class Matricula_Model extends Models {
                         . "WHERE cedula = ced_estudiante");
     }
 
-    public function imprimirMatricula($cedulaEstudiante) {
+    //Metodos extras para impresion de certificado de matricula
+    public function consultaDatosEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
-                . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
-                . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
-                . "FROM sipce_persona as p,sipce_grupos as g "
-                . "WHERE p.cedula = g.ced_estudiante "
-                . "AND p.cedula = '" . $cedulaEstudiante . "' ");
+                        . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,j.nombreProvincia,"
+                        . "c.Canton,d.Distrito,p.nacionalidad,g.nivel, m.condicion "
+                        . "FROM sipce_persona as p,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d, sipce_matricularatificacion as m "
+                        . "WHERE p.cedula = g.ced_estudiante "
+                        . "AND p.cedula = '" . $cedulaEstudiante . "' "
+                        . "AND m.ced_estudiante = '" . $cedulaEstudiante . "' "
+                        . "AND p.IdProvincia = j.IdProvincia "
+                        . "AND p.IdCanton = c.IdCanton "
+                        . "AND p.IdDistrito = d.IdDistrito");
     }
+
+//    public function estadoMatricula() {
+//        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion "
+//                        . "FROM sipce_persona,sipce_matricularatificacion "
+//                        . "WHERE cedula = ced_estudiante");
+//    }
 
     /* Ejemplo clasico de join entre tablas */
 
