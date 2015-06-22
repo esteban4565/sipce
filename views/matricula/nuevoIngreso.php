@@ -363,7 +363,7 @@
                     <div class="col-lg-2">
                         <select class="form-control input-sm" name="sl_adecuacion" id="sl_adecuacion">
                             <option value="No">No</option>
-                            <option value="NoSignificativa">No Significativa</option>
+                            <option value="No Significativa">No Significativa</option>
                             <option value="Acceso">Acceso</option>
                             <option value="Significativa">Significativa</option>
                         </select> 

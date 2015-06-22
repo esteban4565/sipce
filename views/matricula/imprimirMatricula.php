@@ -1,3 +1,7 @@
+<?php 
+//print_r($this->madreEstudiante);
+//die;
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -199,13 +203,13 @@
       Teléfono habitación:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
-      <?php echo $this->encargadoLegal[0]['telefonoCasaEncargado']; ?>
+      <?php if($this->encargadoLegal[0]['telefonoCasaEncargado']!=null){echo $this->encargadoLegal[0]['telefonoCasaEncargado'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-right">
       Celular:&nbsp;
       </div>
       <div class="col-xs-4 text-left">
-      <?php echo $this->encargadoLegal[0]['telefonoCelularEncargado']; ?>
+      <?php if($this->encargadoLegal[0]['telefonoCelularEncargado']!=null){echo $this->encargadoLegal[0]['telefonoCelularEncargado'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
@@ -221,7 +225,7 @@
       Email:&nbsp;
       </div>
       <div class="col-xs-4 text-left">
-      <?php echo $this->encargadoLegal[0]['emailEncargado']; ?>
+      <?php if($this->encargadoLegal[0]['emailEncargado']!=null){echo $this->encargadoLegal[0]['emailEncargado'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
@@ -231,19 +235,19 @@
       Nombre de la madre:&nbsp;
       </div>
       <div class="col-xs-1 text-center">
-      <?php echo $this->madreEstudiante[0]['apellido1_madre']; ?>
+          <?php if($this->madreEstudiante[0]['apellido1_madre']!=null){echo $this->madreEstudiante[0]['apellido1_madre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
-      <?php echo $this->madreEstudiante[0]['apellido2_madre']; ?>
+          <?php if($this->madreEstudiante[0]['apellido2_madre']!=null){echo $this->madreEstudiante[0]['apellido2_madre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
-      <?php echo $this->madreEstudiante[0]['nombre_madre']; ?>
+          <?php if($this->madreEstudiante[0]['nombre_madre']!=null){echo $this->madreEstudiante[0]['nombre_madre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-1 text-center">
       Cédula#
       </div>
       <div class="col-xs-2 text-left">
-      <?php echo $this->madreEstudiante[0]['ced_madre']; ?>
+          <?php if($this->madreEstudiante[0]['ced_madre']!=null){echo $this->madreEstudiante[0]['ced_madre'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
@@ -253,13 +257,13 @@
       Celular:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
-      <?php echo $this->madreEstudiante[0]['telefonoCasaMadre']; ?>
+          <?php if($this->madreEstudiante[0]['telefonoCasaMadre'] != 0){echo $this->madreEstudiante[0]['telefonoCasaMadre'];}else{echo '&nbsp;';}?>
       </div>
       <div class="col-xs-2 text-right">
       Ocupación:&nbsp;
       </div>
       <div class="col-xs-4 text-left">
-      <?php echo $this->madreEstudiante[0]['ocupacionMadre']; ?>
+          <?php if($this->madreEstudiante[0]['ocupacionMadre']!=null){echo $this->madreEstudiante[0]['ocupacionMadre'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
@@ -269,19 +273,19 @@
       Nombre del padre:&nbsp;
       </div>
       <div class="col-xs-1 text-center">
-      <?php echo $this->padreEstudiante[0]['apellido1_padre']; ?>
+          <?php if($this->padreEstudiante[0]['apellido1_padre']!=null){echo $this->padreEstudiante[0]['apellido1_padre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
-      <?php echo $this->padreEstudiante[0]['apellido2_padre']; ?>
+          <?php if($this->padreEstudiante[0]['apellido2_padre']!=null){echo $this->padreEstudiante[0]['apellido2_padre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
-      <?php echo $this->padreEstudiante[0]['nombre_padre']; ?>
+          <?php if($this->padreEstudiante[0]['nombre_padre']!=null){echo $this->padreEstudiante[0]['nombre_padre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-1 text-center">
       Cédula#
       </div>
       <div class="col-xs-2 text-left">
-      <?php echo $this->padreEstudiante[0]['ced_padre']; ?>
+          <?php if($this->padreEstudiante[0]['ced_padre']!=null){echo $this->padreEstudiante[0]['ced_padre'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
@@ -291,13 +295,13 @@
       Celular:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
-      <?php echo $this->padreEstudiante[0]['telefonoCasaPadre']; ?>
+          <?php if($this->padreEstudiante[0]['telefonoCasaPadre']!=0){echo $this->padreEstudiante[0]['telefonoCasaPadre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-right">
       Ocupación:&nbsp;
       </div>
       <div class="col-xs-4 text-left">
-      <?php echo $this->padreEstudiante[0]['ocupacionPadre']; ?>
+          <?php if($this->padreEstudiante[0]['ocupacionPadre']!=null){echo $this->padreEstudiante[0]['ocupacionPadre'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
@@ -307,19 +311,19 @@
       En caso de emergencia llamar a:&nbsp;
       </div>
       <div class="col-xs-1 text-center">
-      <?php echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia']; ?>
+          <?php if($this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia']!=null){echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
-      <?php echo $this->personaEmergenciaEstudiante[0]['apellido2_personaEmergencia']; ?>
+          <?php if($this->personaEmergenciaEstudiante[0]['apellido2_personaEmergencia']!=null){echo $this->personaEmergenciaEstudiante[0]['apellido2_personaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
-      <?php echo $this->personaEmergenciaEstudiante[0]['nombre_personaEmergencia']; ?>
+          <?php if($this->personaEmergenciaEstudiante[0]['nombre_personaEmergencia']!=null){echo $this->personaEmergenciaEstudiante[0]['nombre_personaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-1 text-center">
       Cédula#
       </div>
       <div class="col-xs-2 text-left">
-      <?php echo $this->personaEmergenciaEstudiante[0]['ced_personaEmergencia']; ?>
+          <?php if($this->personaEmergenciaEstudiante[0]['ced_personaEmergencia']!=null){echo $this->personaEmergenciaEstudiante[0]['ced_personaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
@@ -329,13 +333,13 @@
       Teléfono habitación:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
-      <?php echo $this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia']; ?>
+          <?php if($this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia']!=0){echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-right">
       Celular:&nbsp;
       </div>
       <div class="col-xs-4 text-left">
-      <?php echo $this->personaEmergenciaEstudiante[0]['telefonoCelularPersonaEmergencia']; ?>
+          <?php if($this->personaEmergenciaEstudiante[0]['telefonoCelularPersonaEmergencia']!=0){echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-12">
           <br>
@@ -383,7 +387,20 @@
       Adecuación curricular:&nbsp;
       </div>
       <div class="col-xs-8 text-left">
-      
+      <?php if($this->adecuacionEstudiante != null) {echo $this->adecuacionEstudiante[0]['adecuacion'];}else{echo 'No';} ?>
+      </div>
+      <!Linea#24>
+      <div class="col-xs-4 text-right">
+      Beca Avancemos:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaAvancemos']==1) {echo 'Si';}else{echo 'No';}?>
+      </div>
+      <div class="col-xs-4 text-right">
+      Beca Comedor:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaComedor']==1) {echo 'Si';}else{echo 'No';} ?>
       </div>
   </div>
   <div class="row">

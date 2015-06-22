@@ -7,8 +7,8 @@
 //echo '<br>';
 //print_r($this->padreEstudiante);
 //echo '<br>';
-//print_r($this->personaEmergenciaEstudiante);
-//echo '<br>';
+//
+//print_r($this->becasEstudiante);
 //die;
 ?>
 <div class="row">
@@ -399,24 +399,24 @@
                     <label for="tf_adecuacion" class="col-lg-2 control-label">Adecuación Curricular:</label>
                     <div class="col-lg-2">
                         <select class="form-control input-sm" name="sl_adecuacion" id="sl_adecuacion">
-                            <option value="No">No</option>
-                            <option value="NoSignificativa">No Significativa</option>
-                            <option value="Acceso">Acceso</option>
-                            <option value="Significativa">Significativa</option>
+                            <option value="No" <?php if ($this->adecuacionEstudiante == null) echo 'selected'; ?>>No</option>
+                            <option value="No Significativa" <?php if ($this->adecuacionEstudiante != null && $this->adecuacionEstudiante[0]['adecuacion'] == 'No Significativa') echo 'selected'; ?>>No Significativa</option>
+                            <option value="Acceso" <?php if ($this->adecuacionEstudiante != null && $this->adecuacionEstudiante[0]['adecuacion'] == 'Acceso') echo 'selected'; ?>>Acceso</option>
+                            <option value="Significativa" <?php if ($this->adecuacionEstudiante != null && $this->adecuacionEstudiante[0]['adecuacion'] == 'Significativa') echo 'selected'; ?>>Significativa</option>
                         </select> 
                     </div>
                     <label for="tf_becaAvancemos" class="col-lg-2 control-label">Beca Avancemos:</label>
                     <div class="col-lg-2">
                         <select class="form-control input-sm" name="sl_becaAvancemos" id="sl_becaAvancemos">
                             <option value="No">No</option>
-                            <option value="Si">Si</option>
+                            <option value="Si" <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaAvancemos']==1) echo 'selected'; ?>>Si</option>
                         </select> 
                     </div>
                     <label for="tf_becaComedor" class="col-lg-2 control-label">Beca Comedor:</label>
                     <div class="col-lg-2">
                         <select class="form-control input-sm" name="sl_becaComedor" id="sl_becaComedor">
                             <option value="No">No</option>
-                            <option value="Si">Si</option>
+                            <option value="Si" <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaComedor']==1) echo 'selected'; ?>>Si</option>
                         </select> 
                     </div>
                 </div>

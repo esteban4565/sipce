@@ -76,6 +76,12 @@ class Matricula extends Controllers {
         /* Cargo informacion de las enfermedades del Estudiante */
         $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
 
+        /* Cargo informacion de la adecuacio del Estudiante */
+        $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de Becas */
+        $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
+
         /* Cargo informacion de la poliza del Estudiante */
         $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
 
@@ -160,6 +166,12 @@ class Matricula extends Controllers {
         /* Cargo informacion de las enfermedades del Estudiante */
         $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
 
+        /* Cargo informacion de la adecuacio del Estudiante */
+        $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de Becas */
+        $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
+
         /* Cargo informacion de la poliza del Estudiante */
         $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
 
@@ -190,6 +202,12 @@ class Matricula extends Controllers {
 
         /* Cargo informacion de las enfermedades del Estudiante */
         $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
+        
+        /* Cargo informacion de la adecuacio del Estudiante */
+        $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de Becas */
+        $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
 
         /* Cargo informacion del encargado Legal del Estudiante */
         $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);

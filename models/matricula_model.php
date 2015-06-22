@@ -150,6 +150,23 @@ class Matricula_Model extends Models {
                         . "WHERE cedula = '" . $cedulaEstudiante . "' ");
     }
 
+    /* Retorna adecuacio del Estudiante */
+
+    public function adecuacionEstudiante($cedulaEstudiante) {
+        return $this->db->select("SELECT adecuacion "
+                        . "FROM sipce_adecuacion  "
+                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
+    }
+
+    /* Retorna adecuacio del Estudiante */
+//Ojo año quemado, buscar solucion
+    public function becasEstudiante($cedulaEstudiante) {
+        return $this->db->select("SELECT * "
+                        . "FROM sipce_beca  "
+                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' "
+                        . "AND anio = 2016 ");
+    }
+
     /* Retorna informacion de la poliza del del Estudiante */
 
     public function polizaEstudiante($cedulaEstudiante) {
@@ -270,6 +287,86 @@ class Matricula_Model extends Models {
                 //Borro datos
                 $sth = $this->db->prepare("DELETE FROM sipce_enfermedades WHERE cedula ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
                 $sth->execute();
+            }
+        }
+
+        //Consulto si ya existe la Adecuacion
+        $consultaExistenciaAdecuacion = $this->db->select("SELECT * FROM sipce_adecuacion "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sl_adecuacion'] != 'No') {
+            if ($consultaExistenciaAdecuacion != null) {
+                //Actualizo datos
+                $posData = array(
+                    'adecuacion' => $datos['sl_adecuacion']);
+                $this->db->update('sipce_adecuacion', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_adecuacion', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'adecuacion' => $datos['sl_adecuacion']));
+            }
+        } else {
+            if ($consultaExistenciaAdecuacion != null) {
+                //Borro datos
+                $sth = $this->db->prepare("DELETE FROM sipce_adecuacion WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
+                $sth->execute();
+            }
+        }
+
+        //Consulto si ya existe Becas Avancemos
+        $consultaExistenciaBecaAvancemos = $this->db->select("SELECT * FROM sipce_beca "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sl_becaAvancemos'] != 'No') {
+            if ($consultaExistenciaBecaAvancemos != null) {
+                //Actualizo datos
+                $posData = array(
+                    'becaAvancemos' => 1);
+                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_beca', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'becaAvancemos' => 1));
+            }
+        } else {
+            if ($consultaExistenciaBecaAvancemos != null) {
+                //Actualizo datos
+                $posData = array(
+                    'becaAvancemos' => 0);
+                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            }
+        }
+
+        //Consulto si ya existe Becas Comedor
+        $consultaExistenciaBecaComedor = $this->db->select("SELECT * FROM sipce_beca "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sl_becaComedor'] != 'No') {
+            if ($consultaExistenciaBecaComedor != null) {
+                //Actualizo datos
+                $posData = array(
+                    'becaComedor' => 1);
+                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_beca', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'becaComedor' => 1));
+            }
+        } else {
+            if ($consultaExistenciaBecaComedor != null) {
+                //Actualizo datos
+                $posData = array(
+                    'becaComedor' => 0);
+                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
             }
         }
 
@@ -527,6 +624,68 @@ class Matricula_Model extends Models {
                     'cedula' => $datos['tf_cedulaEstudiante'],
                     'anio' => $datos['anio'],
                     'descripcion' => $datos['tf_enfermedadDescripcion']));
+            }
+        }
+
+        //Consulto si ya existe la Adecuacion
+        $consultaExistenciaAdecuacion = $this->db->select("SELECT * FROM sipce_adecuacion "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sl_adecuacion'] != 'No') {
+            if ($consultaExistenciaAdecuacion != null) {
+                //No se puede hacer nuevo ingreso xq ya existe
+                echo '<h1>ya existe estudiante en sipce_adecuacion';
+                die;
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_adecuacion', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'adecuacion' => $datos['sl_adecuacion']));
+            }
+        }
+
+        //Consulto si ya existe Becas Avancemos
+        $consultaExistenciaBecaAvancemos = $this->db->select("SELECT * FROM sipce_beca "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sl_becaAvancemos'] != 'No') {
+            if ($consultaExistenciaBecaAvancemos != null) {
+                //No se puede hacer nuevo ingreso xq ya existe
+                echo '<h1>ya existe BecaAvancemos del estudiante en sipce_beca';
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_beca', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'becaAvancemos' => 1));
+            }
+        } else {
+            if ($consultaExistenciaBecaAvancemos != null) {
+                //Actualizo datos
+                $posData = array(
+                    'becaAvancemos' => 0);
+                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            }
+        }
+
+        //Consulto si ya existe Becas Comedor
+        $consultaExistenciaBecaComedor = $this->db->select("SELECT * FROM sipce_beca "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sl_becaComedor'] != 'No') {
+            if ($consultaExistenciaBecaComedor != null) {
+                //No se puede hacer nuevo ingreso xq ya existe
+                echo '<h1>ya existe BecaComedor del estudiante en sipce_beca';
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_beca', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'becaComedor' => 1));
             }
         }
 
