@@ -405,31 +405,6 @@
                             <option value="Significativa" <?php if ($this->adecuacionEstudiante != null && $this->adecuacionEstudiante[0]['adecuacion'] == 'Significativa') echo 'selected'; ?>>Significativa</option>
                         </select> 
                     </div>
-                    <label for="tf_becaAvancemos" class="col-lg-2 control-label">Beca Avancemos:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control input-sm" name="sl_becaAvancemos" id="sl_becaAvancemos">
-                            <option value="No">No</option>
-                            <option value="Si" <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaAvancemos']==1) echo 'selected'; ?>>Si</option>
-                        </select> 
-                    </div>
-                    <label for="tf_becaComedor" class="col-lg-2 control-label">Beca Comedor:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control input-sm" name="sl_becaComedor" id="sl_becaComedor">
-                            <option value="No">No</option>
-                            <option value="Si" <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaComedor']==1) echo 'selected'; ?>>Si</option>
-                        </select> 
-                    </div>
-                </div>
-                <!--L24 Poliza (Formulario Hugo)-->
-                <div class="form-group"> 
-                    <label for="tf_poliza" class="col-lg-2 control-label">N° de póliza:</label>
-                    <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_poliza" id="tf_poliza" value='<?php if ($this->polizaEstudiante != null) echo $this->polizaEstudiante[0]['numero_poliza']; ?>'/>
-                    </div>
-                    <label for="tf_polizaVence" class="col-lg-2 control-label">Fecha Vencimiento:</label>
-                    <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_polizaVence" id="tf_polizaVence" value='<?php if ($this->polizaEstudiante != null) echo $this->polizaEstudiante[0]['fecha_vence']; ?>'/>
-                </div>
                         <?php
                         if ($this->infoAdelanta != null) {
                             echo '<label for="tf_adelanta" class="col-lg-2 control-label" id="sl_adelantaLabel">Adelanta:</label>';
@@ -449,9 +424,47 @@
                             echo '</div>'; 
                         }
                         ?>
+                </div>
+                <!--L24 Poliza (Formulario Hugo)-->
+                <div class="form-group"> 
+                    <label for="tf_poliza" class="col-lg-2 control-label">N° de póliza:</label>
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control input-sm" name="tf_poliza" id="tf_poliza" value='<?php if ($this->polizaEstudiante != null) echo $this->polizaEstudiante[0]['numero_poliza']; ?>'/>
+                    </div>
+                    <label for="tf_polizaVence" class="col-lg-2 control-label">Fecha Vencimiento:</label>
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control input-sm" name="tf_polizaVence" id="tf_polizaVence" value='<?php if ($this->polizaEstudiante != null) echo $this->polizaEstudiante[0]['fecha_vence']; ?>'/>
+                    </div>
+                    <div class="col-lg-4">
+                        &nbsp;
+                    </div>
             </div>
+                <!--L25 Adecuacion y Becas (Formulario Hugo)-->
+                <div class="form-group">
+                    <label for="tf_becaAvancemos" class="col-lg-2 control-label">Beca Avancemos:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control input-sm" name="sl_becaAvancemos" id="sl_becaAvancemos">
+                            <option value="No">No</option>
+                            <option value="Si" <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaAvancemos']==1) echo 'selected'; ?>>Si</option>
+                        </select> 
+                    </div>
+                    <label for="tf_becaComedor" class="col-lg-2 control-label">Beca Comedor:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control input-sm" name="sl_becaComedor" id="sl_becaComedor">
+                            <option value="No">No</option>
+                            <option value="Si" <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaComedor']==1) echo 'selected'; ?>>Si</option>
+                        </select> 
+                    </div>
+                    <label for="tf_becaTransporte" class="col-lg-2 control-label">Beca Transporte:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control input-sm" name="sl_becaTransporte" id="sl_becaTransporte">
+                            <option value="No">No</option>
+                            <option value="Si" <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaTransporte']==1) echo 'selected'; ?>>Si</option>
+                        </select> 
+                    </div>
+                </div>
             <br><br>
-            <!--L25 Imprimir y Guardar (Formulario Hugo)-->
+            <!--L26 Imprimir y Guardar (Formulario Hugo)-->
             <div class="form-group"> 
                 <div class="col-lg-12 text-center">
                     <input type="submit" class="btn-lg btn-primary" id="guardar" value="Guardar e Imprimir" />

@@ -295,6 +295,7 @@ class Matricula extends Controllers {
         $datos['sl_adecuacion'] = $_POST['sl_adecuacion'];
         $datos['sl_becaAvancemos'] = $_POST['sl_becaAvancemos'];
         $datos['sl_becaComedor'] = $_POST['sl_becaComedor'];
+        $datos['sl_becaTransporte'] = $_POST['sl_becaTransporte'];
         $datos['tf_poliza'] = $_POST['tf_poliza'];
         $datos['tf_polizaVence'] = $_POST['tf_polizaVence'];
         $datos['anio'] = $this->model->anio();

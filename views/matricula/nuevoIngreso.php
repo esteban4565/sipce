@@ -368,6 +368,30 @@
                             <option value="Significativa">Significativa</option>
                         </select> 
                     </div>
+                    <label for="tf_adelanta" class="col-lg-2 control-label" id="sl_adelantaLabel" style="display:none;">Adelanta:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta" style="display:none;">
+                            <option value="">Seleccione</option>
+                            <option value="no">No</option>
+                            <option value="si">Si</option>
+                        </select> 
+                    </div>
+                </div>
+                <!--L24 Poliza (Formulario Hugo)-->
+                <div class="form-group"> 
+                    <label for="tf_poliza" class="col-lg-2 control-label">N° de póliza:</label>
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control input-sm" name="tf_poliza" id="tf_poliza"/>
+                    </div>
+                    <label for="tf_polizaVence" class="col-lg-2 control-label">Fecha Vencimiento:</label>
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control input-sm" name="tf_polizaVence" id="tf_polizaVence"/>
+                    </div>
+                    
+                    <div class="col-lg-2">
+                    </div>
+            </div>
+                <div class="form-group">
                     <label for="tf_becaAvancemos" class="col-lg-2 control-label">Beca Avancemos:</label>
                     <div class="col-lg-2">
                         <select class="form-control input-sm" name="sl_becaAvancemos" id="sl_becaAvancemos">
@@ -382,26 +406,14 @@
                             <option value="Si">Si</option>
                         </select> 
                     </div>
-                </div>
-                <!--L24 Poliza (Formulario Hugo)-->
-                <div class="form-group"> 
-                    <label for="tf_poliza" class="col-lg-2 control-label">N° de póliza:</label>
+                    <label for="tf_becaTransporte" class="col-lg-2 control-label">Beca Transporte:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_poliza" id="tf_poliza"/>
-                    </div>
-                    <label for="tf_polizaVence" class="col-lg-2 control-label">Fecha Vencimiento:</label>
-                    <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm" name="tf_polizaVence" id="tf_polizaVence"/>
-                    </div>
-                    <label for="tf_adelanta" class="col-lg-2 control-label" id="sl_adelantaLabel" style="display:none;">Adelanta:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta" style="display:none;">
-                            <option value="">Seleccione</option>
-                            <option value="no">No</option>
-                            <option value="si">Si</option>
+                        <select class="form-control input-sm" name="sl_becaTransporte" id="sl_becaTransporte">
+                            <option value="No">No</option>
+                            <option value="Si">Si</option>
                         </select> 
                     </div>
-            </div>
+                </div>
             <br><br>
             <!--L25 Imprimir y Guardar (Formulario Hugo)-->
             <div class="form-group"> 

@@ -370,6 +370,33 @@ class Matricula_Model extends Models {
             }
         }
 
+        //Consulto si ya existe Becas Transporte
+        $consultaExistenciaBecaTransporte = $this->db->select("SELECT * FROM sipce_beca "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sl_becaTransporte'] != 'No') {
+            if ($consultaExistenciaBecaTransporte != null) {
+                //Actualizo datos
+                $posData = array(
+                    'becaTransporte' => 1);
+                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_beca', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'becaTransporte' => 1));
+            }
+        } else {
+            if ($consultaExistenciaBecaTransporte != null) {
+                //Actualizo datos
+                $posData = array(
+                    'becaTransporte' => 0);
+                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            }
+        }
+
         //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
         $consultaExistenciaNivel = $this->db->select("SELECT * FROM sipce_grupos "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
@@ -686,6 +713,24 @@ class Matricula_Model extends Models {
                     'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                     'anio' => $datos['anio'],
                     'becaComedor' => 1));
+            }
+        }
+
+        //Consulto si ya existe Becas Transporte
+        $consultaExistenciaBecaTransporte = $this->db->select("SELECT * FROM sipce_beca "
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND anio = " . $datos['anio']);
+
+        if ($datos['sl_becaTransporte'] != 'No') {
+            if ($consultaExistenciaBecaTransporte != null) {
+                //No se puede hacer nuevo ingreso xq ya existe
+                echo '<h1>ya existe BecaTransporte del estudiante en sipce_beca';
+            } else {
+                //Sino Inserto datos
+                $this->db->insert('sipce_beca', array(
+                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                    'anio' => $datos['anio'],
+                    'becaTransporte' => 1));
             }
         }
 

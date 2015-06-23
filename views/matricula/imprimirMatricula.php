@@ -393,14 +393,20 @@
       <div class="col-xs-4 text-right">
       Beca Avancemos:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-1 text-left">
       <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaAvancemos']==1) {echo 'Si';}else{echo 'No';}?>
       </div>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-2 text-right">
       Beca Comedor:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-1 text-left">
       <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaComedor']==1) {echo 'Si';}else{echo 'No';} ?>
+      </div>
+      <div class="col-xs-2 text-right">
+      Beca Transporte:&nbsp;
+      </div>
+      <div class="col-xs-2 text-left">
+      <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaTransporte']==1) {echo 'Si';}else{echo 'No';} ?>
       </div>
   </div>
   <div class="row">
