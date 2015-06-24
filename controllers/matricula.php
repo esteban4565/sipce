@@ -198,6 +198,7 @@ class Matricula extends Controllers {
     function imprimirMatricula($cedulaEstudiante) {
         //Muestro documento para impresion
         $this->view->anio = $this->model->anio();
+        $this->view->director = $this->model->director();
         $this->view->consultaDatosEstudiante = $this->model->consultaDatosEstudiante($cedulaEstudiante);
 
         /* Cargo informacion de las enfermedades del Estudiante */

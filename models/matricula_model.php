@@ -12,6 +12,12 @@ class Matricula_Model extends Models {
         return 2016;
     }
 
+    /* Carga Director (a) */
+
+    public function director() {
+        return "Msc. Ingrid Jiménez López";
+    }
+
     /* Carga todas las provincias */
 
     public function consultaProvincias() {

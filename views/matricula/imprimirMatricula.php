@@ -16,7 +16,7 @@
     <div class="row" id="docPrint"> 
       <!Linea#1>
       <div class="col-xs-2">
-        <img src="<?php echo URL; ?>public/img/logomep.png" alt="Logo Mep" class="img-rounded pull-left" width="80" height="71">
+        <img src="<?php echo URL; ?>public/img/logomep.png" alt="Logo Mep" class="img-rounded pull-left" width="50" height="45">
       </div>
       <div class="col-xs-8 text-center">
         COLEGIO TÉCNICO PROFESIONAL DE CARRIZAL<br>
@@ -24,7 +24,7 @@
         TELFAX 2483-0055
       </div>
       <div class="col-xs-2">
-        <img src="<?php echo URL; ?>public/img/logoctpcarrizal.png" alt="Logo CTP Carrizal" class="img-rounded pull-right" width="80" height="79">
+        <img src="<?php echo URL; ?>public/img/logoctpcarrizal.png" alt="Logo CTP Carrizal" class="img-rounded pull-right" width="50" height="49">
       </div> 
       <!Linea#2>
       <div class="col-xs-4">
@@ -340,26 +340,26 @@
           <br>
       </div>
       <!Linea#21>
-      <div class="col-xs-3 text-right">
+      <div class="col-xs-2 text-right">
       Nivel a matricular:&nbsp;
       </div>
       <div class="col-xs-1 text-left">
       <?php echo $this->consultaDatosEstudiante[0]['nivel'] . '°'; ?>
       </div>
-      <div class="col-xs-2 text-right">
+      <div class="col-xs-1 text-right">
       Condición:&nbsp;
       </div>
-      <div class="col-xs-1 text-left">
+      <div class="col-xs-1 text-center">
       <?php echo $this->consultaDatosEstudiante[0]['condicion']; ?>
       </div>
       <div class="col-xs-3 text-right">
       Adecuación curricular:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-4 text-left">
       <?php if($this->adecuacionEstudiante != null) {echo $this->adecuacionEstudiante[0]['adecuacion'];}else{echo 'No';} ?>
       </div>
       <!Linea#22>
-      <div class="col-xs-3 text-right">
+      <div class="col-xs-2 text-right">
       Adelanta:&nbsp;
       </div>
       <div class="col-xs-1 text-left">
@@ -377,14 +377,20 @@
           &nbsp;
       </div>
       <?php }?>
+       <?php if($this->consultaDatosEstudiante[0]['nivel'] > 9) {?>
       <div class="col-xs-2 text-right">
       Especialidad:&nbsp;
       </div>
-      <div class="col-xs-4 text-left">
-      <?php echo $this->especialidadEstudiante[0]['nombreEspecialidad']; ?>
+      <div class="col-xs-5 text-left">
+      <?php if($this->especialidadEstudiante != null) echo $this->especialidadEstudiante[0]['nombreEspecialidad']; ?>
       </div>
+      <?php }else{?>
+      <div class="col-xs-7">
+          &nbsp;
+      </div>
+      <?php }?>
       <!Linea#23>
-      <div class="col-xs-3 text-right">
+      <div class="col-xs-2 text-right">
       Beca Avancemos:&nbsp;
       </div>
       <div class="col-xs-1 text-left">
@@ -396,17 +402,106 @@
       <div class="col-xs-1 text-left">
       <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaComedor']==1) {echo 'Si';}else{echo 'No';} ?>
       </div>
-      <div class="col-xs-2 text-right">
+      <div class="col-xs-3 text-right">
       Beca Transporte:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-3 text-left">
       <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaTransporte']==1) {echo 'Si';}else{echo 'No';} ?>
+      </div>
+      <!Linea#24>
+      <div class="col-xs-2 text-right">
+      N° de póliza:&nbsp;
+      </div>
+      <div class="col-xs-3 text-left">
+      <?php if ($this->polizaEstudiante != null) {echo $this->polizaEstudiante[0]['numero_poliza'];}else{echo '&nbsp;';}?>
+      </div>
+      <div class="col-xs-3 text-right">
+      Fecha de vencimiento:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      <?php if ($this->polizaEstudiante != null) {echo $this->polizaEstudiante[0]['fecha_vence'];}else{echo 'nbsp;';} ?>
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#25>
+      <div class="col-xs-2 text-right">
+      Matriculado por:&nbsp;
+      </div>
+      <div class="col-xs-5 text-left">
+      <?php echo $this->encargadoLegal[0]['apellido1_encargado'] . " ".
+                 $this->encargadoLegal[0]['apellido2_encargado'] . " ".
+                 $this->encargadoLegal[0]['nombre_encargado'] . " ";
+      ?>
+      </div>
+      <div class="col-xs-1 text-right">
+      Firma:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      _________________________________
+      </div>
+      <!Linea#26>
+      <div class="col-xs-2 text-right">
+      &nbsp;
+      </div>
+      <div class="col-xs-5 text-left">
+      (Padre, madre o encargado legal)
+      </div>
+      <div class="col-xs-5 text-right">
+      &nbsp;
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#27>
+      <div class="col-xs-5 text-center">
+      <?php echo $_SESSION['nombre']; ?>
+      </div>
+      <div class="col-xs-1 text-right">
+      Firma:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      _________________________________
+      </div>
+      <div class="col-xs-1 text-right">
+      Fecha:&nbsp;
+      </div>
+      <div class="col-xs-1 text-left">
+      </div>
+      <!Linea#28>
+      <div class="col-xs-5 text-center">
+      (Funcionario que matricula)
+      </div>
+      <div class="col-xs-7 text-right">
+      &nbsp;
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <!Linea#29>
+      <div class="col-xs-12 text-center">
+      <?php echo "Director (a): " . $this->director;?>
+      </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
+      <div class="col-xs-2">
+          <img src="<?php echo URL; ?>public/img/logosipce.png" alt="Logo Sipce" class="img-rounded pull-left" width="50" height="58">
+      </div>
+      <div class="col-xs-8 text-center">
+          SISTEMA DE INFORMACIÓN PARA CENTROS EDUCATIVOS
+      </div>
+      <div class="col-xs-2">
+          <img src="<?php echo URL; ?>public/img/logozaque.png" alt="Logo ZaQue" class="img-rounded pull-left" width="50" height="50">
       </div>
   </div>
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-xs-12 text-center">
       <button class="btn btn-primary" type="submit" id="btn1">Imprimir</button>
     </div>
+      <div class="col-xs-12">
+          <br>
+      </div>
   </div>
   </div>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
