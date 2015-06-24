@@ -1,5 +1,5 @@
 <?php 
-//print_r($this->madreEstudiante);
+//print_r($this->especialidadEstudiante);
 //die;
 ?>
 <!DOCTYPE html>
@@ -103,16 +103,13 @@
       Tel. Cel:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
-      <?php echo $this->consultaDatosEstudiante[0]['telefonoCelular']; ?>
+      <?php echo $this->consultaDatosEstudiante[0]['telefonoCelular']; ?>&nbsp;
       </div>
       <div class="col-xs-2 text-right">
       Email:&nbsp;
       </div>
-      <div class="col-xs-4 text-left">
-      <?php echo $this->consultaDatosEstudiante[0]['email']; ?>
-      </div>
-      <div class="col-xs-12">
-          <br>
+      <div class="col-xs- text-left">
+      <?php echo $this->consultaDatosEstudiante[0]['email']; ?>&nbsp;
       </div>
       <!Linea#6>
       <div class="col-xs-4 text-right">
@@ -120,9 +117,6 @@
       </div>
       <div class="col-xs-8 text-left">
       <?php echo $this->consultaDatosEstudiante[0]['domicilio']; ?>
-      </div>
-      <div class="col-xs-12">
-          <br>
       </div>
       <!Linea#7>
       <div class="col-xs-4 text-right">
@@ -143,9 +137,6 @@
       <div class="col-xs-2 text-center">
       <?php echo $this->consultaDatosEstudiante[0]['nombreProvincia']; ?>
       </div>
-      <div class="col-xs-12">
-          <br>
-      </div>
       <!Linea#8>
       <div class="col-xs-4 text-right">
       Primaria:&nbsp;
@@ -153,12 +144,9 @@
       <div class="col-xs-8 text-left">
       <?php echo $this->consultaDatosEstudiante[0]['escuela_procedencia']; ?>
       </div>
-      <div class="col-xs-12">
-          <br>
-      </div>
       <!Linea#9>
       <div class="col-xs-4 text-right">
-      ¿Posee alguna enfermedad?&nbsp;
+      ¿Padece alguna enfermedad?&nbsp;
       </div>
       <div class="col-xs-2 text-left">
       <?php if($this->enfermedadEstudiante != null) {echo 'Si';} else {echo 'No';} ?>
@@ -352,45 +340,51 @@
           <br>
       </div>
       <!Linea#21>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Nivel a matricular:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-1 text-left">
       <?php echo $this->consultaDatosEstudiante[0]['nivel'] . '°'; ?>
       </div>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-2 text-right">
       Condición:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-1 text-left">
       <?php echo $this->consultaDatosEstudiante[0]['condicion']; ?>
       </div>
-      <!Linea#22>
-      <div class="col-xs-4 text-right">
-      Adelanta:&nbsp;
+      <div class="col-xs-3 text-right">
+      Adecuación curricular:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
+      <?php if($this->adecuacionEstudiante != null) {echo $this->adecuacionEstudiante[0]['adecuacion'];}else{echo 'No';} ?>
+      </div>
+      <!Linea#22>
+      <div class="col-xs-3 text-right">
+      Adelanta:&nbsp;
+      </div>
+      <div class="col-xs-1 text-left">
           <?php if($this->infoAdelanta != null) {echo 'Si';} else {echo 'No';} ?>
       </div>
       <?php if($this->infoAdelanta != null) {?>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-1 text-right">
       Nivel:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-1 text-left">
       <?php echo $this->infoAdelanta[0]['nivel_adelanta'];?>
       </div>
       <?php }else{?>
-      <div class="col-xs-12">
+      <div class="col-xs-2">
+          &nbsp;
       </div>
       <?php }?>
+      <div class="col-xs-2 text-right">
+      Especialidad:&nbsp;
+      </div>
+      <div class="col-xs-4 text-left">
+      <?php echo $this->especialidadEstudiante[0]['nombreEspecialidad']; ?>
+      </div>
       <!Linea#23>
-      <div class="col-xs-4 text-right">
-      Adecuación curricular:&nbsp;
-      </div>
-      <div class="col-xs-8 text-left">
-      <?php if($this->adecuacionEstudiante != null) {echo $this->adecuacionEstudiante[0]['adecuacion'];}else{echo 'No';} ?>
-      </div>
-      <!Linea#24>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Beca Avancemos:&nbsp;
       </div>
       <div class="col-xs-1 text-left">

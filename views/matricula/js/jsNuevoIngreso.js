@@ -33,6 +33,9 @@ $(function()
     //Carga los datos del Estudiante//
     $("#buscarEstudiante").click(function(event) {
         var idD = $("#tf_cedulaEstudiante").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
         $.getJSON('buscarEstudiante/' + idD, function(resulBusqueda) {
             if (jQuery.isEmptyObject(resulBusqueda)) {
                 alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
@@ -46,11 +49,15 @@ $(function()
                 $("#tf_genero").val(resulBusqueda[0].sexo);
             }
         });
+        }
     });
 
     //Carga los datos del Encargado Legal//
     $("#buscarEncargado_NI").click(function(event) {
         var idD = $("#tf_cedulaEncargado_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
         $.getJSON('buscarEncargado/' + idD, function(resulBusqueda) {
             if (jQuery.isEmptyObject(resulBusqueda)) {
                 alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
@@ -64,11 +71,15 @@ $(function()
                 $("#tf_emailEncargado").val("");
             }
         });
+        }
     });
 
     //Carga los datos de la Madre//
     $("#buscarMadre_NI").click(function(event) {
         var idD = $("#tf_cedulaMadre_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
         $.getJSON('buscarMadre/' + idD, function(resulBusqueda) {
             if (jQuery.isEmptyObject(resulBusqueda)) {
                 alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
@@ -80,11 +91,15 @@ $(function()
                 $("#tf_ocupacionMadre").val("");
             }
         });
+        }
     });
 
     //Carga los datos del Padre//
     $("#buscarPadre_NI").click(function(event) {
         var idD = $("#tf_cedulaPadre_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
         $.getJSON('buscarPadre/' + idD, function(resulBusqueda) {
             if (jQuery.isEmptyObject(resulBusqueda)) {
                 alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
@@ -96,6 +111,7 @@ $(function()
                 $("#tf_ocupacionPadre").val("");
             }
         });
+        }
     });
 
 
@@ -125,13 +141,21 @@ $(function()
     //Carga los datos de de la Persona En Caso de Emergencia//
     $("#buscarPersonaEmergencia_NI").click(function(event) {
         var idD = $("#tf_cedulaPersonaEmergencia_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
         $.getJSON('buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
             $("#tf_ape1PersonaEmergencia_NI").val(resulBusqueda[0].primerApellido);
             $("#tf_ape2PersonaEmergencia_NI").val(resulBusqueda[0].segundoApellido);
             $("#tf_nombrePersonaEmergencia_NI").val(resulBusqueda[0].nombre);
             $("#tf_telHabitPersonaEmergencia").val("");
             $("#tf_telcelularPersonaEmergencia").val("");
+            }
         });
+        }
     });
 
     //Muestra casilla especialidad si nivel es > a 9//

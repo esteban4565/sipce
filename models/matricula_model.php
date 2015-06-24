@@ -101,9 +101,10 @@ class Matricula_Model extends Models {
     /* Retorna la informacion de la especialidad del Estudiante */
 
     public function especialidadEstudiante($cedulaEstudiante) {
-        return $this->db->select("SELECT cod_especialidad "
-                        . "FROM sipce_especialidad_estudiante  "
-                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
+        return $this->db->select("SELECT cod_especialidad, nombreEspecialidad "
+                        . "FROM sipce_especialidad_estudiante, sipce_especialidad  "
+                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' "
+                        . "AND codigoEspecialidad = cod_especialidad");
     }
 
     /* Retorna la informacion del encargado Legal Estudiante */
@@ -159,6 +160,7 @@ class Matricula_Model extends Models {
     }
 
     /* Retorna adecuacio del Estudiante */
+
 //Ojo año quemado, buscar solucion
     public function becasEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT * "
@@ -583,10 +585,10 @@ class Matricula_Model extends Models {
         }
 
         //Consulto si ya existe Adelanto/Arraste
-        $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+        $consultaExistenciaAdelanta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
 
         if ($datos['sl_adelanta'] == "si" && $datos['sl_condicion'] == "Repite") {
-            if ($consultaExistenciaAdelta != null) {
+            if ($consultaExistenciaAdelanta != null) {
                 //Si ya existe  Adelanto/Arraste, actualizo
                 $posData = array(
                     'anio' => $datos['anio'],
@@ -602,7 +604,7 @@ class Matricula_Model extends Models {
                     'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1));
             }
         } else {
-            if ($consultaExistenciaEnfermedad != null) {
+            if ($consultaExistenciaAdelanta != null) {
                 //Borro datos
                 $sth = $this->db->prepare("DELETE FROM sipce_adelanta WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
                 $sth->execute();
@@ -900,10 +902,10 @@ class Matricula_Model extends Models {
         }
 
         //Consulto si ya existe Adelanto/Arraste
-        $consultaExistenciaAdelta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+        $consultaExistenciaAdelanta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
 
         if ($datos['sl_adelanta'] == "si" && $datos['sl_condicion'] == "Repite") {
-            if ($consultaExistenciaAdelta != null) {
+            if ($consultaExistenciaAdelanta != null) {
                 //Si ya existe  Adelanto/Arraste, actualizo
                 $posData = array(
                     'anio' => $datos['anio'],
@@ -919,7 +921,7 @@ class Matricula_Model extends Models {
                     'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1));
             }
         } else {
-            if ($consultaExistenciaEnfermedad != null) {
+            if ($consultaExistenciaAdelanta != null) {
                 //Borro datos
                 $sth = $this->db->prepare("DELETE FROM sipce_adelanta WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
                 $sth->execute();
