@@ -1,9 +1,43 @@
+$.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '<Ant',
+ nextText: 'Sig>',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd/mm/yy',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+ 
 $(function()
 {
     //Fecha Nacimiento//
-    $("#tf_fnacpersona").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#tf_fnacpersona").datepicker({dateFormat: 'yy-mm-dd',
+                                    changeMonth: true,
+                                    changeYear: true
+                                    });
+                                    
     //Fecha Vence Poliza//
-    $("#tf_polizaVence").datepicker({dateFormat: 'yy-mm-dd'});
+    $("#tf_polizaVence").datepicker({dateFormat: 'yy-mm-dd',
+                                    changeMonth: true,
+                                    changeYear: true
+                                    });
+                                    
+    //Edad Estudiante al cambiar fecha//
+    $("#tf_fnacpersona").change(function() {
+        $("#tf_edad").empty();
+        var fechaNacimiento=$("#tf_fnacpersona").val();
+        var anioNacimiento = 2015 - (fechaNacimiento).substring(0, 4);
+        $("#tf_edad").val(anioNacimiento);
+        });
 
     //Carga los cantones//
     $("#tf_provincias").change(function() {

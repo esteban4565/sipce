@@ -241,11 +241,11 @@ class Matricula extends Controllers {
         $datos = array();
         $datos['tf_nacionalidad'] = $_POST['tf_nacionalidad'];
         $datos['tf_telHabitEstudiante'] = $_POST['tf_telHabitEstudiante'];
-        $datos['tf_cedulaEstudiante'] = $_POST['tf_cedulaEstudiante'];
+        $datos['tf_cedulaEstudiante'] = strtoupper($_POST['tf_cedulaEstudiante']);
         $datos['tf_genero'] = $_POST['tf_genero'];
-        $datos['tf_ape1'] = $_POST['tf_ape1'];
-        $datos['tf_ape2'] = $_POST['tf_ape2'];
-        $datos['tf_nombre'] = $_POST['tf_nombre'];
+        $datos['tf_ape1'] = strtoupper($_POST['tf_ape1']);
+        $datos['tf_ape2'] = strtoupper($_POST['tf_ape2']);
+        $datos['tf_nombre'] = strtoupper($_POST['tf_nombre']);
         $datos['tf_fnacpersona'] = $_POST['tf_fnacpersona'];
         $datos['tf_telcelular'] = $_POST['tf_telcelular'];
         $datos['tf_email'] = $_POST['tf_email'];
@@ -257,34 +257,34 @@ class Matricula extends Controllers {
         $datos['sel_enfermedad'] = $_POST['sel_enfermedad'];
         $datos['tf_enfermedadDescripcion'] = $_POST['tf_enfermedadDescripcion'];
         
-        $datos['tf_cedulaEncargado'] = $_POST['tf_cedulaEncargado'];
-        $datos['tf_ape1Encargado'] = $_POST['tf_ape1Encargado'];
-        $datos['tf_ape2Encargado'] = $_POST['tf_ape2Encargado'];
-        $datos['tf_nombreEncargado'] = $_POST['tf_nombreEncargado'];
+        $datos['tf_cedulaEncargado'] = strtoupper($_POST['tf_cedulaEncargado']);
+        $datos['tf_ape1Encargado'] = strtoupper($_POST['tf_ape1Encargado']);
+        $datos['tf_ape2Encargado'] = strtoupper($_POST['tf_ape2Encargado']);
+        $datos['tf_nombreEncargado'] = strtoupper($_POST['tf_nombreEncargado']);
         $datos['tf_telHabitEncargado'] = $_POST['tf_telHabitEncargado'];
         $datos['tf_telcelularEncargado'] = $_POST['tf_telcelularEncargado'];
         $datos['tf_ocupacionEncargado'] = $_POST['tf_ocupacionEncargado'];
         $datos['tf_emailEncargado'] = $_POST['tf_emailEncargado'];
         $datos['sel_parentesco'] = $_POST['sel_parentesco'];
         
-        $datos['tf_cedulaMadre'] = $_POST['tf_cedulaMadre'];
-        $datos['tf_ape1Madre'] = $_POST['tf_ape1Madre'];
-        $datos['tf_ape2Madre'] = $_POST['tf_ape2Madre'];
-        $datos['tf_nombreMadre'] = $_POST['tf_nombreMadre'];
+        $datos['tf_cedulaMadre'] = strtoupper($_POST['tf_cedulaMadre']);
+        $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre']);
+        $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre']);
+        $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre']);
         $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
         $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
         
-        $datos['tf_cedulaPadre'] = $_POST['tf_cedulaPadre'];
-        $datos['tf_ape1Padre'] = $_POST['tf_ape1Padre'];
-        $datos['tf_ape2Padre'] = $_POST['tf_ape2Padre'];
-        $datos['tf_nombrePadre'] = $_POST['tf_nombrePadre'];
+        $datos['tf_cedulaPadre'] = strtoupper($_POST['tf_cedulaPadre']);
+        $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre']);
+        $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre']);
+        $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre']);
         $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
         $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
         
-        $datos['tf_cedulaPersonaEmergencia'] = $_POST['tf_cedulaPersonaEmergencia'];
-        $datos['tf_ape1PersonaEmergencia'] = $_POST['tf_ape1PersonaEmergencia'];
-        $datos['tf_ape2PersonaEmergencia'] = $_POST['tf_ape2PersonaEmergencia'];
-        $datos['tf_nombrePersonaEmergencia'] = $_POST['tf_nombrePersonaEmergencia'];
+        $datos['tf_cedulaPersonaEmergencia'] = strtoupper($_POST['tf_cedulaPersonaEmergencia']);
+        $datos['tf_ape1PersonaEmergencia'] = strtoupper($_POST['tf_ape1PersonaEmergencia']);
+        $datos['tf_ape2PersonaEmergencia'] = strtoupper($_POST['tf_ape2PersonaEmergencia']);
+        $datos['tf_nombrePersonaEmergencia'] = strtoupper($_POST['tf_nombrePersonaEmergencia']);
         $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
         $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
         $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];
@@ -314,10 +314,10 @@ class Matricula extends Controllers {
     function guardarNuevoIngreso() {
         $datos = array();
         $datos['tf_nacionalidad'] = $_POST['tf_nacionalidad'];
-        $datos['tf_cedulaEstudiante'] = $_POST['tf_cedulaEstudiante'];
-        $datos['tf_ape1'] = $_POST['tf_ape1'];
-        $datos['tf_ape2'] = $_POST['tf_ape2'];
-        $datos['tf_nombre'] = $_POST['tf_nombre'];
+        $datos['tf_cedulaEstudiante'] = strtoupper($_POST['tf_cedulaEstudiante']);
+        $datos['tf_ape1'] = strtoupper($_POST['tf_ape1']);
+        $datos['tf_ape2'] = strtoupper($_POST['tf_ape2']);
+        $datos['tf_nombre'] = strtoupper($_POST['tf_nombre']);
         $datos['tf_fnacpersona'] = $_POST['tf_fnacpersona'];
         $datos['tf_genero'] = $_POST['tf_genero'];
         $datos['tf_telHabitEstudiante'] = $_POST['tf_telHabitEstudiante'];
@@ -331,34 +331,34 @@ class Matricula extends Controllers {
         $datos['sel_enfermedad'] = $_POST['sel_enfermedad'];
         $datos['tf_enfermedadDescripcion'] = $_POST['tf_enfermedadDescripcion'];
         
-        $datos['tf_cedulaEncargado'] = $_POST['tf_cedulaEncargado_NI'];
-        $datos['tf_ape1Encargado'] = $_POST['tf_ape1Encargado_NI'];
-        $datos['tf_ape2Encargado'] = $_POST['tf_ape2Encargado_NI'];
-        $datos['tf_nombreEncargado'] = $_POST['tf_nombreEncargado_NI'];
+        $datos['tf_cedulaEncargado'] = strtoupper($_POST['tf_cedulaEncargado_NI']);
+        $datos['tf_ape1Encargado'] = strtoupper($_POST['tf_ape1Encargado_NI']);
+        $datos['tf_ape2Encargado'] = strtoupper($_POST['tf_ape2Encargado_NI']);
+        $datos['tf_nombreEncargado'] = strtoupper($_POST['tf_nombreEncargado_NI']);
         $datos['tf_telHabitEncargado'] = $_POST['tf_telHabitEncargado'];
         $datos['tf_telcelularEncargado'] = $_POST['tf_telcelularEncargado'];
         $datos['tf_ocupacionEncargado'] = $_POST['tf_ocupacionEncargado'];
         $datos['tf_emailEncargado'] = $_POST['tf_emailEncargado'];
         $datos['sel_parentesco'] = $_POST['sel_parentesco'];
         
-        $datos['tf_cedulaMadre'] = $_POST['tf_cedulaMadre_NI'];
-        $datos['tf_ape1Madre'] = $_POST['tf_ape1Madre_NI'];
-        $datos['tf_ape2Madre'] = $_POST['tf_ape2Madre_NI'];
-        $datos['tf_nombreMadre'] = $_POST['tf_nombreMadre_NI'];
+        $datos['tf_cedulaMadre'] = strtoupper($_POST['tf_cedulaMadre_NI']);
+        $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre_NI']);
+        $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre_NI']);
+        $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre_NI']);
         $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
         $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
         
-        $datos['tf_cedulaPadre'] = $_POST['tf_cedulaPadre_NI'];
-        $datos['tf_ape1Padre'] = $_POST['tf_ape1Padre_NI'];
-        $datos['tf_ape2Padre'] = $_POST['tf_ape2Padre_NI'];
-        $datos['tf_nombrePadre'] = $_POST['tf_nombrePadre_NI'];
+        $datos['tf_cedulaPadre'] = strtoupper($_POST['tf_cedulaPadre_NI']);
+        $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre_NI']);
+        $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre_NI']);
+        $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre_NI']);
         $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
         $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
         
-        $datos['tf_cedulaPersonaEmergencia'] = $_POST['tf_cedulaPersonaEmergencia_NI'];
-        $datos['tf_ape1PersonaEmergencia'] = $_POST['tf_ape1PersonaEmergencia_NI'];
-        $datos['tf_ape2PersonaEmergencia'] = $_POST['tf_ape2PersonaEmergencia_NI'];
-        $datos['tf_nombrePersonaEmergencia'] = $_POST['tf_nombrePersonaEmergencia_NI'];
+        $datos['tf_cedulaPersonaEmergencia'] = strtoupper($_POST['tf_cedulaPersonaEmergencia_NI']);
+        $datos['tf_ape1PersonaEmergencia'] = strtoupper($_POST['tf_ape1PersonaEmergencia_NI']);
+        $datos['tf_ape2PersonaEmergencia'] = strtoupper($_POST['tf_ape2PersonaEmergencia_NI']);
+        $datos['tf_nombrePersonaEmergencia'] = strtoupper($_POST['tf_nombrePersonaEmergencia_NI']);
         $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
         $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
         $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];

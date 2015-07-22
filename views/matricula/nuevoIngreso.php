@@ -22,7 +22,7 @@
                     </div>
                     <label for="tf_cedulaEstudiante" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante"/>
                     </div>
                     <div class="col-lg-2">
                         <input type="button" class="btn-sm btn-success" id="buscarEstudiante" value="Buscar"  style="display:block;"/>
@@ -32,15 +32,15 @@
                 <div class="form-group">
                     <label for="tf_ape1" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm validate[required]"  id="tf_ape1" name="tf_ape1"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1" name="tf_ape1"/>
                     </div>
                     <label for="tf_ape2" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2" name="tf_ape2"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2" name="tf_ape2"/>
                     </div>
                     <label for="tf_nombre" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm validate[required]"  id="tf_nombre" name="tf_nombre"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombre" name="tf_nombre"/>
                     </div> 
                 </div> 
                 <!--L3 Fecha Nacimiento (Formulario Hugo)-->
@@ -155,7 +155,7 @@
                 <div class="form-group"> 
                     <label for="tf_cedulaEncargado_NI" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm validate[required]" name="tf_cedulaEncargado_NI" id="tf_cedulaEncargado_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEncargado_NI" id="tf_cedulaEncargado_NI"/>
                     </div>
                     <div class="col-lg-2">
                         <input type="button" class="btn-sm btn-success" id="buscarEncargado_NI" value="Buscar" />
@@ -213,7 +213,7 @@
                 <div class="form-group"> 
                     <label for="tf_cedulaMadre_NI" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm " name="tf_cedulaMadre_NI" id="tf_cedulaMadre_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm " name="tf_cedulaMadre_NI" id="tf_cedulaMadre_NI"/>
                     </div>
                     <div class="col-lg-2">
                         <input type="button" class="btn-sm btn-success" id="buscarMadre_NI" value="Buscar" />
@@ -223,15 +223,15 @@
                 <div class="form-group">
                     <label for="tf_ape1Madre_NI" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape1Madre_NI" name="tf_ape1Madre_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Madre_NI" name="tf_ape1Madre_NI"/>
                     </div>
                     <label for="tf_ape2Madre_NI" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2Madre_NI" name="tf_ape2Madre_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Madre_NI" name="tf_ape2Madre_NI"/>
                     </div>
                     <label for="tf_nombreMadre_NI" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_nombreMadre_NI" name="tf_nombreMadre_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_nombreMadre_NI" name="tf_nombreMadre_NI"/>
                     </div> 
                 </div> 
                 <!--L15 Telefonos y Ocupación de la Madre (Formulario Hugo)-->
@@ -251,7 +251,7 @@
                 <div class="form-group"> 
                     <label for="tf_cedulaPadre_NI" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm " name="tf_cedulaPadre_NI" id="tf_cedulaPadre_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm " name="tf_cedulaPadre_NI" id="tf_cedulaPadre_NI"/>
                     </div>
                     <div class="col-lg-2">
                         <input type="button" class="btn-sm btn-success" id="buscarPadre_NI" value="Buscar" />
@@ -261,15 +261,15 @@
                 <div class="form-group">
                     <label for="tf_ape1Padre_NI" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape1Padre_NI" name="tf_ape1Padre_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Padre_NI" name="tf_ape1Padre_NI"/>
                     </div>
                     <label for="tf_ape2Padre_NI" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2Padre_NI" name="tf_ape2Padre_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Padre_NI" name="tf_ape2Padre_NI"/>
                     </div>
                     <label for="tf_nombrePadre_NI" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_nombrePadre_NI" name="tf_nombrePadre_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_nombrePadre_NI" name="tf_nombrePadre_NI"/>
                     </div> 
                 </div> 
                 <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
@@ -289,7 +289,7 @@
                 <div class="form-group"> 
                     <label for="tf_cedulaPersonaEmergencia_NI" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm validate[required]" name="tf_cedulaPersonaEmergencia_NI" id="tf_cedulaPersonaEmergencia_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaPersonaEmergencia_NI" id="tf_cedulaPersonaEmergencia_NI"/>
                     </div>
                     <div class="col-lg-2">
                         <input type="button" class="btn-sm btn-success" id="buscarPersonaEmergencia_NI" value="Buscar" />
@@ -299,15 +299,15 @@
                 <div class="form-group">
                     <label for="tf_ape1PersonaEmergencia_NI" class="col-lg-2 control-label">1er Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm validate[required]"  id="tf_ape1PersonaEmergencia_NI" name="tf_ape1PersonaEmergencia_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1PersonaEmergencia_NI" name="tf_ape1PersonaEmergencia_NI"/>
                     </div>
                     <label for="tf_ape2PersonaEmergencia_NI" class="col-lg-2 control-label">2do Apellido:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2PersonaEmergencia_NI" name="tf_ape2PersonaEmergencia_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2PersonaEmergencia_NI" name="tf_ape2PersonaEmergencia_NI"/>
                     </div>
                     <label for="tf_nombrePersonaEmergencia_NI" class="col-lg-2 control-label">Nombre completo:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control input-sm validate[required]"  id="tf_nombrePersonaEmergencia_NI" name="tf_nombrePersonaEmergencia_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombrePersonaEmergencia_NI" name="tf_nombrePersonaEmergencia_NI"/>
                     </div> 
                 </div> 
                 <!--L21 Telefonos de la Persona En Caso de Emergencia (Formulario Hugo)-->
