@@ -287,6 +287,8 @@ class Matricula extends Controllers {
         $datos['tf_nombrePersonaEmergencia'] = strtoupper($_POST['tf_nombrePersonaEmergencia']);
         $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
         $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
+        $datos['sel_parentescoCasoEmergencia'] = $_POST['sel_parentescoCasoEmergencia'];
+        
         $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];
         if ($_POST['sl_nivelMatricular'] > 9) {
             $datos['tf_especialidad'] = $_POST['tf_especialidad'];
@@ -361,6 +363,8 @@ class Matricula extends Controllers {
         $datos['tf_nombrePersonaEmergencia'] = strtoupper($_POST['tf_nombrePersonaEmergencia_NI']);
         $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
         $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
+        $datos['sel_parentescoCasoEmergencia'] = $_POST['sel_parentescoCasoEmergencia'];
+        
         $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];
         if ($_POST['sl_nivelMatricular'] > 9) {
             $datos['tf_especialidad'] = $_POST['tf_especialidad'];

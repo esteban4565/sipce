@@ -8,7 +8,7 @@
 //print_r($this->padreEstudiante);
 //echo '<br>';
 //
-//print_r($this->becasEstudiante);
+//print_r($this->personaEmergenciaEstudiante);
 //die;
 ?>
 <div class="row">
@@ -302,6 +302,15 @@
                 <h4>En Caso de Emergencia Llamar a:</h4>
                 <!--L19 Cedula Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group"> 
+                    <label for="tf_parentescoCasoEmergencia" class="col-lg-2 control-label">Parentesco:</label>
+                    <div class="col-lg-2">
+                        <select  class="form-control input-sm validate[required]" name="sel_parentescoCasoEmergencia" id="sel_parentescoCasoEmergencia"> 
+                                <option value="">Seleccione</option> 
+                                <option value="Padre" <?php if ($this->personaEmergenciaEstudiante != null && $this->personaEmergenciaEstudiante[0]['parentesco'] == 'Padre') echo 'selected'; ?>>Padre</option> 
+                                <option value="Madre" <?php if ($this->personaEmergenciaEstudiante != null && $this->personaEmergenciaEstudiante[0]['parentesco'] == 'Madre') echo 'selected'; ?>>Madre</option>
+                                <option value="Otro" <?php if ($this->personaEmergenciaEstudiante != null && $this->personaEmergenciaEstudiante[0]['parentesco'] == 'Otro') echo 'selected'; ?>>Otro</option>
+                        </select>
+                    </div>
                     <label for="tf_cedulaPersonaEmergencia" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
                         <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaPersonaEmergencia" id="tf_cedulaPersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['ced_personaEmergencia']; ?>'/>

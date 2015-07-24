@@ -143,7 +143,7 @@ class Matricula_Model extends Models {
     /* Retorna la informacion de la Padre Estudiante */
 
     public function personaEmergenciaEstudiante($cedulaEstudiante) {
-        return $this->db->select("SELECT ced_personaEmergencia,nombre_personaEmergencia,apellido1_personaEmergencia,"
+        return $this->db->select("SELECT ced_personaEmergencia,parentesco,nombre_personaEmergencia,apellido1_personaEmergencia,"
                         . "apellido2_personaEmergencia,telefonoCasaPersonaEmergencia,telefonoCelularPersonaEmergencia "
                         . "FROM sipce_personaemergencia  "
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
@@ -555,6 +555,7 @@ class Matricula_Model extends Models {
             //Si ya existe la Persona Emergencia la actualizo
             $posData = array(
                 'ced_personaEmergencia' => $datos['tf_cedulaPersonaEmergencia'],
+                'parentesco' => $datos['sel_parentescoCasoEmergencia'],
                 'nombre_personaEmergencia' => $datos['tf_nombrePersonaEmergencia'],
                 'apellido1_personaEmergencia' => $datos['tf_ape1PersonaEmergencia'],
                 'apellido2_personaEmergencia' => $datos['tf_ape2PersonaEmergencia'],
@@ -566,6 +567,7 @@ class Matricula_Model extends Models {
             $this->db->insert('sipce_personaemergencia', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'ced_personaEmergencia' => $datos['tf_cedulaPersonaEmergencia'],
+                'parentesco' => $datos['sel_parentescoCasoEmergencia'],
                 'nombre_personaEmergencia' => $datos['tf_nombrePersonaEmergencia'],
                 'apellido1_personaEmergencia' => $datos['tf_ape1PersonaEmergencia'],
                 'apellido2_personaEmergencia' => $datos['tf_ape2PersonaEmergencia'],
@@ -885,6 +887,7 @@ class Matricula_Model extends Models {
             $this->db->insert('sipce_personaemergencia', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'ced_personaEmergencia' => $datos['tf_cedulaPersonaEmergencia'],
+                'parentesco' => $datos['sel_parentescoCasoEmergencia'],
                 'nombre_personaEmergencia' => $datos['tf_nombrePersonaEmergencia'],
                 'apellido1_personaEmergencia' => $datos['tf_ape1PersonaEmergencia'],
                 'apellido2_personaEmergencia' => $datos['tf_ape2PersonaEmergencia'],

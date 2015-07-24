@@ -126,7 +126,6 @@ $(function()
         }
     });
 
-
     //Carga datos de Encargado Legal a Padre o Madre//
     $("#sel_parentesco").change(function() {
         var parentesco = $("#sel_parentesco").val();
@@ -146,6 +145,27 @@ $(function()
                 $("#tf_nombreMadre").val($("#tf_nombreEncargado").val());
                 $("#tf_telCelMadre").val($("#tf_telcelularEncargado").val());
                 $("#tf_ocupacionMadre").val($("#tf_ocupacionEncargado").val());
+            }
+        }
+    });
+
+    //Carga datos de Padre o Madre a PersonaEmergencia//
+    $("#sel_parentescoCasoEmergencia").change(function() {
+        var parentesco = $("#sel_parentescoCasoEmergencia").val();
+        if (parentesco === 'Padre') {
+            $("#tf_cedulaPersonaEmergencia").val($("#tf_cedulaPadre").val());
+            $("#tf_ape1PersonaEmergencia").val($("#tf_ape1Padre").val());
+            $("#tf_ape2PersonaEmergencia").val($("#tf_ape2Padre").val());
+            $("#tf_nombrePersonaEmergencia").val($("#tf_nombrePadre").val());
+            $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelPadre").val());
+        } else
+        {
+            if (parentesco === 'Madre') {
+                $("#tf_cedulaPersonaEmergencia").val($("#tf_cedulaMadre").val());
+                $("#tf_ape1PersonaEmergencia").val($("#tf_ape1Madre").val());
+                $("#tf_ape2PersonaEmergencia").val($("#tf_ape2Madre").val());
+                $("#tf_nombrePersonaEmergencia").val($("#tf_nombreMadre").val());
+                $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelMadre").val());
             }
         }
     });

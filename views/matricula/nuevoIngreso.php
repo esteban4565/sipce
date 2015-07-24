@@ -287,6 +287,15 @@
                 <h4>En Caso de Emergencia Llamar a:</h4>
                 <!--L19 Cedula Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group"> 
+                    <label for="tf_parentescoCasoEmergencia" class="col-lg-2 control-label">Parentesco:</label>
+                    <div class="col-lg-2">
+                        <select  class="form-control input-sm validate[required]" name="sel_parentescoCasoEmergencia" id="sel_parentescoCasoEmergencia"> 
+                            <option value="">Seleccione</option>
+                            <option value="Padre">Padre</option>
+                            <option value="Madre">Madre</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
                     <label for="tf_cedulaPersonaEmergencia_NI" class="col-lg-2 control-label">Identificación:</label>
                     <div class="col-lg-2">
                         <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaPersonaEmergencia_NI" id="tf_cedulaPersonaEmergencia_NI"/>
