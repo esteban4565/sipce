@@ -1,6 +1,6 @@
 <center>
     <p class="text-success">Importante!</p>
-    <p>Usuario de SIPCE, la solicitud del password o contraseña será enviada al correo electronico asociado a la cuenta.</p>
+    <p>Usuario de SIPCE, la solicitud del password o contraseña será enviada al correo electrónico asociado a la cuenta.</p>
     <br/>
 </center>
     <h2>Solicitud del Password o Contraseña</h2>

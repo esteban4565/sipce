@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-2">
-            Leccion / Hora
+            Lección / Hora
         </div>
         <div class="col-xs-2">
             Lunes
@@ -12,7 +12,7 @@
             Martes
         </div>
         <div class="col-xs-2">
-            Miercoles
+            Miércoles
         </div>
         <div class="col-xs-2">
             Jueves
@@ -41,7 +41,7 @@
             Martes
         </div>
         <div class="col-xs-2">
-            Miercoles
+            Miércoles
         </div>
         <div class="col-xs-2">
             Jueves
@@ -53,11 +53,3 @@
 </div>
 
 </form>
-
-<?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>

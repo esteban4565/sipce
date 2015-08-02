@@ -54,7 +54,7 @@
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad"/>
                     </div>
-                    <label for="tf_genero" class="col-xs-2 control-label">Genero:</label>
+                    <label for="tf_genero" class="col-xs-2 control-label">Género:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="tf_genero" id="tf_genero">
                             <option value="">Seleccione</option>
@@ -101,7 +101,7 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="tf_cantones_NI" class="col-xs-2 control-label">Canton:</label>
+                    <label for="tf_cantones_NI" class="col-xs-2 control-label">Cantón:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="tf_cantones_NI" id="tf_cantones_NI">
                             <option value="">Seleccione</option>
@@ -137,7 +137,7 @@
                 </div>
                 <!--L8 Enfermedad (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_enfermedad" class="col-xs-2 control-label">¿Poseé axsuna enfermedad?</label>
+                    <label for="tf_enfermedad" class="col-xs-2 control-label">¿Padece alguna enfermedad?</label>
                     <div class="col-xs-2">
                         <select  class="form-control input-sm" name="sel_enfermedad" id="sel_enfermedad"> 
                             <option value="0" selected>No</option> 
@@ -427,7 +427,7 @@
             <!--L25 Imprimir y Guardar (Formulario Hugo)-->
             <div class="form-group"> 
                 <div class="col-xs-12 text-center">
-                    <input type="submit" class="btn-xs btn-primary" id="guardar" value="Guardar e Imprimir" />
+                    <input type="submit" class="btn btn-primary" id="guardar" value="Guardar e Imprimir" />
                 </div>
             </div>
         </fieldset>

@@ -14,7 +14,7 @@
             <th>2º Apellido</th>
             <th>Nombre</th>
             <th>Nivel</th>
-            <th>Condicón</th>
+            <th>Condición</th>
             <th colspan="2" class="text-center">Acción</th>
         </tr>
         <?php
@@ -56,7 +56,7 @@
             <td colspan='5' class="lineaFin"></td>
         </tr>
         <tr>
-            <td colspan='5'>Ultima linea</td>
+            <td colspan='5'>Ultima línea</td>
         </tr>
     </table>
 </center>

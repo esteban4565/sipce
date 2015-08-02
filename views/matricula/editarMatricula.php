@@ -40,15 +40,15 @@
                 <div class="form-group">
                     <label for="tf_ape1" class="col-xs-2 control-label">1er Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1" name="tf_ape1" value='<?php echo $this->infoEstudiante[0]['apellido1']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1" name="tf_ape1" value='<?php echo $this->infoEstudiante[0]['apellido1']; ?>'/>
                     </div>
                     <label for="tf_ape2" class="col-xs-2 control-label">2do Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2" name="tf_ape2" value='<?php echo $this->infoEstudiante[0]['apellido2']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2" name="tf_ape2" value='<?php echo $this->infoEstudiante[0]['apellido2']; ?>'/>
                     </div>
                     <label for="tf_nombre" class="col-xs-2 control-label">Nombre completo:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombre" name="tf_nombre" value='<?php echo $this->infoEstudiante[0]['nombre']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombre" name="tf_nombre" value='<?php echo $this->infoEstudiante[0]['nombre']; ?>'/>
                     </div> 
                 </div> 
                 <!--L3 Fecha Nacimiento (Formulario Hugo)-->
@@ -59,9 +59,9 @@
                     </div>
                     <label for="tf_edad" class="col-xs-2 control-label">Edad:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad" value='<?php if ($this->anio != null) echo $this->anio - (date(substr($this->infoEstudiante[0]['fechaNacimiento'], 0, 4))); ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad" value='<?php if ($this->anio != null) echo $this->anio - (date(substr($this->infoEstudiante[0]['fechaNacimiento'], 0, 4))); ?>'/>
                     </div>
-                    <label for="tf_genero" class="col-xs-2 control-label">Genero:</label>
+                    <label for="tf_genero" class="col-xs-2 control-label">Género:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="tf_genero" id="tf_genero">
                             <option value="">Seleccione</option>
@@ -108,7 +108,7 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="tf_cantones" class="col-xs-2 control-label">Canton:</label>
+                    <label for="tf_cantones" class="col-xs-2 control-label">Cantón:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="tf_cantones" id="tf_cantones">
                             <option value="">Seleccione</option>
@@ -144,7 +144,7 @@
                 </div>
                 <!--L8 Enfermedad (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_enfermedad" class="col-xs-2 control-label">¿Poseé axsuna enfermedad?</label>
+                    <label for="tf_enfermedad" class="col-xs-2 control-label">¿Padece alguna enfermedad?</label>
                     <div class="col-xs-2">
                         <select  class="form-control input-sm" name="sel_enfermedad" id="sel_enfermedad">
                             <option value="0" <?php if ($this->enfermedadEstudiante == null) echo 'selected'; ?>>No</option> 
@@ -179,15 +179,15 @@
                 <div class="form-group">
                     <label for="tf_ape1Encargado" class="col-xs-2 control-label">1er Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1Encargado" name="tf_ape1Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido1_encargado']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1Encargado" name="tf_ape1Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido1_encargado']; ?>'/>
                     </div>
                     <label for="tf_ape2Encargado" class="col-xs-2 control-label">2do Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Encargado" name="tf_ape2Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido2_encargado']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Encargado" name="tf_ape2Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido2_encargado']; ?>'/>
                     </div>
                     <label for="tf_nombreEncargado" class="col-xs-2 control-label">Nombre completo:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombreEncargado" name="tf_nombreEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['nombre_encargado']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombreEncargado" name="tf_nombreEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['nombre_encargado']; ?>'/>
                     </div> 
                 </div> 
                 <!--L11 Telefono Habitacion y celular (Formulario Hugo)-->
@@ -238,15 +238,15 @@
                 <div class="form-group">
                     <label for="tf_ape1Madre" class="col-xs-2 control-label">1er Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Madre" name="tf_ape1Madre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['apellido1_madre']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Madre" name="tf_ape1Madre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['apellido1_madre']; ?>'/>
                     </div>
                     <label for="tf_ape2Madre" class="col-xs-2 control-label">2do Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Madre" name="tf_ape2Madre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['apellido2_madre']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Madre" name="tf_ape2Madre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['apellido2_madre']; ?>'/>
                     </div>
                     <label for="tf_nombreMadre" class="col-xs-2 control-label">Nombre completo:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_nombreMadre" name="tf_nombreMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['nombre_madre']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_nombreMadre" name="tf_nombreMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['nombre_madre']; ?>'/>
                     </div> 
                 </div> 
                 <!--L15 Telefonos y Ocupación de la Madre (Formulario Hugo)-->
@@ -276,15 +276,15 @@
                 <div class="form-group">
                     <label for="tf_ape1Padre" class="col-xs-2 control-label">1er Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Padre" name="tf_ape1Padre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['apellido1_padre']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Padre" name="tf_ape1Padre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['apellido1_padre']; ?>'/>
                     </div>
                     <label for="tf_ape2Padre" class="col-xs-2 control-label">2do Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Padre" name="tf_ape2Padre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['apellido2_padre']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Padre" name="tf_ape2Padre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['apellido2_padre']; ?>'/>
                     </div>
                     <label for="tf_nombrePadre" class="col-xs-2 control-label">Nombre completo:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_nombrePadre" name="tf_nombrePadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['nombre_padre']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_nombrePadre" name="tf_nombrePadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['nombre_padre']; ?>'/>
                     </div> 
                 </div> 
                 <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
@@ -323,15 +323,15 @@
                 <div class="form-group">
                     <label for="tf_ape1PersonaEmergencia" class="col-xs-2 control-label">1er Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1PersonaEmergencia" name="tf_ape1PersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1PersonaEmergencia" name="tf_ape1PersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia']; ?>'/>
                     </div>
                     <label for="tf_ape2PersonaEmergencia" class="col-xs-2 control-label">2do Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2PersonaEmergencia" name="tf_ape2PersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['apellido2_personaEmergencia']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2PersonaEmergencia" name="tf_ape2PersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['apellido2_personaEmergencia']; ?>'/>
                     </div>
                     <label for="tf_nombrePersonaEmergencia" class="col-xs-2 control-label">Nombre completo:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombrePersonaEmergencia" name="tf_nombrePersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['nombre_personaEmergencia']; ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombrePersonaEmergencia" name="tf_nombrePersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['nombre_personaEmergencia']; ?>'/>
                     </div> 
                 </div> 
                 <!--L21 Telefonos de la Persona En Caso de Emergencia (Formulario Hugo)-->
@@ -476,7 +476,7 @@
             <!--L26 Imprimir y Guardar (Formulario Hugo)-->
             <div class="form-group"> 
                 <div class="col-xs-12 text-center">
-                    <input type="submit" class="btn-xs btn-primary" id="guardar" value="Guardar e Imprimir" />
+                    <input type="submit" class="btn btn-primary" id="guardar" value="Guardar e Imprimir" />
                 </div>
             </div>
         </fieldset>

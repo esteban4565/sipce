@@ -5,7 +5,7 @@ Las siguientes cedulas no existen el BD_Padron de Registro Civil (2013), favor v
 <table>
     <tr>
         <th># Registro</th>
-        <th>Cedula Estudiante</th>
+        <th>Cédula Estudiante</th>
         <th>Nombre Estudiante</th>
         <th>Primer Apellido</th>
         <th>Segundo Apellido</th>

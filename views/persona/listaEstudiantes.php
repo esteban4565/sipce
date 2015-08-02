@@ -55,7 +55,7 @@
             <td colspan='8' class="text-center"></td>
         </tr>
         <tr>
-            <td colspan='8'class="text-center">Ultima linea</td>
+            <td colspan='8'class="text-center">Ultima línea</td>
         </tr>
     </table>
 </center>

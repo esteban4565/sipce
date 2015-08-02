@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="<?php echo URL; ?>public/font-awesome/css/font-awesome.min.css">
     </head>
 <body>
-  <div class="container">
+<div class="container">
     <div class="row" id="docPrint"> 
       <!Linea#1>
       <div class="col-xs-2">
@@ -165,10 +165,10 @@
           <br>
       </div>
       <!Linea#11>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Nombre del encargado legal:&nbsp;
       </div>
-      <div class="col-xs-1 text-center">
+      <div class="col-xs-2 text-center">
       <?php echo $this->encargadoLegal[0]['apellido1_encargado']; ?>
       </div>
       <div class="col-xs-2 text-center">
@@ -187,10 +187,10 @@
           <br>
       </div>-->
       <!Linea#12>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Teléfono habitación:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-3 text-left">
       <?php if($this->encargadoLegal[0]['telefonoCasaEncargado']!=null){echo $this->encargadoLegal[0]['telefonoCasaEncargado'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-right">
@@ -203,10 +203,10 @@
           <br>
       </div>-->
       <!Linea#13>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Ocupación:&nbsp;
       </div>
-      <div class="col-xs-2 text-left">
+      <div class="col-xs-3 text-left">
       <?php echo $this->encargadoLegal[0]['ocupacionEncargado']; ?>
       </div>
       <div class="col-xs-2 text-right">
@@ -219,10 +219,10 @@
           <br>
       </div>-->
       <!Linea#14>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Nombre de la madre:&nbsp;
       </div>
-      <div class="col-xs-1 text-center">
+      <div class="col-xs-2 text-center">
           <?php if($this->madreEstudiante[0]['apellido1_madre']!=null){echo $this->madreEstudiante[0]['apellido1_madre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
@@ -241,7 +241,7 @@
           <br>
       </div>-->
       <!Linea#15>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Celular:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
@@ -250,17 +250,17 @@
       <div class="col-xs-2 text-right">
       Ocupación:&nbsp;
       </div>
-      <div class="col-xs-4 text-left">
+      <div class="col-xs-5 text-left">
           <?php if($this->madreEstudiante[0]['ocupacionMadre']!=null){echo $this->madreEstudiante[0]['ocupacionMadre'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
       </div>-->
       <!Linea#16>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Nombre del padre:&nbsp;
       </div>
-      <div class="col-xs-1 text-center">
+      <div class="col-xs-2 text-center">
           <?php if($this->padreEstudiante[0]['apellido1_padre']!=null){echo $this->padreEstudiante[0]['apellido1_padre'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
@@ -279,7 +279,7 @@
           <br>
       </div>-->
       <!Linea#17>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Celular:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
@@ -288,17 +288,17 @@
       <div class="col-xs-2 text-right">
       Ocupación:&nbsp;
       </div>
-      <div class="col-xs-4 text-left">
+      <div class="col-xs-5 text-left">
           <?php if($this->padreEstudiante[0]['ocupacionPadre']!=null){echo $this->padreEstudiante[0]['ocupacionPadre'];}else{echo '&nbsp;';} ?>
       </div>
 <!--      <div class="col-xs-12">
           <br>
       </div>-->
       <!Linea#18>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       En caso de emergencia llamar a:&nbsp;
       </div>
-      <div class="col-xs-1 text-center">
+      <div class="col-xs-2 text-center">
           <?php if($this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia']!=null){echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-2 text-center">
@@ -317,17 +317,17 @@
           <br>
       </div>-->
       <!Linea#19>
-      <div class="col-xs-4 text-right">
+      <div class="col-xs-3 text-right">
       Teléfono habitación:&nbsp;
       </div>
       <div class="col-xs-2 text-left">
-          <?php if($this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia']!=0){echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia'];}else{echo '&nbsp;';} ?>
+          <?php if($this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia']!=0){echo $this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
-      <div class="col-xs-2 text-right">
+      <div class="col-xs-3 text-right">
       Celular:&nbsp;
       </div>
       <div class="col-xs-4 text-left">
-          <?php if($this->personaEmergenciaEstudiante[0]['telefonoCelularPersonaEmergencia']!=0){echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia'];}else{echo '&nbsp;';} ?>
+          <?php if($this->personaEmergenciaEstudiante[0]['telefonoCelularPersonaEmergencia']!=0){echo $this->personaEmergenciaEstudiante[0]['telefonoCelularPersonaEmergencia'];}else{echo '&nbsp;';} ?>
       </div>
       <div class="col-xs-12">
           <br>
@@ -382,7 +382,7 @@
       Especialidad:&nbsp;
       </div>
       <div class="col-xs-5 text-left">
-      <?php if($this->especialidadEstudiante != null) echo $this->especialidadEstudiante[0]['nombreEspecialidad']; ?>
+      <?php if($this->especialidadEstudiante != null) {echo $this->especialidadEstudiante[0]['nombreEspecialidad'];}  else {echo "&nbsp;";} ?>
       </div>
       <?php }else{?>
       <div class="col-xs-7">
@@ -503,7 +503,7 @@
           <br>
       </div>
   </div>
-  </div>
+</div>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -512,7 +512,7 @@
   <!-- Bootstrap Modificado -->
   <script>
   $("#btn1").click(function() {
-    $("#docPrint").printMe({ "path": "<?php echo URL; ?>public/css/bootstrap335modif.min.css"});
+    $("#docPrint").printMe({ "path": "<?php echo URL; ?>public/css/bootstrapPrueba.min.css"});
   });
   </script>
 </body>

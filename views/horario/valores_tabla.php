@@ -6,7 +6,7 @@ function encabezado_tabla(){
     <thead>
     <tr>
         <th>
-        Leccion
+        Lección
         </th>
 
         <th>
@@ -22,7 +22,7 @@ function encabezado_tabla(){
         </th>
 
         <th>
-        Miercoles
+        Miércoles
         </th>
 
         <th>

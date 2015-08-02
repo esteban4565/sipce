@@ -1,5 +1,5 @@
 <h1>Horario</h1>
-Dale clic al boton "Editar" para modificar/crear el Horario del profesor
+Dale clic al botón "Editar" para modificar/crear el Horario del profesor
 <br/><hr />
 
 <table class="table table-bordered table-striped table-condensed">

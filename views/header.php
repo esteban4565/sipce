@@ -113,7 +113,7 @@
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a href="<?php echo URL; ?>actualizarestudiantes/index">Actualizar Cedulas BD</a></li>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/index">Actualizar Cédulas BD</a></li>
                         </ul>
                       </li>
                     <?php }?>
@@ -167,8 +167,8 @@
                 <div class="col-xs-10 text-center">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2>Sistema de Informacón para Centros Educativos</h1>
-                            <h4><p class="text-success">Colegio Ténico Profesional de Carrizal, Dirección Regional de Alajuela Circuito -01-</p></h4>
+                            <h2>Sistema de Información para Centros Educativos</h1>
+                            <h4><p class="text-success">Colegio Técnico Profesional de Carrizal, Dirección Regional de Alajuela Circuito -01-</p></h4>
                             <h4><p class="text-succes">Telefax: 2483-0055</p></h4>
                             <!--<label id="datetime" size="50"></label>-->
                         </div>
