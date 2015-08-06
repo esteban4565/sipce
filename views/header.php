@@ -99,6 +99,18 @@
                       </li>
                       <?php if (Session::get('tipoUsuario') <= 2){ ?>
                       <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Personal <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="<?php echo URL; ?>personal/nuevoIngreso">Nuevo Ingreso</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo URL; ?>personal/editarIngreso">Modificar Personal</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo URL; ?>personal/inabilitarIngreso">Inabiliar Personal</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo URL; ?>personal/listaPersonal">Lista Personal</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Matricula <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar</a></li>
