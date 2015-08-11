@@ -286,7 +286,7 @@
                          </select>
                     </div>
                 </div> 
-                <!--L10 Primaria secundaris--> 
+                <!--L10 Primaria secundarias--> 
                 <div class="form-group">
                     <label for="sel_Anualidades" class="col-xs-2 control-label">Primaria:</label>
                     <div class="col-xs-2">
@@ -305,21 +305,17 @@
                             <option value="10">10</option>
                          </select>
                     </div>
-                    <label for="sel_Anualidades" class="col-xs-2 control-label">Secundaria:</label>
+                    <label for="slt_Secundaria" class="col-xs-2 control-label">Secundaria:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="sel_Anualidades" id="sel_Anualidades"> 
+                        <select  class="form-control input-sm validate[required]" name="slt_Secundaria" id="slt_Secundaria"> 
                             <option value="">Seleccione</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                            <?php
+                            foreach ($this->Secundaria as $value) {
+                            ?>
+                            <option value="<?php echo $value['id'];?>"><?php echo $value['nombre'];?></option>
+                            <?php
+                            }
+                            ?>
                          </select>
                     </div>
                 </div>
@@ -327,6 +323,7 @@
                 <!--L10 Estudios universitarios-->
                 <h4>Estudios Universitarios</h4>
                 <div class="form-group">
+                    
                     <label for="tf_nombreUniversidad" class="col-xs-2 control-label">Nombre Universidad:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[required]"  id="tf_nombreUniversidad" name="tf_nombreUniversidad"/>
@@ -335,6 +332,15 @@
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm"  id="tf_anoFinaliza" name="tf_anoFinaliza"/>
                     </div>
+                    <div class="col-xs-2">
+                        <input type="button" class="btn-sm btn-success" id="AddUniversidad" value="Agregar más" />
+                   </div>
+                   <div id="items" class="col-xs-2">
+                        
+                   </div> 
+                </div>
+                <div id="AddU">
+                    
                 </div>
                 <br><br>
                 <!--L11 Centros educativos donde ha laborado-->
@@ -479,3 +485,7 @@
     </tr>
     </tbody>
     </table>
+    <?php
+        print_r($this->Secundaria);
+        die;
+    ?>    

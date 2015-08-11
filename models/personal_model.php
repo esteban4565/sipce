@@ -17,7 +17,7 @@ class Personal_Model extends Models {
     public function director() {
         return "Msc. Ingrid Jiménez López";
     }
-
+     
     /* Carga todas las provincias */
 
     public function consultaProvincias() {
@@ -63,7 +63,10 @@ class Personal_Model extends Models {
     public function consultaPaises() {
         return $this->db->select("SELECT * FROM sipce_paises", array());
     }
-
+    /*Retorna la lista de las instituciones*/
+    public function secundariaList() {
+        return $this->db->select("SELECT * FROM sipce_instituciones ORDER BY nombre", array());
+    }
     /* Retorna la lista de Especialidades */
 
     public function consultaEspecialidades() {

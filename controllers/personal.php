@@ -9,6 +9,7 @@ class Personal extends Controllers {
     }
 
     function index() {
+        
         $this->view->title = 'Personal';
         $this->view->anio = $this->model->anio();
 
@@ -17,10 +18,15 @@ class Personal extends Controllers {
 
         /* CARGAMOS LA LISTA DE PAISES */
         $this->view->paisesList = $this->model->paisesList();
-
+        
+        /*CARGAMOS LA LISTA DE LAS INSTITUCIONES*/
+        $this->view->Secundaria = $this->model->secundariaList();
+        
         $this->view->render('header');
         $this->view->render('personal/index');
         $this->view->render('footer');
+        
+        
     }
 
     function ratificar() {
@@ -99,6 +105,8 @@ class Personal extends Controllers {
     function nuevoIngreso() {
         $this->view->title = 'Nuevo Ingreso';
         $this->view->anio = $this->model->anio();
+        
+        $this->view->Secundaria = $this->model->secundariaList();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();

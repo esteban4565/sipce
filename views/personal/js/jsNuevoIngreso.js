@@ -1,3 +1,28 @@
+//Agregar mas universidades//
+$(document).ready(function(){
+    //when the Add Filed button is clicked
+    $("#AddUniversidad").click(function (e) {
+    //Append a new row of code to the "#items" div
+        var n = $("#items div").length;
+        if (n <=5) {
+            $("#AddU").append('<div class="form-group">\n\
+            <label for="tf_nombreUniversidad" class="col-xs-2 control-label">Nombre Universidad:</label>\n\
+            <div class="col-xs-2">\n\
+            <input type="text" class="form-control input-sm validate[required]" id="tf_nombreUniversidad" name="tf_nombreUniversidad"/></div>\n\
+            <label for="tf_anoFinaliza" class="col-xs-2 control-label">Año Finaliza:</label>\n\
+            <div class="col-xs-2">\n\
+            <input type="text" class="form-control input-sm validate[required]" id="tf_nombreUniversidad" name="tf_nombreUniversidad"/></div>\n\
+            </div>');
+        }
+        else{
+            alert("Only five additional fields are allowed!")
+            }
+    });
+    $("body").on("click", ".delete", function (e) {
+        $(this).parent("div").remove();
+    });
+});
+
 $.datepicker.regional['es'] = {
  closeText: 'Cerrar',
  prevText: '<Ant',
@@ -63,7 +88,7 @@ $(function()
         });
     });
 
-    //Carga los datos del Estudiante//
+    //Carga los datos del personal//
     $("#buscarEstudiante").click(function(event) {
         var idD = $("#tf_cedulaEstudiante").val();
         if (jQuery.isEmptyObject(idD)){
@@ -124,49 +149,6 @@ $(function()
                 $("#tf_ocupacionMadre").val("");
             }
         });
-        }
-    });
-
-    //Carga los datos del Padre//
-    $("#buscarPadre_NI").click(function(event) {
-        var idD = $("#tf_cedulaPadre_NI").val();
-        if (jQuery.isEmptyObject(idD)){
-            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-        }else{
-        $.getJSON('buscarPadre/' + idD, function(resulBusqueda) {
-            if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-            } else {
-                $("#tf_ape1Padre_NI").val(resulBusqueda[0].primerApellido);
-                $("#tf_ape2Padre_NI").val(resulBusqueda[0].segundoApellido);
-                $("#tf_nombrePadre_NI").val(resulBusqueda[0].nombre);
-                $("#tf_telCelPadre").val("");
-                $("#tf_ocupacionPadre").val("");
-            }
-        });
-        }
-    });
-
-    //Carga datos de Encargado Legal a Padre o Madre//
-    $("#sel_parentesco").change(function() {
-        var parentesco = $("#sel_parentesco").val();
-        if (parentesco === 'Padre') {
-            $("#tf_cedulaPadre_NI").val($("#tf_cedulaEncargado_NI").val());
-            $("#tf_ape1Padre_NI").val($("#tf_ape1Encargado_NI").val());
-            $("#tf_ape2Padre_NI").val($("#tf_ape2Encargado_NI").val());
-            $("#tf_nombrePadre_NI").val($("#tf_nombreEncargado_NI").val());
-            $("#tf_telCelPadre").val($("#tf_telcelularEncargado").val());
-            $("#tf_ocupacionPadre").val($("#tf_ocupacionEncargado").val());
-        } else
-        {
-            if (parentesco === 'Madre') {
-                $("#tf_cedulaMadre_NI").val($("#tf_cedulaEncargado_NI").val());
-                $("#tf_ape1Madre_NI").val($("#tf_ape1Encargado_NI").val());
-                $("#tf_ape2Madre_NI").val($("#tf_ape2Encargado_NI").val());
-                $("#tf_nombreMadre_NI").val($("#tf_nombreEncargado_NI").val());
-                $("#tf_telCelMadre").val($("#tf_telcelularEncargado").val());
-                $("#tf_ocupacionMadre").val($("#tf_ocupacionEncargado").val());
-            }
         }
     });
 
