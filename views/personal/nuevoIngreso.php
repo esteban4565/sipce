@@ -3,14 +3,14 @@
 //die;
 ?>
 <div class="row">
-    <form id="MyForm" action="<?php echo URL; ?>matricula/guardarNuevoIngreso" method="POST" enctype="multipart/form-data" class="form-horizontal">
+    <form id="MyForm" action="<?php echo URL; ?>personal/guardarNuevoIngreso" method="POST" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <legend class="text-center">DATOS DEL PERSONAL</legend>
             <!--L1 Cedula y Genero *Nacionalidad (Nuevo)(Formulario Hugo)-->
             <div class="form-group"> 
-                <label for="tf_nacionalidad" class="col-xs-2 control-label">Nacionalidad:</label>
+                <label for="slt_nacionalidad" class="col-xs-2 control-label">Nacionalidad:</label>
                 <div class="col-xs-2">
-                    <select class="form-control input-sm" name="tf_nacionalidad" id="tf_nacionalidad">
+                    <select class="form-control input-sm" name="slt_nacionalidad" id="slt_nacionalidad">
                         <option value="506">Costa Rica</option>
                         <?php
                         foreach ($this->consultaPaises as $value) {
@@ -20,9 +20,9 @@
                             ?>
                         </select> 
                     </div>
-                    <label for="tf_cedulaEstudiante" class="col-xs-2 control-label">Identificación:</label>
+                    <label for="txt_cedulaPersonal" class="col-xs-2 control-label">Identificación:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="txt_cedulaPersonal" id="txt_cedulaPersonal"/>
                     </div>
                     <div class="col-xs-2">
                         <input type="button" class="btn-sm btn-success" id="buscarEstudiante" value="Buscar"  style="display:block;"/>
@@ -30,33 +30,33 @@
                 </div> 
                 <!--L2 Nombre Estudiante (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="txt_apellido1" class="col-xs-2 control-label">1er Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1" name="tf_ape1"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="txt_apellido1" name="txt_apellido1"/>
                     </div>
-                    <label for="tf_ape2" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="txt_apellido2" class="col-xs-2 control-label">2do Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2" name="tf_ape2"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="txt_apellido2" name="txt_apellido2"/>
                     </div>
-                    <label for="tf_nombre" class="col-xs-2 control-label">Nombre completo:</label>
+                    <label for="txt_nombre" class="col-xs-2 control-label">Nombre completo:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombre" name="tf_nombre"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="txt_nombre" name="txt_nombre"/>
                     </div> 
                 </div> 
                 <!--L3 Fecha Nacimiento (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_fnacpersona" class="col-xs-2 control-label">Fecha de Nacimiento (Año-Mes-Día):</label>
+                    <label for="txt_fnacpersona" class="col-xs-2 control-label">Fecha de Nacimiento (Año-Mes-Día):</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[required]"  id="tf_fnacpersona" name="tf_fnacpersona"/>
+                        <input type="text" class="form-control input-sm validate[required]"  id="txt_fnacpersona" name="txt_fnacpersona"/>
                     </div>
                     <!--OJO.. el año axtual esta quemado en el documento javascript, se debe cambiar año a año o buscar solucion -->
-                    <label for="tf_edad" class="col-xs-2 control-label">Edad:</label>
+                    <label for="txt_edad" class="col-xs-2 control-label">Edad:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]"  id="txt_edad" name="txt_edad"/>
                     </div>
-                    <label for="tf_genero" class="col-xs-2 control-label">Genero:</label>
+                    <label for="slt_genero" class="col-xs-2 control-label">Genero:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="tf_genero" id="tf_genero">
+                        <select class="form-control input-sm validate[required]" name="slt_genero" id="slt_genero">
                             <option value="">Seleccione</option>
                                 <option value="0">Femenino</option>
                                 <option value="1" >Masculino</option>
@@ -65,32 +65,32 @@
                 </div>
                 <!--L4 Telefono y email *Tel.Casa (Nuevo)(Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_telHabitEstudiante" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <label for="txt_telHabPersonal" class="col-xs-2 control-label">Tel. Habitación:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEstudiante" id="tf_telHabitEstudiante"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="txt_telHabPersonal" id="txt_telHabPersonal"/>
                     </div>
-                    <label for="tf_telcelular" class="col-xs-2 control-label">Tel. Celular:</label>
+                    <label for="txt_telCelPersonal" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelular" id="tf_telcelular"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="txt_telCelPersonal" id="txt_telCelPersonal"/>
                     </div>
-                    <label for="tf_email" class="col-xs-2 control-label">Correo del MEP:</label>
+                    <label for="txt_email" class="col-xs-2 control-label">Correo del MEP:</label>
                     <div class="col-xs-2">
-                        <input class="form-control input-sm" type="email" name="tf_email" id="tf_email" data-error="Atención, esta dirección de email es invalida"/>
+                        <input class="form-control input-sm" type="email" name="txt_email" id="txt_email" data-error="Atención, esta dirección de email es invalida"/>
                     </div>
                 </div>
                 <!--L5 Domicilio (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_domicilio" class="col-xs-2 control-label">Domicilio:</label>
+                    <label for="txta_domicilio" class="col-xs-2 control-label">Domicilio:</label>
                     <div class="col-xs-10">
-                        <textarea class="form-control validate[required]" rows="1" name="tf_domicilio" id="tf_domicilio"></textarea>
+                        <textarea class="form-control validate[required]" rows="1" name="txta_domicilio" id="txta_domicilio"></textarea>
                     </div>
                     <div class="col-xs-4"></div>
                 </div>
                 <!--L6 Provincia, Canton, Distrito (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_provincias_NI" class="col-xs-2 control-label">Provincia:</label>
+                    <label for="slt_provinciaDom" class="col-xs-2 control-label">Provincia:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="tf_provincias_NI" id="tf_provincias_NI">
+                        <select class="form-control input-sm validate[required]" name="slt_provinciaDom" id="slt_provinciaDom">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
@@ -101,46 +101,30 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="tf_cantones_NI" class="col-xs-2 control-label">Canton:</label>
+                    <label for="slt_cantonDom" class="col-xs-2 control-label">Canton:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="tf_cantones_NI" id="tf_cantones_NI">
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaCantones as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdCanton']; ?>"><?php echo $value['Canton']; ?></option>
-                                <?php
-                            }
-                            ?>  
+                        <select class="form-control input-sm validate[required]" name="slt_cantonDom" id="slt_cantonDom">
                         </select>
                     </div>
-                    <label for="tf_distritos_NI" class="col-xs-2 control-label">Distrito:</label>
+                    <label for="slt_distritoDom" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="tf_distritos_NI" id="tf_distritos_NI">  
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaDistritos as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdDistrito']; ?>"><?php echo $value['Distrito']; ?></option>
-                                <?php
-                            }
-                            ?>    
+                        <select  class="form-control input-sm validate[required]" name="slt_distritoDom" id="slt_distritoDom">  
                         </select>
                     </div>
                 </div>
                 <!--Domicilio durante el periodo lectivo-->
                 <div class="form-group">
-                    <label for="tf_domicilio" class="col-xs-2 control-label">Domicilio durante periodo lectivo:</label>
+                    <label for="txta_domicilioClases" class="col-xs-2 control-label">Domicilio durante periodo lectivo:</label>
                     <div class="col-xs-10">
-                        <textarea class="form-control validate[required]" rows="1" name="tf_domicilio" id="tf_domicilio"></textarea>
+                        <textarea class="form-control validate[required]" rows="1" name="txta_domicilioClases" id="txta_domicilioClases"></textarea>
                     </div>
                     <div class="col-xs-4"></div>
                 </div>
                 <!--L6 Provincia, Canton, Distrito (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_provincias_NI" class="col-xs-2 control-label">Provincia:</label>
+                    <label for="slt_provinciaClases" class="col-xs-2 control-label">Provincia:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="tf_provincias_NI" id="tf_provincias_NI">
+                        <select class="form-control input-sm validate[required]" name="slt_provinciaClases" id="slt_provinciaClases">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
@@ -151,30 +135,14 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="tf_cantones_NI" class="col-xs-2 control-label">Canton:</label>
+                    <label for="slt_cantonClases" class="col-xs-2 control-label">Canton:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="tf_cantones_NI" id="tf_cantones_NI">
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaCantones as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdCanton']; ?>"><?php echo $value['Canton']; ?></option>
-                                <?php
-                            }
-                            ?>  
+                        <select class="form-control input-sm validate[required]" name="slt_cantonClases" id="slt_cantonClases">              
                         </select>
                     </div>
-                    <label for="tf_distritos_NI" class="col-xs-2 control-label">Distrito:</label>
+                    <label for="slt_distritoClases" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="tf_distritos_NI" id="tf_distritos_NI">  
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaDistritos as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdDistrito']; ?>"><?php echo $value['Distrito']; ?></option>
-                                <?php
-                            }
-                            ?>    
+                        <select  class="form-control input-sm validate[required]" name="slt_distritoClases" id="slt_distritoClases">
                         </select>
                     </div>
                 </div>
@@ -188,23 +156,23 @@
                 -->
                 <!--L8 Enfermedad (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_enfermedad" class="col-xs-2 control-label">¿Padece alguna enfermedad?</label>
+                    <label for="slt_enfermedad" class="col-xs-2 control-label">¿Padece alguna enfermedad?</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm" name="sel_enfermedad" id="sel_enfermedad"> 
+                        <select  class="form-control input-sm" name="slt_enfermedad" id="slt_enfermedad"> 
                             <option value="0" selected>No</option> 
                             <option value="1">Si</option>
                         </select>
                     </div>
-                    <label for="tf_enfermedad" class="col-xs-2 control-label">Especifique</label>
+                    <label for="txt_enfermedadDesc" class="col-xs-2 control-label">Especifique</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm" name="tf_enfermedadDescripcion" id="tf_enfermedadDescripcion"/>
+                        <input type="text" class="form-control input-sm" name="txt_enfermedadDesc" id="txt_enfermedadDesc"/>
                     </div>
                 </div>
                 <br>
                 <h4>En Caso de Emergencia Llamar a:</h4>
                 <!--L19 Cedula Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group"> 
-                    <label for="tf_parentescoCasoEmergencia" class="col-xs-2 control-label">Parentesco:</label>
+                    <label for="slt_parentescoCasoEmergencia" class="col-xs-2 control-label">Parentesco:</label>
                     <div class="col-xs-2">
                         <select  class="form-control input-sm validate[required]" name="sel_parentescoCasoEmergencia" id="sel_parentescoCasoEmergencia"> 
                             <option value="">Seleccione</option>
@@ -213,38 +181,38 @@
                             <option value="Otro">Otro</option>
                         </select>
                     </div>
-                    <label for="tf_cedulaPersonaEmergencia_NI" class="col-xs-2 control-label">Identificación:</label>
+                    <label for="txt_cedulaPersonaEmergencia" class="col-xs-2 control-label">Identificación:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaPersonaEmergencia_NI" id="tf_cedulaPersonaEmergencia_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="txt_cedulaPersonaEmergencia" id="txt_cedulaPersonaEmergencia"/>
                     </div>
                     <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="buscarPersonaEmergencia_NI" value="Buscar" />
+                        <input type="button" class="btn-sm btn-success" id="btnBuscarPersonaEmergencia" value="Buscar" />
                     </div>
                 </div> 
                 <!--L20 Nombre de la Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1PersonaEmergencia_NI" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="txt_apellido1PersonaEmergencia" class="col-xs-2 control-label">1er Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1PersonaEmergencia_NI" name="tf_ape1PersonaEmergencia_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="txt_apellido1PersonaEmergencia" name="txt_apellido1PersonaEmergencia"/>
                     </div>
-                    <label for="tf_ape2PersonaEmergencia_NI" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="txt_apellido2PersonaEmergencia" class="col-xs-2 control-label">2do Apellido:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2PersonaEmergencia_NI" name="tf_ape2PersonaEmergencia_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm"  id="txt_apellido2PersonaEmergencia" name="txt_apellido2PersonaEmergencia"/>
                     </div>
-                    <label for="tf_nombrePersonaEmergencia_NI" class="col-xs-2 control-label">Nombre completo:</label>
+                    <label for="txt_nombrePersonaEmergencia" class="col-xs-2 control-label">Nombre completo:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombrePersonaEmergencia_NI" name="tf_nombrePersonaEmergencia_NI"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="txt_nombrePersonaEmergencia" name="txt_nombrePersonaEmergencia"/>
                     </div> 
                 </div> 
                 <!--L21 Telefonos de la Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_telHabitPersonaEmergencia" class="col-xs-2 control-label">Tel. Habit:</label>
+                    <label for="txt_telHabPersonaEmergencia" class="col-xs-2 control-label">Tel. Habit:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitPersonaEmergencia" id="tf_telHabitPersonaEmergencia"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="txt_telHabPersonaEmergencia" id="txt_telHabPersonaEmergencia"/>
                     </div>
-                    <label for="tf_telcelularPersonaEmergencia" class="col-xs-2 control-label">Tel. Celular:</label>
+                    <label for="txt_telcelPersonaEmergencia" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularPersonaEmergencia" id="tf_telcelularPersonaEmergencia"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="txt_telcelPersonaEmergencia" id="txt_telcelPersonaEmergencia"/>
                     </div>
                 </div>
                 <br><br>
@@ -292,17 +260,13 @@
                     <div class="col-xs-2">
                         <select  class="form-control input-sm validate[required]" name="sel_Anualidades" id="sel_Anualidades"> 
                             <option value="">Seleccione</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                            <?php
+                            foreach ($this->escuelas as $value) {
+                            ?>
+                            <option value="<?php echo $value['id'];?>"><?php echo $value['nombre'];?></option>
+                            <?php
+                            }
+                            ?>
                          </select>
                     </div>
                     <label for="slt_Secundaria" class="col-xs-2 control-label">Secundaria:</label>
@@ -310,7 +274,7 @@
                         <select  class="form-control input-sm validate[required]" name="slt_Secundaria" id="slt_Secundaria"> 
                             <option value="">Seleccione</option>
                             <?php
-                            foreach ($this->Secundaria as $value) {
+                            foreach ($this->colegios as $value) {
                             ?>
                             <option value="<?php echo $value['id'];?>"><?php echo $value['nombre'];?></option>
                             <?php
@@ -323,21 +287,26 @@
                 <!--L10 Estudios universitarios-->
                 <h4>Estudios Universitarios</h4>
                 <div class="form-group">
-                    
-                    <label for="tf_nombreUniversidad" class="col-xs-2 control-label">Nombre Universidad:</label>
+                    <label for="slt_nombreUniversidad" class="col-xs-2 control-label">Nombre Universidad:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[required]"  id="tf_nombreUniversidad" name="tf_nombreUniversidad"/>
+                        <select class="form-control input-sm validate[required]" name="slt_nombreUniversidad" id="slt_nombreUniversidad">
+                            <option value="">Seleccione</option>
+                            <?php
+                            foreach ($this->universidad as $value) {
+                                ?>
+                                <option value="<?php echo $value['id']; ?>"><?php echo $value['nombre']; ?></option>
+                                <?php
+                            }
+                            ?>  
+                        </select>
                     </div>
                     <label for="tf_anoFinaliza" class="col-xs-2 control-label">Año Finaliza:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm"  id="tf_anoFinaliza" name="tf_anoFinaliza"/>
                     </div>
                     <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="AddUniversidad" value="Agregar más" />
+                        <input type="button" class="btn-sm btn-success" id="AddUniversidad" value="Agregar más"/>
                    </div>
-                   <div id="items" class="col-xs-2">
-                        
-                   </div> 
                 </div>
                 <div id="AddU">
                     
@@ -439,6 +408,7 @@
                     </div>
                 </div>
                 <br><br>
+                
                 <div class="form-group"> 
                     <label for="tf_AtendidoPor" class="col-xs-2 control-label">Atendido Por:</label>
                     <label for="tf_AtendidoPor" class="col-xs-3 control-label"><?php echo $_SESSION['nombre'];?></label>                  
@@ -447,14 +417,13 @@
             <!--L25 Imprimir y Guardar (Formulario Hugo)-->
             <div class="form-group"> 
                 <div class="col-xs-12 text-center">
-                    <input type="submit" class="btn-xs btn-primary" id="guardar" value="Guardar e Imprimir" />
+                    <input type="submit" class="btn-sm btn-success" id="btnguardar" value="Guardar e Imprimir" />
                 </div>
             </div>
-            <hr class="jol" color="red" size=5>
-            <hr class="jol" color="white" size=1 width="150">
         </fieldset>
     </form>
 </div>
+<!--
 <table class="table table-striped">
     <thead>
     <tr>
@@ -484,8 +453,4 @@
     	<td>46,6 M</td>
     </tr>
     </tbody>
-    </table>
-    <?php
-        print_r($this->Secundaria);
-        die;
-    ?>    
+    </table>--> 

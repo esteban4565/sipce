@@ -17,13 +17,14 @@ class Personal_Model extends Models {
     public function director() {
         return "Msc. Ingrid Jiménez López";
     }
-     
-    /* Carga todas las provincias */
-
+    /* Carga lista de provincias */
     public function consultaProvincias() {
         return $this->db->select("SELECT * FROM sipce_provincias ORDER BY nombreProvincia", array());
     }
-
+    /*Carga lista de universidades*/
+    public function CargaUniversidades(){
+        return $this->db->select("SELECT * FROM sipce_universidades ORDER BY nombre", array());
+    }
     /* Carga todas las Cantones */
 
     public function consultaCantones() {
@@ -63,9 +64,13 @@ class Personal_Model extends Models {
     public function consultaPaises() {
         return $this->db->select("SELECT * FROM sipce_paises", array());
     }
-    /*Retorna la lista de las instituciones*/
-    public function secundariaList() {
-        return $this->db->select("SELECT * FROM sipce_instituciones ORDER BY nombre", array());
+    /*Retorna la lista de colegios*/
+    public function CargaEscuelas() {
+        return $this->db->select("SELECT * FROM sipce_escuelas ORDER BY nombre", array());
+    }
+    /*Retorna la lista de colegios*/
+    public function CargaColegios() {
+        return $this->db->select("SELECT * FROM sipce_colegios ORDER BY nombre", array());
     }
     /* Retorna la lista de Especialidades */
 

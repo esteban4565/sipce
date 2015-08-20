@@ -5,12 +5,14 @@ class Personal extends Controllers {
     function __construct() {
         parent::__construct();
         Auth::handleLogin();
-        $this->view->js = array('personal/js/default.js', 'personal/js/jsNuevoIngreso.js');
+        $this->view->js = array('personal/js/jsNuevoIngreso.js'); 
     }
 
     function index() {
         
         $this->view->title = 'Personal';
+        
+        
         $this->view->anio = $this->model->anio();
 
         /* CARGAMOS LA LISTA DE ESTADO CIVIL */
@@ -18,113 +20,46 @@ class Personal extends Controllers {
 
         /* CARGAMOS LA LISTA DE PAISES */
         $this->view->paisesList = $this->model->paisesList();
-        
+                
         /*CARGAMOS LA LISTA DE LAS INSTITUCIONES*/
         $this->view->Secundaria = $this->model->secundariaList();
         
+        /**/
         $this->view->render('header');
         $this->view->render('personal/index');
         $this->view->render('footer');
         
         
     }
-
-    function ratificar() {
-        $this->view->title = 'Ratificar Matricula';
-        $this->view->anio = $this->model->anio();
-        $this->view->listaEstudiantes = $this->model->listaEstudiantes();
-
-        $this->view->render('header');
-        $this->view->render('matricula/ratificar');
-        $this->view->render('footer');
-    }
-
-    function ratificarEstudiante($cedulaEstudiante) {
-        $this->view->title = 'Ratificar Matricula';
-        $this->view->anio = $this->model->anio();
-
-        /* CARGAMOS TODAS LAS PROVINCIAS */
-        $this->view->consultaProvincias = $this->model->consultaProvincias();
-        
-        /* CARGAMOS TODOS LOS CANTONES */
-        $this->view->consultaCantones = $this->model->consultaCantones();
-        
-        /* CARGAMOS TODOS LOS DISTRITOS */
-        $this->view->consultaDistritos = $this->model->consultaDistritos();
-
-        /* CARGAMOS LA LISTA DE ESTADO CIVIL */
-        $this->view->estadoCivilList = $this->model->estadoCivilList();
-
-        /* CARGAMOS LA LISTA DE PAISES */
-        $this->view->consultaPaises = $this->model->consultaPaises();
-
-        /* CARGAMOS LA LISTA DE ESPECIALIDADES */
-        $this->view->consultaEspecialidades = $this->model->consultaEspecialidades();
-
-        /* Cargo informacion del Estudiante */
-        $this->view->infoEstudiante = $this->model->infoEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de la especialidad del Estudiante */
-        $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion del encargado Legal del Estudiante */
-        $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);
-
-        /* Cargo informacion de la Madre del Estudiante */
-        $this->view->madreEstudiante = $this->model->madreEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion del Padre del Estudiante */
-        $this->view->padreEstudiante = $this->model->padreEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de la Persona en caso de Emergencia del Estudiante */
-        $this->view->personaEmergenciaEstudiante = $this->model->personaEmergenciaEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de las enfermedades del Estudiante */
-        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de la adecuacio del Estudiante */
-        $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de Becas */
-        $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de la poliza del Estudiante */
-        $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de la Condicion de Matricula */
-        $this->view->infoCondicionMatricula = $this->model->infoCondicionMatricula($cedulaEstudiante);
-
-        /* Cargo informacion de Adelanto/Arrastre */
-        $this->view->infoAdelanta = $this->model->infoAdelanta($cedulaEstudiante);
-
-        $this->view->render('header');
-        $this->view->render('matricula/ratificarEstudiante');
-        $this->view->render('footer');
-    }
-
     function nuevoIngreso() {
-        $this->view->title = 'Nuevo Ingreso';
+        
+        //Titulo para la vista//
+        $this->view->title = 'Nuevo Ingreso Personal';
+        
         $this->view->anio = $this->model->anio();
         
-        $this->view->Secundaria = $this->model->secundariaList();
+        //Cargamos la lista de paises//
+        $this->view->consultaPaises = $this->model->consultaPaises();
+        
+        /*Cargamos la lista de escuelas publicas y privadas*/
+        $this->view->escuelas = $this->model->CargaEscuelas();
+        
+        /*Cargamos la lista de colegios publicos y privados*/
+        $this->view->colegios = $this->model->CargaColegios();
+        
+        /*Cargamos la lista de Universidades*/
+        $this->view->universidad = $this->model->CargaUniversidades();
 
-        /* CARGAMOS TODAS LAS PROVINCIAS */
+        //Cargamos la lista de provincias//
         $this->view->consultaProvincias = $this->model->consultaProvincias();
-        
-        /* CARGAMOS TODOS LOS CANTONES */
-        $this->view->consultaCantones = $this->model->consultaCantones();
-        
-        /* CARGAMOS TODOS LOS DISTRITOS */
-        $this->view->consultaDistritos = $this->model->consultaDistritos();
-
-        /* CARGAMOS LA LISTA DE ESTADO CIVIL */
+               
+        //Cargamos la lista de estado civil//
         $this->view->estadoCivilList = $this->model->estadoCivilList();
 
-        /* CARGAMOS LA LISTA DE PAISES */
-        $this->view->consultaPaises = $this->model->consultaPaises();
+        
 
         /* CARGAMOS LA LISTA DE ESPECIALIDADES */
-        $this->view->consultaEspecialidades = $this->model->consultaEspecialidades();
+        //$this->view->consultaEspecialidades = $this->model->consultaEspecialidades();
 
         $this->view->render('header');
         $this->view->render('personal/nuevoIngreso');
