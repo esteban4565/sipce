@@ -1,5 +1,15 @@
-//Carga los datos del personal//
 $(function(){
+    $("#slt_nacionalidad").change(function() {
+        var codigoPais = $("#slt_nacionalidad").val();
+        if (codigoPais !== "506") {
+            document.getElementById("buscarEstudiante").style.display = 'none';
+        }
+        else {
+            document.getElementById("buscarEstudiante").style.display = 'block';
+        }
+    });
+    ////////////////////////////////////////////////////////////////////////////
+    //Carga los datos del personal//
     $("#buscarEstudiante").click(function(event) {
         var idD = $("#txt_cedulaPersonal").val();
         if (jQuery.isEmptyObject(idD)){
@@ -120,7 +130,10 @@ $(document).ready(function(){
         $(this).parent("div").remove();
     });
 });
-
+////////////////////////////////////////////////////////////////////////////////
+//Oculta Boton Buscar si es extrangero//
+    
+////////////////////////////////////////////////////////////////////////////////
 $.datepicker.regional['es'] = {
  closeText: 'Cerrar',
  prevText: '<Ant',
