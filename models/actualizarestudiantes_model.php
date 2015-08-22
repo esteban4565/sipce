@@ -12,11 +12,11 @@ class ActualizarEstudiantes_Model extends Models {
     public function estudiantesCedulaMala() {
         //La sentencia SQL se manda a la variable db del Model y se ejecuta la funcion, 
         //dependiendo de la tarea devuelve un registro o simplemente hace un insert en la BD
-        return $this->db->select('SELECT cedula, nombre, apellido1, apellido2 FROM sipce_persona WHERE sexo = :texto', array('texto' => '3'));
+        return $this->db->select('SELECT cedula, nombre, apellido1, apellido2 FROM sipce_estudiante WHERE sexo = :texto', array('texto' => '3'));
     }
 
     public function actuEstu() {
-        $consulta_cedulas = $this->db->select('SELECT cedula FROM  sipce_persona');
+        $consulta_cedulas = $this->db->select('SELECT cedula FROM  sipce_estudiante');
         
             //recorro el registro de la consulta, le asigno la cedula a la variable $estudiante (array)
             foreach ($consulta_cedulas as $key => $estudiante) {
@@ -26,7 +26,7 @@ class ActualizarEstudiantes_Model extends Models {
                 
 		//si el resultado de la consulta es diferente a nulo, si existe
 		if($consulta_datos != null){
-                    //recorro el registro de la consulta y realizo el update en la tabla sipce_persona
+                    //recorro el registro de la consulta y realizo el update en la tabla sipce_estudiante
                     foreach ($consulta_datos as $key => $value) {
                         $postData = array('nombre' => $value['nombre'],
                                           'apellido1' => $value['primerApellido'],
@@ -35,7 +35,7 @@ class ActualizarEstudiantes_Model extends Models {
                                           'fechaNacimiento' => $value['fechaNacimiento'],
                                           'nacionalidad' => '506',
                                             );
-                        $this->db->update('sipce_persona', $postData, "`cedula` = '{$estudiante['cedula']}'");
+                        $this->db->update('sipce_estudiante', $postData, "`cedula` = '{$estudiante['cedula']}'");
                     }
 		//si es nulo realizo un update para colocarle 3 en el campo sexo, para identificarlo posteriormente
                 }else{
@@ -43,7 +43,37 @@ class ActualizarEstudiantes_Model extends Models {
                                       'fechaNacimiento' => 0,
                                       'nacionalidad' => 0,
                                             );
-                    $this->db->update('sipce_persona', $postData, "`cedula` = '{$estudiante['cedula']}'");
+                    $this->db->update('sipce_estudiante', $postData, "`cedula` = '{$estudiante['cedula']}'");
+                }
+            }
+    }
+
+    public function actuPasswordEstu() {
+        $consulta_cedulasFechaNacimiento = $this->db->select('SELECT cedula FROM  sipce_estudiante');
+        
+            //recorro el registro de la consulta, le asigno la cedula a la variable $estudiante (array)
+            foreach ($consulta_cedulasFechaNacimiento as $key => $estudiante) {
+        	//consulto si existe la cedula en el padron...
+                $consulta_datos = $this->db->select('SELECT fechaNacimiento FROM tpersonapadron 
+                                                            WHERE cedula= :cedula', array('cedula' => $estudiante['cedula']));
+                
+		//si el resultado de la consulta es diferente a nulo, si existe
+		if($consulta_datos != null){
+                    //recorro el registro de la consulta y realizo el update en la tabla sipce_estudiante
+                    foreach ($consulta_datos as $key => $value) {
+                        $passTemporal=Hash::create('md5', $value['fechaNacimiento'], HASH_PASSWORD_KEY);
+//                        print_r($passTemporal);
+//                        die;
+                        $postData = array('passwords' => $passTemporal
+                                            );
+                        $this->db->update('sipce_estudiante', $postData, "`cedula` = '{$estudiante['cedula']}'");
+                    }
+		//si es nulo realizo un update para colocarle 123queso en el campo passwords, para identificarlo posteriormente
+                }else{
+                    $passTemporal=Hash::create('md5', '123queso', HASH_PASSWORD_KEY);
+                    $postData = array('passwords' =>$passTemporal
+                                            );
+                    $this->db->update('sipce_estudiante', $postData, "`cedula` = '{$estudiante['cedula']}'");
                 }
             }
     }

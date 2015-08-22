@@ -1,5 +1,5 @@
 <center>
-    <h2>Modulo Estudiantes</h2>
+    <h2>Módulo Estudiantes</h2>
     <?php
 //print_r($this->listaEstudiantes);
     ?>
@@ -10,8 +10,8 @@
         <tr>
             <th>N°</th>
             <th>Identificación</th>
-            <th>1º Apellido</th>
-            <th>2º Apellido</th>
+            <th>1<sup>er</sup> apellido</th>
+            <th>2<sup>do</sup> apellido</th>
             <th>Nombre</th>
             <th>Nivel</th>
             <th>Grupo</th>
@@ -55,7 +55,7 @@
             <td colspan='8' class="text-center"></td>
         </tr>
         <tr>
-            <td colspan='8'class="text-center">Ultima línea</td>
+            <td colspan='8'class="text-center">Última línea</td>
         </tr>
     </table>
 </center>

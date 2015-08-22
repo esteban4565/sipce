@@ -91,12 +91,14 @@
                           <li><a href="<?php echo URL; ?>seccion/index">Index</a></li>
                         </ul>
                       </li>
+                      <?php if (Session::get('tipoUsuario') <= 3){ ?>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Estudiantes <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="<?php echo URL; ?>persona/listaEstudiantes">Lista Estudiante</a></li>
                         </ul>
                       </li>
+                    <?php }?>
                       <?php if (Session::get('tipoUsuario') <= 2){ ?>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Personal <span class="caret"></span></a>
@@ -111,7 +113,7 @@
                         </ul>
                       </li>
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Matricula <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Matrícula <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar</a></li>
                             <li class="divider"></li>
@@ -125,7 +127,8 @@
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a href="<?php echo URL; ?>actualizarestudiantes/index">Actualizar Cédulas BD</a></li>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/index">Actualizar cédulas BD</a></li>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordEstu">Reiniciar contraseñas</a></li>
                         </ul>
                       </li>
                     <?php }?>

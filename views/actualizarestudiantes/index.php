@@ -1,5 +1,5 @@
 <h1>Estudiantes no encontrados...</h1>
-Las siguientes cedulas no existen el BD_Padron de Registro Civil (2013), favor verificar datos... 
+Las siguientes cédulas no existen el BD_Padron de Registro Civil (2013), favor verificar datos... 
 <br/><hr />
 
 <table>

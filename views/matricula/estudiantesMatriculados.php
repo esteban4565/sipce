@@ -10,8 +10,8 @@
         <tr>
             <th>N°</th>
             <th>Identificación</th>
-            <th>1º Apellido</th>
-            <th>2º Apellido</th>
+            <th>1re apellido</th>
+            <th>2do apellido</th>
             <th>Nombre</th>
             <th>Nivel</th>
             <th>Condición</th>
@@ -56,7 +56,7 @@
             <td colspan='5' class="lineaFin"></td>
         </tr>
         <tr>
-            <td colspan='5'>Ultima línea</td>
+            <td colspan='5'>Última línea</td>
         </tr>
     </table>
 </center>

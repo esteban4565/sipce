@@ -40,11 +40,11 @@
                 </div> 
                 <!--L2 Nombre Estudiante (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1" name="tf_ape1" value='<?php echo $this->infoEstudiante[0]['apellido1']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
-                    <label for="tf_ape2" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2" name="tf_ape2" value='<?php echo $this->infoEstudiante[0]['apellido2']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
@@ -178,11 +178,11 @@
                 </div> 
                 <!--L10 Nombre del encargado legal (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1Encargado" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1Encargado" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1Encargado" name="tf_ape1Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido1_encargado']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
-                    <label for="tf_ape2Encargado" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2Encargado" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Encargado" name="tf_ape2Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido2_encargado']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
@@ -237,11 +237,11 @@
                 </div> 
                 <!--L14 Nombre de la Madre (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1Madre" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1Madre" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Madre" name="tf_ape1Madre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['apellido1_madre']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
-                    <label for="tf_ape2Madre" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2Madre" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Madre" name="tf_ape2Madre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['apellido2_madre']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
@@ -275,11 +275,11 @@
                 </div> 
                 <!--L17 Nombre del Padre (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1Padre" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1Padre" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Padre" name="tf_ape1Padre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['apellido1_padre']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
-                    <label for="tf_ape2Padre" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2Padre" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Padre" name="tf_ape2Padre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['apellido2_padre']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
@@ -300,7 +300,7 @@
                     </div> 
                 </div>
 
-                <h4>En Caso de Emergencia Llamar a:</h4>
+                <h4>En caso de emergencia llamar a</h4>
                 <!--L19 Cedula Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group"> 
                     <label for="tf_parentescoCasoEmergencia" class="col-xs-2 control-label">Parentesco:</label>
@@ -322,11 +322,11 @@
                 </div> 
                 <!--L20 Nombre de la Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1PersonaEmergencia" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1PersonaEmergencia" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1PersonaEmergencia" name="tf_ape1PersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['apellido1_personaEmergencia']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
-                    <label for="tf_ape2PersonaEmergencia" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2PersonaEmergencia" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2PersonaEmergencia" name="tf_ape2PersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['apellido2_personaEmergencia']; ?>' onkeyup="mayusculas(this)"/>
                     </div>
@@ -337,7 +337,7 @@
                 </div> 
                 <!--L21 Telefonos de la Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_telHabitPersonaEmergencia" class="col-xs-2 control-label">Tel. Habit:</label>
+                    <label for="tf_telHabitPersonaEmergencia" class="col-xs-2 control-label">Tel. Habitación:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitPersonaEmergencia" id="tf_telHabitPersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['telefonoCasaPersonaEmergencia']; ?>'/>
                     </div>
@@ -350,7 +350,7 @@
                 <legend class="text-center">DATOS DE LA INSTITUCIÓN</legend>
                 <!--L22 Nivel a Matricular, Especialidad y Condicion (Formulario Hugo)-->
                 <div class="form-group"> 
-                    <label for="tf_nivelMatricular" class="col-xs-2 control-label">Nivel a Matricular:</label>
+                    <label for="tf_nivelMatricular" class="col-xs-2 control-label">Nivel a matricular:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="sl_nivelMatricular" id="sl_nivelMatricular">
                             <option value="<?php echo $this->infoEstudiante[0]['nivel'] + 1; ?>"><?php echo $this->infoEstudiante[0]['nivel'] + 1; ?></option>

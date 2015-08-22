@@ -25,5 +25,10 @@ class ActualizarEstudiantes extends Controllers {
         $this->model->actuEstu();
         $this->index();
     }
+    
+    public function actuPasswordEstu() {
+        $this->model->actuPasswordEstu();
+        $this->index();
+    }
 
 }

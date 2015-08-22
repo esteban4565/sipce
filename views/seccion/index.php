@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-        <h2>Modulo Secciones</h2>
+        <h2>Módulo secciones</h2>
 
         <?php
         //print_r($this->consultaNiveles);
@@ -25,7 +25,7 @@
                 <select class="form-control input-sm" name="tf_Grupos" id="tf_Grupos">
                 </select>
             </div>
-            <label for="tf_SubGrupos" class="col-xs-2 control-label">SubGrupos:</label>
+            <label for="tf_SubGrupos" class="col-xs-2 control-label">Subgrupos:</label>
             <div class="col-xs-2">
                 <select  class="form-control input-sm" name="tf_SubGrupos" id="tf_SubGrupos">    
                 </select>

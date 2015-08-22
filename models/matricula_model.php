@@ -74,10 +74,10 @@ class Matricula_Model extends Models {
 
     public function listaEstudiantes() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
-                        . "FROM sipce_persona, sipce_grupos "
+                        . "FROM sipce_estudiante, sipce_grupos "
                         . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
                         . "AND cedula = ced_estudiante "
-                        . "AND tipoUsuario = 3 "
+                        . "AND tipoUsuario = 4 "
                         . "ORDER BY apellido1,apellido2");
     }
 
@@ -85,7 +85,7 @@ class Matricula_Model extends Models {
 
     public function buscarEstuRatif($ced_estudiante) {
         $resultado = $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
-                . "FROM sipce_persona, sipce_grupos "
+                . "FROM sipce_estudiante, sipce_grupos "
                 . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
                 . "AND cedula = ced_estudiante "
                 . "AND cedula = '" . $ced_estudiante . "'");
@@ -99,7 +99,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
                         . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
-                        . "FROM sipce_persona as p,sipce_grupos as g "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' ");
     }
@@ -440,7 +440,7 @@ class Matricula_Model extends Models {
             'IdCanton' => $datos['tf_cantones'],
             'IdDistrito' => $datos['tf_distritos']);
 
-        $this->db->update('sipce_persona', $posData, "`cedula` = '{$datos['tf_cedulaEstudiante']}'");
+        $this->db->update('sipce_estudiante', $posData, "`cedula` = '{$datos['tf_cedulaEstudiante']}'");
         /* Falta
           'estadoCivil'=>$datos['estadocivilP'],
           'telefonoCasa'=>$datos['telcasaP'], */
@@ -764,16 +764,16 @@ class Matricula_Model extends Models {
         }
 
         //Consulto si ya existe datos en el expediente (para editarla)
-        $consultaExistenciaEstudiante = $this->db->select("SELECT * FROM sipce_persona "
+        $consultaExistenciaEstudiante = $this->db->select("SELECT * FROM sipce_estudiante "
                 . "WHERE cedula = '" . $datos['tf_cedulaEstudiante'] . "' ");
 
         if ($consultaExistenciaEstudiante != null) {
             //No se puede hacer nuevo ingreso xq ya existe
-            echo '<h1>ya existe estudiante en sipce_persona';
+            echo '<h1>ya existe estudiante en sipce_estudiante';
             die;
         } else {
             //Sino Inserto datos del expediente Estudiante
-            $this->db->insert('sipce_persona', array(
+            $this->db->insert('sipce_estudiante', array(
                 'nacionalidad' => $datos['tf_nacionalidad'],
                 'cedula' => $datos['tf_cedulaEstudiante'],
                 'apellido1' => $datos['tf_ape1'],
@@ -942,7 +942,7 @@ class Matricula_Model extends Models {
 
     public function estadoMatricula() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion "
-                        . "FROM sipce_persona,sipce_matricularatificacion "
+                        . "FROM sipce_estudiante,sipce_matricularatificacion "
                         . "WHERE cedula = ced_estudiante");
     }
 
@@ -951,7 +951,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
                         . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,j.nombreProvincia,"
                         . "c.Canton,d.Distrito,p.nacionalidad,g.nivel, m.condicion "
-                        . "FROM sipce_persona as p,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d, sipce_matricularatificacion as m "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d, sipce_matricularatificacion as m "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' "
                         . "AND m.ced_estudiante = '" . $cedulaEstudiante . "' "
@@ -962,7 +962,7 @@ class Matricula_Model extends Models {
 
 //    public function estadoMatricula() {
 //        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion "
-//                        . "FROM sipce_persona,sipce_matricularatificacion "
+//                        . "FROM sipce_estudiante,sipce_matricularatificacion "
 //                        . "WHERE cedula = ced_estudiante");
 //    }
 
@@ -972,7 +972,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
                         . "p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel,j.nombreProvincia,c.Canton,d.Distrito "
-                        . "FROM sipce_persona as p,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' "
                         . "AND p.IdProvincia = j.IdProvincia "

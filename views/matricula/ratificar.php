@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-xs-12 text-center">
-        <h2>Modulo Matricula</h2>
+        <h2>Módulo Matrícula</h2>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-3">
-    Buscar por Identificación:
+    Búsqueda por identificación:
     </div>
     <div class="col-xs-2">
         <input type="text" class="input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante" />
@@ -24,8 +24,8 @@
             <tr>
                 <th>N°</th>
                 <th>Identificación</th>
-                <th>1º Apellido</th>
-                <th>2º Apellido</th>
+                <th>1<sup>er</sup> apellido</th>
+                <th>2<sup>do</sup> apellido</th>
                 <th>Nombre</th>
                 <th>Nivel</th>
                 <th>Grupo</th>
@@ -73,7 +73,7 @@
                 <td colspan='5' class="lineaFin"></td>
             </tr>
             <tr>
-                <td colspan='5'>Ultima linea</td>
+                <td colspan='5'>Última línea</td>
             </tr>
         </table>
     </div>

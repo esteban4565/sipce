@@ -30,11 +30,11 @@
                 </div> 
                 <!--L2 Nombre Estudiante (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1" name="tf_ape1"/>
                     </div>
-                    <label for="tf_ape2" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2" name="tf_ape2"/>
                     </div>
@@ -163,11 +163,11 @@
                 </div> 
                 <!--L10 Nombre del encargado legal (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1Encargado_NI" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1Encargado_NI" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[required]"  id="tf_ape1Encargado_NI" name="tf_ape1Encargado_NI"/>
                     </div>
-                    <label for="tf_ape2Encargado_NI" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2Encargado_NI" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm"  id="tf_ape2Encargado_NI" name="tf_ape2Encargado_NI"/>
                     </div>
@@ -221,11 +221,11 @@
                 </div> 
                 <!--L14 Nombre de la Madre (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1Madre_NI" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1Madre_NI" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Madre_NI" name="tf_ape1Madre_NI"/>
                     </div>
-                    <label for="tf_ape2Madre_NI" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2Madre_NI" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Madre_NI" name="tf_ape2Madre_NI"/>
                     </div>
@@ -259,11 +259,11 @@
                 </div> 
                 <!--L17 Nombre del Padre (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1Padre_NI" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1Padre_NI" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Padre_NI" name="tf_ape1Padre_NI"/>
                     </div>
-                    <label for="tf_ape2Padre_NI" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2Padre_NI" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Padre_NI" name="tf_ape2Padre_NI"/>
                     </div>
@@ -284,7 +284,7 @@
                     </div> 
                 </div>
 
-                <h4>En Caso de Emergencia Llamar a:</h4>
+                <h4>En caso de emergencia llamar a</h4>
                 <!--L19 Cedula Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group"> 
                     <label for="tf_parentescoCasoEmergencia" class="col-xs-2 control-label">Parentesco:</label>
@@ -306,11 +306,11 @@
                 </div> 
                 <!--L20 Nombre de la Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_ape1PersonaEmergencia_NI" class="col-xs-2 control-label">1er Apellido:</label>
+                    <label for="tf_ape1PersonaEmergencia_NI" class="col-xs-2 control-label">1er apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1PersonaEmergencia_NI" name="tf_ape1PersonaEmergencia_NI"/>
                     </div>
-                    <label for="tf_ape2PersonaEmergencia_NI" class="col-xs-2 control-label">2do Apellido:</label>
+                    <label for="tf_ape2PersonaEmergencia_NI" class="col-xs-2 control-label">2do apellido:</label>
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2PersonaEmergencia_NI" name="tf_ape2PersonaEmergencia_NI"/>
                     </div>
@@ -321,7 +321,7 @@
                 </div> 
                 <!--L21 Telefonos de la Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_telHabitPersonaEmergencia" class="col-xs-2 control-label">Tel. Habit:</label>
+                    <label for="tf_telHabitPersonaEmergencia" class="col-xs-2 control-label">Tel. Habitación:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitPersonaEmergencia" id="tf_telHabitPersonaEmergencia"/>
                     </div>
@@ -334,7 +334,7 @@
                 <legend class="text-center">DATOS DE LA INSTITUCIÓN</legend>
                 <!--L22 Nivel a Matricular, Condicion, Adelanto (Formulario Hugo)-->
                 <div class="form-group"> 
-                    <label for="tf_nivelMatricular" class="col-xs-2 control-label">Nivel a Matricular:</label>
+                    <label for="tf_nivelMatricular" class="col-xs-2 control-label">Nivel a matricular:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="sl_nivelMatricular" id="sl_nivelMatricular">
                             <option value="">Seleccione</option>

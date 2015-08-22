@@ -7,7 +7,7 @@ class Persona_Model extends Models{
     public function buscarDocente(){}
     /*METODOS DE RESULTADOS DE BUSQUEDAS*/
     public function resultadobuscarDocente($cedula){
-        return $this->db->select("SELECT * FROM sipce_persona WHERE cedula = :cedula", array(':cedula'=>$cedula));
+        return $this->db->select("SELECT * FROM sipce_estudiante WHERE cedula = :cedula", array(':cedula'=>$cedula));
     }
 
     /*Carga todos los paises*/
@@ -33,12 +33,13 @@ class Persona_Model extends Models{
         echo json_encode($resultado);  
     }
     /*Retorna la lista de todo los usuarios*/
-    public function listaEstudiantes(){
-       return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
-                                ."FROM sipce_persona, sipce_grupos "
+    public function listaEstudiantes(){ 
+//       $consulta= $this->db->select("SELECT * FROM sipce_estudiante"); 
+        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
+                                ."FROM sipce_estudiante, sipce_grupos "
                                 ."WHERE cedula = ced_estudiante "
-                                ."AND tipoUsuario = 3 "
-                                ."ORDER BY apellido1,apellido2"); 
+                                ."AND tipoUsuario = 4 "
+                                ."ORDER BY apellido1,apellido2");
     }
 
     /*Retorna los roles de permisos*/
@@ -63,7 +64,7 @@ class Persona_Model extends Models{
     public function personaUnicaLista($cedula, $basedatos){
         
         if($basedatos == "bd_sipce"){
-            return $this->db->select("SELECT * FROM sipce_persona WHERE cedula = :cedula", array(':cedula'=>$cedula));
+            return $this->db->select("SELECT * FROM sipce_estudiante WHERE cedula = :cedula", array(':cedula'=>$cedula));
         }else{
             return $this->db->select("SELECT * FROM tpersonapadron WHERE cedula = :cedula", array(':cedula'=>$cedula));
         }
@@ -71,7 +72,7 @@ class Persona_Model extends Models{
     } 
     public function saveDocenteEstudiante($data){
         
-        $this->db->insert('sipce_persona', array(
+        $this->db->insert('sipce_estudiante', array(
            
         'cedula'=>$data['cedulaP'],
         'sexo'=>$data['sexoP'],

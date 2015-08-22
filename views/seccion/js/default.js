@@ -41,8 +41,8 @@ $(function()
                     '</tr><tr>' +
                     '<th>N°</th>' +
                     '<th>Identificación</th>' +
-                    '<th>1º Apellido</th>' +
-                    '<th>2º Apellido</th>' +
+                    '<th>1<sup>er</sup> apellido</th>' +
+                    '<th>2<sup>do</sup> apellido</th>' +
                     '<th>Nombre</th>' +
                     '</tr></thead><tbody>');
             $('#SecElegGrupB').append('<thead><tr>' +
@@ -50,8 +50,8 @@ $(function()
                     '</tr><tr>' +
                     '<th>N°</th>' +
                     '<th>Identificación</th>' +
-                    '<th>1º Apellido</th>' +
-                    '<th>2º Apellido</th>' +
+                    '<th>1<sup>er</sup> apellido</th>' +
+                    '<th>2<sup>do</sup> apellido</th>' +
                     '<th>Nombre</th>' +
                     '</tr></thead><tbody>');
             $('#SecElegGrupC').append('<thead><tr>' +
@@ -59,8 +59,8 @@ $(function()
                     '</tr><tr>' +
                     '<th>N°</th>' +
                     '<th>Identificación</th>' +
-                    '<th>1º Apellido</th>' +
-                    '<th>2º Apellido</th>' +
+                    '<th>1<sup>er</sup> apellido</th>' +
+                    '<th>2<sup>do</sup> apellido</th>' +
                     '<th>Nombre</th>' +
                     '</tr></thead><tbody>');
             for (var linea = 0; linea < seccionElegida.length; linea++) {
@@ -104,9 +104,9 @@ $(function()
                             '</td></tr>');
                 }
             }
-            $('#SecElegGrupA').append('<tr><td colspan="5">Ultima linea</td></tr></tbody>');
-            $('#SecElegGrupB').append('<tr><td colspan="5">Ultima linea</td></tr></tbody>');
-            $('#SecElegGrupC').append('<tr><td colspan="5">Ultima linea</td></tr></tbody>');
+            $('#SecElegGrupA').append('<tr><td colspan="5">Última línea</td></tr></tbody>');
+            $('#SecElegGrupB').append('<tr><td colspan="5">Última línea</td></tr></tbody>');
+            $('#SecElegGrupC').append('<tr><td colspan="5">Última línea</td></tr></tbody>');
         }, "json");
     });
 });
