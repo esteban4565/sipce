@@ -61,9 +61,13 @@ class ActualizarEstudiantes_Model extends Models {
 		if($consulta_datos != null){
                     //recorro el registro de la consulta y realizo el update en la tabla sipce_estudiante
                     foreach ($consulta_datos as $key => $value) {
-                        $passTemporal=Hash::create('md5', $value['fechaNacimiento'], HASH_PASSWORD_KEY);
-//                        print_r($passTemporal);
+                        $dia=substr($value['fechaNacimiento'],8,2);
+                        $mes=substr($value['fechaNacimiento'],5,2);
+                        $anio=substr($value['fechaNacimiento'],0,4);
+                        $fechaOrdenada=$dia.$mes.$anio;
+//                        print_r($fechaOrdenada);
 //                        die;
+                        $passTemporal=Hash::create('md5', $fechaOrdenada, HASH_PASSWORD_KEY);
                         $postData = array('passwords' => $passTemporal
                                             );
                         $this->db->update('sipce_estudiante', $postData, "`cedula` = '{$estudiante['cedula']}'");
