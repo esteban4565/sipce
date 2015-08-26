@@ -42,7 +42,7 @@
                     $('#imagen').change(function(e) {
                         addImage(e);
                     });
-                    function addImage(e) {
+                 function addImage(e) {
                         var file = e.target.files[0],
                                 imageType = /image.*/;
                         /*Si es una imagen y ademas menor a 1MB*/
@@ -65,7 +65,8 @@
         </script> 
     </head>
   <body>
-<?php Session::init(); ?>
+<?php Session::init(); 
+ ?>
             <!--Si esta logeded-->
             <!--Menu-->
 <?php if (Session::get('loggedIn') == true): ?> 

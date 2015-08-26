@@ -100,36 +100,69 @@ $(function(){
     });
     ////////////////////////////////////////////////////////////////////////////
 });//Cierre de funcion principal
-    //Agregar mas universidades//
-$(document).ready(function(){
-    //when the Add Filed button is clicked
-    $("#AddUniversidad").click(function(e){
-    //Append a new row of code to the "#items" div
-        var n = $("#AddU div").length;
-        
-        if (n < 9) {
-            $("#AddU").append('<div class="form-group">\n\
-                                    <label for="tf_nombreUniversidad" class="col-xs-2 control-label">Nombre Universidad:</label>\n\
-                                    <div class="col-xs-2">\n\
-                                        <input type="text" class="form-control input-sm validate[required]" id="input[]" name="jaja1"/>\n\
-                                    </div>\n\
-                                    <label for="lbl_anoFinaliza" class="col-xs-2 control-label">Año Finaliza:</label>\n\
-                                    <div class="col-xs-2">\n\
-                                        <input type="text" class="form-control input-sm validate[required]" id="input[]" name="jaja2"/>\n\
-                                    </div>\n\
-                                    <input type="button" class="delette btn-xs btn-primary" id="input[]" name="jaja3" value="Eliminar"/>\n\
-                                </div>');
-        
-        }
-        else{
-            alert("Solamente puede ingresar 3 Universidades!");
-            }
-            
-    });
-    $("body").on("click", ".delette", function (e) {
-        $(this).parent("div").remove();
-    });
-});
+
+//Agregar mas universidades//
+$(document).on("ready",Universidades);
+
+function Universidades()
+{
+    $("#btnAgregarUniversidad").on("click", nuevaUniversidad);
+    $("body").on("click", ".delette", eliminarUniversidad);
+}
+function nuevaUniversidad()
+{
+       
+    $("#AgregarUniversidad")
+        .append
+        (
+                $('<div class="form-group">')
+                .append
+                    (
+                        $('<label for="slt_nombreUniversidad[]" class="col-xs-2 control-label">Nombre Universidad:</label>')
+                    )
+                .append
+                    ($('<div class="col-xs-2">')
+                        .append
+                            (
+                                    
+                            $('<select class="form-control input-sm validate[required]" name="slt_nombreUniversidad[]"><option value="">Seleccione</option>')
+                            
+                            )
+                    )
+                .append
+                    ($('</div>'))
+                    
+                ////////////////////////////////////////////////////////////////
+                
+                .append
+                    (
+                        $('<label for="tf_nombreUniversidad" class="col-xs-2 control-label">Año Finaliza:</label>')
+                    )
+                .append
+                    ($('<div class="col-xs-2">')
+                        .append
+                            ($('<input type="text" class="form-control input-sm validate[required]" id="tf_anoFinaliza[]" name="tf_anoFinaliza[]"/>'))
+                    )
+                .append
+                    ($('</div>'))
+                ///////////////////////////////////////////////////////////////
+                .append
+                    ($('<div class="col-xs-2">')
+                        .append
+                            ($('<input type="button" class="delette btn-xs btn-primary" id="delette[]" name="delette[]" value="Eliminar"/>'))
+                    )
+                .append
+                    ($('</div>'))
+        )
+        .append
+        (
+                ($('</div>'))
+        );
+}
+function eliminarUniversidad(){
+    $(this).parent().parent().fadeOut("slow", function(){$(this).remove();});
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //Oculta Boton Buscar si es extrangero//
     

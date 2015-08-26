@@ -65,7 +65,45 @@ class Personal extends Controllers {
         $this->view->render('personal/nuevoIngreso');
         $this->view->render('footer');
     }
+    function guardarNuevoIngreso() {
+        $datos = array();
+        $datos['slt_nacionalidad'] = $_POST['slt_nacionalidad'];
+        $datos['txt_cedulaPersonal'] = strtoupper($_POST['txt_cedulaPersonal']);		
+        $datos['txt_apellido1'] = strtoupper($_POST['txt_apellido1']);
+        $datos['txt_apellido2'] = strtoupper($_POST['txt_apellido2']);
+        $datos['txt_nombre'] = strtoupper($_POST['txt_nombre']);
+        $datos['txt_fnacpersona'] = $_POST['txt_fnacpersona'];
+        $datos['txt_edad'] = $_POST['txt_edad'];
+        $datos['slt_genero'] = $_POST['slt_genero'];
+        $datos['txt_telHabPersonal'] = $_POST['txt_telHabPersonal'];
+        $datos['txt_telCelPersonal'] = $_POST['txt_telCelPersonal'];
+        $datos['txt_email'] = $_POST['txt_email'];
+        
+        $datos['txta_domicilio'] = strtoupper($_POST['txta_domicilio']);
+        $datos['slt_provinciaDom'] = $_POST['slt_provinciaDom'];
+        $datos['slt_cantonDom'] = $_POST['slt_cantonDom'];
+        $datos['slt_distritoDom'] = $_POST['slt_distritoDom'];
+        
+        $datos['txta_domicilioClases'] = strtoupper($_POST['txta_domicilioClases']);
+        $datos['slt_provinciaClases'] = $_POST['slt_provinciaClases'];
+        $datos['slt_cantonClases'] = $_POST['slt_cantonClases'];
+        $datos['slt_distritoClases'] = $_POST['slt_distritoClases'];
+        
+        $datos['slt_enfermedad'] = $_POST['slt_enfermedad'];
+        $datos['txt_enfermedadDesc'] = $_POST['txt_enfermedadDesc'];
 
+        $datos['anio'] = date("Y-m-d");
+        
+        
+        print_r($datos);
+        die;
+        
+        //$this->model->guardarNuevoIngreso($datos);
+
+        $this->view->render('header');
+        $this->view->render('matricula/estudiantesMatriculados');
+        $this->view->render('footer');
+    }
     function editarMatricula($cedulaEstudiante) {
         $this->view->title = 'Editar Matricula';
         $this->view->anio = $this->model->anio();
@@ -247,84 +285,6 @@ class Personal extends Controllers {
         $datos['anio'] = $this->model->anio();
         
         $this->model->guardarRatificacion($datos);
-
-        //Consulto Cantidad Estudiantes Matriculados
-        $this->view->estadoMatricula = $this->model->estadoMatricula();
-        
-        $this->view->render('header');
-        $this->view->render('matricula/estudiantesMatriculados');
-        $this->view->render('footer');
-    }
-
-    function guardarNuevoIngreso() {
-        $datos = array();
-        $datos['tf_nacionalidad'] = $_POST['tf_nacionalidad'];
-        $datos['tf_cedulaEstudiante'] = strtoupper($_POST['tf_cedulaEstudiante']);
-        $datos['tf_ape1'] = strtoupper($_POST['tf_ape1']);
-        $datos['tf_ape2'] = strtoupper($_POST['tf_ape2']);
-        $datos['tf_nombre'] = strtoupper($_POST['tf_nombre']);
-        $datos['tf_fnacpersona'] = $_POST['tf_fnacpersona'];
-        $datos['tf_genero'] = $_POST['tf_genero'];
-        $datos['tf_telHabitEstudiante'] = $_POST['tf_telHabitEstudiante'];
-        $datos['tf_telcelular'] = $_POST['tf_telcelular'];
-        $datos['tf_email'] = $_POST['tf_email'];
-        $datos['tf_domicilio'] = $_POST['tf_domicilio'];
-        $datos['tf_provincias'] = $_POST['tf_provincias_NI'];
-        $datos['tf_cantones'] = $_POST['tf_cantones_NI'];
-        $datos['tf_distritos'] = $_POST['tf_distritos_NI'];
-        $datos['tf_primaria'] = $_POST['tf_primaria'];
-        $datos['sel_enfermedad'] = $_POST['sel_enfermedad'];
-        $datos['tf_enfermedadDescripcion'] = $_POST['tf_enfermedadDescripcion'];
-        
-        $datos['tf_cedulaEncargado'] = strtoupper($_POST['tf_cedulaEncargado_NI']);
-        $datos['tf_ape1Encargado'] = strtoupper($_POST['tf_ape1Encargado_NI']);
-        $datos['tf_ape2Encargado'] = strtoupper($_POST['tf_ape2Encargado_NI']);
-        $datos['tf_nombreEncargado'] = strtoupper($_POST['tf_nombreEncargado_NI']);
-        $datos['tf_telHabitEncargado'] = $_POST['tf_telHabitEncargado'];
-        $datos['tf_telcelularEncargado'] = $_POST['tf_telcelularEncargado'];
-        $datos['tf_ocupacionEncargado'] = $_POST['tf_ocupacionEncargado'];
-        $datos['tf_emailEncargado'] = $_POST['tf_emailEncargado'];
-        $datos['sel_parentesco'] = $_POST['sel_parentesco'];
-        
-        $datos['tf_cedulaMadre'] = strtoupper($_POST['tf_cedulaMadre_NI']);
-        $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre_NI']);
-        $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre_NI']);
-        $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre_NI']);
-        $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
-        $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
-        
-        $datos['tf_cedulaPadre'] = strtoupper($_POST['tf_cedulaPadre_NI']);
-        $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre_NI']);
-        $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre_NI']);
-        $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre_NI']);
-        $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
-        $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
-        
-        $datos['tf_cedulaPersonaEmergencia'] = strtoupper($_POST['tf_cedulaPersonaEmergencia_NI']);
-        $datos['tf_ape1PersonaEmergencia'] = strtoupper($_POST['tf_ape1PersonaEmergencia_NI']);
-        $datos['tf_ape2PersonaEmergencia'] = strtoupper($_POST['tf_ape2PersonaEmergencia_NI']);
-        $datos['tf_nombrePersonaEmergencia'] = strtoupper($_POST['tf_nombrePersonaEmergencia_NI']);
-        $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
-        $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
-        $datos['sel_parentescoCasoEmergencia'] = $_POST['sel_parentescoCasoEmergencia'];
-        
-        $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];
-        if ($_POST['sl_nivelMatricular'] > 9) {
-            $datos['tf_especialidad'] = $_POST['tf_especialidad'];
-        }
-        $datos['sl_condicion'] = $_POST['sl_condicion'];
-        $datos['sl_adelanta'] = $_POST['sl_adelanta'];
-        $datos['sl_adecuacion'] = $_POST['sl_adecuacion'];
-        $datos['sl_becaAvancemos'] = $_POST['sl_becaAvancemos'];
-        $datos['sl_becaComedor'] = $_POST['sl_becaComedor'];
-        $datos['tf_poliza'] = $_POST['tf_poliza'];
-        $datos['tf_polizaVence'] = $_POST['tf_polizaVence'];
-        $datos['anio'] = $this->model->anio();
-        
-//        print_r($datos);
-//        die;
-        
-        $this->model->guardarNuevoIngreso($datos);
 
         //Consulto Cantidad Estudiantes Matriculados
         $this->view->estadoMatricula = $this->model->estadoMatricula();
