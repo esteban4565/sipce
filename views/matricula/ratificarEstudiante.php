@@ -113,27 +113,13 @@
                     <label for="tf_cantones" class="col-xs-2 control-label">Cantón:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="tf_cantones" id="tf_cantones">
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaCantones as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdCanton']; ?>"<?php if ($value['IdCanton'] == $this->infoEstudiante[0]['IdCanton']) echo ' selected'; ?>><?php echo $value['Canton']; ?></option>
-                                <?php
-                            }
-                            ?>  
+                            
                         </select>
                     </div>
                     <label for="tf_distritos" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
                         <select  class="form-control input-sm validate[required]" name="tf_distritos" id="tf_distritos">  
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaDistritos as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdDistrito']; ?>"<?php if ($value['IdDistrito'] == $this->infoEstudiante[0]['IdDistrito']) echo ' selected'; ?>><?php echo $value['Distrito']; ?></option>
-                                <?php
-                            }
-                            ?>    
+                             
                         </select>
                     </div>
                 </div>
@@ -150,7 +136,7 @@
                     <div class="col-xs-2">
                         <select  class="form-control input-sm" name="sel_enfermedad" id="sel_enfermedad">
                             <option value="0" <?php if ($this->enfermedadEstudiante == null) echo 'selected'; ?>>No</option> 
-                            <option value="1" <?php if ($this->enfermedadEstudiante != null) echo 'selected'; ?>>Si</option>
+                            <option value="1" <?php if ($this->enfermedadEstudiante != null) echo 'selected'; ?>>Sí</option>
                         </select>
                     </div>
                     <div class="col-xs-2">

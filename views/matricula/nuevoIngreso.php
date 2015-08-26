@@ -104,27 +104,13 @@
                     <label for="tf_cantones_NI" class="col-xs-2 control-label">Cantón:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="tf_cantones_NI" id="tf_cantones_NI">
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaCantones as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdCanton']; ?>"><?php echo $value['Canton']; ?></option>
-                                <?php
-                            }
-                            ?>  
+                            
                         </select>
                     </div>
                     <label for="tf_distritos_NI" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
                         <select  class="form-control input-sm validate[required]" name="tf_distritos_NI" id="tf_distritos_NI">  
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaDistritos as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdDistrito']; ?>"><?php echo $value['Distrito']; ?></option>
-                                <?php
-                            }
-                            ?>    
+                            
                         </select>
                     </div>
                 </div>
@@ -141,7 +127,7 @@
                     <div class="col-xs-2">
                         <select  class="form-control input-sm" name="sel_enfermedad" id="sel_enfermedad"> 
                             <option value="0" selected>No</option> 
-                            <option value="1">Si</option>
+                            <option value="1">Sí</option>
                         </select>
                     </div>
                     <div class="col-xs-2">

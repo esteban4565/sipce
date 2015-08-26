@@ -114,9 +114,13 @@
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaCantones as $value) {
+                                if ($this->infoEstudiante != null && $value['IdProvincia'] == $this->infoEstudiante[0]['IdProvincia']){
                                 ?>
-                                <option value="<?php echo $value['IdCanton']; ?>"<?php if ($value['IdCanton'] == $this->infoEstudiante[0]['IdCanton']) echo ' selected'; ?>><?php echo $value['Canton']; ?></option>
+                                <option value="<?php echo $value['IdCanton']; ?>"
+                                               <?php if ($value['IdCanton'] == $this->infoEstudiante[0]['IdCanton']) echo ' selected'; ?>>
+                                               <?php echo $value['Canton']; ?></option>
                                 <?php
+                                }
                             }
                             ?>  
                         </select>
@@ -127,9 +131,13 @@
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaDistritos as $value) {
+                                if ($this->infoEstudiante != null && $value['IdCanton'] == $this->infoEstudiante[0]['IdCanton']){
                                 ?>
-                                <option value="<?php echo $value['IdDistrito']; ?>"<?php if ($value['IdDistrito'] == $this->infoEstudiante[0]['IdDistrito']) echo ' selected'; ?>><?php echo $value['Distrito']; ?></option>
+                                <option value="<?php echo $value['IdDistrito']; ?>"
+                                               <?php if ($value['IdDistrito'] == $this->infoEstudiante[0]['IdDistrito']) echo ' selected'; ?>>
+                                               <?php echo $value['Distrito']; ?></option>
                                 <?php
+                                }
                             }
                             ?>    
                         </select>
@@ -148,7 +156,7 @@
                     <div class="col-xs-2">
                         <select  class="form-control input-sm" name="sel_enfermedad" id="sel_enfermedad">
                             <option value="0" <?php if ($this->enfermedadEstudiante == null) echo 'selected'; ?>>No</option> 
-                            <option value="1" <?php if ($this->enfermedadEstudiante != null) echo 'selected'; ?>>Si</option>
+                            <option value="1" <?php if ($this->enfermedadEstudiante != null) echo 'selected'; ?>>Sí</option>
                         </select>
                     </div>
                     <div class="col-xs-2">

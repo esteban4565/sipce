@@ -9,7 +9,7 @@ class Matricula extends Controllers {
     }
 
     function index() {
-        $this->view->title = 'Matricula';
+        $this->view->title = 'Matrícula';
         $this->view->anio = $this->model->anio();
 
         /* CARGAMOS LA LISTA DE ESTADO CIVIL */
@@ -24,7 +24,7 @@ class Matricula extends Controllers {
     }
 
     function ratificar() {
-        $this->view->title = 'Ratificar Matricula';
+        $this->view->title = 'Ratificar matrícula';
         $this->view->anio = $this->model->anio();
         $this->view->listaEstudiantes = $this->model->listaEstudiantes();
 
@@ -34,17 +34,11 @@ class Matricula extends Controllers {
     }
 
     function ratificarEstudiante($cedulaEstudiante) {
-        $this->view->title = 'Ratificar Matricula';
+        $this->view->title = 'Ratificar matrícula';
         $this->view->anio = $this->model->anio();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
-        
-        /* CARGAMOS TODOS LOS CANTONES */
-        $this->view->consultaCantones = $this->model->consultaCantones();
-        
-        /* CARGAMOS TODOS LOS DISTRITOS */
-        $this->view->consultaDistritos = $this->model->consultaDistritos();
 
         /* CARGAMOS LA LISTA DE ESTADO CIVIL */
         $this->view->estadoCivilList = $this->model->estadoCivilList();
@@ -97,17 +91,11 @@ class Matricula extends Controllers {
     }
 
     function nuevoIngreso() {
-        $this->view->title = 'Nuevo Ingreso';
+        $this->view->title = 'Nuevo ingreso';
         $this->view->anio = $this->model->anio();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
-        
-        /* CARGAMOS TODOS LOS CANTONES */
-        $this->view->consultaCantones = $this->model->consultaCantones();
-        
-        /* CARGAMOS TODOS LOS DISTRITOS */
-        $this->view->consultaDistritos = $this->model->consultaDistritos();
 
         /* CARGAMOS LA LISTA DE ESTADO CIVIL */
         $this->view->estadoCivilList = $this->model->estadoCivilList();
@@ -124,7 +112,7 @@ class Matricula extends Controllers {
     }
 
     function editarMatricula($cedulaEstudiante) {
-        $this->view->title = 'Editar Matricula';
+        $this->view->title = 'Editar matrícula';
         $this->view->anio = $this->model->anio();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */

@@ -79,6 +79,6 @@
     </div>
     <div class="col-xs-4">&nbsp;</div>
     <div class="col-xs-4">
-        <a class="btn-lg btn-success" href="<?php echo URL; ?>matricula/ratificar">Ver Lista Completa</a>
+        <a class="btn-lg btn-success" href="<?php echo URL; ?>matricula/ratificar">Ver lista completa</a>
     </div>
 </div>
