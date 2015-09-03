@@ -1,3 +1,5 @@
+//Este array contendra todos los objetos (Universidades) que cree el usuario
+var listaPersonas = new Array();
 $(function(){
     $("#slt_nacionalidad").change(function() {
         var codigoPais = $("#slt_nacionalidad").val();
@@ -79,6 +81,82 @@ $(function(){
         });
     });
     ////////////////////////////////////////////////////////////////////////////
+    //Carga los cantones para las escuelas//
+    $("#slt_provinciaPrim").change(function() {
+        $("#slt_cantonPrim,#slt_distritoPrim,#slt_primaria").empty();
+        var idP = $("#slt_provinciaPrim").val();
+        $.getJSON('cargaCantones/' + idP, function(canton) {
+            $('#slt_cantonPrim').append('<option value="">Seleccione</option>');
+            for (var iP = 0; iP < canton.length; iP++) {
+                $("#slt_cantonPrim").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
+            }
+        });
+    });
+    //Carga los distritos para las escuelas//
+    $("#slt_cantonPrim").change(function() {
+        $("#slt_distritoPrim,#slt_primaria").empty();
+        var idD = $("#slt_cantonPrim").val();
+        //var ids = $(this).attr('rel');
+        $.getJSON('cargaDistritos/' + idD, function(distrito) {
+            $('#slt_distritoPrim').append('<option value="">Seleccione</option>');
+            for (var iD = 0; iD < distrito.length; iD++) {
+                $("#slt_distritoPrim").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
+            }
+        });
+    });
+    //Carga las escuelas de esos distritos//
+    $("#slt_distritoPrim").change(function() {
+        $("#slt_primaria").empty();
+        
+        var idD = $("#slt_distritoPrim").val();
+        
+        //var ids = $(this).attr('rel');
+        $.getJSON('cargaEscuela/' + idD, function(escuela) {
+            $('#slt_primaria').append('<option value="">Seleccione</option>');
+            for (var iD = 0; iD < escuela.length; iD++) {
+              $("#slt_primaria").append('<option value="' + escuela[iD].IdDistrito + '">' + escuela[iD].nombre + '</option>');
+            }
+        });
+    });
+    ////////////////////////////////////////////////////////////////////////////
+    //Carga los cantones para los colegios//
+    $("#slt_provinciaSec").change(function() {
+        $("#slt_cantonSec,#slt_distritoSec,#slt_secundaria").empty();
+        var idP = $("#slt_provinciaSec").val();
+        $.getJSON('cargaCantones/' + idP, function(canton) {
+            $('#slt_cantonSec').append('<option value="">Seleccione</option>');
+            for (var iP = 0; iP < canton.length; iP++) {
+                $("#slt_cantonSec").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
+            }
+        });
+    });
+    //Carga los distritos para los colegios//
+    $("#slt_cantonSec").change(function() {
+        $("#slt_distritoSec,#slt_secundaria").empty();
+        var idD = $("#slt_cantonSec").val();
+        //var ids = $(this).attr('rel');
+        $.getJSON('cargaDistritos/' + idD, function(distrito) {
+            $('#slt_distritoSec').append('<option value="">Seleccione</option>');
+            for (var iD = 0; iD < distrito.length; iD++) {
+                $("#slt_distritoSec").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
+            }
+        });
+    });
+    //Carga los colegios de esos distritos//
+    $("#slt_distritoSec").change(function() {
+        $("#slt_secundaria").empty();
+        
+        var idD = $("#slt_distritoSec").val();
+        
+        //var ids = $(this).attr('rel');
+        $.getJSON('cargaColegio/' + idD, function(escuela) {
+            $('#slt_secundaria').append('<option value="">Seleccione</option>');
+            for (var iD = 0; iD < escuela.length; iD++) {
+              $("#slt_secundaria").append('<option value="' + escuela[iD].IdDistrito + '">' + escuela[iD].nombre + '</option>');
+            }
+        });
+    });
+    ////////////////////////////////////////////////////////////////////////////
     //Carga los datos de de la Persona En Caso de Emergencia//
     $("#btnBuscarPersonaEmergencia").click(function(event) {
         var idD = $("#slt_parentescoCasoEmergencia").val();
@@ -106,58 +184,50 @@ $(document).on("ready",Universidades);
 
 function Universidades()
 {
-    $("#btnAgregarUniversidad").on("click", nuevaUniversidad);
+    
+    $("#btnAgregarUniversidad").on("click", nuevaUniversidad); 
     $("body").on("click", ".delette", eliminarUniversidad);
 }
 function nuevaUniversidad()
 {
-       
-    $("#AgregarUniversidad")
-        .append
-        (
-                $('<div class="form-group">')
-                .append
-                    (
-                        $('<label for="slt_nombreUniversidad[]" class="col-xs-2 control-label">Nombre Universidad:</label>')
-                    )
-                .append
-                    ($('<div class="col-xs-2">')
-                        .append
-                            (
-                                    
-                            $('<select class="form-control input-sm validate[required]" name="slt_nombreUniversidad[]"><option value="">Seleccione</option>')
-                            
-                            )
-                    )
-                .append
-                    ($('</div>'))
-                    
-                ////////////////////////////////////////////////////////////////
-                
-                .append
-                    (
-                        $('<label for="tf_nombreUniversidad" class="col-xs-2 control-label">Año Finaliza:</label>')
-                    )
-                .append
-                    ($('<div class="col-xs-2">')
-                        .append
-                            ($('<input type="text" class="form-control input-sm validate[required]" id="tf_anoFinaliza[]" name="tf_anoFinaliza[]"/>'))
-                    )
-                .append
-                    ($('</div>'))
-                ///////////////////////////////////////////////////////////////
-                .append
-                    ($('<div class="col-xs-2">')
-                        .append
-                            ($('<input type="button" class="delette btn-xs btn-primary" id="delette[]" name="delette[]" value="Eliminar"/>'))
-                    )
-                .append
-                    ($('</div>'))
-        )
-        .append
-        (
-                ($('</div>'))
-        );
+    //Cuando le dan clic al boton, creo un objeto con 3 atributos (id,nombre y año) de la Universidad
+    var persona = new Object();
+    var idUniversidad = $("#slt_nombreUniversidad").val();
+    var nombreUniversidad = $("#slt_nombreUniversidad option:selected").text();
+    var tituloUniversidad = $("#txtnombreTitulo").val();    
+    var annio = $("#tf_anoFinaliza").val();
+    persona.idUniversidad = idUniversidad;
+    persona.nombreUniversidad = nombreUniversidad;
+    persona.tituloUniversidad = tituloUniversidad;
+    persona.annio=annio;   
+    
+    //Una vez inicializado el objeto, lo guardo en el array listaPersonas
+    listaPersonas.push(persona);
+    
+    //Procedo a borrar la tabla y pinto de nuevo todos los objetos que se encuentran en el array
+    $("#tablaUniversidades").empty();
+    $('#tablaUniversidades').append('<thead><tr><th>Nombre Universidad</th><th>Nombre Titulo</th><th>Año Finalizado</th><th>Oprecion</th></tr></thead><tbody>');
+    
+    for (var linea = 0; linea < listaPersonas.length; linea++) {
+        $('#tablaUniversidades').append('<tr><td>' + listaPersonas[linea].nombreUniversidad + '</td><td>' + listaPersonas[linea].tituloUniversidad + '</td><td>' + listaPersonas[linea].annio + '</td><td><input type="button" class="delette btn-xs btn-primary" id="delette[]" name="delette[]" value="Eliminar"/></td></tr>');
+            }
+        $('#tablaUniversidades').append('<tr><td colspan="4" align="center">Última línea</td></tr></tbody>');
+    
+    //Agrego un input oculto al formulario, este contendra un array con el id de la Universidad agregada
+        $('<input type="hidden">').attr({
+            name: 'universidades[]',
+            value: persona.idUniversidad
+        }).appendTo('#MyForm');
+    //Agrego un input oculto al formulario, este contendra un array con el "titulo" de la Universidad agregada
+        $('<input type="hidden">').attr({
+            name: 'titulo[]',
+            value: persona.tituloUniversidad
+        }).appendTo('#MyForm');    
+        //Agrego un input oculto al formulario, este contendra un array con el "Año Finalizado" de la Universidad agregada
+        $('<input type="hidden">').attr({
+            name: 'annios[]',
+            value: persona.annio
+        }).appendTo('#MyForm');
 }
 function eliminarUniversidad(){
     $(this).parent().parent().fadeOut("slow", function(){$(this).remove();});

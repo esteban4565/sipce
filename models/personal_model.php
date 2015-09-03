@@ -52,6 +52,16 @@ class Personal_Model extends Models {
         $resultado = $this->db->select("SELECT * FROM sipce_distritos WHERE IdCanton = :idCanton ORDER BY Distrito", array('idCanton' => $idCanton));
         echo json_encode($resultado);
     }
+    //Carga las escuela//
+    function cargaEscuela($idDistrito){
+       $resultado = $this->db->select("SELECT * FROM sipce_escuelas WHERE IdDistrito = :idDistrito ORDER BY nombre", array('idDistrito' => $idDistrito));
+        echo json_encode($resultado); 
+    }
+    //Carga los colegios//
+    public function cargaColegio($idDistrito){
+       $resultado = $this->db->select("SELECT * FROM sipce_colegios WHERE IdDistrito = :idDistrito ORDER BY nombre", array('idDistrito' => $idDistrito));
+        echo json_encode($resultado); 
+    }
 
     /* Retorna la lista de estado civil */
 

@@ -47,42 +47,7 @@
                 <br><br>
                 <legend class="text-center">DATOS ACADEMICOS</legend>
                 <!--L9 Cedula y parentesco* del encargado legal (Formulario Hugo)-->
-                <div class="form-group"> 
-                    <label for="tf_UltimogradoAcademico" class="col-xs-2 control-label">Último grado academico:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_UltimogradoAcademico" id="tf_UltimogradoAcademico"/>
-                    </div>
-                    <label for="tf_GrupoProfesional" class="col-xs-2 control-label">Grupo profesional:</label>
-                    <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="tf_distritos_NI" id="tf_distritos_NI">  
-                            <option value="">Seleccione</option>
-                            <?php
-                            foreach ($this->consultaDistritos as $value) {
-                                ?>
-                                <option value="<?php echo $value['IdDistrito']; ?>"><?php echo $value['Distrito']; ?></option>
-                                <?php
-                            }
-                            ?>    
-                        </select>
-                    </div>
-                    <label for="sel_Anualidades" class="col-xs-2 control-label">Anualidades:</label>
-                    <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="sel_Anualidades" id="sel_Anualidades"> 
-                            <option value="">Seleccione</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                         </select>
-                    </div>
-                </div> 
+               
                 <!--L10 Primaria secundarias--> 
                 <div class="form-group">
                     <label for="sel_Anualidades" class="col-xs-2 control-label">Primaria:</label>

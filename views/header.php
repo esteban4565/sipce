@@ -177,10 +177,11 @@
                 <br><br><br>
             <!--Contenido para mostrar todas las paginas-->
             <div class="row">
+                <div class="col-xs-1"></div>
                 <div class="col-xs-1">
                     <img src="<?php echo URL; ?>public/img/logosipce.png" alt="Logo Sipce" class="img-rounded pull-left img-responsive">
                 </div>
-                <div class="col-xs-10 text-center">
+                <div class="col-xs-8 text-center">
                     <div class="row">
                         <div class="col-xs-12">
                             <h2>Sistema de Información para Centros Educativos</h1>
@@ -193,6 +194,7 @@
                 <div class="col-xs-1">
                     <img src="<?php echo URL; ?>public/img/logoctpcarrizal.png" alt="Logo CTPC" class="img-rounded pull-right img-responsive">
                 </div>
+                <div class="col-xs-1"></div>
             </div>
             <div class="container">
             <div class="row">

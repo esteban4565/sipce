@@ -168,15 +168,119 @@
                         <input type="text" class="form-control input-sm" name="txt_enfermedadDesc" id="txt_enfermedadDesc"/>
                     </div>
                 </div>
+                <br><br>
+                <!--/////////////////////////////////////////////////////////-->
+                <legend class="text-center">DATOS ACADEMICOS</legend>
+                <div class="form-group"> 
+                    <label for="tf_UltimogradoAcademico" class="col-xs-2 control-label">Último grado academico:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_UltimogradoAcademico" id="tf_UltimogradoAcademico"/>
+                    </div>
+                    <label for="tf_GrupoProfesional" class="col-xs-2 control-label">Grupo profesional:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="tf_distritos_NI" id="tf_distritos_NI">  
+                            <option value="">Seleccione</option>
+                            <?php
+                            foreach ($this->consultaDistritos as $value) {
+                                ?>
+                                <option value="<?php echo $value['IdDistrito']; ?>"><?php echo $value['Distrito']; ?></option>
+                                <?php
+                            }
+                            ?>    
+                        </select>
+                    </div>
+                    <label for="sel_Anualidades" class="col-xs-2 control-label">Anualidades:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="sel_Anualidades" id="sel_Anualidades"> 
+                            <option value="">Seleccione</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                         </select>
+                    </div>
+                </div> 
+                <!--///////////////////////////////////////////////////////////-->
+                <h4>Primaria</h4>
+                <!--L10 Primaria secundarias--> 
+                <div class="form-group">
+                    <label for="slt_provinciaPrim" class="col-xs-1 control-label">Provincia:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="slt_provinciaPrim" id="slt_provinciaPrim">
+                            <option value="">Seleccione</option>
+                            <?php
+                            foreach ($this->consultaProvincias as $value) {
+                                ?>
+                                <option value="<?php echo $value['IdProvincia']; ?>"><?php echo $value['nombreProvincia']; ?></option>
+                                <?php
+                            }
+                            ?>  
+                        </select>
+                    </div>
+                    <label for="slt_cantonPrim" class="col-xs-1 control-label">Canton:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="slt_cantonPrim" id="slt_cantonPrim">
+                        </select>
+                    </div>
+                    <label for="slt_distritoPrim" class="col-xs-1 control-label">Distrito:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="slt_distritoPrim" id="slt_distritoPrim">  
+                        </select>
+                    </div>
+                    <label for="slt_primaria" class="col-xs-1 control-label">Escuela:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="slt_primaria" id="slt_primaria"> 
+                        </select>
+                    </div>
+                </div>
+                <!--///////////////////////////////////////////////////////////-->
+                <h4>Secundaria</h4>
+                <!--L10 Primaria secundarias--> 
+                <div class="form-group">
+                    <label for="slt_provinciaSec" class="col-xs-1 control-label">Provincia:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="slt_provinciaSec" id="slt_provinciaSec">
+                            <option value="">Seleccione</option>
+                            <?php
+                            foreach ($this->consultaProvincias as $value) {
+                                ?>
+                                <option value="<?php echo $value['IdProvincia']; ?>"><?php echo $value['nombreProvincia']; ?></option>
+                                <?php
+                            }
+                            ?>  
+                        </select>
+                    </div>
+                    <label for="slt_cantonSec" class="col-xs-1 control-label">Canton:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="slt_cantonSec" id="slt_cantonSec">
+                        </select>
+                    </div>
+                    <label for="slt_distritoSec" class="col-xs-1 control-label">Distrito:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="slt_distritoSec" id="slt_distritoSec">  
+                        </select>
+                    </div>
+                    <label for="slt_secundaria" class="col-xs-1 control-label">Colegio:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="slt_secundaria" id="slt_secundaria"> 
+                        </select>
+                    </div>
+                </div>
                 <br>
-                <!--Flata codigo aqui-->
-                <!--////////////////////////////////////////////////////////////////-->
+                <!--///////////////////////////////////////////////////////////-->
                 <!--L10 Estudios universitarios-->
                 <h4>Estudios Universitarios</h4>
                 <div class="form-group">
-                    <label for="slt_nombreUniversidad[]" class="col-xs-2 control-label">Nombre Universidad:</label>
+                    <label for="slt_nombreUniversidad" class="col-xs-2 control-label">Nombre Universidad:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="slt_nombreUniversidad[]" id="slt_nombreUniversidad[]">
+                        <select class="form-control input-sm validate[required]" name="slt_nombreUniversidad" id="slt_nombreUniversidad">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->universidad as $value) {
@@ -187,9 +291,13 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="tf_anoFinaliza[]" class="col-xs-2 control-label">Año Finaliza:</label>
+                    <label for="txtnombreTitulo" class="col-xs-2 control-label">Nombre Titulo:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm"  id="tf_anoFinaliza[]" name="tf_anoFinaliza[]"/>
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="txtnombreTitulo" id="txtnombreTitulo"/>
+                    </div>
+                    <label for="tf_anoFinaliza" class="col-xs-2 control-label">Año Finaliza:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm"  id="tf_anoFinaliza" name="tf_anoFinaliza"/>
                     </div>
                     <div class="col-xs-2"></div>
                 </div>
@@ -201,7 +309,10 @@
                     </div>
                     <div class="col-xs-8"></div>
                 </div>
-                <br><br>
+                <br>
+                <div class="col-xs-12">
+                        <table class="table table-condensed table-striped" id="tablaUniversidades"></table>
+                </div>
                 <!--////////////////////////////////////////////////////////////////-->
                 <br><br>
                 <div class="form-group"> 

@@ -42,7 +42,7 @@ class Personal extends Controllers {
         $this->view->consultaPaises = $this->model->consultaPaises();
         
         /*Cargamos la lista de escuelas publicas y privadas*/
-        $this->view->escuelas = $this->model->CargaEscuelas();
+        //$this->view->escuelas = $this->model->CargaEscuelas();
         
         /*Cargamos la lista de colegios publicos y privados*/
         $this->view->colegios = $this->model->CargaColegios();
@@ -304,7 +304,17 @@ class Personal extends Controllers {
     function cargaDistritos($idCanton) {
         $this->model->cargaDistritos($idCanton);
     }
-
+    //Carga las escuela//
+    function cargaEscuela($idDistrito)
+    {
+        $this->model->cargaEscuela($idDistrito);
+    }
+    //Carga los colegios//
+    function cargaColegio($idDistrito)
+    {
+        $this->model->cargaColegio($idDistrito);
+    }
+    //Busca a persona//
     function buscarEstudiante($ced_estudiante) {
         $this->model->buscarEstudiante($ced_estudiante);
     }
