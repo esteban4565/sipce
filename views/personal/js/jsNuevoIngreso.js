@@ -210,7 +210,11 @@ function nuevaUniversidad()
     $('#tablaUniversidades').append('<thead><tr><th>Nombre Universidad</th><th>Nombre Titulo</th><th>Año Finalizado</th><th>Oprecion</th></tr></thead><tbody>');
     
     for (var linea = 0; linea < listaPersonas.length; linea++) {
+<<<<<<< HEAD
         $('#tablaUniversidades').append('<tr><td>' + listaPersonas[linea].nombreUniversidad + '</td><td>' + listaPersonas[linea].tituloUniversidad + '</td><td>' + listaPersonas[linea].annio + '</td><td><input type="button" class="delette btn-xs btn-primary" id="btndelette" name="btndelette" value="Eliminar"/></td></tr>');
+=======
+        $('#tablaUniversidades').append('<tr><td>' + listaPersonas[linea].nombreUniversidad + '</td><td>' + listaPersonas[linea].tituloUniversidad + '</td><td>' + listaPersonas[linea].annio + '</td><td><input type="button" class="delette btn-xs btn-primary" name="' + listaPersonas[linea].idUniversidad + '" value="Eliminar"/></td></tr>');
+>>>>>>> origin/master
             }
         $('#tablaUniversidades').append('<tr><td colspan="4" align="center">Última línea</td></tr></tbody>');
     
