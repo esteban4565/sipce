@@ -190,6 +190,7 @@ function Universidades()
 }
 function nuevaUniversidad()
 {
+    
     //Cuando le dan clic al boton, creo un objeto con 3 atributos (id,nombre y año) de la Universidad
     var persona = new Object();
     var idUniversidad = $("#slt_nombreUniversidad").val();
@@ -209,7 +210,7 @@ function nuevaUniversidad()
     $('#tablaUniversidades').append('<thead><tr><th>Nombre Universidad</th><th>Nombre Titulo</th><th>Año Finalizado</th><th>Oprecion</th></tr></thead><tbody>');
     
     for (var linea = 0; linea < listaPersonas.length; linea++) {
-        $('#tablaUniversidades').append('<tr><td>' + listaPersonas[linea].nombreUniversidad + '</td><td>' + listaPersonas[linea].tituloUniversidad + '</td><td>' + listaPersonas[linea].annio + '</td><td><input type="button" class="delette btn-xs btn-primary" id="delette[]" name="delette[]" value="Eliminar"/></td></tr>');
+        $('#tablaUniversidades').append('<tr><td>' + listaPersonas[linea].nombreUniversidad + '</td><td>' + listaPersonas[linea].tituloUniversidad + '</td><td>' + listaPersonas[linea].annio + '</td><td><input type="button" class="delette btn-xs btn-primary" id="btndelette" name="btndelette" value="Eliminar"/></td></tr>');
             }
         $('#tablaUniversidades').append('<tr><td colspan="4" align="center">Última línea</td></tr></tbody>');
     
@@ -230,7 +231,8 @@ function nuevaUniversidad()
         }).appendTo('#MyForm');
 }
 function eliminarUniversidad(){
-    $(this).parent().parent().fadeOut("slow", function(){$(this).remove();});
+    
+   $(this).parent().parent().fadeOut("slow", function(){$(this).remove();});
 }
 
 ////////////////////////////////////////////////////////////////////////////////
