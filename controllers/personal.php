@@ -295,6 +295,9 @@ class Personal extends Controllers {
     }
 
     /* Metodos */
+    function  Universidades(){
+        $this->model->CargaUniversidades();   
+    }
     //Carga los cantones de una Provincia en especifico
     function cargaCantones($idProvincia) {
         $this->model->cargaCantones($idProvincia);
