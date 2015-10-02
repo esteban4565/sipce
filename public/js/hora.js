@@ -19,7 +19,7 @@
       if (h<=9) h = '0'+h;
       if (m<=9) m = '0'+m;
       if (s<=9) s = '0'+s;
-      hi = Nombredia + ", " + dia + mes + " del " + ano + " , "+ h + ":" + m + ":" + s;
+      hi = Nombredia + ", " + dia + " " + mes + " del " + ano + " , "+ h + ":" + m;
       $('#'+o.x).html(hi); 
       o.i += 1;   
     }

@@ -2,7 +2,6 @@
 //print_r($this->especialidadEstudiante);
 //die;
 ?>
-<div class="row">
     <form id="MyForm" action="<?php echo URL; ?>personal/guardarNuevoIngreso" method="POST" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <legend class="text-center">DATOS DEL PERSONAL</legend>
@@ -217,6 +216,17 @@
                 </div>
             </div>
             <br><br>
+            <!--GUARDAR REGISTRO DATOS PERSONALES-->
+            <div class="form-group"> 
+                <div class="col-xs-12 text-center">
+                    <input type="submit" class="btn-sm btn-success" id="btnguardar" value="GUARDAR DATOS PERSONALES"/>
+                </div>
+                
+            </div>
+            <br><br>
+</div>
+<br><br>
+<div class="jumbotron">
             <!--DATOS ACADEMICOS-->
             <legend class="text-center">DATOS ACADEMICOS</legend>
             <div class="form-group"> 
@@ -396,17 +406,17 @@
                 </div>
                 <label for="tf_AtendidoPor" class="col-xs-2 control-label">FECHA:</label>
                 <div class="col-xs-4">
-                    <label class="control-label"><?php date_default_timezone_set("America/Costa_Rica"); echo Date("d/m/Y") ?></label>
+                    <!--<label class="control-label"><?php echo Date("d/m/Y")?></label>-->
+                    <label id="time" class="control-label"></label>
                 </div>
             </div>
             <br><br><br><br>
             <!--IMPRIMIR Y GUARDAR REGISTRO-->
             <div class="form-group"> 
                 <div class="col-xs-12 text-center">
-                    <input type="submit" class="btn-sm btn-success" id="btnguardar" value="Guardar e Imprimir"/>
+                    <input type="submit" class="btn-sm btn-success" id="btnguardar" value="IMPRIMIR COMPROBANTE"/>
                 </div>
                 
             </div>
         </fieldset>
     </form>
-</div>

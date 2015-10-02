@@ -1,3 +1,6 @@
+$(document).ready(function(){
+  $('#time').jTime();
+});
 $.datepicker.regional['es'] = {
     closeText: 'Cerrar',
     prevText: '<Ant',
