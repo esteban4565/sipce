@@ -1,4 +1,3 @@
-</div><!--Cierre de jumbotron-->
 </div><!--Cierre de col-->
 </div><!--Cierre de row-->
 <div class="row">

@@ -1,6 +1,8 @@
+//METODO PARA LA FECHA Y HORA EN LA IMPRESION DEL COMPROBANTE//
 $(document).ready(function(){
   $('#time').jTime();
 });
+
 $.datepicker.regional['es'] = {
     closeText: 'Cerrar',
     prevText: '<Ant',
@@ -17,13 +19,9 @@ $.datepicker.regional['es'] = {
     isRTL: false,
     showMonthAfterYear: false,
     yearSuffix: ''
-    
     };
     $.datepicker.setDefaults($.datepicker.regional['es']);
-
-//ESTE ARRAY CONTENDRA TODOS LOS OBJETOS (UNIVERSIDAD) QUE CREE EL USUARIO//
-var listaPersonas = new Array();
-
+//FUNCION PRINCIPAL//
 $(function(){
     //FECHA NACIMIENTO//
     $("#txt_fnacpersona").datepicker({dateFormat: 'yy-mm-dd',
@@ -38,6 +36,7 @@ $(function(){
         var anioNacimiento = 2015 - (fechaNacimiento).substring(0, 4);
         $("#txt_edad").val(anioNacimiento);
         });
+    
     //ESTA FUNCION OCULTA BOTON BUSCAR SI ES EXTRANGERO//
     $("#slt_nacionalidad").change(function() {
         var codigoPais = $("#slt_nacionalidad").val();
@@ -115,6 +114,30 @@ $(function(){
             }
         });
     });
+    //ASIGNA LA DIRECION TIEMPO CLASES//
+    $("#slt_otroDomicilioClases").change(function() {
+        var variable = $("#slt_otroDomicilioClases").val();
+        if (variable == 0) {
+            $("#txta_domicilioClases").val("");        
+        }
+        else {
+            document.getElementById("txta_domicilioClases").value = document.getElementById("txta_domicilio").value;
+        }
+    });
+    
+    //OCULTA INPUT ENFERMEDAD//
+    $("#slt_enfermedad").change(function() {
+        var variable = $("#slt_enfermedad").val();
+        if (variable == 0) {
+            $("#txt_enfermedadDesc").val("");
+            document.getElementById("enfermedadDesc").style.display = 'none';
+            document.getElementById("txt_enfermedadDesc").style.display = 'none';
+        }
+        else {
+            document.getElementById("enfermedadDesc").style.display = 'block';
+            document.getElementById("txt_enfermedadDesc").style.display = 'block';
+        }
+    });
     //CARGA CANTONES PARA LA ESCUELA//
     $("#slt_provinciaPrim").change(function() {
         $("#slt_cantonPrim,#slt_distritoPrim,#slt_primaria").empty();
@@ -189,9 +212,9 @@ $(function(){
             }
         });
     });
-    //Carga los datos de de la Persona En Caso de Emergencia//
+    //CARGAR LOS DATOS DE LA PERSONA EN CASO DE EMERGENCIA//
     $("#btnBuscarPersonaEmergencia").click(function(event) {
-        var idD = $("#slt_parentescoCasoEmergencia").val();
+        var idD = $("#txt_cedulaPersonaEmergencia").val();
         if (jQuery.isEmptyObject(idD)){
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         }else{
@@ -199,70 +222,49 @@ $(function(){
             if (jQuery.isEmptyObject(resulBusqueda)) {
                 alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
             } else {
-            $("#tf_ape1PersonaEmergencia_NI").val(resulBusqueda[0].primerApellido);
-            $("#tf_ape2PersonaEmergencia_NI").val(resulBusqueda[0].segundoApellido);
-            $("#tf_nombrePersonaEmergencia_NI").val(resulBusqueda[0].nombre);
-            $("#tf_telHabitPersonaEmergencia").val("");
-            $("#tf_telcelularPersonaEmergencia").val("");
+            $("#txt_apellido1PersonaEmergencia").val(resulBusqueda[0].primerApellido);
+            $("#txt_apellido2PersonaEmergencia").val(resulBusqueda[0].segundoApellido);
+            $("#txt_nombrePersonaEmergencia").val(resulBusqueda[0].nombre);
+            $("#txt_telHabPersonaEmergencia").val("");
+            $("#txt_telcelPersonaEmergencia").val("");
             }
         });
         }
     });
+    //AGREGA UNA NUEVA LINEA PARA UNIVERSIDAD AL DAR CLIC EN ACEPTAR//
     $("#btnAgregarUniversidad").on("click", nuevaUniversidad); 
-    $("body").on("click", ".delette", eliminarUniversidad);
-});//Cierre de funcion principal
+});//CIERRE DE FUNCION PRINCIPAL
 
 //AGREGAR MAS UNIVERSIDADES A UNA TABLA//
-
 function nuevaUniversidad()
 {
-    $("#tablaUniversidades").append("<tr><td><select class='form-control input-sm validate[required]' name='nombreUniversidad' id='nombreUniversidad'><option value=''>SELECCIONE</option></select></td></tr>");
-    $.getJSON('Universidades/', function(univ) {
-            for (var iP = 0; iP < univ.length; iP++) {
-                $("#nombreUniversidad").append('<option value="' + univ[iP].id + '">' + univ[iP].nombre + '</option>');
-            }
-     });
+    //clona el primer tr que contiene los controles o nomberes de encabezaados
+    var eClonado = $("#tablaUniversidades tr:nth-child(2)").clone();
+    //limpiar los controles select, input
+    eClonado.find("select[name='slt_nombreUniversidad']").val(0);
+    eClonado.find("select[name='slt_gradoAcademico']").val(0);
+    eClonado.find("input[name='txt_nombreTitulo']").val("");
+    eClonado.find("input[name='txt_anoFinaliza']").val("");
     
-    //Cuando le dan clic al boton, creo un objeto con 3 atributos (id,nombre y año) de la Universidad
-    var universidad = new Object();
-    var idUniversidad = $("#slt_nombreUniversidad").val();
-    var nombreUniversidad = $("#slt_nombreUniversidad option:selected").text();
-    var idGradoacademico = $("#slt_gradoAcademico").val();
-    var nombreGradoAcademico = $("#slt_gradoAcademico option:selected").text();
-    var tituloUniversidad = $("#txtnombreTitulo").val();    
-    var annio = $("#tf_anoFinaliza").val();
-    
-    universidad.idUniversidad = idUniversidad;
-    universidad.nombreUniversidad = nombreUniversidad;
-    universidad.idGradoacademico = idGradoacademico;
-    universidad.nombreGradoAcademico = nombreGradoAcademico;
-    universidad.tituloUniversidad = tituloUniversidad;
-    universidad.annio=annio;   
-    
-    //Una vez inicializado el objeto, lo guardo en el array listaPersonas
-    listaPersonas.push(universidad);
-    
-    //AGREGO LA NUEVA LINEA EN LA TABLA
-    //$('#tablaUniversidades').append('<tr><td>' + listaPersonas[linea].nombreUniversidad + '</td><td>' + listaPersonas[linea].nombreGradoAcademico + '</td><td>' + listaPersonas[linea].tituloUniversidad + '</td><td>' + listaPersonas[linea].annio + '</td><td><input type="button" class="delette btn-xs btn-primary" name="' + listaPersonas[linea].idUniversidad + '" value="Eliminar"/></td></tr>');
-   
-        
-    
-    //Agrego un input oculto al formulario, este contendra un array con el id de la Universidad agregada
-        $('<input type="hidden">').attr({
-            name: 'universidades[]',
-            value: persona.idUniversidad
-        }).appendTo('#MyForm');
-    //Agrego un input oculto al formulario, este contendra un array con el "titulo" de la Universidad agregada
-        $('<input type="hidden">').attr({
-            name: 'titulo[]',
-            value: persona.tituloUniversidad
-        }).appendTo('#MyForm');    
-        //Agrego un input oculto al formulario, este contendra un array con el "Año Finalizado" de la Universidad agregada
-        $('<input type="hidden">').attr({
-            name: 'annios[]',
-            value: persona.annio
-        }).appendTo('#MyForm');
+    //agrega a la tabla el el segundo tr clonado//
+    $("#tablaUniversidades").append(eClonado);
+    //agregar el evento onclick al link eliminar
+    asignaEventoRemove();
+    //volver a asignarle los eventos de validacion
+    //$("#MyForm").validationEngine();
 }
-function eliminarUniversidad(){
-    $(this).parent().parent().fadeOut("slow", function(){$(this).remove();});
-}
+//elimina el click para que no lo duplique y luego se lo agrega
+function asignaEventoRemove() {
+        $(".btn-eliminar-univ").on("click", function(){
+            if ($(".btn-eliminar-univ").closest("tr").length  > 1 ) {
+                //closest busca hacia arriba(padres de td) pra removerlo
+                //http://api.jquery.com/closest/
+                $(this).closest("tr").remove();
+            }else {
+                $('#myModal').modal({
+                    show: 'false'
+                });
+                //alert('Minimo una Universidad');
+                }
+        });
+    }

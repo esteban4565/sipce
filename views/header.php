@@ -29,13 +29,13 @@
         }
         ?>
         <script type="text/javascript">
-            jQuery(document).ready(function() {
+            //jQuery(document).ready(function() {
                 //validar campos       
-                jQuery("#MyForm").validationEngine();
+                //jQuery("#MyForm").validationEngine();
                 //mostrar mensaje    
                 //$(".mensajes").show();
                 //$('#datetime').jTime();
-            });
+            //});
             //para cargar imagen de foto
             $(window).load(function() {
                 $(function() {
@@ -199,4 +199,4 @@
             <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="jumbotron">
+                    

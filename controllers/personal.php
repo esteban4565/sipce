@@ -1,5 +1,4 @@
 <?php
-
 class Personal extends Controllers {
 
     function __construct() {
@@ -66,7 +65,11 @@ class Personal extends Controllers {
         $this->view->render('footer');
     }
     function guardarNuevoIngreso() {
+        
         $datos = array();
+        
+        //PARAMETROS DE DATOS PERSONALES//
+        
         $datos['slt_nacionalidad'] = $_POST['slt_nacionalidad'];
         $datos['txt_cedulaPersonal'] = strtoupper($_POST['txt_cedulaPersonal']);		
         $datos['txt_apellido1'] = strtoupper($_POST['txt_apellido1']);
@@ -78,6 +81,41 @@ class Personal extends Controllers {
         $datos['txt_telHabPersonal'] = $_POST['txt_telHabPersonal'];
         $datos['txt_telCelPersonal'] = $_POST['txt_telCelPersonal'];
         $datos['txt_email'] = $_POST['txt_email'];
+        //DOMICILIO GENERAL//
+        $datos['txta_domicilio'] = $_POST['txta_domicilio'];
+        $datos['slt_provinciaDom'] = $_POST['slt_provinciaDom'];
+        $datos['slt_cantonDom'] = $_POST['slt_cantonDom'];
+        $datos['slt_distritoDom'] = $_POST['slt_distritoDom'];
+        //DOMCILIO EN TIEMPO LECTIVO//
+        $datos['txta_domicilioClases'] = $_POST['txta_domicilioClases'];
+        $datos['slt_provinciaClases'] = $_POST['slt_provinciaClases'];
+        $datos['slt_cantonClases'] = $_POST['slt_cantonClases'];
+        $datos['slt_distritoClases'] = $_POST['slt_distritoClases'];
+        //ENFERMEDAD Y ESPECIFICACION DE LA MISMA//
+        $datos['slt_enfermedad'] = $_POST['slt_enfermedad'];
+        $datos['txt_enfermedadDesc'] = $_POST['txt_enfermedadDesc'];
+        
+        //CASO DE EMERGENCIA//
+        $datos['slt_parentescoCasoEmergencia'] = $_POST['slt_parentescoCasoEmergencia'];
+        $datos['txt_cedulaPersonaEmergencia'] = $_POST['txt_cedulaPersonaEmergencia'];
+        $datos['txt_apellido1PersonaEmergencia'] = $_POST['txt_apellido1PersonaEmergencia'];
+        $datos['txt_apellido2PersonaEmergencia'] = $_POST['txt_apellido2PersonaEmergencia'];
+        $datos['txt_nombrePersonaEmergencia'] = $_POST['txt_nombrePersonaEmergencia'];
+        $datos['txt_telHabPersonaEmergencia'] = $_POST['txt_telHabPersonaEmergencia'];
+        $datos['txt_telcelPersonaEmergencia'] = $_POST['txt_telcelPersonaEmergencia'];       
+        
+        
+          
+        print_r($datos);
+        die;
+        //DATOS ACADEMICOS//
+        //Universidades//
+        $datos['slt_nombreUniversidad']= $_POST['slt_nombreUniversidad'];
+        $datos['slt_gradoAcademico']= $_POST['slt_gradoAcademico'];
+        $datos['txt_nombreTitulo']= $_POST['txt_nombreTitulo'];
+        $datos['txt_anoFinaliza']= $_POST['txt_anoFinaliza'];
+         
+       
         
         $datos['txta_domicilio'] = strtoupper($_POST['txta_domicilio']);
         $datos['slt_provinciaDom'] = $_POST['slt_provinciaDom'];
