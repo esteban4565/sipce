@@ -11,7 +11,7 @@
                 <label for="tf_nacionalidad" class="col-xs-2 control-label">Nacionalidad:</label>
                 <div class="col-xs-2">
                     <select class="form-control input-sm" name="tf_nacionalidad" id="tf_nacionalidad">
-                        <option value="506">Costa Rica</option>
+                        <option value="506">COSTA RICA</option>
                         <?php
                         foreach ($this->consultaPaises as $value) {
                             echo "<option value='" . $value['codigoPais'] . "'>";
@@ -114,13 +114,6 @@
                         </select>
                     </div>
                 </div>
-                <!--L7 Primaria y Colegio (Formulario Hugo)-->
-                <div class="form-group">
-                    <label for="tf_primaria" class="col-xs-2 control-label">Primaria:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria" />
-                    </div>
-                </div>
                 <!--L8 Enfermedad (Formulario Hugo)-->
                 <div class="form-group">
                     <label for="tf_enfermedad" class="col-xs-2 control-label">¿Padece alguna enfermedad?</label>
@@ -131,7 +124,46 @@
                         </select>
                     </div>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm" name="tf_enfermedadDescripcion" id="tf_enfermedadDescripcion"/>
+                        <input type="text" class="form-control input-sm" name="tf_enfermedadDescripcion" id="tf_enfermedadDescripcion"  style="display:none;"/>
+                    </div>
+                </div>
+                <br><br>
+                <!--L7 Primaria (Formulario Hugo)-->
+                <h4>Primaria</h4>
+                <div class="form-group">
+                    <label for="slt_provinciaPrim" class="col-xs-2 control-label">Provincia:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="slt_provinciaPrim" id="slt_provinciaPrim">
+                            <option value="">SELECCIONE</option>
+                            <?php
+                            foreach ($this->consultaProvincias as $value) {
+                                ?>
+                                <option value="<?php echo $value['IdProvincia']; ?>"><?php echo $value['nombreProvincia']; ?></option>
+                                <?php
+                            }
+                            ?>  
+                        </select>
+                    </div>
+                    <label for="slt_cantonPrim" class="col-xs-2 control-label">Canton:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="slt_cantonPrim" id="slt_cantonPrim">
+                        
+                        </select>
+                    </div>
+                    <label for="slt_distritoPrim" class="col-xs-2 control-label">Distrito:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="slt_distritoPrim" id="slt_distritoPrim">  
+                        
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="slt_primaria" class="col-xs-2 control-label">Escuela:</label>
+                    <div class="col-xs-3">
+                        <select  class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria"> 
+                        
+                        </select>
                     </div>
                 </div>
                 <br><br>
@@ -275,7 +307,7 @@
                 <div class="form-group"> 
                     <label for="tf_parentescoCasoEmergencia" class="col-xs-2 control-label">Parentesco:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="sel_parentescoCasoEmergencia" id="sel_parentescoCasoEmergencia"> 
+                        <select  class="form-control input-sm validate[required]" name="sel_parentescoCasoEmergencia" id="sel_parentescoCasoEmergencia_NI"> 
                             <option value="">Seleccione</option>
                             <option value="Padre">Padre</option>
                             <option value="Madre">Madre</option>

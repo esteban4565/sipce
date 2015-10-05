@@ -62,6 +62,44 @@ $(function()
             }
         });
     });
+    
+    //CARGA CANTONES PARA LA ESCUELA//
+    $("#slt_provinciaPrim").change(function() {
+        $("#slt_cantonPrim,#slt_distritoPrim,#tf_primaria").empty();
+        var idP = $("#slt_provinciaPrim").val();
+        $.getJSON('cargaCantones/' + idP, function(canton) {
+            $('#slt_cantonPrim').append('<option value="">SELECCIONE</option>');
+            for (var iP = 0; iP < canton.length; iP++) {
+                $("#slt_cantonPrim").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
+            }
+        });
+    });
+    //CARGA DISTRITOS PARA LA ESCUELA//
+    $("#slt_cantonPrim").change(function() {
+        $("#slt_distritoPrim,#tf_primaria").empty();
+        var idD = $("#slt_cantonPrim").val();
+        //var ids = $(this).attr('rel');
+        $.getJSON('cargaDistritos/' + idD, function(distrito) {
+            $('#slt_distritoPrim').append('<option value="">SELECCIONE</option>');
+            for (var iD = 0; iD < distrito.length; iD++) {
+                $("#slt_distritoPrim").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
+            }
+        });
+    });
+    //CARGA LAS ESCUELAS DE ESOS DISTRITOS//
+    $("#slt_distritoPrim").change(function() {
+        $("#tf_primaria").empty();
+        
+        var idD = $("#slt_distritoPrim").val();
+        
+        //var ids = $(this).attr('rel');
+        $.getJSON('cargaEscuela/' + idD, function(escuela) {
+            $('#tf_primaria').append('<option value="">SELECCIONE</option>');
+            for (var iD = 0; iD < escuela.length; iD++) {
+              $("#tf_primaria").append('<option value="' + escuela[iD].IdDistrito + '">' + escuela[iD].nombre + '</option>');
+            }
+        });
+    });
 
     //Carga los datos del Estudiante//
     $("#buscarEstudiante").click(function(event) {
@@ -171,22 +209,22 @@ $(function()
     });
 
     //Carga datos de Padre o Madre a PersonaEmergencia//
-    $("#sel_parentescoCasoEmergencia").change(function() {
-        var parentesco = $("#sel_parentescoCasoEmergencia").val();
+    $("#sel_parentescoCasoEmergencia_NI").change(function() {
+        var parentesco = $("#sel_parentescoCasoEmergencia_NI").val();
         if (parentesco === 'Padre') {
-            $("#tf_cedulaPersonaEmergencia").val($("#tf_cedulaPadre").val());
-            $("#tf_ape1PersonaEmergencia").val($("#tf_ape1Padre").val());
-            $("#tf_ape2PersonaEmergencia").val($("#tf_ape2Padre").val());
-            $("#tf_nombrePersonaEmergencia").val($("#tf_nombrePadre").val());
-            $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelPadre").val());
+            $("#tf_cedulaPersonaEmergencia_NI").val($("#tf_cedulaPadre_NI").val());
+            $("#tf_ape1PersonaEmergencia_NI").val($("#tf_ape1Padre_NI").val());
+            $("#tf_ape2PersonaEmergencia_NI").val($("#tf_ape2Padre_NI").val());
+            $("#tf_nombrePersonaEmergencia_NI").val($("#tf_nombrePadre_NI").val());
+            $("#tf_telcelularPersonaEmergencia_NI").val($("#tf_telCelPadre_NI").val());
         } else
         {
             if (parentesco === 'Madre') {
-                $("#tf_cedulaPersonaEmergencia").val($("#tf_cedulaMadre").val());
-                $("#tf_ape1PersonaEmergencia").val($("#tf_ape1Madre").val());
-                $("#tf_ape2PersonaEmergencia").val($("#tf_ape2Madre").val());
-                $("#tf_nombrePersonaEmergencia").val($("#tf_nombreMadre").val());
-                $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelMadre").val());
+                $("#tf_cedulaPersonaEmergencia_NI").val($("#tf_cedulaMadre_NI").val());
+                $("#tf_ape1PersonaEmergencia_NI").val($("#tf_ape1Madre_NI").val());
+                $("#tf_ape2PersonaEmergencia_NI").val($("#tf_ape2Madre_NI").val());
+                $("#tf_nombrePersonaEmergencia_NI").val($("#tf_nombreMadre_NI").val());
+                $("#tf_telcelularPersonaEmergencia_NI").val($("#tf_telCelMadre_NI").val());
             }
         }
     });
@@ -245,6 +283,18 @@ $(function()
         }
         else {
             document.getElementById("buscarEstudiante").style.display = 'block';
+        }
+    });
+
+    //Oculta Imput Enfermedad//
+    $("#sel_enfermedad").change(function() {
+        var variable = $("#sel_enfermedad").val();
+        if (variable == 0) {
+            $("#tf_enfermedadDescripcion").val("");
+            document.getElementById("tf_enfermedadDescripcion").style.display = 'none';
+        }
+        else {
+            document.getElementById("tf_enfermedadDescripcion").style.display = 'block';
         }
     });
 }); 

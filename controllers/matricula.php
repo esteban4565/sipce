@@ -39,6 +39,9 @@ class Matricula extends Controllers {
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
+        
+        /* CARGAMOS TODAS LAS ESCUELAS */
+        $this->view->consultaEscuelas = $this->model->consultaEscuelas();
 
         /* CARGAMOS LA LISTA DE ESTADO CIVIL */
         $this->view->estadoCivilList = $this->model->estadoCivilList();
@@ -72,6 +75,9 @@ class Matricula extends Controllers {
 
         /* Cargo informacion de la adecuacio del Estudiante */
         $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
+
+        /* CARGAMOS LA ESCUELA DEL ESTUDIANTE */
+        $this->view->escuelaEstudiante = $this->model->escuelaEstudiante($cedulaEstudiante);
 
         /* Cargo informacion de Becas */
         $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
@@ -123,6 +129,9 @@ class Matricula extends Controllers {
         
         /* CARGAMOS TODOS LOS DISTRITOS */
         $this->view->consultaDistritos = $this->model->consultaDistritos();
+        
+        /* CARGAMOS TODAS LAS ESCUELAS */
+        $this->view->consultaEscuelas = $this->model->consultaEscuelas();
 
         /* CARGAMOS LA LISTA DE ESTADO CIVIL */
         $this->view->estadoCivilList = $this->model->estadoCivilList();
@@ -138,6 +147,9 @@ class Matricula extends Controllers {
 
         /* Cargo informacion de la especialidad del Estudiante */
         $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);
+
+        /* CARGAMOS LA ESCUELA DEL ESTUDIANTE */
+        $this->view->escuelaEstudiante = $this->model->escuelaEstudiante($cedulaEstudiante);
 
         /* Cargo informacion del encargado Legal del Estudiante */
         $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);
@@ -388,6 +400,12 @@ class Matricula extends Controllers {
     //Carga los distritos de un Canton en especifico
     function cargaDistritos($idCanton) {
         $this->model->cargaDistritos($idCanton);
+    }
+    
+    //Carga las escuela//
+    function cargaEscuela($idDistrito)
+    {
+        $this->model->cargaEscuela($idDistrito);
     }
 
     function buscarEstudiante($ced_estudiante) {

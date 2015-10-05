@@ -143,13 +143,7 @@
                         </select>
                     </div>
                 </div>
-                <!--L7 Primaria y Colegio (Formulario Hugo)-->
-                <div class="form-group">
-                    <label for="tf_primaria" class="col-xs-2 control-label">Primaria:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria" value='<?php echo $this->infoEstudiante[0]['escuela_procedencia']; ?>'>
-                    </div>
-                </div>
+                
                 <!--L8 Enfermedad (Formulario Hugo)-->
                 <div class="form-group">
                     <label for="tf_enfermedad" class="col-xs-2 control-label">¿Padece alguna enfermedad?</label>
@@ -165,9 +159,81 @@
                         if ($this->enfermedadEstudiante != null) {
                             echo '<input type="text" class="form-control input-sm" name="tf_enfermedadDescripcion" id="tf_enfermedadDescripcion" value="' . $this->enfermedadEstudiante[0]['descripcion'] . '"/>';
                         } else {
-                            echo '<input type="text" class="form-control input-sm" name="tf_enfermedadDescripcion" id="tf_enfermedadDescripcion" value="No presenta" />';
+                            echo '<input type="text" class="form-control input-sm" name="tf_enfermedadDescripcion" id="tf_enfermedadDescripcion" style="display:none;"/>';
                         }
                         ?>
+                    </div>
+                </div>
+                <br><br><br>
+                <!--L7 Primaria (Formulario Hugo)-->
+                <h4>Primaria</h4>
+                <div class="form-group">
+                    <label for="slt_provinciaPrim" class="col-xs-2 control-label">Provincia:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="slt_provinciaPrim" id="slt_provinciaPrim">
+                            <option value="">SELECCIONE</option>
+                            <?php
+                            foreach ($this->consultaProvincias as $value) {
+                                ?>
+                                <option value="<?php echo $value['IdProvincia']; ?>"<?php if ($this->escuelaEstudiante != null && $value['IdProvincia'] == $this->escuelaEstudiante[0]['IdProvincia']) echo ' selected'; ?>><?php echo $value['nombreProvincia']; ?></option>
+                                <?php
+                            }
+                            ?>  
+                        </select>
+                    </div>
+                    <label for="slt_cantonPrim" class="col-xs-2 control-label">Canton:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="slt_cantonPrim" id="slt_cantonPrim">
+                        <option value="">Seleccione</option>
+                            <?php
+                            foreach ($this->consultaCantones as $value) {
+                                if ($this->escuelaEstudiante != null && $value['IdProvincia'] == $this->escuelaEstudiante[0]['IdProvincia']){
+                                ?>
+                                <option value="<?php echo $value['IdCanton']; ?>"
+                                               <?php if ($value['IdCanton'] == $this->escuelaEstudiante[0]['IdCanton']) echo ' selected'; ?>>
+                                               <?php echo $value['Canton']; ?></option>
+                                <?php
+                                }
+                            }
+                            ?>  
+                        </select>
+                    </div>
+                    <label for="slt_distritoPrim" class="col-xs-2 control-label">Distrito:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="slt_distritoPrim" id="slt_distritoPrim">  
+                        <option value="">Seleccione</option>
+                            <?php
+                            foreach ($this->consultaDistritos as $value) {
+                                if ($this->escuelaEstudiante != null && $value['IdCanton'] == $this->escuelaEstudiante[0]['IdCanton']){
+                                ?>
+                                <option value="<?php echo $value['IdDistrito']; ?>"
+                                               <?php if ($value['IdDistrito'] == $this->escuelaEstudiante[0]['IdDistrito']) echo ' selected'; ?>>
+                                               <?php echo $value['Distrito']; ?></option>
+                                <?php
+                                }
+                            }
+                            ?> 
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="slt_primaria" class="col-xs-2 control-label">Escuela:</label>
+                    <div class="col-xs-3">
+                        <select  class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria" value='<?php echo $this->infoEstudiante[0]['escuela_procedencia']; ?>'> 
+                        <option value="">Seleccione</option>
+                            <?php
+                            foreach ($this->consultaEscuelas as $value) {
+                                if ($this->escuelaEstudiante != null && $value['IdDistrito'] == $this->escuelaEstudiante[0]['IdDistrito']){
+                                ?>
+                                <option value="<?php echo $value['id']; ?>"
+                                               <?php if ($value['id'] == $this->escuelaEstudiante[0]['id']) echo ' selected'; ?>>
+                                               <?php echo $value['nombre']; ?></option>
+                                <?php
+                                }
+                            }
+                            ?> 
+                        </select>
                     </div>
                 </div>
                 <br><br>

@@ -44,12 +44,24 @@ class Matricula_Model extends Models {
         echo json_encode($resultado);
     }
 
+    /* Carga todas los Distritos */
+
+    public function consultaEscuelas() {
+        return $this->db->select("SELECT * FROM sipce_escuelas", array());
+    }
+
     /* Carga los distritos de un Canton en especifico */
 
     public function cargaDistritos($idCanton) {
 
         $resultado = $this->db->select("SELECT * FROM sipce_distritos WHERE IdCanton = :idCanton ORDER BY Distrito", array('idCanton' => $idCanton));
         echo json_encode($resultado);
+    }
+    
+    //Carga las escuela//
+    function cargaEscuela($idDistrito){
+       $resultado = $this->db->select("SELECT * FROM sipce_escuelas WHERE IdDistrito = :idDistrito ORDER BY nombre", array('idDistrito' => $idDistrito));
+        echo json_encode($resultado); 
     }
 
     /* Retorna la lista de estado civil */
@@ -97,7 +109,7 @@ class Matricula_Model extends Models {
 
     public function infoEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
-                        . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,p.IdProvincia,"
+                        . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.telefonoCasa,p.IdProvincia,"
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
                         . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
@@ -111,6 +123,15 @@ class Matricula_Model extends Models {
                         . "FROM sipce_especialidad_estudiante, sipce_especialidad  "
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' "
                         . "AND codigoEspecialidad = cod_especialidad");
+    }
+
+    /* Retorna la informacion de la especialidad del Estudiante */
+
+    public function escuelaEstudiante($cedulaEstudiante) {
+        return $this->db->select("SELECT ec.id, ec.IdProvincia, ec.IdCanton, ec.IdDistrito "
+                        . "FROM sipce_escuelas as ec, sipce_estudiante as es "
+                        . "WHERE es.cedula = '" . $cedulaEstudiante . "' "
+                        . "AND es.escuela_procedencia = ec.id");
     }
 
     /* Retorna la informacion del encargado Legal Estudiante */

@@ -64,6 +64,44 @@ $(function()
             }
         });
     });
+    
+    //CARGA CANTONES PARA LA ESCUELA//
+    $("#slt_provinciaPrim").change(function() {
+        $("#slt_cantonPrim,#slt_distritoPrim,#tf_primaria").empty();
+        var idP = $("#slt_provinciaPrim").val();
+        $.getJSON('../cargaCantones/' + idP, function(canton) {
+            $('#slt_cantonPrim').append('<option value="">SELECCIONE</option>');
+            for (var iP = 0; iP < canton.length; iP++) {
+                $("#slt_cantonPrim").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
+            }
+        });
+    });
+    //CARGA DISTRITOS PARA LA ESCUELA//
+    $("#slt_cantonPrim").change(function() {
+        $("#slt_distritoPrim,#tf_primaria").empty();
+        var idD = $("#slt_cantonPrim").val();
+        //var ids = $(this).attr('rel');
+        $.getJSON('../cargaDistritos/' + idD, function(distrito) {
+            $('#slt_distritoPrim').append('<option value="">SELECCIONE</option>');
+            for (var iD = 0; iD < distrito.length; iD++) {
+                $("#slt_distritoPrim").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
+            }
+        });
+    });
+    //CARGA LAS ESCUELAS DE ESOS DISTRITOS//
+    $("#slt_distritoPrim").change(function() {
+        $("#tf_primaria").empty();
+        
+        var idD = $("#slt_distritoPrim").val();
+        
+        //var ids = $(this).attr('rel');
+        $.getJSON('../cargaEscuela/' + idD, function(escuela) {
+            $('#tf_primaria').append('<option value="">SELECCIONE</option>');
+            for (var iD = 0; iD < escuela.length; iD++) {
+              $("#tf_primaria").append('<option value="' + escuela[iD].IdDistrito + '">' + escuela[iD].nombre + '</option>');
+            }
+        });
+    });
 
     //Carga los datos del Encargado Legal//
     $("#buscarEncargado").click(function(event) {
@@ -201,6 +239,18 @@ $(function()
         else {
             document.getElementById("especialidadLabel").style.display = 'none';
             document.getElementById("especialidad").style.display = 'none';
+        }
+    });
+
+    //Oculta Imput Enfermedad//
+    $("#sel_enfermedad").change(function() {
+        var variable = $("#sel_enfermedad").val();
+        if (variable == 0) {
+            $("#tf_enfermedadDescripcion").val("");
+            document.getElementById("tf_enfermedadDescripcion").style.display = 'none';
+        }
+        else {
+            document.getElementById("tf_enfermedadDescripcion").style.display = 'block';
         }
     });
 
