@@ -216,7 +216,7 @@ $(function()
             $("#tf_ape1PersonaEmergencia_NI").val($("#tf_ape1Padre_NI").val());
             $("#tf_ape2PersonaEmergencia_NI").val($("#tf_ape2Padre_NI").val());
             $("#tf_nombrePersonaEmergencia_NI").val($("#tf_nombrePadre_NI").val());
-            $("#tf_telcelularPersonaEmergencia_NI").val($("#tf_telCelPadre_NI").val());
+            $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelPadre").val());
         } else
         {
             if (parentesco === 'Madre') {
@@ -224,7 +224,7 @@ $(function()
                 $("#tf_ape1PersonaEmergencia_NI").val($("#tf_ape1Madre_NI").val());
                 $("#tf_ape2PersonaEmergencia_NI").val($("#tf_ape2Madre_NI").val());
                 $("#tf_nombrePersonaEmergencia_NI").val($("#tf_nombreMadre_NI").val());
-                $("#tf_telcelularPersonaEmergencia_NI").val($("#tf_telCelMadre_NI").val());
+                $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelMadre").val());
             }
         }
     });

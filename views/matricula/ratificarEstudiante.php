@@ -135,7 +135,7 @@
                     <label for="slt_provinciaPrim" class="col-xs-2 control-label">Provincia:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="slt_provinciaPrim" id="slt_provinciaPrim">
-                            <option value="">SELECCIONE</option>
+                            <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
                                 ?>
@@ -148,7 +148,6 @@
                     <label for="slt_cantonPrim" class="col-xs-2 control-label">Canton:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="slt_cantonPrim" id="slt_cantonPrim">
-                        <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaCantones as $value) {
                                 if ($this->escuelaEstudiante != null && $value['IdProvincia'] == $this->escuelaEstudiante[0]['IdProvincia']){
@@ -164,8 +163,7 @@
                     </div>
                     <label for="slt_distritoPrim" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="slt_distritoPrim" id="slt_distritoPrim">  
-                        <option value="">Seleccione</option>
+                        <select  class="form-control input-sm validate[required]" name="slt_distritoPrim" id="slt_distritoPrim">
                             <?php
                             foreach ($this->consultaDistritos as $value) {
                                 if ($this->escuelaEstudiante != null && $value['IdCanton'] == $this->escuelaEstudiante[0]['IdCanton']){
@@ -386,7 +384,15 @@
                 <br><br>
                 <legend class="text-center">DATOS DE LA INSTITUCIÓN</legend>
                 <!--L22 Nivel a Matricular, Especialidad y Condicion (Formulario Hugo)-->
-                <div class="form-group"> 
+                <div class="form-group">
+                    <label for="tf_condicion" class="col-xs-2 control-label">Condición:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="sl_condicion" id="sl_condicion">
+                            <option value="">Seleccione</option>
+                            <option value="Regular" <?php if ($this->infoCondicionMatricula != null && $this->infoCondicionMatricula[0]['condicion'] == 'Regular') echo 'selected'; ?>>Regular</option>
+                            <option value="Repite" <?php if ($this->infoCondicionMatricula != null && $this->infoCondicionMatricula[0]['condicion'] == 'Repite') echo 'selected'; ?>>Repite</option>
+                        </select> 
+                    </div> 
                     <label for="tf_nivelMatricular" class="col-xs-2 control-label">Nivel a matricular:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="sl_nivelMatricular" id="sl_nivelMatricular">
@@ -397,14 +403,6 @@
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
-                        </select> 
-                    </div>
-                    <label for="tf_condicion" class="col-xs-2 control-label">Condición:</label>
-                    <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="sl_condicion" id="sl_condicion">
-                            <option value="">Seleccione</option>
-                            <option value="Regular" <?php if ($this->infoCondicionMatricula != null && $this->infoCondicionMatricula[0]['condicion'] == 'Regular') echo 'selected'; ?>>Regular</option>
-                            <option value="Repite" <?php if ($this->infoCondicionMatricula != null && $this->infoCondicionMatricula[0]['condicion'] == 'Repite') echo 'selected'; ?>>Repite</option>
                         </select> 
                     </div>
                     <?php

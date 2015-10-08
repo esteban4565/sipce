@@ -30,5 +30,16 @@ class ActualizarEstudiantes extends Controllers {
         $this->model->actuPasswordEstu();
         $this->index();
     }
+    
+    public function actuPasswordDocente() {
+        $this->view->title = 'Reseteo Contraseñas Docentes';
+        $this->view->docentesCedulaMala = $this->model->docentesCedulaMala();
+        $this->model->actuPasswordDocente();
+
+        //Se manda a ejecutar el header, contenido principal (views/horario/index) y el footer
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/actuPasswordDocente');
+        $this->view->render('footer');
+    }
 
 }

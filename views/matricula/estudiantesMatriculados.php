@@ -53,10 +53,10 @@
         }
         ?>
         <tr>
-            <td colspan='5' class="lineaFin"></td>
+            <td colspan='9' class="lineaFin"></td>
         </tr>
         <tr>
-            <td colspan='5'>Última línea</td>
+            <td colspan='9'>Última línea</td>
         </tr>
     </table>
 </center>

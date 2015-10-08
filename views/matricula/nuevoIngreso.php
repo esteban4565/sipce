@@ -134,7 +134,7 @@
                     <label for="slt_provinciaPrim" class="col-xs-2 control-label">Provincia:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="slt_provinciaPrim" id="slt_provinciaPrim">
-                            <option value="">SELECCIONE</option>
+                            <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
                                 ?>
@@ -162,7 +162,7 @@
                     <label for="slt_primaria" class="col-xs-2 control-label">Escuela:</label>
                     <div class="col-xs-3">
                         <select  class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria"> 
-                        
+                            <option value="0">Ninguna</option>
                         </select>
                     </div>
                 </div>

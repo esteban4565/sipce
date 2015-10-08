@@ -242,6 +242,24 @@ $(function()
         }
     });
 
+    //Modifico el nivel -1 si es repite//
+    $("#sl_condicion").change(function() {
+        var nivel = $("#sl_nivelMatricular").val();
+        var condicion = $("#sl_condicion").val();
+        if (condicion === "Repite") {
+            $("#sl_nivelMatricular").val(nivel-1);
+        }
+        nivel = $("#sl_nivelMatricular").val();
+        if (nivel > 9) {
+            document.getElementById("especialidadLabel").style.display = 'block';
+            document.getElementById("especialidad").style.display = 'block';
+        }
+        else {
+            document.getElementById("especialidadLabel").style.display = 'none';
+            document.getElementById("especialidad").style.display = 'none';
+        }
+    });
+
     //Oculta Imput Enfermedad//
     $("#sel_enfermedad").change(function() {
         var variable = $("#sel_enfermedad").val();

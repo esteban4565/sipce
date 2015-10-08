@@ -19,7 +19,7 @@
     <div class="col-lg-10 col-xs-12">
         <table class="table table-condensed" id="tablaRatificar">
             <tr>
-                <td colspan="5" class="nombreTabla">LISTA DE ESTUDIANTES POR RATIFICAR</td>
+                <td colspan="9" class="nombreTabla">LISTA DE ESTUDIANTES POR RATIFICAR</td>
             </tr>
             <tr>
                 <th>N°</th>
@@ -70,10 +70,10 @@
             //print_r($this->personaList);
             ?>
             <tr>
-                <td colspan='5' class="lineaFin"></td>
+                <td colspan='9' class="lineaFin"></td>
             </tr>
             <tr>
-                <td colspan='5'>Última línea</td>
+                <td colspan='9'>Última línea</td>
             </tr>
         </table>
     </div>
@@ -82,3 +82,4 @@
         <a class="btn-lg btn-success" href="<?php echo URL; ?>matricula/ratificar">Ver lista completa</a>
     </div>
 </div>
+<br>

@@ -100,7 +100,7 @@
                         </ul>
                       </li>
                     <?php }?>
-                      <?php if (Session::get('tipoUsuario') <= 2){ ?>
+                      <?php if (Session::get('tipoUsuario') <= 3){ ?>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Personal <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -129,7 +129,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/index">Actualizar cédulas BD</a></li>
-                          <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordEstu">Reiniciar contraseñas</a></li>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordEstu">Reiniciar contraseñas Estudaintes</a></li>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordDocente">Reiniciar contraseñas Docente</a></li>
                         </ul>
                       </li>
                     <?php }?>

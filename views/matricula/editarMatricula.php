@@ -1,16 +1,3 @@
-<?php
-//print_r($this->infoEstudiante);
-//echo '<br>';
-//print_r($this->encargadoLegal);
-//echo '<br>';
-//print_r($this->madreEstudiante);
-//echo '<br>';
-//print_r($this->padreEstudiante);
-//echo '<br>';
-//
-//print_r($this->personaEmergenciaEstudiante);
-//die;
-?>
 <div class="row">
     <form id="MyForm" action="<?php echo URL; ?>matricula/guardarRatificacion" method="POST" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
@@ -423,6 +410,14 @@
                 <legend class="text-center">DATOS DE LA INSTITUCIÓN</legend>
                 <!--L22 Nivel a Matricular, Condicion, Adelanto (Formulario Hugo)-->
                 <div class="form-group"> 
+                    <label for="tf_condicion" class="col-xs-2 control-label">Condición:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="sl_condicion" id="sl_condicion">
+                            <option value="">Seleccione</option>
+                            <option value="Regular" <?php if ($this->infoCondicionMatricula != null && $this->infoCondicionMatricula[0]['condicion'] == 'Regular') echo 'selected'; ?>>Regular</option>
+                            <option value="Repite" <?php if ($this->infoCondicionMatricula != null && $this->infoCondicionMatricula[0]['condicion'] == 'Repite') echo 'selected'; ?>>Repite</option>
+                        </select> 
+                    </div>
                     <label for="tf_nivelMatricular" class="col-xs-2 control-label">Nivel a matricular:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm validate[required]" name="sl_nivelMatricular" id="sl_nivelMatricular">
@@ -433,14 +428,6 @@
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
-                        </select> 
-                    </div>
-                    <label for="tf_condicion" class="col-xs-2 control-label">Condición:</label>
-                    <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="sl_condicion" id="sl_condicion">
-                            <option value="">Seleccione</option>
-                            <option value="Regular" <?php if ($this->infoCondicionMatricula != null && $this->infoCondicionMatricula[0]['condicion'] == 'Regular') echo 'selected'; ?>>Regular</option>
-                            <option value="Repite" <?php if ($this->infoCondicionMatricula != null && $this->infoCondicionMatricula[0]['condicion'] == 'Repite') echo 'selected'; ?>>Repite</option>
                         </select> 
                     </div>
                     <?php
