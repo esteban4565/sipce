@@ -29,39 +29,13 @@
         }
         ?>
         <script type="text/javascript">
-            //jQuery(document).ready(function() {
+            jQuery(document).ready(function() {
                 //validar campos       
-                //jQuery("#MyForm").validationEngine();
+                jQuery("#MyForm").validationEngine();
                 //mostrar mensaje    
                 //$(".mensajes").show();
                 //$('#datetime').jTime();
-            //});
-            //para cargar imagen de foto
-            $(window).load(function() {
-                $(function() {
-                    $('#imagen').change(function(e) {
-                        addImage(e);
-                    });
-                 function addImage(e) {
-                        var file = e.target.files[0],
-                                imageType = /image.*/;
-                        /*Si es una imagen y ademas menor a 1MB*/
-                        if (file.type.match(imageType) && file.size <= 1000000) {
-                            var reader = new FileReader();
-                            reader.onload = fileOnload;
-                            reader.readAsDataURL(file);
-                        } else {
-                            alert("Lo Sentimos debe seleccionar un formato de imagen y un tamaño menor a 1 MB !!!");
-                            return;
-                        }
-                    }
-                    function fileOnload(e) {
-                        var result = e.target.result;
-                        $('#imgSalida').attr("src", result);
-                    }
-                });
             });
-
         </script> 
     </head>
   <body>

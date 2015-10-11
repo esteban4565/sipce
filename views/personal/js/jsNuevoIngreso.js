@@ -1,4 +1,34 @@
+//DATOS DE LA INSTITUCION//
+
+
+
+//FUNCION PARA CARGAR IMAGENES DE FOTOS
+$(window).load(function() {
+    $(function() {
+        $('#imagen').change(function(e) {
+            addImage(e);
+        });
+        function addImage(e) {
+            var file = e.target.files[0],imageType = /image.*/;
+            /*Si es una imagen y ademas menor a 1MB*/
+            if (file.type.match(imageType) && file.size <= 1000000) {
+                var reader = new FileReader();
+                reader.onload = fileOnload;
+                reader.readAsDataURL(file);
+            } else {
+                alert("Lo Sentimos debe seleccionar un formato de imagen y un tamaño menor a 1 MB !!!");
+                return;
+            }
+        }
+        function fileOnload(e) {
+            var result = e.target.result;
+            $('#imgSalida').attr("src", result);
+        }
+    });
+});
+
 //METODO PARA LA FECHA Y HORA EN LA IMPRESION DEL COMPROBANTE//
+var indexSeleccionado;
 $(document).ready(function(){
   $('#time').jTime();
 });
@@ -42,6 +72,7 @@ $(function(){
         var codigoPais = $("#slt_nacionalidad").val();
         if (codigoPais !== "506") {
             document.getElementById("buscarEstudiante").style.display = 'none';
+            
         }
         else {
             document.getElementById("buscarEstudiante").style.display = 'block';
@@ -51,19 +82,28 @@ $(function(){
     $("#buscarEstudiante").click(function(event) {
         var idD = $("#txt_cedulaPersonal").val();
         if (jQuery.isEmptyObject(idD)){
-            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            $('#myModal-blank').modal({
+                    show: 'false'
+                });
         }else{
         $.getJSON('buscarEstudiante/' + idD, function(resulBusqueda) {
             if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+                $('#myModal-noExiste').modal({
+                    show: 'false'
+                });
             } else {
                 $("#txt_apellido1").val(resulBusqueda[0].primerApellido);
+                $("#txt_apellido1").attr('disabled','disabled');
                 $("#txt_apellido2").val(resulBusqueda[0].segundoApellido);
+                $("#txt_apellido2").attr('disabled','disabled');
                 $("#txt_nombre").val(resulBusqueda[0].nombre);
+                $("#txt_nombre").attr('disabled','disabled');
                 $("#txt_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
+                $("#txt_fnacpersona").attr('disabled','disabled');
                 var anioNacimiento = 2015 - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
                 $("#txt_edad").val(anioNacimiento);
                 $("#slt_genero").val(resulBusqueda[0].sexo);
+                $("#slt_genero").attr('disabled','disabled');
             }
         });
         }
@@ -118,10 +158,14 @@ $(function(){
     $("#slt_otroDomicilioClases").change(function() {
         var variable = $("#slt_otroDomicilioClases").val();
         if (variable == 0) {
-            $("#txta_domicilioClases").val("");        
+            $("#txta_domicilioClases").val("");
         }
         else {
-            document.getElementById("txta_domicilioClases").value = document.getElementById("txta_domicilio").value;
+            $("#txta_domicilioClases").val($("#txta_domicilio").val());
+            
+            $("#slt_provinciaClases").val($("#slt_provinciaDom").val());
+            $("#slt_cantonClases").val($("#slt_cantonDom").val());
+            $("#slt_distritoClases").val($("#slt_distritoDom").val());
         }
     });
     
@@ -216,11 +260,15 @@ $(function(){
     $("#btnBuscarPersonaEmergencia").click(function(event) {
         var idD = $("#txt_cedulaPersonaEmergencia").val();
         if (jQuery.isEmptyObject(idD)){
-            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            $('#myModal-blank').modal({
+                    show: 'false'
+                });
         }else{
         $.getJSON('buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
             if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+               $('#myModal-noExiste').modal({
+                    show: 'false'
+                });
             } else {
             $("#txt_apellido1PersonaEmergencia").val(resulBusqueda[0].primerApellido);
             $("#txt_apellido2PersonaEmergencia").val(resulBusqueda[0].segundoApellido);

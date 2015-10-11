@@ -64,10 +64,10 @@ class Personal extends Controllers {
         $this->view->render('personal/nuevoIngreso');
         $this->view->render('footer');
     }
-    function guardarNuevoIngreso() {
+    function GuardarPersonal(){
+        
         
         $datos = array();
-        
         //PARAMETROS DE DATOS PERSONALES//
         
         $datos['slt_nacionalidad'] = $_POST['slt_nacionalidad'];
@@ -106,10 +106,10 @@ class Personal extends Controllers {
         
         
           
-        print_r($datos);
-        die;
-        //DATOS ACADEMICOS//
-        //Universidades//
+        //print_r($datos);
+        //die;
+       /*DATOS ACADEMICOS
+        Universidades
         $datos['slt_nombreUniversidad']= $_POST['slt_nombreUniversidad'];
         $datos['slt_gradoAcademico']= $_POST['slt_gradoAcademico'];
         $datos['txt_nombreTitulo']= $_POST['txt_nombreTitulo'];
@@ -131,17 +131,16 @@ class Personal extends Controllers {
         $datos['txt_enfermedadDesc'] = $_POST['txt_enfermedadDesc'];
 
         $datos['anio'] = date("Y-m-d");
+        */
+        //$this->model->GuardarPersonal($datos);
         
-        
-        print_r($datos);
-        die;
-        
-        //$this->model->guardarNuevoIngreso($datos);
-
-        $this->view->render('header');
-        $this->view->render('matricula/estudiantesMatriculados');
-        $this->view->render('footer');
+       $this->view->cedula = strtoupper($_POST['txt_cedulaPersonal']);
+       $this->view->title = 'Datos Institucionales';
+       $this->view->render('header');
+       $this->view->render('personal/DatosInstitucionales');
+       $this->view->render('footer');
     }
+               
     function editarMatricula($cedulaEstudiante) {
         $this->view->title = 'Editar Matricula';
         $this->view->anio = $this->model->anio();
