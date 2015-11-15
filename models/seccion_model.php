@@ -4,8 +4,9 @@ class Seccion_Model extends Models {
 
     public function __construct() {
         parent::__construct();
+        $this->anioActivo = 2015;
     }
-
+    
     /* Retorna la lista de todo los usuarios */
 
     public function listaSecciones() {
@@ -22,16 +23,19 @@ class Seccion_Model extends Models {
     /* Carga todas los Niveles */
 
     public function consultaNiveles() {
-        return $this->db->select('SELECT DISTINCT nivel FROM sipce_grupos ORDER BY nivel');
+        return $this->db->select("SELECT DISTINCT nivel "
+                                . "FROM sipce_grupos "
+                                . "WHERE annio = ".$this->anioActivo." "
+                                . "ORDER BY nivel");
     }
 
     /* Carga todos los cantones */
 
     public function cargaGrupos($idNivel) {
-
         $resultado = $this->db->select("SELECT DISTINCT grupo FROM sipce_grupos "
-                . "WHERE nivel = :nivel "
-                . "ORDER BY grupo", array('nivel' => $idNivel));
+                                . "WHERE nivel = :nivel "
+                                . "AND annio = ".$this->anioActivo." "
+                                . "ORDER BY grupo", array('nivel' => $idNivel));
         echo json_encode($resultado);
     }
 
@@ -39,9 +43,95 @@ class Seccion_Model extends Models {
 
     public function cargaSubGrupos($idGrupo) {
         $resultado = $this->db->select("SELECT DISTINCT sub_grupo FROM sipce_grupos "
-                . "WHERE grupo = :grupo ORDER BY sub_grupo", array('grupo' => $idGrupo));
+                                . "WHERE grupo = :grupo "
+                                . "AND annio = ".$this->anioActivo." "
+                                . "ORDER BY sub_grupo", array('grupo' => $idGrupo));
         echo json_encode($resultado);
     }
+
+    /* Carga todas las Zonas guardadas en la BD */
+
+    public function consultaZonasEscuelas() {
+        return $this->db->select("SELECT * "
+                                . "FROM sipce_zona ");
+    }
+
+    /* Carga todas las provincias */
+
+    public function consultaProvincias() {
+        return $this->db->select("SELECT * FROM sipce_provincias ORDER BY nombreProvincia", array());
+    }
+
+    /* Carga los cantones de una Provincia en especifico */
+
+    public function cargaCantones($idProvincia) {
+
+        $resultado = $this->db->select("SELECT * FROM sipce_cantones WHERE IdProvincia = :idProvincia ORDER BY Canton", array('idProvincia' => $idProvincia));
+        echo json_encode($resultado);
+    }
+
+    /* Carga los distritos de un Canton en especifico */
+
+    public function cargaDistritos($idCanton) {
+
+        $resultado = $this->db->select("SELECT * FROM sipce_distritos WHERE IdCanton = :idCanton ORDER BY Distrito", array('idCanton' => $idCanton));
+        echo json_encode($resultado);
+    }
+    
+    //Carga las escuela//
+    function cargaEscuela($idDistrito){
+       $resultado = $this->db->select("SELECT * FROM sipce_escuelas WHERE IdDistrito = :idDistrito ORDER BY nombre", array('idDistrito' => $idDistrito));
+        echo json_encode($resultado); 
+    }
+    
+    //Carga las escuela//
+    function agregarZona($txt_zona){
+        //Primero Inserto la nueva Zona
+        $this->db->insert('sipce_zona', array(
+            'descripcion' => $txt_zona));
+            
+       //Luego devuelvo las zonas     
+       $zonasActualizas = $this->db->select("SELECT * "
+                                . "FROM sipce_zona ");
+        echo json_encode($zonasActualizas); 
+    }
+    
+    //Carga las escuela//
+    function agregarEscuela($consulta){
+        //Primero Inserto la nueva Zona
+        $this->db->insert('sipce_zona_escuela', array(
+            'id_zona' => $consulta['id_zona'],
+            'id_escuela' => $consulta['id_escuela']));
+            
+       //Luego devuelvo las zonas     
+       $escuelasZonaActualizas = $this->db->select("SELECT id_escuela, nombre "
+                                . "FROM sipce_zona_escuela, sipce_escuelas "
+                                . "WHERE id_zona = " .$consulta['id_zona']. " "
+                                . "AND id_escuela = id");
+       echo json_encode($escuelasZonaActualizas); 
+    }
+    
+    //Carga las escuela//
+    function consultaEscuelaZona($id_zona){
+       $escuelasZonaActualizas = $this->db->select("SELECT id_escuela, nombre "
+                                . "FROM sipce_zona_escuela, sipce_escuelas "
+                                . "WHERE id_zona = " .$id_zona. " "
+                                . "AND id_escuela = id");
+        echo json_encode($escuelasZonaActualizas); 
+    }
+    
+    //Carga las escuela//
+    function eliminarZona($id){
+        //Primero Elimino la nueva Zona
+        $this->db->delete('sipce_zona', 'id = '.$id);
+            
+       //Luego devuelvo las zonas     
+       $zonasActualizas = $this->db->select("SELECT * "
+                                . "FROM sipce_zona ");
+        echo json_encode($zonasActualizas); 
+    }
+    
+    
 
     public function xhrSeccion($idGrupo) {
         $resultado2 = $this->db->select("SELECT cedula,nombre,apellido1,apellido2 "

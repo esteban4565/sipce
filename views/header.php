@@ -75,26 +75,31 @@
                       </li>
                     <?php }?>
                       <?php if (Session::get('tipoUsuario') <= 3){ ?>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Personal <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="<?php echo URL; ?>personal/nuevoIngreso">Nuevo Ingreso</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo URL; ?>personal/editarIngreso">Modificar Personal</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo URL; ?>personal/inabilitarIngreso">Inabiliar Personal</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo URL; ?>personal/listaPersonal">Lista Personal</a></li>
-                        </ul>
-                      </li>
+<!--                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Personal <span class="caret"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                              <li><a href="<?php echo URL; ?>personal/nuevoIngreso">Nuevo Ingreso</a></li>
+                              <li class="divider"></li>
+                              <li><a href="<?php echo URL; ?>personal/editarIngreso">Modificar Personal</a></li>
+                              <li class="divider"></li>
+                              <li><a href="<?php echo URL; ?>personal/inabilitarIngreso">Inabiliar Personal</a></li>
+                              <li class="divider"></li>
+                              <li><a href="<?php echo URL; ?>personal/listaPersonal">Lista Personal</a></li>
+                          </ul>
+                        </li>-->
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Matrícula <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/prematricula">Pre-Matricula</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/listaprematricula">Lista Pre-Matricula</a></li>
                             <li class="divider"></li>
+                            <?php if (Session::get('tipoUsuario') == 1){ ?>
+                            <li><a href="<?php echo URL; ?>matricula/ratificarSetimo">Ratificar 7°</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar 8° - 11°</a></li>
                             <li><a href="<?php echo URL; ?>matricula/nuevoIngreso">Nuevo Ingreso</a></li>
                             <li class="divider"></li>
                             <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculados">Matriculados</a></li>
+                            <?php }?>
                         </ul>
                       </li>
                     <?php }?>
@@ -105,6 +110,8 @@
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/index">Actualizar cédulas BD</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordEstu">Reiniciar contraseñas Estudaintes</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordDocente">Reiniciar contraseñas Docente</a></li>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/estudiantesVoca">Estudiantes Voca</a></li>
+                          <li><a href="<?php echo URL; ?>seccion/configSecciones">Configuración Secciones</a></li>
                         </ul>
                       </li>
                     <?php }?>

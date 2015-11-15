@@ -27,6 +27,20 @@ class Seccion extends Controllers {
         $this->view->render('footer');
     }
 
+    function configSecciones() {
+        /* CARGAMOS ZONAS */
+        $this->view->consultaZonasEscuelas = $this->model->consultaZonasEscuelas();
+
+        /* CARGAMOS TODAS LAS PROVINCIAS */
+        $this->view->consultaProvincias = $this->model->consultaProvincias();
+        
+        $this->view->title = 'Configuración Conjunto Secciones';
+        $this->view->render('header');
+        $this->view->render('seccion/configSecciones');
+        $this->view->render('footer');
+    }
+    
+    /* Metodos */
     function cargaGrupos($idNivel) {
         $this->model->cargaGrupos($idNivel);
     }
@@ -34,9 +48,42 @@ class Seccion extends Controllers {
     function cargaSubGrupos($idGrupo) {
         $this->model->cargaSubGrupos($idGrupo);
     }
+    
+    //Carga los cantones de una Provincia en especifico
+    function cargaCantones($idProvincia) {
+        $this->model->cargaCantones($idProvincia);
+    }
 
-    function xhrSeccion($idGrupo) {
-        $this->model->xhrSeccion($idGrupo);
+    //Carga los distritos de un Canton en especifico
+    function cargaDistritos($idCanton) {
+        $this->model->cargaDistritos($idCanton);
+    }
+    
+    //Carga las escuela//
+    function cargaEscuela($idDistrito)
+    {
+        $this->model->cargaEscuela($idDistrito);
+    }
+    
+    //Carga las escuela//
+    function consultaEscuelaZona($id_zona)
+    {
+        $this->model->consultaEscuelaZona($id_zona);
+    }
+    
+    function agregarZona($txt_zona) {
+        $this->model->agregarZona($txt_zona);
+    }
+    
+    function eliminarZona($id) {
+        $this->model->eliminarZona($id);
+    }
+    
+    function agregarEscuela() {
+        $consulta = array();      
+        $consulta['id_zona'] = $_POST['id_zona'];
+        $consulta['id_escuela'] = $_POST['id_escuela'];
+        $this->model->agregarEscuela($consulta);
     }
 
     function xhrSeccion2() {

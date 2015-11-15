@@ -2,6 +2,7 @@
 class Persona_Model extends Models{
     public function __construct(){
         parent::__construct();
+        $this->anioActivo = 2015;
     }
     /*METODOS DE BUSQUEDA*/
     public function buscarDocente(){}
@@ -39,6 +40,7 @@ class Persona_Model extends Models{
                                 ."FROM sipce_estudiante, sipce_grupos "
                                 ."WHERE cedula = ced_estudiante "
                                 ."AND tipoUsuario = 4 "
+                                ."AND annio = ".$this->anioActivo." "
                                 ."ORDER BY apellido1,apellido2");
     }
 

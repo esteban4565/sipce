@@ -98,7 +98,7 @@ $(function()
         $.getJSON('../cargaEscuela/' + idD, function(escuela) {
             $('#tf_primaria').append('<option value="">SELECCIONE</option>');
             for (var iD = 0; iD < escuela.length; iD++) {
-              $("#tf_primaria").append('<option value="' + escuela[iD].IdDistrito + '">' + escuela[iD].nombre + '</option>');
+              $("#tf_primaria").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
             }
         });
     });
@@ -145,8 +145,88 @@ $(function()
         }
     });
 
+    //Carga los datos de la Madre//
+    $("#buscarMadrePrematricula").click(function(event) {
+        var idD = $("#tf_cedulaMadre").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarMadre/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+            $("#tf_ape1Madre").val(resulBusqueda[0].primerApellido);
+            $("#tf_ape2Madre").val(resulBusqueda[0].segundoApellido);
+            $("#tf_nombreMadre").val(resulBusqueda[0].nombre);
+            $("#tf_telCelMadre").val("");
+            $("#tf_ocupacionMadre").val("");
+            }
+        });
+        }
+    });
+
+    //Carga los datos de la Madre//
+    $("#buscarMadrePrematriculaEditar").click(function(event) {
+        var idD = $("#tf_cedulaMadre").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('../buscarMadre/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+            $("#tf_ape1Madre").val(resulBusqueda[0].primerApellido);
+            $("#tf_ape2Madre").val(resulBusqueda[0].segundoApellido);
+            $("#tf_nombreMadre").val(resulBusqueda[0].nombre);
+            $("#tf_telCelMadre").val("");
+            $("#tf_ocupacionMadre").val("");
+            }
+        });
+        }
+    });
+
     //Carga los datos del Padre//
     $("#buscarPadre").click(function(event) {
+        var idD = $("#tf_cedulaPadre").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('../buscarPadre/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+            $("#tf_ape1Padre").val(resulBusqueda[0].primerApellido);
+            $("#tf_ape2Padre").val(resulBusqueda[0].segundoApellido);
+            $("#tf_nombrePadre").val(resulBusqueda[0].nombre);
+            $("#tf_telCelPadre").val("");
+            $("#tf_ocupacionPadre").val("");
+            }
+        });
+        }
+    });
+
+    //Carga los datos del Padre//
+    $("#buscarPadrePrematricula").click(function(event) {
+        var idD = $("#tf_cedulaPadre").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarPadre/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+            $("#tf_ape1Padre").val(resulBusqueda[0].primerApellido);
+            $("#tf_ape2Padre").val(resulBusqueda[0].segundoApellido);
+            $("#tf_nombrePadre").val(resulBusqueda[0].nombre);
+            $("#tf_telCelPadre").val("");
+            $("#tf_ocupacionPadre").val("");
+            }
+        });
+        }
+    });
+
+    //Carga los datos del Padre//
+    $("#buscarPadrePrematriculaEditar").click(function(event) {
         var idD = $("#tf_cedulaPadre").val();
         if (jQuery.isEmptyObject(idD)){
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
@@ -293,6 +373,26 @@ $(function()
                         '<td>' + resulBusqueda[0].nivel + '</td>' +
                         '<td>' + resulBusqueda[0].grupo + '</td>' +
                         '<td>' + resulBusqueda[0].sub_grupo + '</td>' +
+                        '<td><a class="btn-sm btn-primary" href="ratificarEstudiante/' + idD + '">Ratificar</a></td>' +
+                        '</tr>');
+            }
+        });
+    });
+    
+    //Carga los datos del Estudiante se setimo por ratificar//
+    $("#buscarEstuRatificarSetimo").click(function(event) {
+        var idD = $("#tf_cedulaEstudiante").val();
+        $.getJSON('buscarEstuRatifSetimo/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tablaRatificar").empty();
+                $('#tablaRatificar').append('<tr><td colspan="6" class="nombreTabla">LISTA DE ESTUDIANTES POR RATIFICAR</td></tr><tr><th>N°</th><th>Identificación</th><th>1º Apellido</th><th>2º Apellido</th><th>Nombre</th><th>Acción</th></tr>' +
+                        '<tr><td>1</td>' +
+                        '<td>' + idD + '</td>' +
+                        '<td>' + resulBusqueda[0].apellido1 + '</td>' +
+                        '<td>' + resulBusqueda[0].apellido2 + '</td>' +
+                        '<td>' + resulBusqueda[0].nombre + '</td>' +
                         '<td><a class="btn-sm btn-primary" href="ratificarEstudiante/' + idD + '">Ratificar</a></td>' +
                         '</tr>');
             }

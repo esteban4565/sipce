@@ -129,4 +129,21 @@ class ActualizarEstudiantes_Model extends Models {
                 }
             }
     }
+
+    public function estudiantesCedulaVoca() {
+        
+        return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,g.especialidad "
+                        . "FROM sipce_estudiante as p,admitidos_voca as g "
+                        . "WHERE p.cedula = g.ced_estudiante "
+                        . "order by p.apellido1");
+    }
+
+    public function estudiantesNuevosSolicitudEspecialidad() {
+        
+        return $this->db->select("SELECT p.primerApellido,p.segundoApellido,p.nombre,n.ced_estudiante,n.especialidad as Espe_Carrizal,g.especialidad as Espe_Voca  "
+                        . "FROM nuevos_solicitud_especialidad as n,admitidos_voca as g, tpersonapadron as p "
+                        . "WHERE g.ced_estudiante = n.ced_estudiante "
+                        . "AND p.cedula = n.ced_estudiante "
+                        . "order by p.primerApellido");
+    }
 }

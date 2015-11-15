@@ -96,7 +96,7 @@ $(function()
         $.getJSON('cargaEscuela/' + idD, function(escuela) {
             $('#tf_primaria').append('<option value="">SELECCIONE</option>');
             for (var iD = 0; iD < escuela.length; iD++) {
-              $("#tf_primaria").append('<option value="' + escuela[iD].IdDistrito + '">' + escuela[iD].nombre + '</option>');
+              $("#tf_primaria").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
             }
         });
     });
@@ -118,6 +118,34 @@ $(function()
                 var anioNacimiento = 2015 - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
                 $("#tf_edad").val(anioNacimiento);
                 $("#tf_genero").val(resulBusqueda[0].sexo);
+            }
+        });
+        }
+    });
+
+    //Carga los datos del Estudiante//
+    $("#buscarEstuPrematricula").click(function(event) {
+        var idD = $("#tf_cedulaEstudiante").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarEstuPrematricula/' + idD, function(resulPrematricula) {
+            if (jQuery.isEmptyObject(resulPrematricula)) {
+                $.getJSON('buscarEstudiante/' + idD, function(resulBusqueda) {
+                if (jQuery.isEmptyObject(resulBusqueda)) {
+                    alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+                } else {
+                    $("#tf_ape1").val(resulBusqueda[0].primerApellido);
+                    $("#tf_ape2").val(resulBusqueda[0].segundoApellido);
+                    $("#tf_nombre").val(resulBusqueda[0].nombre);
+                    $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
+                    var anioNacimiento = 2015 - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
+                    $("#tf_edad").val(anioNacimiento);
+                    $("#tf_genero").val(resulBusqueda[0].sexo);
+                    }
+                });
+            } else {
+                alert("Este estudiante ya se encuentra ingresado en Pre-Matricula, si desea hacer alguna modificación por favor diríjase a Matricula->Lista Pre-Matricula y luego en Editar");
             }
         });
         }

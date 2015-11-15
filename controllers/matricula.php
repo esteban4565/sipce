@@ -33,6 +33,16 @@ class Matricula extends Controllers {
         $this->view->render('footer');
     }
 
+    function ratificarSetimo() {
+        $this->view->title = 'Ratificar Sétimo';
+        $this->view->anio = $this->model->anio();
+        $this->view->listaEstuSetimo = $this->model->listaEstuSetimo();
+
+        $this->view->render('header');
+        $this->view->render('matricula/ratificarSetimo');
+        $this->view->render('footer');
+    }
+
     function ratificarEstudiante($cedulaEstudiante) {
         $this->view->title = 'Ratificar matrícula';
         $this->view->anio = $this->model->anio();
@@ -96,6 +106,42 @@ class Matricula extends Controllers {
         $this->view->render('footer');
     }
 
+    function ratificarEstuSetimo($cedulaEstudiante) {
+        $this->view->title = 'Ratificar matrícula';
+        $this->view->anio = $this->model->anio();
+
+        /* CARGAMOS TODAS LAS PROVINCIAS */
+        $this->view->consultaProvincias = $this->model->consultaProvincias();
+        
+        /* CARGAMOS TODOS LOS CANTONES */
+        $this->view->consultaCantones = $this->model->consultaCantones();
+        
+        /* CARGAMOS TODOS LOS DISTRITOS */
+        $this->view->consultaDistritos = $this->model->consultaDistritos();
+        
+        /* CARGAMOS TODAS LAS ESCUELAS */
+        $this->view->consultaEscuelas = $this->model->consultaEscuelas();
+
+        /* CARGAMOS LA LISTA DE PAISES */
+        $this->view->consultaPaises = $this->model->consultaPaises();
+
+        /* Cargo informacion del Estudiante */
+        $this->view->infoEstuPrematricula = $this->model->infoEstuPrematricula($cedulaEstudiante);
+
+        /* Cargo informacion del Padre del Estudiante */
+        $this->view->padreEstuPrematricula = $this->model->padreEstuPrematricula($cedulaEstudiante);
+
+        /* Cargo informacion de la Madre del Estudiante */
+        $this->view->madreEstuPrematricula = $this->model->madreEstuPrematricula($cedulaEstudiante);
+
+        /* CARGAMOS LA ESCUELA DEL ESTUDIANTE */
+        $this->view->escuelaEstuSetimo = $this->model->escuelaEstuSetimo($cedulaEstudiante);
+
+        $this->view->render('header');
+        $this->view->render('matricula/ratificarEstuSetimo');
+        $this->view->render('footer');
+    }
+
     function nuevoIngreso() {
         $this->view->title = 'Nuevo ingreso';
         $this->view->anio = $this->model->anio();
@@ -114,6 +160,21 @@ class Matricula extends Controllers {
 
         $this->view->render('header');
         $this->view->render('matricula/nuevoIngreso');
+        $this->view->render('footer');
+    }
+
+    function prematricula() {
+        $this->view->title = 'Pre-Matricula';
+        $this->view->anio = $this->model->anio();
+
+        /* CARGAMOS TODAS LAS PROVINCIAS */
+        $this->view->consultaProvincias = $this->model->consultaProvincias();
+
+        /* CARGAMOS TODAS LAS PROVINCIAS */
+        $this->view->consultaEscuelasPrematricula = $this->model->consultaEscuelasPrematricula();
+
+        $this->view->render('header');
+        $this->view->render('matricula/prematricula');
         $this->view->render('footer');
     }
 
@@ -186,12 +247,51 @@ class Matricula extends Controllers {
         $this->view->render('footer');
     }
 
+    function editarPreatricula($cedulaEstudiante) {
+        $this->view->title = 'Editar Pre-Matrícula';
+        $this->view->anio = $this->model->anio();
+
+        /* CARGAMOS TODAS LAS PROVINCIAS */
+        $this->view->consultaProvincias = $this->model->consultaProvincias();
+        
+        /* CARGAMOS TODOS LOS CANTONES */
+        $this->view->consultaCantones = $this->model->consultaCantones();
+        
+        /* CARGAMOS TODOS LOS DISTRITOS */
+        $this->view->consultaDistritos = $this->model->consultaDistritos();
+        
+        /* CARGAMOS TODAS LAS ESCUELAS DE PRE-MATRICULA*/
+        $this->view->consultaEscuelasPrematricula = $this->model->consultaEscuelasPrematricula();
+
+        /* Cargo informacion del Estudiante */
+        $this->view->infoEstuPrematricula = $this->model->infoEstuPrematricula($cedulaEstudiante);
+
+        /* Cargo informacion del Padre del Estudiante */
+        $this->view->padreEstuPrematricula = $this->model->padreEstuPrematricula($cedulaEstudiante);
+
+        /* Cargo informacion de la Madre del Estudiante */
+        $this->view->madreEstuPrematricula = $this->model->madreEstuPrematricula($cedulaEstudiante);
+
+        $this->view->render('header');
+        $this->view->render('matricula/editarPrematricula');
+        $this->view->render('footer');
+    }
+
     function estudiantesMatriculados() {
         //Consulto Cantidad Estudiantes Matriculados
         $this->view->estadoMatricula = $this->model->estadoMatricula();
         
         $this->view->render('header');
         $this->view->render('matricula/estudiantesMatriculados');
+        $this->view->render('footer');
+    }
+
+    function listaprematricula() {
+        //Consulto Cantidad Estudiantes Matriculados
+        $this->view->estadoPrematricula = $this->model->estadoPrematricula();
+        
+        $this->view->render('header');
+        $this->view->render('matricula/estudiantesPrematriculados');
         $this->view->render('footer');
     }
 
@@ -389,6 +489,54 @@ class Matricula extends Controllers {
         $this->view->render('footer');
     }
 
+    function guardarPrematricula() {
+        $datos = array();
+        $datos['tf_nacionalidad'] = $_POST['tf_nacionalidad'];
+        $datos['tf_cedulaEstudiante'] = strtoupper($_POST['tf_cedulaEstudiante']);
+        $datos['tf_ape1'] = strtoupper($_POST['tf_ape1']);
+        $datos['tf_ape2'] = strtoupper($_POST['tf_ape2']);
+        $datos['tf_nombre'] = strtoupper($_POST['tf_nombre']);
+        $datos['tf_fnacpersona'] = $_POST['tf_fnacpersona'];
+        $datos['tf_genero'] = $_POST['tf_genero'];
+        $datos['tf_domicilio'] = $_POST['tf_domicilio'];
+        $datos['tf_provincias'] = $_POST['tf_provincias_NI'];
+        $datos['tf_cantones'] = $_POST['tf_cantones_NI'];
+        $datos['tf_distritos'] = $_POST['tf_distritos_NI'];
+        
+        //Verifico si escogio la opción "Otra Esc"
+        if($_POST['tf_primaria']==9999){
+        $datos['tf_primaria'] = 0;
+        }  else {
+        $datos['tf_primaria'] = $_POST['tf_primaria'];   
+        }
+        
+        $datos['tf_cedulaPadre'] = strtoupper($_POST['tf_cedulaPadre']);
+        $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre']);
+        $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre']);
+        $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre']);
+        $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
+        $datos['tf_telCasaPadre'] = $_POST['tf_telCasaPadre'];
+        $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
+        
+        $datos['tf_cedulaMadre'] = strtoupper($_POST['tf_cedulaMadre']);
+        $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre']);
+        $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre']);
+        $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre']);
+        $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
+        $datos['tf_telCasaMadre'] = $_POST['tf_telCasaMadre'];
+        $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
+        $datos['anio'] = $this->model->anio();
+        
+        $this->model->guardarPrematricula($datos);
+
+        //Consulto Cantidad Estudiantes Matriculados
+        $this->view->estadoPrematricula = $this->model->estadoPrematricula();
+        
+        $this->view->render('header');
+        $this->view->render('matricula/estudiantesPrematriculados');
+        $this->view->render('footer');
+    }
+
     /* Metodos */
     //Carga los cantones de una Provincia en especifico
     function cargaCantones($idProvincia) {
@@ -410,6 +558,10 @@ class Matricula extends Controllers {
         $this->model->buscarEstudiante($ced_estudiante);
     }
 
+    function buscarEstuPrematricula($ced_estudiante) {
+        $this->model->buscarEstuPrematricula($ced_estudiante);
+    }
+
     function buscarEncargado($ced_encargado) {
         $this->model->buscarEncargado($ced_encargado);
     }
@@ -428,6 +580,10 @@ class Matricula extends Controllers {
 
     function buscarEstuRatif($ced_estudiante) {
         $this->model->buscarEstuRatif($ced_estudiante);
+    }
+
+    function buscarEstuRatifSetimo($ced_estudiante) {
+        $this->model->buscarEstuRatifSetimo($ced_estudiante);
     }
 
 }

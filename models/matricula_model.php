@@ -4,6 +4,7 @@ class Matricula_Model extends Models {
 
     public function __construct() {
         parent::__construct();
+        $this->anioActivo = 2015;
     }
 
     /* Carga el año lectivo */
@@ -44,10 +45,75 @@ class Matricula_Model extends Models {
         echo json_encode($resultado);
     }
 
-    /* Carga todas los Distritos */
+    /* Carga todas las Escuelas */
 
     public function consultaEscuelas() {
         return $this->db->select("SELECT * FROM sipce_escuelas", array());
+    }
+
+    /* Carga todas las Escuelas para Pre-Matricula (Array quemado)*/
+
+    public function consultaEscuelasPrematricula() {
+        $escuelasPrematricula = array();
+        $escuelasPrematricula[0]['id']="51";
+        $escuelasPrematricula[0]['nombre']="ALFREDO GONZÁLEZ FLORES";
+        $escuelasPrematricula[1]['id']="53";
+        $escuelasPrematricula[1]['nombre']="ALFREDO VOLIO JIMÉNEZ";
+        $escuelasPrematricula[2]['id']="105";
+        $escuelasPrematricula[2]['nombre']="ANICETO ESQUIVEL SÁENZ";
+        $escuelasPrematricula[3]['id']="145";
+        $escuelasPrematricula[3]['nombre']="ASCENSION ESQUIVEL IBARRA";
+        $escuelasPrematricula[4]['id']="269";
+        $escuelasPrematricula[4]['nombre']="BELLO HORIZONTE";
+        $escuelasPrematricula[5]['id']="394";
+        $escuelasPrematricula[5]['nombre']="CALLE QUIRÓS";
+        $escuelasPrematricula[6]['id']="449";
+        $escuelasPrematricula[6]['nombre']="CARBONAL";
+        $escuelasPrematricula[7]['id']="1003";
+        $escuelasPrematricula[7]['nombre']="EL ROBLE";
+        $escuelasPrematricula[8]['id']="1059";
+        $escuelasPrematricula[8]['nombre']="ELISA SOTO JIMÉNEZ";
+        $escuelasPrematricula[9]['id']="1237";
+        $escuelasPrematricula[9]['nombre']="GENERAL JOSE DE SAN MARTIN";
+        $escuelasPrematricula[10]['id']="1323";
+        $escuelasPrematricula[10]['nombre']="HOLANDA";
+        $escuelasPrematricula[11]['id']="1540";
+        $escuelasPrematricula[11]['nombre']="JOAQUÍN CAMACHO ULATE";
+        $escuelasPrematricula[12]['id']="1569";
+        $escuelasPrematricula[12]['nombre']="JOSE MANUEL HERRERA SALAS";
+        $escuelasPrematricula[13]['id']="1617";
+        $escuelasPrematricula[13]['nombre']="JUAN RAFAEL MEOÑO HIDALGO";
+        $escuelasPrematricula[14]['id']="1638";
+        $escuelasPrematricula[14]['nombre']="JULIA FERNANDEZ RODRIGUEZ";
+        $escuelasPrematricula[15]['id']="2023";
+        $escuelasPrematricula[15]['nombre']="LAGOS DEL COYOL";
+        $escuelasPrematricula[16]['id']="2371";
+        $escuelasPrematricula[16]['nombre']="MANUEL FRANCISCO CARRILLO SABORIO";
+        $escuelasPrematricula[17]['id']="2381";
+        $escuelasPrematricula[17]['nombre']="MANUELA SANTAMARIA";
+        $escuelasPrematricula[18]['id']="2621";
+        $escuelasPrematricula[18]['nombre']="PACTO DEL JOCOTE";
+        $escuelasPrematricula[19]['id']="2694";
+        $escuelasPrematricula[19]['nombre']="PEDRO MURILLO PÉREZ";
+        $escuelasPrematricula[20]['id']="2908";
+        $escuelasPrematricula[20]['nombre']="REPUBLICA DE GUATEMALA";
+        $escuelasPrematricula[15]['id']="3083";
+        $escuelasPrematricula[15]['nombre']="SAN BOSCO";
+        $escuelasPrematricula[16]['id']="3475";
+        $escuelasPrematricula[16]['nombre']="SANTA ISABEL";
+        $escuelasPrematricula[17]['id']="3514";
+        $escuelasPrematricula[17]['nombre']="SANTA RITA";
+        $escuelasPrematricula[18]['id']="3661";
+        $escuelasPrematricula[18]['nombre']="TIMOLEON MORERA SOTO";
+        $escuelasPrematricula[19]['id']="568";
+        $escuelasPrematricula[19]['nombre']="CINCO ESQUINAS";
+        $escuelasPrematricula[20]['id']="2152";
+        $escuelasPrematricula[20]['nombre']="LEON CORTES CASTRO";
+        $escuelasPrematricula[21]['id']="1265";
+        $escuelasPrematricula[21]['nombre']="GUADALUPE";
+        $escuelasPrematricula[22]['id']="2273";
+        $escuelasPrematricula[22]['nombre']="LOS CARTAGOS";
+        return $escuelasPrematricula;
     }
 
     /* Carga los distritos de un Canton en especifico */
@@ -90,6 +156,16 @@ class Matricula_Model extends Models {
                         . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
                         . "AND cedula = ced_estudiante "
                         . "AND tipoUsuario = 4 "
+                        . "AND annio = ".$this->anioActivo." "
+                        . "ORDER BY apellido1,apellido2");
+    }
+
+    /* Retorna la lista de todo los Estudiantes por Ratificar */
+
+    public function listaEstuSetimo() {
+        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2 "
+                        . "FROM sipce_prematricula "
+                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
                         . "ORDER BY apellido1,apellido2");
     }
 
@@ -105,6 +181,17 @@ class Matricula_Model extends Models {
         echo json_encode($resultado);
     }
 
+    /* Retorna Datos de Estudiante por Ratificar */
+
+    public function buscarEstuRatifSetimo($ced_estudiante) {
+        $resultado = $this->db->select("SELECT cedula,nombre,apellido1,apellido2 "
+                . "FROM sipce_prematricula "
+                . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
+                . "AND cedula = '" . $ced_estudiante . "'");
+
+        echo json_encode($resultado);
+    }
+
     /* Retorna la informacion del Estudiante */
 
     public function infoEstudiante($cedulaEstudiante) {
@@ -114,6 +201,15 @@ class Matricula_Model extends Models {
                         . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' ");
+    }
+
+    /* Retorna la informacion del Estudiante Prematriculado*/
+
+    public function infoEstuPrematricula($cedulaEstudiante) {
+        return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
+                        . "p.domicilio,p.IdProvincia,p.IdCanton,p.IdDistrito,p.nacionalidad,p.escuela_procedencia "
+                        . "FROM sipce_prematricula as p "
+                        . "WHERE p.cedula = '" . $cedulaEstudiante . "' ");
     }
 
     /* Retorna la informacion de la especialidad del Estudiante */
@@ -134,6 +230,13 @@ class Matricula_Model extends Models {
                         . "AND es.escuela_procedencia = ec.id");
     }
 
+    public function escuelaEstuSetimo($cedulaEstudiante) {
+        return $this->db->select("SELECT ec.id, ec.IdProvincia, ec.IdCanton, ec.IdDistrito "
+                        . "FROM sipce_escuelas as ec, sipce_prematricula as p "
+                        . "WHERE p.cedula = '" . $cedulaEstudiante . "' "
+                        . "AND p.escuela_procedencia = ec.id");
+    }
+
     /* Retorna la informacion del encargado Legal Estudiante */
 
     public function encargadoLegal($cedulaEstudiante) {
@@ -152,12 +255,30 @@ class Matricula_Model extends Models {
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }
 
+    /* Retorna la informacion de la Madre Estudiante */
+
+    public function madreEstuPrematricula($cedulaEstudiante) {
+        return $this->db->select("SELECT ced_madre,nombre_madre,apellido1_madre,apellido2_madre,"
+                        . "telefonoCelMadre,telefonoCasaMadre,ocupacionMadre "
+                        . "FROM sipce_madre_prematricula  "
+                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
+    }
+
     /* Retorna la informacion de la Padre Estudiante */
 
     public function padreEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT ced_padre,nombre_padre,apellido1_padre,apellido2_padre,"
                         . "telefonoCasaPadre,ocupacionPadre "
                         . "FROM sipce_padre  "
+                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
+    }
+
+    /* Retorna la informacion de la Padre Estudiante */
+
+    public function padreEstuPrematricula($cedulaEstudiante) {
+        return $this->db->select("SELECT ced_padre,nombre_padre,apellido1_padre,apellido2_padre,"
+                        . "telefonoCelPadre,telefonoCasaPadre,ocupacionPadre "
+                        . "FROM sipce_padre_prematricula "
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }
 
@@ -225,6 +346,15 @@ class Matricula_Model extends Models {
     public function buscarEstudiante($ced_estudiante) {
         $resultado = $this->db->select("SELECT * "
                 . "FROM tpersonapadron "
+                . "WHERE cedula = '" . $ced_estudiante . "' ");
+        echo json_encode($resultado);
+    }
+
+    /* Retorna datos del Estudiante */
+
+    public function buscarEstuPrematricula($ced_estudiante) {
+        $resultado = $this->db->select("SELECT * "
+                . "FROM sipce_prematricula "
                 . "WHERE cedula = '" . $ced_estudiante . "' ");
         echo json_encode($resultado);
     }
@@ -428,7 +558,8 @@ class Matricula_Model extends Models {
 
         //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
         $consultaExistenciaNivel = $this->db->select("SELECT * FROM sipce_grupos "
-                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
+                . "AND annio = " . $datos['anio']);
 
         if ($consultaExistenciaNivel != null) {
             //Actualizo nivel del Estudiante
@@ -440,28 +571,59 @@ class Matricula_Model extends Models {
             //Sino Inserto datos en sipce_grupos
             $this->db->insert('sipce_grupos', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                'nivel' => $datos['sl_nivelMatricular']));
+                'nivel' => $datos['sl_nivelMatricular'],
+                'annio' => $datos['anio']));
         }
+        
+        
 
-        //Actualizo datos del expediente Estudiante
-        $posData = array(
-            'nacionalidad' => $datos['tf_nacionalidad'],
-            'cedula' => $datos['tf_cedulaEstudiante'],
-            'apellido1' => $datos['tf_ape1'],
-            'apellido2' => $datos['tf_ape2'],
-            'nombre' => $datos['tf_nombre'],
-            'sexo' => $datos['tf_genero'],
-            'fechaNacimiento' => $datos['tf_fnacpersona'],
-            'telefonoCasa' => $datos['tf_telHabitEstudiante'],
-            'telefonoCelular' => $datos['tf_telcelular'],
-            'escuela_procedencia' => $datos['tf_primaria'],
-            'email' => $datos['tf_email'],
-            'domicilio' => $datos['tf_domicilio'],
-            'idProvincia' => $datos['tf_provincias'],
-            'IdCanton' => $datos['tf_cantones'],
-            'IdDistrito' => $datos['tf_distritos']);
+        //Consulto si ya existe datos en el expediente (para editarla)
+        $consultaExistenciaEstudiante = $this->db->select("SELECT * FROM sipce_estudiante "
+                . "WHERE cedula = '" . $datos['tf_cedulaEstudiante'] . "' ");
 
-        $this->db->update('sipce_estudiante', $posData, "`cedula` = '{$datos['tf_cedulaEstudiante']}'");
+        if ($consultaExistenciaEstudiante != null) {
+            //No se puede hacer nuevo ingreso xq ya existe  ---Verificar logica---
+            //echo '<h1>ya existe estudiante en sipce_estudiante';
+            //die;
+            //
+            //Actualizo datos del expediente Estudiante
+            $posData = array(
+                'nacionalidad' => $datos['tf_nacionalidad'],
+                'cedula' => $datos['tf_cedulaEstudiante'],
+                'apellido1' => $datos['tf_ape1'],
+                'apellido2' => $datos['tf_ape2'],
+                'nombre' => $datos['tf_nombre'],
+                'sexo' => $datos['tf_genero'],
+                'fechaNacimiento' => $datos['tf_fnacpersona'],
+                'telefonoCasa' => $datos['tf_telHabitEstudiante'],
+                'telefonoCelular' => $datos['tf_telcelular'],
+                'escuela_procedencia' => $datos['tf_primaria'],
+                'email' => $datos['tf_email'],
+                'domicilio' => $datos['tf_domicilio'],
+                'idProvincia' => $datos['tf_provincias'],
+                'IdCanton' => $datos['tf_cantones'],
+                'IdDistrito' => $datos['tf_distritos']);
+
+            $this->db->update('sipce_estudiante', $posData, "`cedula` = '{$datos['tf_cedulaEstudiante']}'");
+        } else {
+            //Sino Inserto datos del expediente Estudiante
+            $this->db->insert('sipce_estudiante', array(
+                'nacionalidad' => $datos['tf_nacionalidad'],
+                'cedula' => $datos['tf_cedulaEstudiante'],
+                'apellido1' => $datos['tf_ape1'],
+                'apellido2' => $datos['tf_ape2'],
+                'nombre' => $datos['tf_nombre'],
+                'sexo' => $datos['tf_genero'],
+                'fechaNacimiento' => $datos['tf_fnacpersona'],
+                'telefonoCasa' => $datos['tf_telHabitEstudiante'],
+                'telefonoCelular' => $datos['tf_telcelular'],
+                'escuela_procedencia' => $datos['tf_primaria'],
+                'email' => $datos['tf_email'],
+                'domicilio' => $datos['tf_domicilio'],
+                'idProvincia' => $datos['tf_provincias'],
+                'IdCanton' => $datos['tf_cantones'],
+                'IdDistrito' => $datos['tf_distritos']));
+        }
         /* Falta
           'estadoCivil'=>$datos['estadocivilP'],
           'telefonoCasa'=>$datos['telcasaP'], */
@@ -801,7 +963,8 @@ class Matricula_Model extends Models {
             //Sino Inserto datos en sipce_grupos
             $this->db->insert('sipce_grupos', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                'nivel' => $datos['sl_nivelMatricular']));
+                'nivel' => $datos['sl_nivelMatricular'],
+                'annio' => $datos['anio']));
         }
 
         //Consulto si ya existe datos en el expediente (para editarla)
@@ -979,12 +1142,134 @@ class Matricula_Model extends Models {
         }
     }
 
+    /* Inserta estudiante Nuevo Ingreso en la BD */
+
+    public function guardarPrematricula($datos) {
+        //Guardo los datos en Pre-Matricula, luego hay que ratificar para que consolide la matricula
+        $consultaExistenciaPreMatricula = $this->db->select("SELECT * FROM sipce_prematricula "
+                . "WHERE cedula = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaPreMatricula != null) {
+            //Si ya existe, realizare un update
+            $posData = array(
+                'nacionalidad' => $datos['tf_nacionalidad'],
+                'cedula' => $datos['tf_cedulaEstudiante'],
+                'apellido1' => $datos['tf_ape1'],
+                'apellido2' => $datos['tf_ape2'],
+                'nombre' => $datos['tf_nombre'],
+                'sexo' => $datos['tf_genero'],
+                'fechaNacimiento' => $datos['tf_fnacpersona'],
+                'escuela_procedencia' => $datos['tf_primaria'],
+                'domicilio' => $datos['tf_domicilio'],
+                'idProvincia' => $datos['tf_provincias'],
+                'IdCanton' => $datos['tf_cantones'],
+                'IdDistrito' => $datos['tf_distritos']);
+
+        $this->db->update('sipce_prematricula', $posData, "`cedula` = '{$datos['tf_cedulaEstudiante']}'");
+        } else {
+            //Sino Inserto datos de Pre-Matricula del Estudiante
+            $this->db->insert('sipce_prematricula', array(
+                'nacionalidad' => $datos['tf_nacionalidad'],
+                'cedula' => $datos['tf_cedulaEstudiante'],
+                'apellido1' => $datos['tf_ape1'],
+                'apellido2' => $datos['tf_ape2'],
+                'nombre' => $datos['tf_nombre'],
+                'sexo' => $datos['tf_genero'],
+                'fechaNacimiento' => $datos['tf_fnacpersona'],
+                'escuela_procedencia' => $datos['tf_primaria'],
+                'domicilio' => $datos['tf_domicilio'],
+                'idProvincia' => $datos['tf_provincias'],
+                'IdCanton' => $datos['tf_cantones'],
+                'IdDistrito' => $datos['tf_distritos']));
+        }
+
+        //Consulto si ya existe Padre
+        $consultaExistenciaPadre = $this->db->select("SELECT * FROM sipce_padre_prematricula WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+
+        if ($consultaExistenciaPadre != null) {
+            //Si ya existe, realizare un update o un delete
+            if(empty($datos['tf_cedulaPadre'])){
+            //Aqui iria un delete
+            }else{
+                $posData = array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'ced_padre' => $datos['tf_cedulaPadre'],
+                'nombre_padre' => $datos['tf_nombrePadre'],
+                'apellido1_padre' => $datos['tf_ape1Padre'],
+                'apellido2_padre' => $datos['tf_ape2Padre'],
+                'telefonoCelPadre' => $datos['tf_telCelPadre'],
+                'telefonoCasaPadre' => $datos['tf_telCasaPadre'],
+                'ocupacionPadre' => $datos['tf_ocupacionPadre']);
+
+                $this->db->update('sipce_padre_prematricula', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            }
+        } else {
+            //Si no, verifico los datos y si no estan vacios inserto los datos del Padre
+            if(empty($datos['tf_cedulaPadre'])){
+            //El if esta al verris
+            }else{
+                $this->db->insert('sipce_padre_prematricula', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'ced_padre' => $datos['tf_cedulaPadre'],
+                'nombre_padre' => $datos['tf_nombrePadre'],
+                'apellido1_padre' => $datos['tf_ape1Padre'],
+                'apellido2_padre' => $datos['tf_ape2Padre'],
+                'telefonoCelPadre' => $datos['tf_telCelPadre'],
+                'telefonoCasaPadre' => $datos['tf_telCasaPadre'],
+                'ocupacionPadre' => $datos['tf_ocupacionPadre']));
+            }
+        }
+
+        //Consulto si ya existe Madre
+        $consultaExistenciaMadre = $this->db->select("SELECT * FROM sipce_madre_prematricula WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
+        if ($consultaExistenciaMadre != null) {
+            //Si ya existe, realizare un update o un delete
+            if(empty($datos['tf_cedulaMadre'])){
+            //Aqui iria un delete
+            }else{
+                $posData = array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'ced_madre' => $datos['tf_cedulaMadre'],
+                'nombre_madre' => $datos['tf_nombreMadre'],
+                'apellido1_madre' => $datos['tf_ape1Madre'],
+                'apellido2_madre' => $datos['tf_ape2Madre'],
+                'telefonoCelMadre' => $datos['tf_telCelMadre'],
+                'telefonoCasaMadre' => $datos['tf_telCasaPadre'],
+                'ocupacionMadre' => $datos['tf_ocupacionMadre']);
+
+                $this->db->update('sipce_madre_prematricula', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
+            }
+        } else {
+            //Si no, verifico los datos y si no estan vacios inserto los datos del Padre
+            if(empty($datos['tf_cedulaMadre'])){
+            //El if esta al verris
+            }else{
+                $this->db->insert('sipce_madre_prematricula', array(
+                'ced_estudiante' => $datos['tf_cedulaEstudiante'],
+                'ced_madre' => $datos['tf_cedulaMadre'],
+                'nombre_madre' => $datos['tf_nombreMadre'],
+                'apellido1_madre' => $datos['tf_ape1Madre'],
+                'apellido2_madre' => $datos['tf_ape2Madre'],
+                'telefonoCelMadre' => $datos['tf_telCelMadre'],
+                'telefonoCasaMadre' => $datos['tf_telCasaPadre'],
+                'ocupacionMadre' => $datos['tf_ocupacionMadre']));
+            }
+        }
+    }
+
     /* Carga todos los estudiantes matriculados */
 
     public function estadoMatricula() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion "
                         . "FROM sipce_estudiante,sipce_matricularatificacion "
                         . "WHERE cedula = ced_estudiante");
+    }
+
+    /* Carga todos los estudiantes matriculados */
+
+    public function estadoPrematricula() {
+        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2 "
+                        . "FROM sipce_prematricula ");
     }
 
     //Metodos extras para impresion de certificado de matricula

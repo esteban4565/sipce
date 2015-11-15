@@ -41,5 +41,16 @@ class ActualizarEstudiantes extends Controllers {
         $this->view->render('actualizarestudiantes/actuPasswordDocente');
         $this->view->render('footer');
     }
+    
+    public function estudiantesVoca() {
+        $this->view->title = 'Estudiantes Pre-Seleccionados Vocacional Alajuela';
+        $this->view->estudiantesCedulaVoca = $this->model->estudiantesCedulaVoca();
+        $this->view->estudiantesNuevosSolicitudEspecialidad = $this->model->estudiantesNuevosSolicitudEspecialidad();
+
+        //Se manda a ejecutar el header, contenido principal (views/horario/index) y el footer
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/estudiantesVoca');
+        $this->view->render('footer');
+    }
 
 }
