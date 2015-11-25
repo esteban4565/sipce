@@ -133,7 +133,7 @@
                 <div class="form-group">
                     <label for="slt_provinciaPrim" class="col-xs-2 control-label">Provincia:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="slt_provinciaPrim" id="slt_provinciaPrim">
+                        <select class="form-control input-sm" name="slt_provinciaPrim" id="slt_provinciaPrim">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
@@ -146,13 +146,13 @@
                     </div>
                     <label for="slt_cantonPrim" class="col-xs-2 control-label">Canton:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="slt_cantonPrim" id="slt_cantonPrim">
+                        <select class="form-control input-sm" name="slt_cantonPrim" id="slt_cantonPrim">
                         
                         </select>
                     </div>
                     <label for="slt_distritoPrim" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="slt_distritoPrim" id="slt_distritoPrim">  
+                        <select  class="form-control input-sm" name="slt_distritoPrim" id="slt_distritoPrim">  
                         
                         </select>
                     </div>
@@ -161,71 +161,13 @@
                 <div class="form-group">
                     <label for="slt_primaria" class="col-xs-2 control-label">Escuela:</label>
                     <div class="col-xs-3">
-                        <select  class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria"> 
-                            <option value="0">Ninguna</option>
+                        <select  class="form-control input-sm" name="tf_primaria" id="tf_primaria"> 
+                            <option value="0">--OTRA--</option>
                         </select>
                     </div>
                 </div>
                 <br><br>
                 <legend class="text-center">DATOS DEL HOGAR</legend>
-                <h4>Encargado Legal</h4>
-                <!--L9 Cedula y parentesco* del encargado legal (Formulario Hugo)-->
-                <div class="form-group"> 
-                    <label for="tf_cedulaEncargado_NI" class="col-xs-2 control-label">Identificación:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEncargado_NI" id="tf_cedulaEncargado_NI"/>
-                    </div>
-                    <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="buscarEncargado_NI" value="Buscar" />
-                    </div>
-                </div> 
-                <!--L10 Nombre del encargado legal (Formulario Hugo)-->
-                <div class="form-group">
-                    <label for="tf_ape1Encargado_NI" class="col-xs-2 control-label">1er apellido:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[required]"  id="tf_ape1Encargado_NI" name="tf_ape1Encargado_NI"/>
-                    </div>
-                    <label for="tf_ape2Encargado_NI" class="col-xs-2 control-label">2do apellido:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm"  id="tf_ape2Encargado_NI" name="tf_ape2Encargado_NI"/>
-                    </div>
-                    <label for="tf_nombreEncargado_NI" class="col-xs-2 control-label">Nombre completo:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[required]"  id="tf_nombreEncargado_NI" name="tf_nombreEncargado_NI"/>
-                    </div> 
-                </div> 
-                <!--L11 Telefono Habitacion y celular (Formulario Hugo)-->
-                <div class="form-group">
-                    <label for="tf_telHabitEncargado" class="col-xs-2 control-label">Tel. Habitación:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEncargado" id="tf_telHabitEncargado"/>
-                    </div>
-                    <label for="tf_telcelularEncargado" class="col-xs-2 control-label">Tel. Celular:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularEncargado" id="tf_telcelularEncargado"/>
-                    </div>
-                </div>
-                <!--L12 Ocupación y email (Formulario Hugo)-->
-                <div class="form-group">
-                    <label for="tf_ocupacionEncargado" class="col-xs-2 control-label">Ocupación:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[required]" name="tf_ocupacionEncargado" id="tf_ocupacionEncargado"/>
-                    </div>
-                    <label for="tf_emailEncargado" class="col-xs-2 control-label">Email:</label>
-                    <div class="col-xs-2">
-                        <input class="form-control input-sm" type="text" name="tf_emailEncargado" id="tf_emailEncargado"/>
-                    </div>
-                    <label for="tf_parentesco" class="col-xs-2 control-label">Parentesco:</label>
-                    <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="sel_parentesco" id="sel_parentesco">
-                            <option value="">Seleccione</option>
-                            <option value="Padre">Padre</option>
-                            <option value="Madre">Madre</option>
-                            <option value="Otro">Otro</option>
-                        </select> 
-                    </div>
-                </div>
-
                 <h4>Madre</h4>
                 <!--L13 Cedula de la Madre (Formulario Hugo)-->
                 <div class="form-group"> 
@@ -300,6 +242,64 @@
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm" name="tf_ocupacionPadre" id="tf_ocupacionPadre"/>
                     </div> 
+                </div>
+
+                <h4>Encargado Legal</h4>
+                <!--L9 Cedula y parentesco* del encargado legal (Formulario Hugo)-->
+                <div class="form-group"> 
+                    <label for="tf_parentesco" class="col-xs-2 control-label">Parentesco:</label>
+                    <div class="col-xs-2">
+                        <select class="form-control input-sm validate[required]" name="sel_parentesco" id="sel_parentesco_NI">
+                            <option value="">Seleccione</option>
+                            <option value="Padre">Padre</option>
+                            <option value="Madre">Madre</option>
+                            <option value="Otro">Otro</option>
+                        </select> 
+                    </div>
+                    <label for="tf_cedulaEncargado_NI" class="col-xs-2 control-label">Identificación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEncargado_NI" id="tf_cedulaEncargado_NI"/>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="button" class="btn-sm btn-success" id="buscarEncargado_NI" value="Buscar" />
+                    </div>
+                </div> 
+                <!--L10 Nombre del encargado legal (Formulario Hugo)-->
+                <div class="form-group">
+                    <label for="tf_ape1Encargado_NI" class="col-xs-2 control-label">1er apellido:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_ape1Encargado_NI" name="tf_ape1Encargado_NI"/>
+                    </div>
+                    <label for="tf_ape2Encargado_NI" class="col-xs-2 control-label">2do apellido:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm"  id="tf_ape2Encargado_NI" name="tf_ape2Encargado_NI"/>
+                    </div>
+                    <label for="tf_nombreEncargado_NI" class="col-xs-2 control-label">Nombre completo:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[required]"  id="tf_nombreEncargado_NI" name="tf_nombreEncargado_NI"/>
+                    </div> 
+                </div> 
+                <!--L11 Telefono Habitacion y celular (Formulario Hugo)-->
+                <div class="form-group">
+                    <label for="tf_telHabitEncargado" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEncargado" id="tf_telHabitEncargado"/>
+                    </div>
+                    <label for="tf_telcelularEncargado" class="col-xs-2 control-label">Tel. Celular:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularEncargado" id="tf_telcelularEncargado"/>
+                    </div>
+                </div>
+                <!--L12 Ocupación y email (Formulario Hugo)-->
+                <div class="form-group">
+                    <label for="tf_ocupacionEncargado" class="col-xs-2 control-label">Ocupación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[required]" name="tf_ocupacionEncargado" id="tf_ocupacionEncargado"/>
+                    </div>
+                    <label for="tf_emailEncargado" class="col-xs-2 control-label">Email:</label>
+                    <div class="col-xs-2">
+                        <input class="form-control input-sm" type="text" name="tf_emailEncargado" id="tf_emailEncargado"/>
+                    </div>
                 </div>
 
                 <h4>En caso de emergencia llamar a</h4>

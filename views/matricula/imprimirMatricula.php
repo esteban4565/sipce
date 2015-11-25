@@ -437,7 +437,19 @@
         Fecha de vencimiento:&nbsp;
         </div>
         <div class="col-xs-4 text-left">
-        <?php if ($this->polizaEstudiante != null) {echo $this->polizaEstudiante[0]['fecha_vence'];}else{echo 'nbsp;';} ?>
+        <?php 
+        if ($this->polizaEstudiante != null) {
+                    $fecha=$this->polizaEstudiante[0]['fecha_vence'];
+                    $annio=date(substr($fecha, 0, 4));
+                    $mes=date(substr($fecha, 5, 2));
+                    $dia=date(substr($fecha, 8, 2));
+                    echo $dia."-".$mes."-".$annio;
+                    
+        }else{
+            echo 'nbsp;';
+            
+        } 
+        ?>
         </div>
       </div>
       <div class="col-xs-12">

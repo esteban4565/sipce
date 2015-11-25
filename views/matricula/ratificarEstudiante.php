@@ -134,7 +134,7 @@
                 <div class="form-group">
                     <label for="slt_provinciaPrim" class="col-xs-2 control-label">Provincia:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="slt_provinciaPrim" id="slt_provinciaPrim">
+                        <select class="form-control input-sm" name="slt_provinciaPrim" id="slt_provinciaPrim">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
@@ -147,7 +147,7 @@
                     </div>
                     <label for="slt_cantonPrim" class="col-xs-2 control-label">Canton:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="slt_cantonPrim" id="slt_cantonPrim">
+                        <select class="form-control input-sm" name="slt_cantonPrim" id="slt_cantonPrim">
                             <?php
                             foreach ($this->consultaCantones as $value) {
                                 if ($this->escuelaEstudiante != null && $value['IdProvincia'] == $this->escuelaEstudiante[0]['IdProvincia']){
@@ -163,7 +163,7 @@
                     </div>
                     <label for="slt_distritoPrim" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="slt_distritoPrim" id="slt_distritoPrim">
+                        <select  class="form-control input-sm" name="slt_distritoPrim" id="slt_distritoPrim">
                             <?php
                             foreach ($this->consultaDistritos as $value) {
                                 if ($this->escuelaEstudiante != null && $value['IdCanton'] == $this->escuelaEstudiante[0]['IdCanton']){
@@ -182,8 +182,7 @@
                 <div class="form-group">
                     <label for="slt_primaria" class="col-xs-2 control-label">Escuela:</label>
                     <div class="col-xs-3">
-                        <select  class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria" value='<?php echo $this->infoEstudiante[0]['escuela_procedencia']; ?>'> 
-                        <option value="">Seleccione</option>
+                        <select  class="form-control input-sm" name="tf_primaria" id="tf_primaria">
                             <?php
                             foreach ($this->consultaEscuelas as $value) {
                                 if ($this->escuelaEstudiante != null && $value['IdDistrito'] == $this->escuelaEstudiante[0]['IdDistrito']){
@@ -194,71 +193,13 @@
                                 <?php
                                 }
                             }
-                            ?> 
+                            ?>  
+                                <option value="0">--OTRA--</option>
                         </select>
                     </div>
                 </div>
                 <br><br>
                 <legend class="text-center">DATOS DEL HOGAR</legend>
-                <h4>Encargado Legal</h4>
-                <!--L9 Cedula y parentesco* del encargado legal (Formulario Hugo)-->
-                <div class="form-group"> 
-                    <label for="tf_cedulaEncargado" class="col-xs-2 control-label">Identificación:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEncargado" id="tf_cedulaEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['ced_encargado']; ?>'/>
-                    </div>
-                    <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="buscarEncargado" value="Buscar" />
-                    </div>
-                </div> 
-                <!--L10 Nombre del encargado legal (Formulario Hugo)-->
-                <div class="form-group">
-                    <label for="tf_ape1Encargado" class="col-xs-2 control-label">1er apellido:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1Encargado" name="tf_ape1Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido1_encargado']; ?>' onkeyup="mayusculas(this)"/>
-                    </div>
-                    <label for="tf_ape2Encargado" class="col-xs-2 control-label">2do apellido:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Encargado" name="tf_ape2Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido2_encargado']; ?>' onkeyup="mayusculas(this)"/>
-                    </div>
-                    <label for="tf_nombreEncargado" class="col-xs-2 control-label">Nombre completo:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombreEncargado" name="tf_nombreEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['nombre_encargado']; ?>' onkeyup="mayusculas(this)"/>
-                    </div> 
-                </div> 
-                <!--L11 Telefono Habitacion y celular (Formulario Hugo)-->
-                <div class="form-group">
-                    <label for="tf_telHabitEncargado" class="col-xs-2 control-label">Tel. Habitación:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEncargado" id="tf_telHabitEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['telefonoCasaEncargado']; ?>'/>
-                    </div>
-                    <label for="tf_telcelularEncargado" class="col-xs-2 control-label">Tel. Celular:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularEncargado" id="tf_telcelularEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['telefonoCelularEncargado']; ?>'/>
-                    </div>
-                </div>
-                <!--L12 Ocupación y email (Formulario Hugo)-->
-                <div class="form-group">
-                    <label for="tf_ocupacionEncargado" class="col-xs-2 control-label">Ocupación:</label>
-                    <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[required]" name="tf_ocupacionEncargado" id="tf_ocupacionEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['ocupacionEncargado']; ?>'/>
-                    </div>
-                    <label for="tf_emailEncargado" class="col-xs-2 control-label">Email:</label>
-                    <div class="col-xs-2">
-                        <input class="form-control input-sm" type="email" name="tf_emailEncargado" id="tf_emailEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['emailEncargado']; ?>'/>
-                    </div>
-
-                    <label for="tf_parentesco" class="col-xs-2 control-label">Parentesco:</label>
-                    <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="sel_parentesco" id="sel_parentesco"> 
-                                <option value="">Seleccione</option> 
-                                <option value="Padre" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Padre') echo 'selected'; ?>>Padre</option> 
-                                <option value="Madre" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Madre') echo 'selected'; ?>>Madre</option>
-                                <option value="Otro" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Otro') echo 'selected'; ?>>Otro</option>
-                        </select>
-                    </div>
-                </div>
-
                 <h4>Madre</h4>
                 <!--L13 Cedula de la Madre (Formulario Hugo)-->
                 <div class="form-group"> 
@@ -334,7 +275,65 @@
                         <input type="text" class="form-control input-sm" name="tf_ocupacionPadre" id="tf_ocupacionPadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['ocupacionPadre']; ?>'/>
                     </div> 
                 </div>
-
+                <br>
+                <h4>Encargado Legal</h4>
+                <!--L9 Cedula y parentesco* del encargado legal (Formulario Hugo)-->
+                <div class="form-group">
+                    <label for="tf_parentesco" class="col-xs-2 control-label">Parentesco:</label>
+                    <div class="col-xs-2">
+                        <select  class="form-control input-sm validate[required]" name="sel_parentesco" id="sel_parentesco"> 
+                                <option value="">Seleccione</option> 
+                                <option value="Padre" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Padre') echo 'selected'; ?>>Padre</option> 
+                                <option value="Madre" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Madre') echo 'selected'; ?>>Madre</option>
+                                <option value="Otro" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Otro') echo 'selected'; ?>>Otro</option>
+                        </select>
+                    </div>
+                    <label for="tf_cedulaEncargado" class="col-xs-2 control-label">Identificación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEncargado" id="tf_cedulaEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['ced_encargado']; ?>'/>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="button" class="btn-sm btn-success" id="buscarEncargado" value="Buscar" />
+                    </div>
+                </div> 
+                <!--L10 Nombre del encargado legal (Formulario Hugo)-->
+                <div class="form-group">
+                    <label for="tf_ape1Encargado" class="col-xs-2 control-label">1er apellido:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_ape1Encargado" name="tf_ape1Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido1_encargado']; ?>' onkeyup="mayusculas(this)"/>
+                    </div>
+                    <label for="tf_ape2Encargado" class="col-xs-2 control-label">2do apellido:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Encargado" name="tf_ape2Encargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['apellido2_encargado']; ?>' onkeyup="mayusculas(this)"/>
+                    </div>
+                    <label for="tf_nombreEncargado" class="col-xs-2 control-label">Nombre completo:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="text-uppercase form-control input-sm validate[required]"  id="tf_nombreEncargado" name="tf_nombreEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['nombre_encargado']; ?>' onkeyup="mayusculas(this)"/>
+                    </div> 
+                </div> 
+                <!--L11 Telefono Habitacion y celular (Formulario Hugo)-->
+                <div class="form-group">
+                    <label for="tf_telHabitEncargado" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitEncargado" id="tf_telHabitEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['telefonoCasaEncargado']; ?>'/>
+                    </div>
+                    <label for="tf_telcelularEncargado" class="col-xs-2 control-label">Tel. Celular:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telcelularEncargado" id="tf_telcelularEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['telefonoCelularEncargado']; ?>'/>
+                    </div>
+                </div>
+                <!--L12 Ocupación y email (Formulario Hugo)-->
+                <div class="form-group">
+                    <label for="tf_ocupacionEncargado" class="col-xs-2 control-label">Ocupación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[required]" name="tf_ocupacionEncargado" id="tf_ocupacionEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['ocupacionEncargado']; ?>'/>
+                    </div>
+                    <label for="tf_emailEncargado" class="col-xs-2 control-label">Email:</label>
+                    <div class="col-xs-2">
+                        <input class="form-control input-sm" type="email" name="tf_emailEncargado" id="tf_emailEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['emailEncargado']; ?>'/>
+                    </div>
+                </div>
+                <br>
                 <h4>En caso de emergencia llamar a</h4>
                 <!--L19 Cedula Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group"> 

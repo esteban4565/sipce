@@ -94,10 +94,11 @@ $(function()
         
         //var ids = $(this).attr('rel');
         $.getJSON('cargaEscuela/' + idD, function(escuela) {
-            $('#tf_primaria').append('<option value="">SELECCIONE</option>');
+            $('#tf_primaria').append('<option value="0">SELECCIONE</option>');
             for (var iD = 0; iD < escuela.length; iD++) {
               $("#tf_primaria").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
             }
+            $("#tf_primaria").append('<option value="0">--OTRA--</option>');
         });
     });
 
@@ -214,24 +215,24 @@ $(function()
     });
 
     //Carga datos de Encargado Legal a Padre o Madre//
-    $("#sel_parentesco").change(function() {
-        var parentesco = $("#sel_parentesco").val();
+    $("#sel_parentesco_NI").change(function() {
+        var parentesco = $("#sel_parentesco_NI").val();
         if (parentesco === 'Padre') {
-            $("#tf_cedulaPadre_NI").val($("#tf_cedulaEncargado_NI").val());
-            $("#tf_ape1Padre_NI").val($("#tf_ape1Encargado_NI").val());
-            $("#tf_ape2Padre_NI").val($("#tf_ape2Encargado_NI").val());
-            $("#tf_nombrePadre_NI").val($("#tf_nombreEncargado_NI").val());
-            $("#tf_telCelPadre").val($("#tf_telcelularEncargado").val());
-            $("#tf_ocupacionPadre").val($("#tf_ocupacionEncargado").val());
+            $("#tf_cedulaEncargado_NI").val($("#tf_cedulaPadre_NI").val());
+            $("#tf_ape1Encargado_NI").val($("#tf_ape1Padre_NI").val());
+            $("#tf_ape2Encargado_NI").val($("#tf_ape2Padre_NI").val());
+            $("#tf_nombreEncargado_NI").val($("#tf_nombrePadre_NI").val());
+            $("#tf_telcelularEncargado").val($("#tf_telCelPadre").val());
+            $("#tf_ocupacionEncargado").val($("#tf_ocupacionPadre").val());
         } else
         {
             if (parentesco === 'Madre') {
-                $("#tf_cedulaMadre_NI").val($("#tf_cedulaEncargado_NI").val());
-                $("#tf_ape1Madre_NI").val($("#tf_ape1Encargado_NI").val());
-                $("#tf_ape2Madre_NI").val($("#tf_ape2Encargado_NI").val());
-                $("#tf_nombreMadre_NI").val($("#tf_nombreEncargado_NI").val());
-                $("#tf_telCelMadre").val($("#tf_telcelularEncargado").val());
-                $("#tf_ocupacionMadre").val($("#tf_ocupacionEncargado").val());
+                $("#tf_cedulaEncargado_NI").val($("#tf_cedulaMadre_NI").val());
+                $("#tf_ape1Encargado_NI").val($("#tf_ape1Madre_NI").val());
+                $("#tf_ape2Encargado_NI").val($("#tf_ape2Madre_NI").val());
+                $("#tf_nombreEncargado_NI").val($("#tf_nombreMadre_NI").val());
+                $("#tf_telcelularEncargado").val($("#tf_telCelMadre").val());
+                $("#tf_ocupacionEncargado").val($("#tf_ocupacionMadre").val());
             }
         }
     });

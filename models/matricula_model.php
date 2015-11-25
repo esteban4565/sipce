@@ -69,6 +69,8 @@ class Matricula_Model extends Models {
         $escuelasPrematricula[5]['nombre']="CALLE QUIRÓS";
         $escuelasPrematricula[6]['id']="449";
         $escuelasPrematricula[6]['nombre']="CARBONAL";
+        $escuelasPrematricula[25]['id']="568";
+        $escuelasPrematricula[25]['nombre']="CINCO ESQUINAS";
         $escuelasPrematricula[7]['id']="1003";
         $escuelasPrematricula[7]['nombre']="EL ROBLE";
         $escuelasPrematricula[8]['id']="1059";
@@ -87,6 +89,10 @@ class Matricula_Model extends Models {
         $escuelasPrematricula[14]['nombre']="JULIA FERNANDEZ RODRIGUEZ";
         $escuelasPrematricula[15]['id']="2023";
         $escuelasPrematricula[15]['nombre']="LAGOS DEL COYOL";
+        $escuelasPrematricula[26]['id']="2152";
+        $escuelasPrematricula[26]['nombre']="LEON CORTES CASTRO";
+        $escuelasPrematricula[28]['id']="2273";
+        $escuelasPrematricula[28]['nombre']="LOS CARTAGOS";
         $escuelasPrematricula[16]['id']="2371";
         $escuelasPrematricula[16]['nombre']="MANUEL FRANCISCO CARRILLO SABORIO";
         $escuelasPrematricula[17]['id']="2381";
@@ -97,22 +103,16 @@ class Matricula_Model extends Models {
         $escuelasPrematricula[19]['nombre']="PEDRO MURILLO PÉREZ";
         $escuelasPrematricula[20]['id']="2908";
         $escuelasPrematricula[20]['nombre']="REPUBLICA DE GUATEMALA";
-        $escuelasPrematricula[15]['id']="3083";
-        $escuelasPrematricula[15]['nombre']="SAN BOSCO";
-        $escuelasPrematricula[16]['id']="3475";
-        $escuelasPrematricula[16]['nombre']="SANTA ISABEL";
-        $escuelasPrematricula[17]['id']="3514";
-        $escuelasPrematricula[17]['nombre']="SANTA RITA";
-        $escuelasPrematricula[18]['id']="3661";
-        $escuelasPrematricula[18]['nombre']="TIMOLEON MORERA SOTO";
-        $escuelasPrematricula[19]['id']="568";
-        $escuelasPrematricula[19]['nombre']="CINCO ESQUINAS";
-        $escuelasPrematricula[20]['id']="2152";
-        $escuelasPrematricula[20]['nombre']="LEON CORTES CASTRO";
-        $escuelasPrematricula[21]['id']="1265";
-        $escuelasPrematricula[21]['nombre']="GUADALUPE";
-        $escuelasPrematricula[22]['id']="2273";
-        $escuelasPrematricula[22]['nombre']="LOS CARTAGOS";
+        $escuelasPrematricula[21]['id']="3083";
+        $escuelasPrematricula[21]['nombre']="SAN BOSCO";
+        $escuelasPrematricula[22]['id']="3475";
+        $escuelasPrematricula[22]['nombre']="SANTA ISABEL";
+        $escuelasPrematricula[23]['id']="3514";
+        $escuelasPrematricula[23]['nombre']="SANTA RITA";
+        $escuelasPrematricula[24]['id']="3661";
+        $escuelasPrematricula[24]['nombre']="TIMOLEON MORERA SOTO";
+        $escuelasPrematricula[27]['id']="1265";
+        $escuelasPrematricula[27]['nombre']="GUADALUPE";
         return $escuelasPrematricula;
     }
 
@@ -200,6 +200,7 @@ class Matricula_Model extends Models {
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
                         . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
+                        . "AND g.annio = '" . ($this->anioActivo + 1) . "' "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' ");
     }
 
@@ -1275,12 +1276,14 @@ class Matricula_Model extends Models {
     //Metodos extras para impresion de certificado de matricula
     public function consultaDatosEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
-                        . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.escuela_procedencia,p.telefonoCasa,j.nombreProvincia,"
+                        . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,e.nombre as escuela_procedencia,p.telefonoCasa,j.nombreProvincia,"
                         . "c.Canton,d.Distrito,p.nacionalidad,g.nivel, m.condicion "
-                        . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d, sipce_matricularatificacion as m "
+                        . "FROM sipce_estudiante as p,sipce_escuelas as e,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d, sipce_matricularatificacion as m "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' "
+                        . "AND g.annio = '" . ($this->anioActivo + 1) . "' "
                         . "AND m.ced_estudiante = '" . $cedulaEstudiante . "' "
+                        . "AND p.escuela_procedencia = e.id "
                         . "AND p.IdProvincia = j.IdProvincia "
                         . "AND p.IdCanton = c.IdCanton "
                         . "AND p.IdDistrito = d.IdDistrito");

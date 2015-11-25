@@ -90,10 +90,12 @@
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Matrícula <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
+                            <?php if (Session::get('tipoUsuario') == 1){ ?>
                             <li><a href="<?php echo URL; ?>matricula/prematricula">Pre-Matricula</a></li>
                             <li><a href="<?php echo URL; ?>matricula/listaprematricula">Lista Pre-Matricula</a></li>
+                            <?php }?>
                             <li class="divider"></li>
-                            <?php if (Session::get('tipoUsuario') == 1){ ?>
+                            <?php if (Session::get('tipoUsuario') <= 3){ ?>
                             <li><a href="<?php echo URL; ?>matricula/ratificarSetimo">Ratificar 7°</a></li>
                             <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar 8° - 11°</a></li>
                             <li><a href="<?php echo URL; ?>matricula/nuevoIngreso">Nuevo Ingreso</a></li>

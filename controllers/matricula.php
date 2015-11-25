@@ -149,9 +149,6 @@ class Matricula extends Controllers {
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
 
-        /* CARGAMOS LA LISTA DE ESTADO CIVIL */
-        $this->view->estadoCivilList = $this->model->estadoCivilList();
-
         /* CARGAMOS LA LISTA DE PAISES */
         $this->view->consultaPaises = $this->model->consultaPaises();
 

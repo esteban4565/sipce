@@ -64,7 +64,7 @@
                 <label for="slt_primaria" class="col-xs-2 control-label">Escuela de procedencia:</label>
                 <div class="col-xs-3">
                     <select  class="form-control input-sm validate[required]" name="tf_primaria" id="tf_primaria">  
-                        <option value="0">Ninguna</option>
+                        <option value="">Seleccione</option>
                         <?php
                         foreach ($this->consultaEscuelasPrematricula as $value) {
                             ?>
@@ -73,7 +73,8 @@
                                                <?php echo $value['nombre']; ?></option>
                             <?php
                         }
-                        ?>
+                        ?>  
+                            <option value="9999">--OTRA--</option>
                     </select>
                 </div>
             </div>

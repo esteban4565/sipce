@@ -96,10 +96,11 @@ $(function()
         
         //var ids = $(this).attr('rel');
         $.getJSON('../cargaEscuela/' + idD, function(escuela) {
-            $('#tf_primaria').append('<option value="">SELECCIONE</option>');
+            $('#tf_primaria').append('<option value="0">SELECCIONE</option>');
             for (var iD = 0; iD < escuela.length; iD++) {
               $("#tf_primaria").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
             }
+            $("#tf_primaria").append('<option value="0">--OTRA--</option>');
         });
     });
 
@@ -249,21 +250,21 @@ $(function()
     $("#sel_parentesco").change(function() {
         var parentesco = $("#sel_parentesco").val();
         if (parentesco === 'Padre') {
-            $("#tf_cedulaPadre").val($("#tf_cedulaEncargado").val());
-            $("#tf_ape1Padre").val($("#tf_ape1Encargado").val());
-            $("#tf_ape2Padre").val($("#tf_ape2Encargado").val());
-            $("#tf_nombrePadre").val($("#tf_nombreEncargado").val());
-            $("#tf_telCelPadre").val($("#tf_telcelularEncargado").val());
-            $("#tf_ocupacionPadre").val($("#tf_ocupacionEncargado").val());
+            $("#tf_cedulaEncargado").val($("#tf_cedulaPadre").val());
+            $("#tf_ape1Encargado").val($("#tf_ape1Padre").val());
+            $("#tf_ape2Encargado").val($("#tf_ape2Padre").val());
+            $("#tf_nombreEncargado").val($("#tf_nombrePadre").val());
+            $("#tf_telcelularEncargado").val($("#tf_telCelPadre").val());
+            $("#tf_ocupacionEncargado").val($("#tf_ocupacionPadre").val());
         } else
         {
             if (parentesco === 'Madre') {
-                $("#tf_cedulaMadre").val($("#tf_cedulaEncargado").val());
-                $("#tf_ape1Madre").val($("#tf_ape1Encargado").val());
-                $("#tf_ape2Madre").val($("#tf_ape2Encargado").val());
-                $("#tf_nombreMadre").val($("#tf_nombreEncargado").val());
-                $("#tf_telCelMadre").val($("#tf_telcelularEncargado").val());
-                $("#tf_ocupacionMadre").val($("#tf_ocupacionEncargado").val());
+                $("#tf_cedulaEncargado").val($("#tf_cedulaMadre").val());
+                $("#tf_ape1Encargado").val($("#tf_ape1Madre").val());
+                $("#tf_ape2Encargado").val($("#tf_ape2Madre").val());
+                $("#tf_nombreEncargado").val($("#tf_nombreMadre").val());
+                $("#tf_telcelularEncargado").val($("#tf_telCelMadre").val());
+                $("#tf_ocupacionEncargado").val($("#tf_ocupacionMadre").val());
             }
         }
     });
