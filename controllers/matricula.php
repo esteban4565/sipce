@@ -200,8 +200,8 @@ class Matricula extends Controllers {
         /* CARGAMOS LA LISTA DE ESPECIALIDADES */
         $this->view->consultaEspecialidades = $this->model->consultaEspecialidades();
 
-        /* Cargo informacion del Estudiante */
-        $this->view->infoEstudiante = $this->model->infoEstudiante($cedulaEstudiante);
+        /* Cargo informacion del Estudiante Para Editar*/
+        $this->view->infoEstudiante = $this->model->infoEstudianteEditar($cedulaEstudiante);
 
         /* Cargo informacion de la especialidad del Estudiante */
         $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);

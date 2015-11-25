@@ -192,9 +192,21 @@ class Matricula_Model extends Models {
         echo json_encode($resultado);
     }
 
-    /* Retorna la informacion del Estudiante */
+    /* Retorna la informacion del Estudiante para Matricular*/
 
     public function infoEstudiante($cedulaEstudiante) {
+        return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
+                        . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.telefonoCasa,p.IdProvincia,"
+                        . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g "
+                        . "WHERE p.cedula = g.ced_estudiante "
+                        . "AND g.annio = '" . $this->anioActivo . "' "
+                        . "AND p.cedula = '" . $cedulaEstudiante . "' ");
+    }
+
+    /* Retorna la informacion del Estudiante para Editar Matricula*/
+
+    public function infoEstudianteEditar($cedulaEstudiante) {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
                         . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,p.telefonoCasa,p.IdProvincia,"
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
@@ -1263,7 +1275,8 @@ class Matricula_Model extends Models {
     public function estadoMatricula() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion "
                         . "FROM sipce_estudiante,sipce_matricularatificacion "
-                        . "WHERE cedula = ced_estudiante");
+                        . "WHERE cedula = ced_estudiante "
+                        . "ORDER BY apellido1");
     }
 
     /* Carga todos los estudiantes matriculados */
