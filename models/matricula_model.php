@@ -176,7 +176,8 @@ class Matricula_Model extends Models {
                 . "FROM sipce_estudiante, sipce_grupos "
                 . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
                 . "AND cedula = ced_estudiante "
-                . "AND cedula = '" . $ced_estudiante . "'");
+                . "AND cedula = '" . $ced_estudiante . "'"
+                . "AND annio = ".$this->anioActivo." ");
 
         echo json_encode($resultado);
     }

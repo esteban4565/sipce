@@ -394,7 +394,7 @@ $(function()
                         '<td>' + resulBusqueda[0].apellido1 + '</td>' +
                         '<td>' + resulBusqueda[0].apellido2 + '</td>' +
                         '<td>' + resulBusqueda[0].nombre + '</td>' +
-                        '<td><a class="btn-sm btn-primary" href="ratificarEstudiante/' + idD + '">Ratificar</a></td>' +
+                        '<td><a class="btn-sm btn-primary" href="ratificarEstuSetimo/' + idD + '">Ratificar</a></td>' +
                         '</tr>');
             }
         });
