@@ -118,7 +118,7 @@
         <div class="col-xs-2 text-right">
         Email:&nbsp;
         </div>
-        <div class="col-xs- text-left">
+        <div class="col-xs-4 text-left">
         <?php echo $this->consultaDatosEstudiante[0]['email']; ?>&nbsp;
         </div>
         <!Linea#6>

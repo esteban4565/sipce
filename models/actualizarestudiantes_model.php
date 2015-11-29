@@ -6,6 +6,7 @@ class ActualizarEstudiantes_Model extends Models {
     //db es un objeto "Database" y posee las siguientes funciones: select, insert, update y delete
     public function __construct() {
         parent::__construct();
+        $this->anioActivo = 2015;
     }
 
     //esta funcion retorna un Array con todos los usuarios tipo "docente" que se encuentran en la BD
@@ -145,5 +146,127 @@ class ActualizarEstudiantes_Model extends Models {
                         . "WHERE g.ced_estudiante = n.ced_estudiante "
                         . "AND p.cedula = n.ced_estudiante "
                         . "order by p.primerApellido");
+    }
+    
+    /* Carga todos los estudiantes de un nivel en especifico */
+
+    public function cargaProyeccion($idNivel) {
+        $edadReferencia=$idNivel+6;
+        
+        $hombres=0;
+        $menoresHombre=0;
+        $mayoresHombre=0;
+        $nacionalesHombre=0;
+        $extrangerosHombre=0;
+        
+        $mujeres=0;
+        $menoresMujer=0;
+        $mayoresMujer=0;
+        $nacionalesMujer=0;
+        $extrangerosMujer=0;
+        
+        $datos = array();
+        
+        $resultado = $this->db->select("SELECT p.sexo,p.fechaNacimiento,p.nacionalidad "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g "
+                        . "WHERE g.nivel = " . $idNivel . " "
+                        . "AND g.annio = '" . ($this->anioActivo + 1) . "' "
+                        . "AND p.cedula = g.ced_estudiante ");
+        
+        if($resultado!=NULL){
+            foreach ($resultado as $key => $value) {
+                    $anio=substr($value['fechaNacimiento'],0,4);
+                    $edad=($this->anioActivo + 1)-$anio;
+                    
+                    if($value['sexo']==1){
+                        $hombres++;
+                        if($edad<=$edadReferencia){
+                        $menoresHombre++;
+                        }else{
+                            $mayoresHombre++;
+                        }
+                        if($value['nacionalidad']==506){
+                            $nacionalesHombre++;
+                        }else{
+                            $extrangerosHombre++;
+                        }
+                    }else{
+                        $mujeres++;
+                        if($edad<=$edadReferencia){
+                        $menoresMujer++;
+                        }else{
+                            $mayoresMujer++;
+                        }
+                        if($value['nacionalidad']==506){
+                            $nacionalesMujer++;
+                        }else{
+                            $extrangerosMujer++;
+                        }
+                    }
+            }
+        }
+        $datos['edadReferencia'] =$edadReferencia;
+        
+        $datos['hombres'] =$hombres;
+        $datos['menoresHombre'] =$menoresHombre;
+        $datos['mayoresHombre'] =$mayoresHombre;
+        $datos['nacionalesHombre'] =$nacionalesHombre;
+        $datos['extrangerosHombre'] =$extrangerosHombre;
+        
+        $datos['mujeres'] =$mujeres;
+        $datos['menoresMujer'] =$menoresMujer;
+        $datos['mayoresMujer'] =$mayoresMujer;
+        $datos['nacionalesMujer'] =$nacionalesMujer;
+        $datos['extrangerosMujer'] =$extrangerosMujer;
+        
+        echo json_encode($datos);
+    }
+    
+    /* Carga todos los estudiantes de un nivel en especifico */
+
+    public function cargaProyeccionTotal() {
+        $totalSetimo=0;
+        $totalOctavo=0;
+        $totalNoveno=0;
+        $totalDecino=0;
+        $totalUndecino=0;
+        $totalDuodecino=0;
+        
+        $datos = array();
+        
+        $resultado = $this->db->select("SELECT g.nivel "
+                        . "FROM sipce_grupos as g "
+                        . "WHERE g.annio = '" . ($this->anioActivo + 1) . "' ");
+        
+        if($resultado!=NULL){
+            foreach ($resultado as $key => $value) {
+                    if($value['nivel']==7){
+                        $totalSetimo++;
+                    }
+                    if($value['nivel']==8){
+                        $totalOctavo++;
+                    }
+                    if($value['nivel']==9){
+                        $totalNoveno++;
+                    }
+                    if($value['nivel']==10){
+                        $totalDecino++;
+                    }
+                    if($value['nivel']==11){
+                        $totalUndecino++;
+                    }
+                    if($value['nivel']==12){
+                        $totalDuodecino++;
+                    }
+            }
+        }
+        $datos['totalSetimo'] =$totalSetimo;
+        $datos['totalOctavo'] =$totalOctavo;
+        $datos['totalNoveno'] =$totalNoveno;
+        $datos['totalDecino'] =$totalDecino;
+        $datos['totalUndecino'] =$totalUndecino;
+        $datos['totalDuodecino'] =$totalDuodecino;
+        
+        echo json_encode($datos);
     }
 }

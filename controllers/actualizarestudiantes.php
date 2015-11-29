@@ -6,6 +6,7 @@ class ActualizarEstudiantes extends Controllers {
     public function __construct() {
         parent::__construct();
         Auth::handleLogin();
+        $this->view->js = array('actualizarEstudiantes/js/default.js');
     }
 
     //La funcion Index carga dos variables, "title" es utilizada para el Header de la pagina
@@ -51,6 +52,25 @@ class ActualizarEstudiantes extends Controllers {
         $this->view->render('header');
         $this->view->render('actualizarestudiantes/estudiantesVoca');
         $this->view->render('footer');
+    }
+    
+    public function proyeccionMatricula() {
+        $this->view->title = 'Proyección para el 2016 - Estudiantes Matriculados';
+
+        //Se manda a ejecutar el header, contenido principal (views/horario/index) y el footer
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/proyeccionMatricula');
+        $this->view->render('footer');
+    }
+    
+    /* Metodos */
+    function cargaProyeccion($idNivel) {
+        $this->model->cargaProyeccion($idNivel);
+    }
+    
+    /* Metodos */
+    function cargaProyeccionTotal() {
+        $this->model->cargaProyeccionTotal();
     }
 
 }

@@ -97,7 +97,7 @@
                             <li class="divider"></li>
                             <?php if (Session::get('tipoUsuario') <= 3){ ?>
                             <li><a href="<?php echo URL; ?>matricula/ratificarSetimo">Ratificar 7°</a></li>
-                            <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar 8° - 11°</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar 8° - 12°</a></li>
                             <li><a href="<?php echo URL; ?>matricula/nuevoIngreso">Nuevo Ingreso</a></li>
                             <li class="divider"></li>
                             <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculados">Matriculados</a></li>
@@ -113,6 +113,7 @@
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordEstu">Reiniciar contraseñas Estudaintes</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordDocente">Reiniciar contraseñas Docente</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/estudiantesVoca">Estudiantes Voca</a></li>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/proyeccionMatricula">Proyección</a></li>
                           <li><a href="<?php echo URL; ?>seccion/configSecciones">Configuración Secciones</a></li>
                         </ul>
                       </li>
