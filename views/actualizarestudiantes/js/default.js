@@ -66,6 +66,8 @@ $(function()
                         '<td>' + datos['totalUndecino'] + '</td><tr>' +
                         '<tr><td>12°</td>' +
                         '<td>' + datos['totalDuodecino'] + '</td><tr>' +
+                        '<tr><td>TOTAL:</td>' +
+                        '<td>' + (datos['totalSetimo'] + datos['totalOctavo'] + datos['totalNoveno'] + datos['totalDecino'] + datos['totalUndecino'] + datos['totalDuodecino'] ) + '</td><tr>' +
                         '</tbody>');
             });
         }

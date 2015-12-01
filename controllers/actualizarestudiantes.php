@@ -6,7 +6,7 @@ class ActualizarEstudiantes extends Controllers {
     public function __construct() {
         parent::__construct();
         Auth::handleLogin();
-        $this->view->js = array('actualizarEstudiantes/js/default.js');
+        $this->view->js = array('actualizarestudiantes/js/default.js');
     }
 
     //La funcion Index carga dos variables, "title" es utilizada para el Header de la pagina
