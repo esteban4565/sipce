@@ -68,9 +68,29 @@ class ActualizarEstudiantes extends Controllers {
         $this->model->cargaProyeccion($idNivel);
     }
     
-    /* Metodos */
     function cargaProyeccionTotal() {
         $this->model->cargaProyeccionTotal();
+    }
+    
+    function cargaProyeccionEspecialidad() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['especialidad'] = $_POST['especialidad'];
+        $this->model->cargaProyeccionEspecialidad($consulta);
+    }
+    
+    function cargaProyeccionTotalEspecialidad() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['especialidad'] = $_POST['especialidad'];
+        $this->model->cargaProyeccionTotalEspecialidad($consulta);
+    }
+    
+    function cargaProyeccionTotalTodasLasEspecialidad() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['especialidad'] = $_POST['especialidad'];
+        $this->model->cargaProyeccionTotalTodasLasEspecialidad($consulta);
     }
 
 }

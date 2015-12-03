@@ -148,7 +148,7 @@ class ActualizarEstudiantes_Model extends Models {
                         . "order by p.primerApellido");
     }
     
-    /* Carga todos los estudiantes de un nivel en especifico */
+    /* Carga la estadistica de un nivel en especifico */
 
     public function cargaProyeccion($idNivel) {
         $edadReferencia=$idNivel+6;
@@ -222,7 +222,7 @@ class ActualizarEstudiantes_Model extends Models {
         echo json_encode($datos);
     }
     
-    /* Carga todos los estudiantes de un nivel en especifico */
+    /* Carga la estadistica de todos los niveles */
 
     public function cargaProyeccionTotal() {
         $totalSetimo=0;
@@ -266,6 +266,296 @@ class ActualizarEstudiantes_Model extends Models {
         $datos['totalDecino'] =$totalDecino;
         $datos['totalUndecino'] =$totalUndecino;
         $datos['totalDuodecino'] =$totalDuodecino;
+        
+        echo json_encode($datos);
+    }
+    
+    /* Carga la estadistica de una Especialidad y Niveles en Especifico*/
+
+    public function cargaProyeccionEspecialidad($consulta) {
+        
+        $edadReferencia=$consulta['nivelSeleccionado'] + 6;
+        
+        $hombres=0;
+        $menoresHombre=0;
+        $mayoresHombre=0;
+        $nacionalesHombre=0;
+        $extrangerosHombre=0;
+        
+        $mujeres=0;
+        $menoresMujer=0;
+        $mayoresMujer=0;
+        $nacionalesMujer=0;
+        $extrangerosMujer=0;
+        
+        $datos = array();
+        
+        $resultado = $this->db->select("SELECT p.sexo,p.fechaNacimiento,p.nacionalidad "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_especialidad_estudiante as e "
+                        . "WHERE g.nivel = " . $consulta['nivelSeleccionado'] . " "
+                        . "AND g.annio = '" . ($this->anioActivo + 1) . "' "
+                        . "AND p.cedula = g.ced_estudiante "
+                        . "AND g.ced_estudiante = e.ced_estudiante "
+                        . "AND e.cod_especialidad = " . $consulta['especialidad'] . " ");
+        
+        if($resultado!=NULL){
+            foreach ($resultado as $key => $value) {
+                    $anio=substr($value['fechaNacimiento'],0,4);
+                    $edad=($this->anioActivo + 1)-$anio;
+                    
+                    if($value['sexo']==1){
+                        $hombres++;
+                        if($edad<=$edadReferencia){
+                        $menoresHombre++;
+                        }else{
+                            $mayoresHombre++;
+                        }
+                        if($value['nacionalidad']==506){
+                            $nacionalesHombre++;
+                        }else{
+                            $extrangerosHombre++;
+                        }
+                    }else{
+                        $mujeres++;
+                        if($edad<=$edadReferencia){
+                        $menoresMujer++;
+                        }else{
+                            $mayoresMujer++;
+                        }
+                        if($value['nacionalidad']==506){
+                            $nacionalesMujer++;
+                        }else{
+                            $extrangerosMujer++;
+                        }
+                    }
+            }
+        }
+        $datos['edadReferencia'] =$edadReferencia;
+        
+        $datos['hombres'] =$hombres;
+        $datos['menoresHombre'] =$menoresHombre;
+        $datos['mayoresHombre'] =$mayoresHombre;
+        $datos['nacionalesHombre'] =$nacionalesHombre;
+        $datos['extrangerosHombre'] =$extrangerosHombre;
+        
+        $datos['mujeres'] =$mujeres;
+        $datos['menoresMujer'] =$menoresMujer;
+        $datos['mayoresMujer'] =$mayoresMujer;
+        $datos['nacionalesMujer'] =$nacionalesMujer;
+        $datos['extrangerosMujer'] =$extrangerosMujer;
+        echo json_encode($datos);
+    }
+    
+    /* Carga la estadistica de una especialidad en especifico en todos los niveles */
+
+    public function cargaProyeccionTotalEspecialidad($consulta) {
+        $totalDecino=0;
+        $totalUndecino=0;
+        $totalDuodecino=0;
+        
+        $datos = array();
+        
+        $resultado = $this->db->select("SELECT g.nivel "
+                        . "FROM sipce_grupos as g,sipce_especialidad_estudiante as e "
+                        . "WHERE g.annio = '" . ($this->anioActivo + 1) . "' "
+                        . "AND g.ced_estudiante = e.ced_estudiante "
+                        . "AND e.cod_especialidad = " . $consulta['especialidad'] . " ");
+        
+        if($resultado!=NULL){
+            foreach ($resultado as $key => $value) {
+                    if($value['nivel']==10){
+                        $totalDecino++;
+                    }
+                    if($value['nivel']==11){
+                        $totalUndecino++;
+                    }
+                    if($value['nivel']==12){
+                        $totalDuodecino++;
+                    }
+            }
+        }
+        $datos['totalDecino'] =$totalDecino;
+        $datos['totalUndecino'] =$totalUndecino;
+        $datos['totalDuodecino'] =$totalDuodecino;
+        
+        echo json_encode($datos);
+    }
+    
+    /* Carga la estadistica de una especialidad en especifico en todos los niveles */
+
+    public function cargaProyeccionTotalTodasLasEspecialidad($consulta) {
+        $aduanasDecino=0;
+        $aduanasUndecino=0;
+        $aduanasDuodecino=0;
+        $ejecutivoDecino=0;
+        $ejecutivoUndecino=0;
+        $ejecutivoDuodecino=0;
+        $contaDecino=0;
+        $contaUndecino=0;
+        $contaDuodecino=0;
+        
+        $bancaDecino=0;
+        $bancaUndecino=0;
+        $bancaDuodecino=0;
+        $softwareDecino=0;
+        $softwareUndecino=0;
+        $softwareDuodecino=0;
+        $dibujoDecino=0;
+        $dibujoUndecino=0;
+        $dibujoDuodecino=0;
+        
+        $agroDecino=0;
+        $agroUndecino=0;
+        $agroDuodecino=0;
+        $turismoDecino=0;
+        $turismoUndecino=0;
+        $turismoDuodecino=0;
+        $electroDecino=0;
+        $electroUndecino=0;
+        $electroDuodecino=0;
+        
+        $datos = array();
+        
+        $resultado = $this->db->select("SELECT g.nivel,e.cod_especialidad "
+                        . "FROM sipce_grupos as g,sipce_especialidad_estudiante as e "
+                        . "WHERE g.annio = '" . ($this->anioActivo + 1) . "' "
+                        . "AND g.ced_estudiante = e.ced_estudiante ");
+        
+        if($resultado!=NULL){
+            foreach ($resultado as $key => $value) {
+                    if($value['nivel']==10){
+                         if($value['cod_especialidad']==1){
+                            $aduanasDecino++;
+                         }
+                         if($value['cod_especialidad']==2){
+                            $ejecutivoDecino++;
+                         }
+                         if($value['cod_especialidad']==3){
+                            $contaDecino++;
+                         }
+                         if($value['cod_especialidad']==4){
+                            $bancaDecino++;
+                         }
+                         if($value['cod_especialidad']==5){
+                            $softwareDecino++;
+                         }
+                         if($value['cod_especialidad']==6){
+                            $dibujoDecino++;
+                         }
+                         if($value['cod_especialidad']==7){
+                            $agroDecino++;
+                         }
+                         if($value['cod_especialidad']==8){
+                            $turismoDecino++;
+                         }
+                         if($value['cod_especialidad']==9){
+                            $electroDecino++;
+                         }
+                    }
+                    if($value['nivel']==11){
+                         if($value['cod_especialidad']==1){
+                            $aduanasUndecino++;
+                         }
+                         if($value['cod_especialidad']==2){
+                            $ejecutivoUndecino++;
+                         }
+                         if($value['cod_especialidad']==3){
+                            $contaUndecino++;
+                         }
+                         if($value['cod_especialidad']==4){
+                            $bancaUndecino++;
+                         }
+                         if($value['cod_especialidad']==5){
+                            $softwareUndecino++;
+                         }
+                         if($value['cod_especialidad']==6){
+                            $dibujoUndecino++;
+                         }
+                         if($value['cod_especialidad']==7){
+                            $agroUndecino++;
+                         }
+                         if($value['cod_especialidad']==8){
+                            $turismoUndecino++;
+                         }
+                         if($value['cod_especialidad']==9){
+                            $electroUndecino++;
+                         }
+                    }
+                    if($value['nivel']==12){
+                         if($value['cod_especialidad']==1){
+                            $aduanasDuodecino++;
+                         }
+                         if($value['cod_especialidad']==2){
+                            $ejecutivoDuodecino++;
+                         }
+                         if($value['cod_especialidad']==3){
+                            $contaDuodecino++;
+                         }
+                         if($value['cod_especialidad']==4){
+                            $bancaDuodecino++;
+                         }
+                         if($value['cod_especialidad']==5){
+                            $softwareDuodecino++;
+                         }
+                         if($value['cod_especialidad']==6){
+                            $dibujoDuodecino++;
+                         }
+                         if($value['cod_especialidad']==7){
+                            $agroDuodecino++;
+                         }
+                         if($value['cod_especialidad']==8){
+                            $turismoDuodecino++;
+                         }
+                         if($value['cod_especialidad']==9){
+                            $electroDuodecino++;
+                         }
+                    }
+            }
+        }
+        
+        $totalDecino=$aduanasDecino+$ejecutivoDecino+$contaDecino+$bancaDecino+$softwareDecino+$dibujoDecino+$agroDecino+$turismoDecino+$electroDecino;
+        $totalUndecino=$aduanasUndecino+$ejecutivoUndecino+$contaUndecino+$bancaUndecino+$softwareUndecino+$dibujoUndecino+$agroUndecino+$turismoUndecino+$electroUndecino;
+        $totalDuodecino=$aduanasDuodecino+$ejecutivoDuodecino+$contaDuodecino+$bancaDuodecino+$softwareDuodecino+$dibujoDuodecino+$agroDuodecino+$turismoDuodecino+$electroDuodecino;
+        
+        $datos['aduanasDecino'] = $aduanasDecino;
+        $datos['aduanasUndecino'] = $aduanasUndecino;
+        $datos['aduanasDuodecino'] = $aduanasDuodecino;
+        
+        $datos['ejecutivoDecino'] = $ejecutivoDecino;
+        $datos['ejecutivoUndecino'] = $ejecutivoUndecino;
+        $datos['ejecutivoDuodecino'] = $ejecutivoDuodecino;
+        
+        $datos['contaDecino'] = $contaDecino;
+        $datos['contaUndecino'] = $contaUndecino;
+        $datos['contaDuodecino'] = $contaDuodecino;
+        
+        $datos['bancaDecino'] = $bancaDecino;
+        $datos['bancaUndecino'] = $bancaUndecino;
+        $datos['bancaDuodecino'] = $bancaDuodecino;
+        
+        $datos['softwareDecino'] = $softwareDecino;
+        $datos['softwareUndecino'] = $softwareUndecino;
+        $datos['softwareDuodecino'] = $softwareDuodecino;
+        
+        $datos['dibujoDecino'] = $dibujoDecino;
+        $datos['dibujoUndecino'] = $dibujoUndecino;
+        $datos['dibujoDuodecino'] = $dibujoDuodecino;
+        
+        $datos['agroDecino'] = $agroDecino;
+        $datos['agroUndecino'] = $agroUndecino;
+        $datos['agroDuodecino'] = $agroDuodecino;
+        
+        $datos['turismoDecino'] = $turismoDecino;
+        $datos['turismoUndecino'] = $turismoUndecino;
+        $datos['turismoDuodecino'] = $turismoDuodecino;
+        
+        $datos['electroDecino'] = $electroDecino;
+        $datos['electroUndecino'] = $electroUndecino;
+        $datos['electroDuodecino'] = $electroDuodecino;
+        
+        $datos['totalDecino'] = $totalDecino;
+        $datos['totalUndecino'] = $totalUndecino;
+        $datos['totalDuodecino'] = $totalDuodecino;
         
         echo json_encode($datos);
     }
