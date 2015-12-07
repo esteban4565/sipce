@@ -63,6 +63,15 @@ class ActualizarEstudiantes extends Controllers {
         $this->view->render('footer');
     }
     
+    public function listaEstudiantesEspecialidad() {
+        $this->view->title = 'Lista Estudiantes por Especialidad 2016 - Estudiantes Matriculados';
+
+        //Se manda a ejecutar el header, contenido principal (views/horario/index) y el footer
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/listaEstudiantesEspecialidad');
+        $this->view->render('footer');
+    }
+    
     /* Metodos */
     function cargaProyeccion($idNivel) {
         $this->model->cargaProyeccion($idNivel);
@@ -91,6 +100,20 @@ class ActualizarEstudiantes extends Controllers {
         $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
         $consulta['especialidad'] = $_POST['especialidad'];
         $this->model->cargaProyeccionTotalTodasLasEspecialidad($consulta);
+    }
+    
+    function cargaListaEstudiantesEspecialidad() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['especialidad'] = $_POST['especialidad'];
+        $this->model->cargaListaEstudiantesEspecialidad($consulta);
+    }
+    
+    function cargaListaEstudiantesMatriculados() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['especialidad'] = $_POST['especialidad'];
+        $this->model->cargaListaEstudiantesMatriculados($consulta);
     }
 
 }

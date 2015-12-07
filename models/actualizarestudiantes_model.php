@@ -559,4 +559,32 @@ class ActualizarEstudiantes_Model extends Models {
         
         echo json_encode($datos);
     }
+    
+    /* Carga la estadistica de una especialidad en especifico en todos los niveles */
+
+    public function cargaListaEstudiantesEspecialidad($consulta) {
+        $resultado = $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2 "
+                        . "FROM sipce_grupos as g,sipce_estudiante as p,sipce_especialidad_estudiante as e  "
+                        . "WHERE g.annio = " . ($this->anioActivo + 1) . " "
+                        . "AND g.nivel = " . $consulta['nivelSeleccionado']. " "
+                        . "AND g.ced_estudiante = p.cedula "
+                        . "AND g.ced_estudiante = e.ced_estudiante "
+                        . "AND e.cod_especialidad = " . $consulta['especialidad']. " "
+                        . "ORDER BY p.apellido1,p.apellido2 ");
+        
+        echo json_encode($resultado);
+    }
+    
+    /* Carga la estadistica de una especialidad en especifico en todos los niveles */
+
+    public function cargaListaEstudiantesMatriculados($consulta) {
+        $resultado = $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2 "
+                        . "FROM sipce_grupos as g,sipce_estudiante as p "
+                        . "WHERE g.annio = " . ($this->anioActivo + 1) . " "
+                        . "AND g.nivel = " . $consulta['nivelSeleccionado']. " "
+                        . "AND g.ced_estudiante = p.cedula "
+                        . "ORDER BY p.apellido1,p.apellido2 ");
+        
+        echo json_encode($resultado);
+    }
 }

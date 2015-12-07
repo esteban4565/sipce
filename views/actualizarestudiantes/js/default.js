@@ -185,4 +185,47 @@ $(function()
                 }
         }
     });
+    
+    
+    //Carga la Lista de Estudiantes dependiendo del Nivel y Especialidad//
+    $("#sl_EspecialidadlListaEstudiante").change(function() {
+        if($("#sl_NivelListaEstudiante").val() < 10){
+            alert("El nivel seleccionado no posee dicha especialidad");
+        }else{
+            $("#listaEstudiantes").empty();
+
+            if($("#sl_NivelListaEstudiante").val() < 13 && $("#sl_EspecialidadlListaEstudiante").val() < 10){
+                var consulta = {nivelSeleccionado: $("#sl_NivelListaEstudiante").val(), especialidad: $("#sl_EspecialidadlListaEstudiante").val()};
+            
+                $.post('cargaListaEstudiantesEspecialidad/', consulta, function(datos, success) {
+                $('#listaEstudiantes').append('<thead><tr>' +
+                        '<th class="text-center">Nº</th><th class="text-center">Cédula</th><th class="text-center">Estudiantes</th>' +
+                        '</tr></thead><tbody>');
+                        for (var linea = 0; linea < datos.length; linea++) {
+                        $('#listaEstudiantes').append('<tr><td>' + (linea+1) + '</td><td>' + datos[linea].cedula + '</td><td>' + datos[linea].apellido1 + ' ' + datos[linea].apellido2 + ' ' + datos[linea].nombre + '</td></tr>');
+                        
+                        }
+                        $('#listaEstudiantes').append('</tbody>');
+                }, "json");
+            }
+        }
+    });
+    
+    
+    //Carga la Lista de Estudiantes dependiendo del Nivel//
+    $("#sl_NivelListaEstudiante").change(function() {
+            $("#listaEstudiantes").empty();
+                var consulta = {nivelSeleccionado: $("#sl_NivelListaEstudiante").val(), especialidad: $("#sl_EspecialidadlListaEstudiante").val()};
+            
+                $.post('cargaListaEstudiantesMatriculados/', consulta, function(datos, success) {
+                $('#listaEstudiantes').append('<thead><tr>' +
+                        '<th class="text-center">Nº</th><th class="text-center">Cédula</th><th class="text-center">Estudiantes</th>' +
+                        '</tr></thead><tbody>');
+                        for (var linea = 0; linea < datos.length; linea++) {
+                        $('#listaEstudiantes').append('<tr><td>' + (linea+1) + '</td><td>' + datos[linea].cedula + '</td><td>' + datos[linea].apellido1 + ' ' + datos[linea].apellido2 + ' ' + datos[linea].nombre + '</td></tr>');
+                        
+                        }
+                        $('#listaEstudiantes').append('</tbody>');
+                }, "json");
+    });
 });
