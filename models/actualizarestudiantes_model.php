@@ -563,7 +563,7 @@ class ActualizarEstudiantes_Model extends Models {
     /* Carga la estadistica de una especialidad en especifico en todos los niveles */
 
     public function cargaListaEstudiantesEspecialidad($consulta) {
-        $resultado = $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2 "
+        $resultado = $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.telefonoCasa,p.telefonoCelular "
                         . "FROM sipce_grupos as g,sipce_estudiante as p,sipce_especialidad_estudiante as e  "
                         . "WHERE g.annio = " . ($this->anioActivo + 1) . " "
                         . "AND g.nivel = " . $consulta['nivelSeleccionado']. " "

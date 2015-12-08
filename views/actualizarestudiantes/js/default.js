@@ -199,10 +199,10 @@ $(function()
             
                 $.post('cargaListaEstudiantesEspecialidad/', consulta, function(datos, success) {
                 $('#listaEstudiantes').append('<thead><tr>' +
-                        '<th class="text-center">Nº</th><th class="text-center">Cédula</th><th class="text-center">Estudiantes</th>' +
+                        '<th class="text-center">Nº</th><th class="text-center">Cédula</th><th class="text-center">Estudiantes</th><th class="text-center">Telef. Casa</th><th class="text-center">Telef. Celular</th>' +
                         '</tr></thead><tbody>');
                         for (var linea = 0; linea < datos.length; linea++) {
-                        $('#listaEstudiantes').append('<tr><td>' + (linea+1) + '</td><td>' + datos[linea].cedula + '</td><td>' + datos[linea].apellido1 + ' ' + datos[linea].apellido2 + ' ' + datos[linea].nombre + '</td></tr>');
+                        $('#listaEstudiantes').append('<tr><td>' + (linea+1) + '</td><td>' + datos[linea].cedula + '</td><td>' + datos[linea].apellido1 + ' ' + datos[linea].apellido2 + ' ' + datos[linea].nombre + '</td><td>' + datos[linea].telefonoCasa + '</td><td>' + datos[linea].telefonoCelular + '</td></tr>');
                         
                         }
                         $('#listaEstudiantes').append('</tbody>');
