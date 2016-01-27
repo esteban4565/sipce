@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-12-2015 a las 14:07:29
+-- Tiempo de generación: 11-12-2015 a las 10:51:57
 -- Versión del servidor: 5.5.46-0ubuntu0.14.04.2
 -- Versión de PHP: 5.5.9-1ubuntu4.14
 
@@ -2224,7 +2224,7 @@ INSERT INTO `sipce_encargado` (`ced_estudiante`, `ced_encargado`, `parentesco`, 
 ('2-0842-0670', '2-0536-0553', 'Madre', 2016, 'ROXANA ISABEL', 'PIEDRA', 'LORIA', '', '60455250', 'Ama de casa', ''),
 ('2-0847-0715', '2-0539-0008', 'Madre', 2016, 'KATHIA YAJAIRA', 'QUESADA', 'QUIROS', '24315302', '60330946', 'Ama de casa', ''),
 ('2-0846-0758', '1-0773-0953', 'Madre', 2016, 'ERIKA MARIA', 'CHAVERRI', 'ROJAS', '24831150', '83204313', 'Ama de casa', 'flacachaverri@gmail.com'),
-('4-0260-0469', '900760756', 'Otro', 2016, 'MAYRA', 'MASIS', 'MORERA', '24332248', '83237634', 'AMA DE CASA', ''),
+('4-0260-0469', '4-0162-0316', 'Madre', 2016, 'ALICIA MARCELA', 'SOLANO', 'MASIS', '24832248', '87017039', 'ADMINISTRADORA', 'msolano@repretel.com'),
 ('2-0838-0529', '2-0594-0181', 'Padre', 2016, 'MICHAEL FRANCISCO', 'CHACON', 'RAMIREZ', '', '60851894', 'Tapicero', 'MICHAELJSY@HOTMAIL.COM'),
 ('4-0260-0788', '1-0658-0996', 'Madre', 2016, 'LIGIA', 'ESQUIVEL', 'GARITA', '', '86414101', 'Ama de casa', ''),
 ('4-0260-0614', '2-0581-0946', 'Madre', 2016, 'EIDA ISABEL', 'RUIZ', 'LOPEZ', '', '85489866', 'Domestica', ''),
@@ -2818,7 +2818,8 @@ INSERT INTO `sipce_encargado` (`ced_estudiante`, `ced_encargado`, `parentesco`, 
 ('2-0791-0038', '1-1073-0755', 'Madre', 2016, 'JOANNA MARIA', 'CAMPOS', 'ARIAS', '', '61805650', 'salonera', ''),
 ('4-0241-0924', '155816645929', 'Madre', 2016, 'SANTOS', 'SOLANO', 'GONZALEZ', '', '88513068', 'Ama de casa', ''),
 ('2-0773-0417', '2-0568-0788', 'Madre', 2016, 'MIXI MARIELA', 'AMADOR', 'SALMERON', '', '62423096', 'PROPIO', 'mitzi5783@gmail.com'),
-('2-0774-0412', '5-0181-0468', 'Madre', 2016, 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', '24830995', '85909303', 'Ama de Casa', 'marizuva59@hotmail.es');
+('2-0774-0412', '5-0181-0468', 'Madre', 2016, 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', '24830995', '85909303', 'Ama de Casa', 'marizuva59@hotmail.es'),
+('1-1720-0527', '4-0139-0499', 'Madre', 2016, 'ANA LORENA DEL SOCORRO', 'CALVO', 'DELGADO', '', '84283996', 'SERVICIO AL CLIENTE', '');
 
 -- --------------------------------------------------------
 
@@ -2832,7 +2833,7 @@ CREATE TABLE IF NOT EXISTS `sipce_enfermedades` (
   `descripcion` varchar(100) NOT NULL,
   `anio` int(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=169 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=170 ;
 
 --
 -- Volcado de datos para la tabla `sipce_enfermedades`
@@ -3006,7 +3007,8 @@ INSERT INTO `sipce_enfermedades` (`id`, `cedula`, `descripcion`, `anio`) VALUES
 (165, '2-0798-0438', 'alergica al Trimetoprim Sulfa, y presenta Rinitis.', 2016),
 (166, '4-0241-0059', 'ALERGICO A LA PENISILINA', 2016),
 (167, '1-1708-0348', 'asma', 2016),
-(168, '2-0773-0417', 'ASMA', 2016);
+(168, '2-0773-0417', 'ASMA', 2016),
+(169, '1-1720-0527', 'ASMA', 2016);
 
 -- --------------------------------------------------------
 
@@ -7958,7 +7960,7 @@ INSERT INTO `sipce_estudiante` (`cedula`, `nombre`, `apellido1`, `apellido2`, `s
 ('4-0244-0448', 'LUIS JOSE', 'ALVAREZ', 'ALVARADO', 1, '1999-09-26', '506', 'Proyecto Nueva Carrizal casa F1, CINCO ESQUINAS', '2', '21', '124', '', '61869360', 'lolois12345@gmail.com', 4, '', 'A', 568),
 ('4-0241-0496', 'DEIVER JOSUE', 'BADILLA', 'GRANADOS', 1, '1999-01-07', '506', 'BARRIO SAN JOSÉ. BIRRÍ DE SANTA BÁRBARA. DEL ABASTECEDOR SAN JOSÉ 650 AL NORESTE', '4', '47', '306', '22697478', '85307075', '', 4, '', 'A', 51),
 ('4-0243-0053', 'SANDRA MARIA', 'BADILLA', 'VALVERDE', 0, '1999-05-27', '506', 'B° San José, Sta Bárbara. 700 noreste de la Escuela Alfredo González Flores.', '4', '47', '306', '22692328', '88735861', 'sandrabadi27@hotmail.com', 4, '', 'A', 51),
-('1-1720-0527', 'LUIS ALBERTO', 'CASTRO', 'CALVO', 1, '1998-09-16', '506', '', '', '', '', '', '', '', 4, '', 'A', 0),
+('1-1720-0527', 'LUIS ALBERTO', 'CASTRO', 'CALVO', 1, '1998-09-16', '506', '150 metros norte de a calle principal hacia cinco esquinas, calle las lomas', '2', '21', '124', '', '61383423', '', 4, '', 'A', 2152),
 ('2-0793-0157', 'YERLIN YASARI', 'DURAN', 'ALVAREZ', 0, '1999-06-17', '506', '300 metros este puente negro calle mezas', '2', '21', '122', '24831042', '83574313', '', 4, '', 'A', 2152),
 ('2-0787-0367', 'MAUREN LARICSA', 'FALLAS', 'SEGURA', 0, '1999-01-03', '506', '400mts al este de la antigua CoopeCarrizal, calle la Arena.', '2', '21', '124', '24831422', '85491795', 'mauren005@hotmail.com', 4, '', 'A', 2152),
 ('2-0787-0892', 'VIANCA NIKOL', 'FERNANDEZ', 'ARAYA', 0, '1999-01-09', '506', 'DIAGONAL AL BAR JESSY, EL PLAN CARRIZAL DE ALAJUELA ', '2', '21', '124', '', '86119942', '', 4, '', 'A', 2152),
@@ -8211,7 +8213,7 @@ INSERT INTO `sipce_estudiante` (`cedula`, `nombre`, `apellido1`, `apellido2`, `s
 ('2-0842-0670', 'DAVID JESUS', 'OPORTA', 'PIEDRA', 1, '2003-06-17', '506', '400m Norte de la escuela de Canoas,Alajuela', '2', '21', '122', '', '60131926', '', 3, '', 'A', 2371),
 ('2-0847-0715', 'MARIA ELENA', 'CAMPOS', 'QUESADA', 0, '2003-11-12', '506', '1 KILOMETRO AL NORTE DE LA ESCUELA MANUEL FRANCISCO CARRILLO PRIMERA CASA MANO IZQUIERDA DESPUES DEL PUENTE', '2', '21', '122', '24315302', '', '', 3, '', 'A', 2371),
 ('2-0846-0758', 'NOELIA MARIA', 'ROJAS', 'CHAVERRI', 0, '2003-10-17', '506', 'Plan Carrizal, 100 Este, 100 SUr Abastecedor el Pino', '2', '21', '122', '24831150', '86146191', 'noemar2003@yahoo.com', 3, '', 'A', 2152),
-('4-0260-0469', 'JOAN GABRIEL', 'PANIAGUA', 'SOLANO', 1, '2003-06-29', '506', 'CHAHÜITES, 700 MTS MOESTE DE LA PLAZA DE DEPORTES.', '4', '47', '307', '', '', '', 3, '', 'A', 105),
+('4-0260-0469', 'JOAN GABRIEL', 'PANIAGUA', 'SOLANO', 1, '2003-06-29', '506', 'CHAHÜITES, 700 MTS MOESTE DE LA PLAZA DE DEPORTES.', '4', '47', '307', '24830090', '', '', 3, '', 'A', 105),
 ('2-0838-0529', 'JIMENA PAOLA', 'CHACON', 'ALFARO', 0, '2003-02-05', '506', '25 m noreste del bar "El Gavilán Alegre".', '2', '21', '124', '', '61218423', '', 3, '', 'A', 2152),
 ('4-0260-0788', 'KENDALL ADRIEL', 'ULATE', 'ESQUIVEL', 1, '2003-07-24', '506', '50 norte Iglesia Barrio San José Altagracia ', '4', '47', '306', '22697671', '', '', 3, '', 'A', 51),
 ('4-0260-0614', 'CARLOS DANIEL', 'MIRANDA', 'RUIZ', 1, '2003-07-09', '506', 'Birri Santa Barbara, detras de la iglesia catolica, casa metida', '4', '47', '306', '', '60059082', '', 3, '', 'A', 53),
@@ -8484,6 +8486,7 @@ INSERT INTO `sipce_grupos` (`ced_estudiante`, `nivel`, `grupo`, `sub_grupo`, `an
 ('1-1716-0267', 12, 0, '', 2016),
 ('1-1718-0194', 10, 3, 'A', 2015),
 ('1-1720-0527', 10, 4, 'B', 2015),
+('1-1720-0527', 11, 0, '', 2016),
 ('1-1721-0040', 11, 2, 'B', 2015),
 ('1-1721-0040', 12, 0, '', 2016),
 ('1-1721-0438', 12, 0, '', 2016),
@@ -10713,7 +10716,8 @@ INSERT INTO `sipce_madre` (`ced_estudiante`, `ced_madre`, `nombre_madre`, `apell
 ('2-0791-0038', '1-1073-0755', 'JOANNA MARIA', 'CAMPOS', 'ARIAS', 61805650, 'salonera'),
 ('4-0241-0924', '155816645929', 'SANTOS', 'SOLANO', 'GONZALEZ', 88513068, 'Ama de casa'),
 ('2-0773-0417', '2-0568-0788', 'MIXI MARIELA', 'AMADOR', 'SALMERON', 62423096, 'PROPIO'),
-('2-0774-0412', '5-0181-0468', 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', 85909303, 'Ama de Casa');
+('2-0774-0412', '5-0181-0468', 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', 85909303, 'Ama de Casa'),
+('1-1720-0527', '4-0139-0499', 'ANA LORENA DEL SOCORRO', 'CALVO', 'DELGADO', 84283996, 'SERVICIO AL CLIENTE');
 
 -- --------------------------------------------------------
 
@@ -11055,7 +11059,7 @@ INSERT INTO `sipce_matricularatificacion` (`anio`, `ced_estudiante`, `estado`, `
 (2016, '2-0842-0670', 1, 7, 'Regular'),
 (2016, '2-0847-0715', 1, 7, 'Regular'),
 (2016, '2-0846-0758', 1, 7, 'Regular'),
-(2016, '4-0260-0469', 1, 7, 'Regular'),
+(2016, '4-0260-0469', 2, 7, 'Regular'),
 (2016, '2-0838-0529', 1, 7, 'Regular'),
 (2016, '4-0260-0788', 1, 7, 'Regular'),
 (2016, '4-0260-0614', 1, 7, 'Regular'),
@@ -11648,7 +11652,8 @@ INSERT INTO `sipce_matricularatificacion` (`anio`, `ced_estudiante`, `estado`, `
 (2016, '2-0791-0038', 1, 9, 'Regular'),
 (2016, '4-0241-0924', 1, 11, 'Regular'),
 (2016, '2-0773-0417', 1, 11, 'Regular'),
-(2016, '2-0774-0412', 1, 12, 'Regular');
+(2016, '2-0774-0412', 1, 12, 'Regular'),
+(2016, '1-1720-0527', 1, 11, 'Regular');
 
 -- --------------------------------------------------------
 
@@ -12380,7 +12385,8 @@ INSERT INTO `sipce_padre` (`ced_estudiante`, `ced_padre`, `nombre_padre`, `apell
 ('2-0791-0038', '2-0410-0265', 'ALEXANDER GERARDO', 'SOTO', 'JIMENEZ', 84082347, ''),
 ('4-0241-0924', '', '', '', '', 0, ''),
 ('2-0773-0417', '1-1096-0806', 'GERARDO HUMBERTO', 'DURAN', 'JIMENEZ', 86229883, 'CHOFER '),
-('2-0774-0412', '2-0283-1297', 'JUAN RAFAEL', 'MATAMOROS', 'BARRANTES', 83240109, 'Trasportista');
+('2-0774-0412', '2-0283-1297', 'JUAN RAFAEL', 'MATAMOROS', 'BARRANTES', 83240109, 'Trasportista'),
+('1-1720-0527', '', '', '', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -12860,7 +12866,7 @@ INSERT INTO `sipce_personaemergencia` (`ced_estudiante`, `ced_personaEmergencia`
 ('2-0842-0670', '2-0536-0553', 'ROXANA ISABEL', 'PIEDRA', 'LORIA', 0, 60455250, 'Madre'),
 ('2-0847-0715', '2-0539-0008', 'KATHIA YAJAIRA', 'QUESADA', 'QUIROS', 24315302, 60330946, 'Madre'),
 ('2-0846-0758', '1-0773-0953', 'ERIKA MARIA', 'CHAVERRI', 'ROJAS', 24831150, 83204313, 'Madre'),
-('4-0260-0469', '4-0162-0316', 'ALICIA MARCELA', 'SOLANO', 'MASIS', 0, 87017039, 'Madre'),
+('4-0260-0469', '4-0162-0316', 'ALICIA MARCELA', 'SOLANO', 'MASIS', 24832248, 24832248, 'Madre'),
 ('2-0838-0529', '2-0594-0181', 'MICHAEL FRANCISCO', 'CHACON', 'RAMIREZ', 0, 60851894, 'Padre'),
 ('4-0260-0788', '1-0658-0996', 'LIGIA', 'ESQUIVEL', 'GARITA', 0, 86414101, 'Madre'),
 ('4-0260-0614', '2-0581-0946', 'EIDA ISABEL', 'RUIZ', 'LOPEZ', 0, 85489866, 'Madre'),
@@ -13454,7 +13460,8 @@ INSERT INTO `sipce_personaemergencia` (`ced_estudiante`, `ced_personaEmergencia`
 ('2-0791-0038', '1-1073-0755', 'JOANNA MARIA', 'CAMPOS', 'ARIAS', 0, 61805650, 'Madre'),
 ('4-0241-0924', '155816645929', 'SANTOS', 'SOLANO', 'GONZALEZ', 0, 88513068, 'Madre'),
 ('2-0773-0417', '2-0568-0788', 'MIXI MARIELA', 'AMADOR', 'SALMERON', 0, 62423096, 'Madre'),
-('2-0774-0412', '5-0181-0468', 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', 24830995, 85909303, 'Madre');
+('2-0774-0412', '5-0181-0468', 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', 24830995, 85909303, 'Madre'),
+('1-1720-0527', '4-0139-0499', 'ANA LORENA DEL SOCORRO', 'CALVO', 'DELGADO', 0, 84283996, 'Madre');
 
 -- --------------------------------------------------------
 
@@ -14254,7 +14261,8 @@ INSERT INTO `sipce_poliza` (`ced_estudiante`, `numero_poliza`, `fecha_vence`) VA
 ('2-0791-0038', '2-0791-038', '2016-12-31'),
 ('4-0241-0924', '018891224', '2016-10-28'),
 ('2-0773-0417', '2-773-417', '2016-12-04'),
-('2-0774-0412', '2-0774-0412', '2016-12-04');
+('2-0774-0412', '2-0774-0412', '2016-12-04'),
+('1-1720-0527', '0102ACI009150301', '2016-10-30');
 
 -- --------------------------------------------------------
 

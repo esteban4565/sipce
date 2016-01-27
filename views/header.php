@@ -115,7 +115,7 @@
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/estudiantesVoca">Estudiantes Voca</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/proyeccionMatricula">Proyección</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/listaEstudiantesEspecialidad">Lista de Estudiantes Matriculados</a></li>
-                          <li><a href="<?php echo URL; ?>seccion/configSecciones">Configuración Secciones</a></li>
+                          <li><a href="<?php echo URL; ?>seccion/indexConfigSecciones">Configuración Secciones</a></li>
                         </ul>
                       </li>
                     <?php }?>

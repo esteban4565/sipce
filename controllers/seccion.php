@@ -27,12 +27,28 @@ class Seccion extends Controllers {
         $this->view->render('footer');
     }
 
-    function configSecciones() {
+    function indexConfigSecciones() {
+        $this->view->render('header');
+        $this->view->render('seccion/indexConfigSecciones');
+        $this->view->render('footer');
+    }
+
+    function configSecciones($nivel) {
+        
+        /* CARGAMOS NIVEL */
+        $this->view->nivel = $nivel;
+        
         /* CARGAMOS ZONAS */
-        $this->view->consultaZonasEscuelas = $this->model->consultaZonasEscuelas();
+        $this->view->consultaZonasEscuelas = $this->model->consultaZonasEscuelas($nivel);
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
+
+        /* CARGAMOS cantidad de distritos */
+        $this->view->consultaEstadisticaZona = $this->model->consultaEstadisticaZona($nivel);
+        
+        /* CARGAMOS SECCIONES POR ZONAS */
+        $this->view->consultaSeccionesZona = $this->model->consultaSeccionesZona($nivel);
         
         $this->view->title = 'Configuración Conjunto Secciones';
         $this->view->render('header');
@@ -71,19 +87,101 @@ class Seccion extends Controllers {
         $this->model->consultaEscuelaZona($id_zona);
     }
     
-    function agregarZona($txt_zona) {
-        $this->model->agregarZona($txt_zona);
+    //Carga las escuela//
+    function consultaDistritoZona($id_zona)
+    {
+        $this->model->consultaDistritoZona($id_zona);
     }
     
-    function eliminarZona($id) {
-        $this->model->eliminarZona($id);
+    //Carga estadistica de distritos estudiantes de setimo//
+    function consultaEstadisticaZona()
+    {
+        $this->model->consultaEstadisticaZona();
+    }
+    
+    function agregarZona() {
+        $consulta = array();      
+        $consulta['txt_zona'] = $_POST['txt_zona'];
+        $consulta['nivel'] = $_POST['nivel'];
+        $this->model->agregarZona($consulta);
+    }
+    
+    function eliminarZona() {
+        $consulta = array();      
+        $consulta['id'] = $_POST['id'];
+        $consulta['nivel'] = $_POST['nivel'];
+        $this->model->eliminarZona($consulta);
     }
     
     function agregarEscuela() {
         $consulta = array();      
         $consulta['id_zona'] = $_POST['id_zona'];
         $consulta['id_escuela'] = $_POST['id_escuela'];
+        $consulta['nivel'] = $_POST['nivel'];
         $this->model->agregarEscuela($consulta);
+    }
+    
+    function eliminarEscuela() {
+        $consulta = array();      
+        $consulta['id_zona'] = $_POST['id_zona'];
+        $consulta['id_escuela'] = $_POST['id_escuela'];
+        $this->model->eliminarEscuela($consulta);
+    }
+    
+    function agregarDistrito() {
+        $consulta = array();      
+        $consulta['id_zona'] = $_POST['id_zona'];
+        $consulta['id_distrito'] = $_POST['id_distrito'];
+        $consulta['nivel'] = $_POST['nivel'];
+        $this->model->agregarDistrito($consulta);
+    }
+    
+    function eliminarDistrito() {
+        $consulta = array();      
+        $consulta['id_zona'] = $_POST['id_zona'];
+        $consulta['id_distrito'] = $_POST['id_distrito'];
+        $this->model->eliminarDistrito($consulta);
+    }
+    
+    function guardarCantidadSecciones() {
+        $consulta = array();      
+        $consulta['id_zona'] = $_POST['id_zona'];
+        $consulta['cantidadSecciones'] = $_POST['cantidadSecciones'];
+        $consulta['nivel'] = $_POST['nivel'];
+        $this->model->guardarCantidadSecciones($consulta);
+    }
+    
+    function consultaSeccionesProyectadas() {
+        $this->model->consultaSeccionesProyectadas();
+    }
+    
+    
+    
+    
+    //ETAPA CRUZZZIAL -Opcion A//
+    function consultaZonas()
+    {
+        $this->model->consultaZonas();
+    }
+    function consultaDistritosZona($id_zona)
+    {
+        $this->model->consultaDistritosZona($id_zona);
+    }
+    function consultaEstudiantesDistritosZona($id_distrito)
+    {
+        $this->model->consultaEstudiantesDistritosZona($id_distrito);
+    }
+    
+    
+    //ETAPA CRUZZZIAL -Opcion B//
+    function consultaZonasOpcionB($nivel)
+    {
+        $this->model->consultaZonasOpcionB($nivel);
+    }
+    
+    function consultaCantidadSeccionesZona($idDistrito)
+    {
+        $this->model->consultaCantidadSeccionesZona($idDistrito);
     }
 
     function xhrSeccion2() {

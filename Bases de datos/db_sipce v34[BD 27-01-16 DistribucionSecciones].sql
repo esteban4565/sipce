@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 07-12-2015 a las 07:14:57
--- Versión del servidor: 5.5.46-0ubuntu0.14.04.2
--- Versión de PHP: 5.5.9-1ubuntu4.14
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 27-01-2016 a las 16:43:51
+-- Versión del servidor: 5.6.20
+-- Versión de PHP: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -361,8 +361,7 @@ INSERT INTO `admitidos_voca` (`ced_estudiante`, `especialidad`) VALUES
 
 CREATE TABLE IF NOT EXISTS `nuevos_solicitud_especialidad` (
   `ced_estudiante` varchar(20) NOT NULL,
-  `especialidad` varchar(50) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`)
+  `especialidad` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -426,11 +425,10 @@ INSERT INTO `nuevos_solicitud_especialidad` (`ced_estudiante`, `especialidad`) V
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_adecuacion` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+`id` int(10) NOT NULL,
   `ced_estudiante` varchar(20) NOT NULL,
   `adecuacion` varchar(30) NOT NULL,
-  `anio` int(4) NOT NULL,
-  PRIMARY KEY (`id`)
+  `anio` int(4) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
@@ -452,8 +450,7 @@ CREATE TABLE IF NOT EXISTS `sipce_adelanta` (
   `ced_estudiante` varchar(20) NOT NULL,
   `nivel` int(2) NOT NULL,
   `nivel_adelanta` int(2) NOT NULL,
-  `anio` int(4) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`)
+  `anio` int(4) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -463,9 +460,8 @@ CREATE TABLE IF NOT EXISTS `sipce_adelanta` (
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_area` (
-  `codigo` int(3) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(30) NOT NULL,
-  PRIMARY KEY (`codigo`)
+`codigo` int(3) NOT NULL,
+  `descripcion` varchar(30) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
@@ -486,13 +482,12 @@ INSERT INTO `sipce_area` (`codigo`, `descripcion`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_beca` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+`id` int(10) NOT NULL,
   `ced_estudiante` varchar(20) NOT NULL,
   `becaAvancemos` int(1) NOT NULL,
   `becaComedor` int(1) NOT NULL,
   `becaTransporte` int(1) NOT NULL,
-  `anio` int(4) NOT NULL,
-  PRIMARY KEY (`id`)
+  `anio` int(4) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
@@ -514,8 +509,7 @@ INSERT INTO `sipce_beca` (`id`, `ced_estudiante`, `becaAvancemos`, `becaComedor`
 CREATE TABLE IF NOT EXISTS `sipce_cantones` (
   `IdCanton` varchar(5) NOT NULL,
   `Canton` varchar(100) NOT NULL,
-  `IdProvincia` varchar(5) NOT NULL,
-  PRIMARY KEY (`IdCanton`)
+  `IdProvincia` varchar(5) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -612,14 +606,13 @@ INSERT INTO `sipce_cantones` (`IdCanton`, `Canton`, `IdProvincia`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_colegios` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+`id` int(6) NOT NULL,
   `codPresupuestario` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `IdProvincia` int(5) NOT NULL,
   `IdCanton` int(5) NOT NULL,
   `IdDistrito` int(5) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  `tipo` varchar(20) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=989 ;
 
 --
@@ -1626,8 +1619,7 @@ INSERT INTO `sipce_colegios` (`id`, `codPresupuestario`, `nombre`, `IdProvincia`
 CREATE TABLE IF NOT EXISTS `sipce_distritos` (
   `IdDistrito` varchar(5) CHARACTER SET latin1 NOT NULL,
   `Distrito` varchar(100) CHARACTER SET latin1 NOT NULL,
-  `IdCanton` varchar(5) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`IdDistrito`)
+  `IdCanton` varchar(5) CHARACTER SET latin1 NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2131,8 +2123,7 @@ CREATE TABLE IF NOT EXISTS `sipce_encargado` (
   `telefonoCasaEncargado` varchar(10) NOT NULL,
   `telefonoCelularEncargado` varchar(10) NOT NULL,
   `ocupacionEncargado` varchar(30) NOT NULL,
-  `emailEncargado` varchar(50) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`,`ced_encargado`,`anio`)
+  `emailEncargado` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -2224,7 +2215,7 @@ INSERT INTO `sipce_encargado` (`ced_estudiante`, `ced_encargado`, `parentesco`, 
 ('2-0842-0670', '2-0536-0553', 'Madre', 2016, 'ROXANA ISABEL', 'PIEDRA', 'LORIA', '', '60455250', 'Ama de casa', ''),
 ('2-0847-0715', '2-0539-0008', 'Madre', 2016, 'KATHIA YAJAIRA', 'QUESADA', 'QUIROS', '24315302', '60330946', 'Ama de casa', ''),
 ('2-0846-0758', '1-0773-0953', 'Madre', 2016, 'ERIKA MARIA', 'CHAVERRI', 'ROJAS', '24831150', '83204313', 'Ama de casa', 'flacachaverri@gmail.com'),
-('4-0260-0469', '900760756', 'Otro', 2016, 'MAYRA', 'MASIS', 'MORERA', '24332248', '83237634', 'AMA DE CASA', ''),
+('4-0260-0469', '4-0162-0316', 'Madre', 2016, 'ALICIA MARCELA', 'SOLANO', 'MASIS', '24832248', '87017039', 'ADMINISTRADORA', 'msolano@repretel.com'),
 ('2-0838-0529', '2-0594-0181', 'Padre', 2016, 'MICHAEL FRANCISCO', 'CHACON', 'RAMIREZ', '', '60851894', 'Tapicero', 'MICHAELJSY@HOTMAIL.COM'),
 ('4-0260-0788', '1-0658-0996', 'Madre', 2016, 'LIGIA', 'ESQUIVEL', 'GARITA', '', '86414101', 'Ama de casa', ''),
 ('4-0260-0614', '2-0581-0946', 'Madre', 2016, 'EIDA ISABEL', 'RUIZ', 'LOPEZ', '', '85489866', 'Domestica', ''),
@@ -2817,7 +2808,9 @@ INSERT INTO `sipce_encargado` (`ced_estudiante`, `ced_encargado`, `parentesco`, 
 ('2-0788-0791', '2-0464-0920', 'Madre', 2016, 'LUCIA ELENA', 'MELENDEZ', 'ARRIETA', '', '85563366', 'AMA DE CASA', ''),
 ('2-0791-0038', '1-1073-0755', 'Madre', 2016, 'JOANNA MARIA', 'CAMPOS', 'ARIAS', '', '61805650', 'salonera', ''),
 ('4-0241-0924', '155816645929', 'Madre', 2016, 'SANTOS', 'SOLANO', 'GONZALEZ', '', '88513068', 'Ama de casa', ''),
-('2-0773-0417', '2-0568-0788', 'Madre', 2016, 'MIXI MARIELA', 'AMADOR', 'SALMERON', '', '62423096', 'PROPIO', 'mitzi5783@gmail.com');
+('2-0773-0417', '2-0568-0788', 'Madre', 2016, 'MIXI MARIELA', 'AMADOR', 'SALMERON', '', '62423096', 'PROPIO', 'mitzi5783@gmail.com'),
+('2-0774-0412', '5-0181-0468', 'Madre', 2016, 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', '24830995', '85909303', 'Ama de Casa', 'marizuva59@hotmail.es'),
+('1-1720-0527', '4-0139-0499', 'Madre', 2016, 'ANA LORENA DEL SOCORRO', 'CALVO', 'DELGADO', '', '84283996', 'SERVICIO AL CLIENTE', '');
 
 -- --------------------------------------------------------
 
@@ -2826,12 +2819,11 @@ INSERT INTO `sipce_encargado` (`ced_estudiante`, `ced_encargado`, `parentesco`, 
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_enfermedades` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+`id` int(10) NOT NULL,
   `cedula` varchar(20) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
-  `anio` int(4) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=169 ;
+  `anio` int(4) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=170 ;
 
 --
 -- Volcado de datos para la tabla `sipce_enfermedades`
@@ -3005,7 +2997,8 @@ INSERT INTO `sipce_enfermedades` (`id`, `cedula`, `descripcion`, `anio`) VALUES
 (165, '2-0798-0438', 'alergica al Trimetoprim Sulfa, y presenta Rinitis.', 2016),
 (166, '4-0241-0059', 'ALERGICO A LA PENISILINA', 2016),
 (167, '1-1708-0348', 'asma', 2016),
-(168, '2-0773-0417', 'ASMA', 2016);
+(168, '2-0773-0417', 'ASMA', 2016),
+(169, '1-1720-0527', 'ASMA', 2016);
 
 -- --------------------------------------------------------
 
@@ -3014,14 +3007,13 @@ INSERT INTO `sipce_enfermedades` (`id`, `cedula`, `descripcion`, `anio`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_escuelas` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+`id` int(6) NOT NULL,
   `codPresupuestario` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `IdProvincia` int(5) NOT NULL,
   `IdCanton` int(5) NOT NULL,
   `IdDistrito` int(5) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  `tipo` varchar(20) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3832 ;
 
 --
@@ -6782,9 +6774,8 @@ INSERT INTO `sipce_escuelas` (`id`, `codPresupuestario`, `nombre`, `IdProvincia`
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_especialidad` (
-  `codigoEspecialidad` int(10) NOT NULL AUTO_INCREMENT,
-  `nombreEspecialidad` varchar(100) NOT NULL,
-  PRIMARY KEY (`codigoEspecialidad`)
+`codigoEspecialidad` int(10) NOT NULL,
+  `nombreEspecialidad` varchar(100) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
@@ -6810,8 +6801,7 @@ INSERT INTO `sipce_especialidad` (`codigoEspecialidad`, `nombreEspecialidad`) VA
 
 CREATE TABLE IF NOT EXISTS `sipce_especialidad_estudiante` (
   `ced_estudiante` varchar(20) NOT NULL,
-  `cod_especialidad` int(10) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`)
+  `cod_especialidad` int(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -7111,7 +7101,6 @@ INSERT INTO `sipce_especialidad_estudiante` (`ced_estudiante`, `cod_especialidad
 ('7-0280-0139', 4),
 ('2-0808-0863', 3),
 ('2-0807-0159', 4),
-('4-0248-0185', 0),
 ('2-0830-0959', 1),
 ('1-1773-0170', 2),
 ('1-1782-0803', 6),
@@ -7205,7 +7194,7 @@ INSERT INTO `sipce_especialidad_estudiante` (`ced_estudiante`, `cod_especialidad
 ('4-0247-0205', 3),
 ('2-0778-0670', 9),
 ('2-0804-0535', 4),
-('2-0810-0534', 0),
+('2-0810-0534', 2),
 ('5-0435-0577', 5),
 ('2-0801-0159', 3),
 ('2-0803-0584', 8),
@@ -7235,8 +7224,7 @@ INSERT INTO `sipce_especialidad_estudiante` (`ced_estudiante`, `cod_especialidad
 
 CREATE TABLE IF NOT EXISTS `sipce_estadocivil` (
   `codCivil` int(1) NOT NULL,
-  `nombreCivil` varchar(15) NOT NULL,
-  PRIMARY KEY (`codCivil`)
+  `nombreCivil` varchar(15) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -7273,8 +7261,7 @@ CREATE TABLE IF NOT EXISTS `sipce_estudiante` (
   `tipoUsuario` int(11) NOT NULL DEFAULT '3',
   `passwords` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `estadoActual` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'A',
-  `escuela_procedencia` int(6) NOT NULL,
-  PRIMARY KEY (`cedula`)
+  `escuela_procedencia` int(6) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -7958,7 +7945,7 @@ INSERT INTO `sipce_estudiante` (`cedula`, `nombre`, `apellido1`, `apellido2`, `s
 ('4-0244-0448', 'LUIS JOSE', 'ALVAREZ', 'ALVARADO', 1, '1999-09-26', '506', 'Proyecto Nueva Carrizal casa F1, CINCO ESQUINAS', '2', '21', '124', '', '61869360', 'lolois12345@gmail.com', 4, '', 'A', 568),
 ('4-0241-0496', 'DEIVER JOSUE', 'BADILLA', 'GRANADOS', 1, '1999-01-07', '506', 'BARRIO SAN JOSÉ. BIRRÍ DE SANTA BÁRBARA. DEL ABASTECEDOR SAN JOSÉ 650 AL NORESTE', '4', '47', '306', '22697478', '85307075', '', 4, '', 'A', 51),
 ('4-0243-0053', 'SANDRA MARIA', 'BADILLA', 'VALVERDE', 0, '1999-05-27', '506', 'B° San José, Sta Bárbara. 700 noreste de la Escuela Alfredo González Flores.', '4', '47', '306', '22692328', '88735861', 'sandrabadi27@hotmail.com', 4, '', 'A', 51),
-('1-1720-0527', 'LUIS ALBERTO', 'CASTRO', 'CALVO', 1, '1998-09-16', '506', '', '', '', '', '', '', '', 4, '', 'A', 0),
+('1-1720-0527', 'LUIS ALBERTO', 'CASTRO', 'CALVO', 1, '1998-09-16', '506', '150 metros norte de a calle principal hacia cinco esquinas, calle las lomas', '2', '21', '124', '', '61383423', '', 4, '', 'A', 2152),
 ('2-0793-0157', 'YERLIN YASARI', 'DURAN', 'ALVAREZ', 0, '1999-06-17', '506', '300 metros este puente negro calle mezas', '2', '21', '122', '24831042', '83574313', '', 4, '', 'A', 2152),
 ('2-0787-0367', 'MAUREN LARICSA', 'FALLAS', 'SEGURA', 0, '1999-01-03', '506', '400mts al este de la antigua CoopeCarrizal, calle la Arena.', '2', '21', '124', '24831422', '85491795', 'mauren005@hotmail.com', 4, '', 'A', 2152),
 ('2-0787-0892', 'VIANCA NIKOL', 'FERNANDEZ', 'ARAYA', 0, '1999-01-09', '506', 'DIAGONAL AL BAR JESSY, EL PLAN CARRIZAL DE ALAJUELA ', '2', '21', '124', '', '86119942', '', 4, '', 'A', 2152),
@@ -7999,7 +7986,7 @@ INSERT INTO `sipce_estudiante` (`cedula`, `nombre`, `apellido1`, `apellido2`, `s
 ('2-0763-0393', 'YHAN MANUEL', 'GONZALEZ', 'SIBAJA', 1, '1997-02-10', '506', '', '', '', '', '', '', '', 4, '', 'A', 0),
 ('2-0771-0352', 'SANDRA MARYLIS', 'JARQUIN', 'AMADOR', 0, '1997-09-29', '506', 'Frente al CTP Carrizal, Junto al taller Cobija', '2', '21', '124', '', '86034592', 'samanthasullen@gmail.com', 4, '', 'A', 2152),
 ('2-0756-0712', 'MAIKOL VINICIO', 'LORIA', 'RODRIGUEZ', 1, '1996-08-26', '506', '', '', '', '', '', '', '', 4, '', 'A', 0),
-('2-0774-0412', 'ALLAN ANDREI', 'MATAMOROS', 'ZUÑIGA', 1, '1998-01-01', '506', '', '', '', '', '', '', '', 4, '', 'A', 0),
+('2-0774-0412', 'ALLAN ANDREI', 'MATAMOROS', 'ZUÑIGA', 1, '1998-01-01', '506', '125mts al Oeste del CAI, Pavas de Carrizal', '2', '21', '124', '24830995', '85815180', 'andrem.0101@gmail.com', 4, '', 'A', 1569),
 ('2-0775-0177', 'EVELYN REBECA', 'RIVAS', 'HUETE', 0, '1998-01-19', '506', 'Canoas. Lirios de los Valles, tercera entrada, cuarta casa.', '2', '21', '122', '24312072', '61551360', '', 4, '', 'A', 2371),
 ('2-0783-0498', 'ALEXA MARIA', 'SANCHEZ', 'GUEVARA', 0, '1998-09-05', '506', '1km al oeste del Bar Apolo Cruz, Pavas, calle del cementerio. Carrizal', '2', '21', '124', '24831747', '89448399', 'ale-sanchez1998@hotmail.com', 4, '', 'A', 1569),
 ('3-0502-0691', 'NICOLE SUSSETTI', 'SOLANO', 'MONTERO', 0, '1997-05-06', '506', 'CARRIZAL DE ALAJUELA. 600 NORTE DEL BAZAR ROSA.', '2', '21', '124', '24832347', '61287007', 'NOCOSOLA@HOTMAIL.COM', 4, '', 'A', 2152),
@@ -8211,7 +8198,7 @@ INSERT INTO `sipce_estudiante` (`cedula`, `nombre`, `apellido1`, `apellido2`, `s
 ('2-0842-0670', 'DAVID JESUS', 'OPORTA', 'PIEDRA', 1, '2003-06-17', '506', '400m Norte de la escuela de Canoas,Alajuela', '2', '21', '122', '', '60131926', '', 3, '', 'A', 2371),
 ('2-0847-0715', 'MARIA ELENA', 'CAMPOS', 'QUESADA', 0, '2003-11-12', '506', '1 KILOMETRO AL NORTE DE LA ESCUELA MANUEL FRANCISCO CARRILLO PRIMERA CASA MANO IZQUIERDA DESPUES DEL PUENTE', '2', '21', '122', '24315302', '', '', 3, '', 'A', 2371),
 ('2-0846-0758', 'NOELIA MARIA', 'ROJAS', 'CHAVERRI', 0, '2003-10-17', '506', 'Plan Carrizal, 100 Este, 100 SUr Abastecedor el Pino', '2', '21', '122', '24831150', '86146191', 'noemar2003@yahoo.com', 3, '', 'A', 2152),
-('4-0260-0469', 'JOAN GABRIEL', 'PANIAGUA', 'SOLANO', 1, '2003-06-29', '506', 'CHAHÜITES, 700 MTS MOESTE DE LA PLAZA DE DEPORTES.', '4', '47', '307', '', '', '', 3, '', 'A', 105),
+('4-0260-0469', 'JOAN GABRIEL', 'PANIAGUA', 'SOLANO', 1, '2003-06-29', '506', 'CHAHÜITES, 700 MTS MOESTE DE LA PLAZA DE DEPORTES.', '4', '47', '307', '24830090', '', '', 3, '', 'A', 105),
 ('2-0838-0529', 'JIMENA PAOLA', 'CHACON', 'ALFARO', 0, '2003-02-05', '506', '25 m noreste del bar "El Gavilán Alegre".', '2', '21', '124', '', '61218423', '', 3, '', 'A', 2152),
 ('4-0260-0788', 'KENDALL ADRIEL', 'ULATE', 'ESQUIVEL', 1, '2003-07-24', '506', '50 norte Iglesia Barrio San José Altagracia ', '4', '47', '306', '22697671', '', '', 3, '', 'A', 51),
 ('4-0260-0614', 'CARLOS DANIEL', 'MIRANDA', 'RUIZ', 1, '2003-07-09', '506', 'Birri Santa Barbara, detras de la iglesia catolica, casa metida', '4', '47', '306', '', '60059082', '', 3, '', 'A', 53),
@@ -8373,10 +8360,9 @@ INSERT INTO `sipce_estudiante` (`cedula`, `nombre`, `apellido1`, `apellido2`, `s
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_grupoprofesional` (
-  `codigo` int(3) NOT NULL AUTO_INCREMENT,
+`codigo` int(3) NOT NULL,
   `categoria` int(3) NOT NULL,
-  `descripcion` varchar(10) NOT NULL,
-  PRIMARY KEY (`codigo`)
+  `descripcion` varchar(10) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
@@ -8425,8 +8411,7 @@ CREATE TABLE IF NOT EXISTS `sipce_grupos` (
   `nivel` int(2) NOT NULL,
   `grupo` int(2) NOT NULL,
   `sub_grupo` varchar(1) NOT NULL,
-  `annio` int(4) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`,`nivel`,`grupo`,`sub_grupo`,`annio`)
+  `annio` int(4) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -8484,6 +8469,7 @@ INSERT INTO `sipce_grupos` (`ced_estudiante`, `nivel`, `grupo`, `sub_grupo`, `an
 ('1-1716-0267', 12, 0, '', 2016),
 ('1-1718-0194', 10, 3, 'A', 2015),
 ('1-1720-0527', 10, 4, 'B', 2015),
+('1-1720-0527', 11, 0, '', 2016),
 ('1-1721-0040', 11, 2, 'B', 2015),
 ('1-1721-0040', 12, 0, '', 2016),
 ('1-1721-0438', 12, 0, '', 2016),
@@ -8859,6 +8845,7 @@ INSERT INTO `sipce_grupos` (`ced_estudiante`, `nivel`, `grupo`, `sub_grupo`, `an
 ('2-0774-0299', 11, 2, 'C', 2015),
 ('2-0774-0299', 12, 0, '', 2016),
 ('2-0774-0412', 11, 1, 'B', 2015),
+('2-0774-0412', 12, 0, '', 2016),
 ('2-0774-0631', 11, 1, 'A', 2015),
 ('2-0774-0631', 12, 0, '', 2016),
 ('2-0774-0850', 8, 1, 'B', 2015),
@@ -10007,9 +9994,7 @@ CREATE TABLE IF NOT EXISTS `sipce_horario` (
   `dia` int(1) NOT NULL,
   `leccion` int(2) NOT NULL,
   `cod_grupo` int(4) NOT NULL,
-  `cod_asignatura` int(3) NOT NULL,
-  PRIMARY KEY (`ced_docente`,`dia`,`leccion`),
-  KEY `ced_docente` (`ced_docente`)
+  `cod_asignatura` int(3) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -10025,8 +10010,7 @@ CREATE TABLE IF NOT EXISTS `sipce_madre` (
   `apellido1_madre` varchar(30) NOT NULL,
   `apellido2_madre` varchar(30) NOT NULL,
   `telefonoCasaMadre` int(10) NOT NULL,
-  `ocupacionMadre` varchar(30) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`,`ced_madre`)
+  `ocupacionMadre` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -10711,7 +10695,9 @@ INSERT INTO `sipce_madre` (`ced_estudiante`, `ced_madre`, `nombre_madre`, `apell
 ('2-0788-0791', '2-0464-0920', 'LUCIA ELENA', 'MELENDEZ', 'ARRIETA', 85563366, 'AMA DE CASA'),
 ('2-0791-0038', '1-1073-0755', 'JOANNA MARIA', 'CAMPOS', 'ARIAS', 61805650, 'salonera'),
 ('4-0241-0924', '155816645929', 'SANTOS', 'SOLANO', 'GONZALEZ', 88513068, 'Ama de casa'),
-('2-0773-0417', '2-0568-0788', 'MIXI MARIELA', 'AMADOR', 'SALMERON', 62423096, 'PROPIO');
+('2-0773-0417', '2-0568-0788', 'MIXI MARIELA', 'AMADOR', 'SALMERON', 62423096, 'PROPIO'),
+('2-0774-0412', '5-0181-0468', 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', 85909303, 'Ama de Casa'),
+('1-1720-0527', '4-0139-0499', 'ANA LORENA DEL SOCORRO', 'CALVO', 'DELGADO', 84283996, 'SERVICIO AL CLIENTE');
 
 -- --------------------------------------------------------
 
@@ -10727,8 +10713,7 @@ CREATE TABLE IF NOT EXISTS `sipce_madre_prematricula` (
   `apellido2_madre` varchar(30) NOT NULL,
   `telefonoCasaMadre` int(10) NOT NULL,
   `telefonoCelMadre` int(10) NOT NULL,
-  `ocupacionMadre` varchar(30) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`,`ced_madre`)
+  `ocupacionMadre` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -10960,8 +10945,7 @@ CREATE TABLE IF NOT EXISTS `sipce_matricularatificacion` (
   `ced_estudiante` varchar(20) NOT NULL,
   `estado` int(1) NOT NULL,
   `nivel` int(2) NOT NULL,
-  `condicion` varchar(10) NOT NULL,
-  PRIMARY KEY (`anio`,`ced_estudiante`)
+  `condicion` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -11053,7 +11037,7 @@ INSERT INTO `sipce_matricularatificacion` (`anio`, `ced_estudiante`, `estado`, `
 (2016, '2-0842-0670', 1, 7, 'Regular'),
 (2016, '2-0847-0715', 1, 7, 'Regular'),
 (2016, '2-0846-0758', 1, 7, 'Regular'),
-(2016, '4-0260-0469', 1, 7, 'Regular'),
+(2016, '4-0260-0469', 2, 7, 'Regular'),
 (2016, '2-0838-0529', 1, 7, 'Regular'),
 (2016, '4-0260-0788', 1, 7, 'Regular'),
 (2016, '4-0260-0614', 1, 7, 'Regular'),
@@ -11645,7 +11629,9 @@ INSERT INTO `sipce_matricularatificacion` (`anio`, `ced_estudiante`, `estado`, `
 (2016, '2-0788-0791', 1, 11, 'Regular'),
 (2016, '2-0791-0038', 1, 9, 'Regular'),
 (2016, '4-0241-0924', 1, 11, 'Regular'),
-(2016, '2-0773-0417', 1, 11, 'Regular');
+(2016, '2-0773-0417', 1, 11, 'Regular'),
+(2016, '2-0774-0412', 1, 12, 'Regular'),
+(2016, '1-1720-0527', 1, 11, 'Regular');
 
 -- --------------------------------------------------------
 
@@ -11664,8 +11650,7 @@ CREATE TABLE IF NOT EXISTS `sipce_nombramiento` (
   `fecha_vence` date NOT NULL,
   `num_contrato` int(10) NOT NULL,
   `cant_horasContrato` int(3) NOT NULL,
-  `estado` int(1) NOT NULL,
-  PRIMARY KEY (`codArea`,`ced_persona`,`codPuesto`)
+  `estado` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -11690,8 +11675,7 @@ CREATE TABLE IF NOT EXISTS `sipce_padre` (
   `apellido1_padre` varchar(30) NOT NULL,
   `apellido2_padre` varchar(30) NOT NULL,
   `telefonoCasaPadre` int(10) NOT NULL,
-  `ocupacionPadre` varchar(30) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`,`ced_padre`)
+  `ocupacionPadre` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -12376,7 +12360,9 @@ INSERT INTO `sipce_padre` (`ced_estudiante`, `ced_padre`, `nombre_padre`, `apell
 ('2-0788-0791', '', '', '', '', 0, ''),
 ('2-0791-0038', '2-0410-0265', 'ALEXANDER GERARDO', 'SOTO', 'JIMENEZ', 84082347, ''),
 ('4-0241-0924', '', '', '', '', 0, ''),
-('2-0773-0417', '1-1096-0806', 'GERARDO HUMBERTO', 'DURAN', 'JIMENEZ', 86229883, 'CHOFER ');
+('2-0773-0417', '1-1096-0806', 'GERARDO HUMBERTO', 'DURAN', 'JIMENEZ', 86229883, 'CHOFER '),
+('2-0774-0412', '2-0283-1297', 'JUAN RAFAEL', 'MATAMOROS', 'BARRANTES', 83240109, 'Trasportista'),
+('1-1720-0527', '', '', '', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -12392,8 +12378,7 @@ CREATE TABLE IF NOT EXISTS `sipce_padre_prematricula` (
   `apellido2_padre` varchar(30) NOT NULL,
   `telefonoCelPadre` int(10) NOT NULL,
   `telefonoCasaPadre` int(10) NOT NULL,
-  `ocupacionPadre` varchar(30) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`,`ced_padre`)
+  `ocupacionPadre` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -12580,8 +12565,7 @@ INSERT INTO `sipce_padre_prematricula` (`ced_estudiante`, `ced_padre`, `nombre_p
 
 CREATE TABLE IF NOT EXISTS `sipce_paises` (
   `codigoPais` varchar(5) NOT NULL,
-  `nombrePais` varchar(50) NOT NULL,
-  PRIMARY KEY (`codigoPais`)
+  `nombrePais` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -12735,8 +12719,7 @@ INSERT INTO `sipce_paises` (`codigoPais`, `nombrePais`) VALUES
 CREATE TABLE IF NOT EXISTS `sipce_permisos` (
   `idPermiso` int(11) NOT NULL,
   `nomPermiso` varchar(30) NOT NULL,
-  `estPermiso` enum('A','I') NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`idPermiso`)
+  `estPermiso` enum('A','I') NOT NULL DEFAULT 'A'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -12763,8 +12746,7 @@ CREATE TABLE IF NOT EXISTS `sipce_personaemergencia` (
   `apellido2_personaEmergencia` varchar(30) NOT NULL,
   `telefonoCasaPersonaEmergencia` int(10) NOT NULL,
   `telefonoCelularPersonaEmergencia` int(10) NOT NULL,
-  `parentesco` varchar(15) NOT NULL,
-  PRIMARY KEY (`ced_estudiante`,`ced_personaEmergencia`)
+  `parentesco` varchar(15) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -12856,7 +12838,7 @@ INSERT INTO `sipce_personaemergencia` (`ced_estudiante`, `ced_personaEmergencia`
 ('2-0842-0670', '2-0536-0553', 'ROXANA ISABEL', 'PIEDRA', 'LORIA', 0, 60455250, 'Madre'),
 ('2-0847-0715', '2-0539-0008', 'KATHIA YAJAIRA', 'QUESADA', 'QUIROS', 24315302, 60330946, 'Madre'),
 ('2-0846-0758', '1-0773-0953', 'ERIKA MARIA', 'CHAVERRI', 'ROJAS', 24831150, 83204313, 'Madre'),
-('4-0260-0469', '4-0162-0316', 'ALICIA MARCELA', 'SOLANO', 'MASIS', 0, 87017039, 'Madre'),
+('4-0260-0469', '4-0162-0316', 'ALICIA MARCELA', 'SOLANO', 'MASIS', 24832248, 24832248, 'Madre'),
 ('2-0838-0529', '2-0594-0181', 'MICHAEL FRANCISCO', 'CHACON', 'RAMIREZ', 0, 60851894, 'Padre'),
 ('4-0260-0788', '1-0658-0996', 'LIGIA', 'ESQUIVEL', 'GARITA', 0, 86414101, 'Madre'),
 ('4-0260-0614', '2-0581-0946', 'EIDA ISABEL', 'RUIZ', 'LOPEZ', 0, 85489866, 'Madre'),
@@ -13449,7 +13431,9 @@ INSERT INTO `sipce_personaemergencia` (`ced_estudiante`, `ced_personaEmergencia`
 ('2-0788-0791', '2-0464-0920', 'LUCIA ELENA', 'MELENDEZ', 'ARRIETA', 0, 85563366, 'Madre'),
 ('2-0791-0038', '1-1073-0755', 'JOANNA MARIA', 'CAMPOS', 'ARIAS', 0, 61805650, 'Madre'),
 ('4-0241-0924', '155816645929', 'SANTOS', 'SOLANO', 'GONZALEZ', 0, 88513068, 'Madre'),
-('2-0773-0417', '2-0568-0788', 'MIXI MARIELA', 'AMADOR', 'SALMERON', 0, 62423096, 'Madre');
+('2-0773-0417', '2-0568-0788', 'MIXI MARIELA', 'AMADOR', 'SALMERON', 0, 62423096, 'Madre'),
+('2-0774-0412', '5-0181-0468', 'MARIA DE LOS ANGELES', 'ZUÑIGA', 'VALENCIANO', 24830995, 85909303, 'Madre'),
+('1-1720-0527', '4-0139-0499', 'ANA LORENA DEL SOCORRO', 'CALVO', 'DELGADO', 0, 84283996, 'Madre');
 
 -- --------------------------------------------------------
 
@@ -13480,8 +13464,7 @@ CREATE TABLE IF NOT EXISTS `sipce_personal` (
   `tipoUsuario` int(11) NOT NULL DEFAULT '3',
   `passwords` varchar(50) NOT NULL,
   `estadoActual` char(1) NOT NULL DEFAULT 'A',
-  `escuela_procedencia` varchar(50) NOT NULL,
-  PRIMARY KEY (`cedula`)
+  `escuela_procedencia` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -13563,8 +13546,7 @@ INSERT INTO `sipce_personal` (`cedula`, `nombre`, `apellido1`, `apellido2`, `sex
 CREATE TABLE IF NOT EXISTS `sipce_poliza` (
   `ced_estudiante` varchar(20) NOT NULL,
   `numero_poliza` varchar(50) NOT NULL,
-  `fecha_vence` date NOT NULL,
-  PRIMARY KEY (`ced_estudiante`)
+  `fecha_vence` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -14248,7 +14230,9 @@ INSERT INTO `sipce_poliza` (`ced_estudiante`, `numero_poliza`, `fecha_vence`) VA
 ('2-0788-0791', '0102ACI009678700', '2016-02-11'),
 ('2-0791-0038', '2-0791-038', '2016-12-31'),
 ('4-0241-0924', '018891224', '2016-10-28'),
-('2-0773-0417', '2-773-417', '2016-12-04');
+('2-0773-0417', '2-773-417', '2016-12-04'),
+('2-0774-0412', '2-0774-0412', '2016-12-04'),
+('1-1720-0527', '0102ACI009150301', '2016-10-30');
 
 -- --------------------------------------------------------
 
@@ -14268,8 +14252,7 @@ CREATE TABLE IF NOT EXISTS `sipce_prematricula` (
   `IdProvincia` varchar(5) NOT NULL,
   `IdCanton` varchar(5) NOT NULL,
   `IdDistrito` varchar(5) NOT NULL,
-  `escuela_procedencia` int(6) NOT NULL,
-  PRIMARY KEY (`cedula`)
+  `escuela_procedencia` int(6) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -14505,8 +14488,7 @@ INSERT INTO `sipce_prematricula` (`cedula`, `nombre`, `apellido1`, `apellido2`, 
 
 CREATE TABLE IF NOT EXISTS `sipce_provincias` (
   `IdProvincia` varchar(5) NOT NULL,
-  `nombreProvincia` varchar(100) NOT NULL,
-  PRIMARY KEY (`IdProvincia`)
+  `nombreProvincia` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -14529,11 +14511,10 @@ INSERT INTO `sipce_provincias` (`IdProvincia`, `nombreProvincia`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_puesto` (
-  `codigo` int(3) NOT NULL AUTO_INCREMENT,
+`codigo` int(3) NOT NULL,
   `codArea` int(3) NOT NULL,
   `descripcion` varchar(70) NOT NULL,
-  `estado` int(1) NOT NULL,
-  PRIMARY KEY (`codigo`)
+  `estado` int(1) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=135 ;
 
 --
@@ -14683,10 +14664,9 @@ INSERT INTO `sipce_puesto` (`codigo`, `codArea`, `descripcion`, `estado`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_universidades` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+`id` int(5) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `tipo` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
+  `tipo` varchar(10) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=58 ;
 
 --
@@ -14760,8 +14740,7 @@ INSERT INTO `sipce_universidades` (`id`, `nombre`, `tipo`) VALUES
 
 CREATE TABLE IF NOT EXISTS `sipce_universidad_persona` (
   `ced_persona` varchar(20) NOT NULL,
-  `id_universidad` int(5) NOT NULL,
-  PRIMARY KEY (`ced_persona`,`id_universidad`)
+  `id_universidad` int(5) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -14771,19 +14750,47 @@ CREATE TABLE IF NOT EXISTS `sipce_universidad_persona` (
 --
 
 CREATE TABLE IF NOT EXISTS `sipce_zona` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+`id` int(5) NOT NULL,
   `descripcion` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  `nivel` int(2) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `sipce_zona`
 --
 
-INSERT INTO `sipce_zona` (`id`, `descripcion`) VALUES
-(1, 'Zona 01'),
-(2, 'Zona02'),
-(3, 'Carrizal');
+INSERT INTO `sipce_zona` (`id`, `descripcion`, `nivel`) VALUES
+(1, 'Zona_Alajuela', 7),
+(2, 'Zona_Carrizal', 7),
+(3, 'Zona_Heredia', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sipce_zona_distrito`
+--
+
+CREATE TABLE IF NOT EXISTS `sipce_zona_distrito` (
+  `id_zona` int(5) NOT NULL,
+  `id_distrito` varchar(5) NOT NULL,
+  `nivel` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sipce_zona_distrito`
+--
+
+INSERT INTO `sipce_zona_distrito` (`id_zona`, `id_distrito`, `nivel`) VALUES
+(1, '122', 7),
+(1, '123', 7),
+(1, '127', 7),
+(1, '131', 7),
+(2, '124', 7),
+(3, '289', 7),
+(3, '303', 7),
+(3, '306', 7),
+(3, '307', 7),
+(3, '308', 7);
 
 -- --------------------------------------------------------
 
@@ -14794,17 +14801,327 @@ INSERT INTO `sipce_zona` (`id`, `descripcion`) VALUES
 CREATE TABLE IF NOT EXISTS `sipce_zona_escuela` (
   `id_zona` int(5) NOT NULL,
   `id_escuela` int(6) NOT NULL,
-  PRIMARY KEY (`id_zona`,`id_escuela`)
+  `nivel` int(2) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `sipce_zona_escuela`
 --
 
-INSERT INTO `sipce_zona_escuela` (`id_zona`, `id_escuela`) VALUES
-(1, 2688),
-(1, 3795);
+INSERT INTO `sipce_zona_escuela` (`id_zona`, `id_escuela`, `nivel`) VALUES
+(1, 568, 7);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sipce_zona_secciones`
+--
+
+CREATE TABLE IF NOT EXISTS `sipce_zona_secciones` (
+  `id_zona` int(5) NOT NULL,
+  `cantidadSecciones` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sipce_zona_secciones`
+--
+
+INSERT INTO `sipce_zona_secciones` (`id_zona`, `cantidadSecciones`) VALUES
+(1, 3),
+(2, 3),
+(3, 2);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `nuevos_solicitud_especialidad`
+--
+ALTER TABLE `nuevos_solicitud_especialidad`
+ ADD PRIMARY KEY (`ced_estudiante`);
+
+--
+-- Indices de la tabla `sipce_adecuacion`
+--
+ALTER TABLE `sipce_adecuacion`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `sipce_adelanta`
+--
+ALTER TABLE `sipce_adelanta`
+ ADD PRIMARY KEY (`ced_estudiante`);
+
+--
+-- Indices de la tabla `sipce_area`
+--
+ALTER TABLE `sipce_area`
+ ADD PRIMARY KEY (`codigo`);
+
+--
+-- Indices de la tabla `sipce_beca`
+--
+ALTER TABLE `sipce_beca`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `sipce_cantones`
+--
+ALTER TABLE `sipce_cantones`
+ ADD PRIMARY KEY (`IdCanton`);
+
+--
+-- Indices de la tabla `sipce_colegios`
+--
+ALTER TABLE `sipce_colegios`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `sipce_distritos`
+--
+ALTER TABLE `sipce_distritos`
+ ADD PRIMARY KEY (`IdDistrito`);
+
+--
+-- Indices de la tabla `sipce_encargado`
+--
+ALTER TABLE `sipce_encargado`
+ ADD PRIMARY KEY (`ced_estudiante`,`ced_encargado`,`anio`);
+
+--
+-- Indices de la tabla `sipce_enfermedades`
+--
+ALTER TABLE `sipce_enfermedades`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `sipce_escuelas`
+--
+ALTER TABLE `sipce_escuelas`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `sipce_especialidad`
+--
+ALTER TABLE `sipce_especialidad`
+ ADD PRIMARY KEY (`codigoEspecialidad`);
+
+--
+-- Indices de la tabla `sipce_especialidad_estudiante`
+--
+ALTER TABLE `sipce_especialidad_estudiante`
+ ADD PRIMARY KEY (`ced_estudiante`);
+
+--
+-- Indices de la tabla `sipce_estadocivil`
+--
+ALTER TABLE `sipce_estadocivil`
+ ADD PRIMARY KEY (`codCivil`);
+
+--
+-- Indices de la tabla `sipce_estudiante`
+--
+ALTER TABLE `sipce_estudiante`
+ ADD PRIMARY KEY (`cedula`);
+
+--
+-- Indices de la tabla `sipce_grupoprofesional`
+--
+ALTER TABLE `sipce_grupoprofesional`
+ ADD PRIMARY KEY (`codigo`);
+
+--
+-- Indices de la tabla `sipce_grupos`
+--
+ALTER TABLE `sipce_grupos`
+ ADD PRIMARY KEY (`ced_estudiante`,`nivel`,`grupo`,`sub_grupo`,`annio`);
+
+--
+-- Indices de la tabla `sipce_horario`
+--
+ALTER TABLE `sipce_horario`
+ ADD PRIMARY KEY (`ced_docente`,`dia`,`leccion`), ADD KEY `ced_docente` (`ced_docente`);
+
+--
+-- Indices de la tabla `sipce_madre`
+--
+ALTER TABLE `sipce_madre`
+ ADD PRIMARY KEY (`ced_estudiante`,`ced_madre`);
+
+--
+-- Indices de la tabla `sipce_madre_prematricula`
+--
+ALTER TABLE `sipce_madre_prematricula`
+ ADD PRIMARY KEY (`ced_estudiante`,`ced_madre`);
+
+--
+-- Indices de la tabla `sipce_matricularatificacion`
+--
+ALTER TABLE `sipce_matricularatificacion`
+ ADD PRIMARY KEY (`anio`,`ced_estudiante`);
+
+--
+-- Indices de la tabla `sipce_nombramiento`
+--
+ALTER TABLE `sipce_nombramiento`
+ ADD PRIMARY KEY (`codArea`,`ced_persona`,`codPuesto`);
+
+--
+-- Indices de la tabla `sipce_padre`
+--
+ALTER TABLE `sipce_padre`
+ ADD PRIMARY KEY (`ced_estudiante`,`ced_padre`);
+
+--
+-- Indices de la tabla `sipce_padre_prematricula`
+--
+ALTER TABLE `sipce_padre_prematricula`
+ ADD PRIMARY KEY (`ced_estudiante`,`ced_padre`);
+
+--
+-- Indices de la tabla `sipce_paises`
+--
+ALTER TABLE `sipce_paises`
+ ADD PRIMARY KEY (`codigoPais`);
+
+--
+-- Indices de la tabla `sipce_permisos`
+--
+ALTER TABLE `sipce_permisos`
+ ADD PRIMARY KEY (`idPermiso`);
+
+--
+-- Indices de la tabla `sipce_personaemergencia`
+--
+ALTER TABLE `sipce_personaemergencia`
+ ADD PRIMARY KEY (`ced_estudiante`,`ced_personaEmergencia`);
+
+--
+-- Indices de la tabla `sipce_personal`
+--
+ALTER TABLE `sipce_personal`
+ ADD PRIMARY KEY (`cedula`);
+
+--
+-- Indices de la tabla `sipce_poliza`
+--
+ALTER TABLE `sipce_poliza`
+ ADD PRIMARY KEY (`ced_estudiante`);
+
+--
+-- Indices de la tabla `sipce_prematricula`
+--
+ALTER TABLE `sipce_prematricula`
+ ADD PRIMARY KEY (`cedula`);
+
+--
+-- Indices de la tabla `sipce_provincias`
+--
+ALTER TABLE `sipce_provincias`
+ ADD PRIMARY KEY (`IdProvincia`);
+
+--
+-- Indices de la tabla `sipce_puesto`
+--
+ALTER TABLE `sipce_puesto`
+ ADD PRIMARY KEY (`codigo`);
+
+--
+-- Indices de la tabla `sipce_universidades`
+--
+ALTER TABLE `sipce_universidades`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `sipce_universidad_persona`
+--
+ALTER TABLE `sipce_universidad_persona`
+ ADD PRIMARY KEY (`ced_persona`,`id_universidad`);
+
+--
+-- Indices de la tabla `sipce_zona`
+--
+ALTER TABLE `sipce_zona`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `sipce_zona_distrito`
+--
+ALTER TABLE `sipce_zona_distrito`
+ ADD PRIMARY KEY (`id_zona`,`id_distrito`);
+
+--
+-- Indices de la tabla `sipce_zona_escuela`
+--
+ALTER TABLE `sipce_zona_escuela`
+ ADD PRIMARY KEY (`id_zona`,`id_escuela`);
+
+--
+-- Indices de la tabla `sipce_zona_secciones`
+--
+ALTER TABLE `sipce_zona_secciones`
+ ADD PRIMARY KEY (`id_zona`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `sipce_adecuacion`
+--
+ALTER TABLE `sipce_adecuacion`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `sipce_area`
+--
+ALTER TABLE `sipce_area`
+MODIFY `codigo` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `sipce_beca`
+--
+ALTER TABLE `sipce_beca`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `sipce_colegios`
+--
+ALTER TABLE `sipce_colegios`
+MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=989;
+--
+-- AUTO_INCREMENT de la tabla `sipce_enfermedades`
+--
+ALTER TABLE `sipce_enfermedades`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=170;
+--
+-- AUTO_INCREMENT de la tabla `sipce_escuelas`
+--
+ALTER TABLE `sipce_escuelas`
+MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3832;
+--
+-- AUTO_INCREMENT de la tabla `sipce_especialidad`
+--
+ALTER TABLE `sipce_especialidad`
+MODIFY `codigoEspecialidad` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `sipce_grupoprofesional`
+--
+ALTER TABLE `sipce_grupoprofesional`
+MODIFY `codigo` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT de la tabla `sipce_puesto`
+--
+ALTER TABLE `sipce_puesto`
+MODIFY `codigo` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=135;
+--
+-- AUTO_INCREMENT de la tabla `sipce_universidades`
+--
+ALTER TABLE `sipce_universidades`
+MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
+--
+-- AUTO_INCREMENT de la tabla `sipce_zona`
+--
+ALTER TABLE `sipce_zona`
+MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
