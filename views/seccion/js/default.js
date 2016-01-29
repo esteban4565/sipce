@@ -162,9 +162,6 @@ $(function()
         }, "json");
     });
     
-    
-    
-    
     //CARGA CANTONES PARA LA ESCUELA//
     $("#slt_provinciaPrim").change(function() {
         $("#slt_cantonPrim,#slt_distritoPrim,#tf_primaria").empty();
@@ -383,13 +380,13 @@ $(function()
     //Carga las Secciones//
     $("#proyectarSeccionesOpcionB").click(function(event) {
         document.getElementById("resumenSecciones").style.display = 'block';
-        //Consulto cantidad de zonas para iterar el ciclo
+        //envio el nivel al model y me devuelve un string que agrego a un div
         $.getJSON('../consultaZonasOpcionB/' + $("#nivel").text(), function() {
         }).done(function(estudiantes) {
             $("#resumenSecciones").empty();
             $('#resumenSecciones').append(estudiantes);
 	}).fail(function() {
-		alert("error");
+		alert("Se produjo un error, verifique que la(s) zona(s) del nivel seleccionado posee algun(os) Distrito(s) y que esos Distrito(s) poseean estudiantes");
 	});
     });
 });
