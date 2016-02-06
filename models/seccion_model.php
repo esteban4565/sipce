@@ -312,9 +312,10 @@ class Seccion_Model extends Models {
                  //consultos los estudiantes de un distrito en especifico que pertenesca a esa zona
                  for ($j = 0; $j < $distritos; $j++) {
                      //devuelvo los Estudiantes del distritos de la zona     
-                     $listaEstudiantesDistrito = $this->db->select("SELECT p.cedula, p.nombre, p.apellido1, p.apellido2, p.sexo, p.IdDistrito "
-                              . "FROM sipce_estudiante as p,sipce_grupos as g "
+                     $listaEstudiantesDistrito = $this->db->select("SELECT p.cedula, p.nombre, p.apellido1, p.apellido2, p.sexo, p.IdDistrito, m.condicion "
+                              . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_matricularatificacion as m "
                               . "WHERE p.cedula = g.ced_estudiante "
+                              . "AND p.cedula = m.ced_estudiante "
                               . "AND p.IdDistrito = " . $arrayDistritosZona[$i][$j]['IdDistrito'] . " "
                               . "AND g.nivel = " . $nivel . " "
                               . "AND g.annio = " . ($this->anioActivo + 1) . " "
@@ -360,6 +361,7 @@ class Seccion_Model extends Models {
                          //verifico el genero para separar Hombres de Mujeres
                          if($arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['sexo'] == 1){
                              $arraylistaEstudiantesHombres[$contadorHombres]['sexo'] = "Masculino";
+                             $arraylistaEstudiantesHombres[$contadorHombres]['condicion'] = $arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['condicion'];
                              $arraylistaEstudiantesHombres[$contadorHombres]['cedula'] = $arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['cedula'];
                              $arraylistaEstudiantesHombres[$contadorHombres]['nombre'] = $arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['apellido1'] .  
                                                                                          " " . $arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['apellido2'] . 
@@ -369,6 +371,7 @@ class Seccion_Model extends Models {
                              $contadorHombres++;
                          }else{
                              $arraylistaEstudiantesMujeres[$contadorMujeres]['sexo'] = "Femenino";
+                             $arraylistaEstudiantesMujeres[$contadorMujeres]['condicion'] = $arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['condicion'];
                              $arraylistaEstudiantesMujeres[$contadorMujeres]['cedula'] = $arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['cedula'];
                              $arraylistaEstudiantesMujeres[$contadorMujeres]['nombre'] = $arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['apellido1'] .  
                                                                                          " " . $arraylistaEstudiantesDistrito[$iZ][$iD][$iE]['apellido2'] . 
@@ -383,7 +386,7 @@ class Seccion_Model extends Models {
                          $contador++;
                      }
                  }
-
+                     
                  $contadorSecciones++;
                  //Variables auxiliares para rotar el genero en cada seccion
                  $contadorLinea=0;
@@ -394,7 +397,7 @@ class Seccion_Model extends Models {
                  //Agrego el # de seccion al array de salida
                  $arraySalida.="<h2>Seccion: " . $nivel . "-" . $contadorSecciones . "</h2>";
                  //Agrego la tabla al array de salida
-                 $arraySalida.='<table class="table table-condensed"><thead><tr><th>#</th><th>Cédula</th><th>Estudiante</th><th>Género</th></tr></thead><tbody>';
+                 $arraySalida.='<table class="table table-condensed"><thead><tr><th>#</th><th>Cédula</th><th>Estudiante</th><th>Género</th><th>Condición</th></tr></thead><tbody>';
 
                  //ciclo finito, su limite es la cantidad total de estudiantes de una zona en especifico
                  for ($iX = 0; $iX < $contador; $iX++) {
@@ -406,7 +409,7 @@ class Seccion_Model extends Models {
                              $contadorSecciones++;
                              $arraySalida .= '<tr><td colspan="4">----- Cupo de seccion: ' . $contador/$cantidadSecciones[0]["cantidadSecciones"] . 
                                              '</td></tr></tbody></table><br><h2>Seccion: ' . $nivel . '-'  . $contadorSecciones . 
-                                             '</h2><table class="table table-condensed"><thead><tr><th>#</th><th>Cédula</th><th>Estudiante</th><th>Género</th></tr></thead><tbody>';
+                                             '</h2><table class="table table-condensed"><thead><tr><th>#</th><th>Cédula</th><th>Estudiante</th><th>Género</th><th>Condición</th></tr></thead><tbody>';
                              //reinicio el contador de linia
                              $contadorLinea=0;
                          }
@@ -414,7 +417,8 @@ class Seccion_Model extends Models {
                          if($banderaMujeres<$contadorMujeres){
                              $arraySalida .= "<tr><td>" . ($contadorLinea + 1) . "</td><td>" . $arraylistaEstudiantesMujeres[$banderaMujeres]['cedula'] . 
                                          "</td><td>" . $arraylistaEstudiantesMujeres[$banderaMujeres]['nombre'] . 
-                                         "</td><td>" . $arraylistaEstudiantesMujeres[$banderaMujeres]['sexo'] . "</td></tr>";
+                                         "</td><td>" . $arraylistaEstudiantesMujeres[$banderaMujeres]['sexo'] . 
+                                         "</td><td>" . $arraylistaEstudiantesMujeres[$banderaMujeres]['condicion'] . "</td></tr>";
                              //Aumento la bandera del array de mujeres para moverme un espacio
                              $banderaMujeres++;
                              //aumento la linea # de estudiante
@@ -430,13 +434,14 @@ class Seccion_Model extends Models {
                                  $contadorSecciones++;
                                  $arraySalida .= '<tr><td colspan="4">----- Cupo de seccion: ' . $contador/$cantidadSecciones[0]["cantidadSecciones"] . 
                                                  '</td></tr></tbody></table><br><h2>Seccion: ' . $nivel . '-' . $contadorSecciones . 
-                                                 '</h2><table class="table table-condensed"><thead><tr><th>#</th><th>Cédula</th><th>Estudiante</th><th>Género</th></tr></thead><tbody>';
+                                                 '</h2><table class="table table-condensed"><thead><tr><th>#</th><th>Cédula</th><th>Estudiante</th><th>Género</th><th>Condición</th></tr></thead><tbody>';
                                  $contadorLinea=0;
                              }
                          if($banderaHombres<$contadorHombres){
                                  $arraySalida .= "<tr><td>" . ($contadorLinea + 1) . "</td><td>" . $arraylistaEstudiantesHombres[$banderaHombres]['cedula'] . 
                                              "</td><td>" . $arraylistaEstudiantesHombres[$banderaHombres]['nombre'] . 
-                                             "</td><td>" . $arraylistaEstudiantesHombres[$banderaHombres]['sexo'] . "</td></tr>";
+                                             "</td><td>" . $arraylistaEstudiantesHombres[$banderaHombres]['sexo'] .
+                                             "</td><td>" . $arraylistaEstudiantesHombres[$banderaHombres]['condicion'] . "</td></tr>";
                              $banderaHombres++;
                              //aumento la linea # de estudiante
                              $contadorLinea++;
