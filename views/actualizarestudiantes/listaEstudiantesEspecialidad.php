@@ -28,6 +28,7 @@
                     <option value="4">Banca y Finanzas</option>
                     <option value="5">Informática en desarrollo de software</option>
                     <option value="6">Dibujo Técnico</option>
+                    <option value="7">Agrojardineria</option>
                     <option value="8">Turismo en alimento y bebidas</option>
                     <option value="9">Electrónica Industrial</option>
                 </select>
