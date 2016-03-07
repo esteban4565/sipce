@@ -73,8 +73,6 @@ class ActualizarEstudiantes_Model extends Models {
                         $mes=substr($value['fechaNacimiento'],5,2);
                         $anio=substr($value['fechaNacimiento'],0,4);
                         $fechaOrdenada=$dia.$mes.$anio;
-//                        print_r($fechaOrdenada);
-//                        die;
                         $passTemporal=Hash::create('md5', $fechaOrdenada, HASH_PASSWORD_KEY);
                         $postData = array('passwords' => $passTemporal
                                             );
@@ -585,6 +583,48 @@ class ActualizarEstudiantes_Model extends Models {
                         . "AND g.ced_estudiante = p.cedula "
                         . "ORDER BY p.apellido1,p.apellido2 ");
         
+        echo json_encode($resultado);
+    }
+    
+    /* Ingreso Personal */
+    function guardarIngresarPersonal($datos) {
+        $dia=substr($datos['tf_fnacpersona'],8,2);
+        $mes=substr($datos['tf_fnacpersona'],5,2);
+        $anio=substr($datos['tf_fnacpersona'],0,4);
+        $fechaOrdenada=$dia.$mes.$anio;
+
+        $passTemporal=Hash::create('md5', $fechaOrdenada, HASH_PASSWORD_KEY);
+        $this->db->insert('sipce_personal', array(
+                          'cedula' => $datos['tf_cedula'],
+                          'nombre' => $datos['tf_nombre'],
+                          'apellido1' => $datos['tf_ape1'],
+                          'apellido2' => $datos['tf_ape2'],
+                          'sexo' => $datos['tf_genero'],
+                          'fechaNacimiento' => $datos['tf_fnacpersona'],
+                          'nacionalidad' => $datos['tf_nacionalidad'],
+                          'tipoUsuario' => $datos['tf_rol'],
+                          'passwords' => $passTemporal));
+    }
+
+    /* Retorna la lista de paises */
+    public function consultaPaises() {
+        return $this->db->select("SELECT * FROM sipce_paises ORDER BY nombrePais", array());
+    }
+
+    /* Verifica si la Identificación de la persona ya existe en la BD */
+    public function verificarPersona($cedula) {
+        $resultado = $this->db->select("SELECT * "
+                . "FROM sipce_personal "
+                . "WHERE cedula = '" . $cedula . "' ");
+        echo json_encode($resultado);
+    }
+
+    /* Retorna datos de la Persona */
+
+    public function buscarPersona($cedula) {
+        $resultado = $this->db->select("SELECT * "
+                . "FROM tpersonapadron "
+                . "WHERE cedula = '" . $cedula . "' ");
         echo json_encode($resultado);
     }
 }

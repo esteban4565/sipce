@@ -1277,7 +1277,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion "
                         . "FROM sipce_estudiante,sipce_matricularatificacion "
                         . "WHERE cedula = ced_estudiante "
-                        . "ORDER BY apellido1");
+                        . "ORDER BY apellido1,apellido2,nombre");
     }
 
     /* Carga todos los estudiantes matriculados */

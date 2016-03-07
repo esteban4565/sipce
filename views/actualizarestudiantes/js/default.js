@@ -228,4 +228,43 @@ $(function()
                         $('#listaEstudiantes').append('</tbody>');
                 }, "json");
     });
+    
+    //Carga los datos de la Persona//
+    $("#buscarPersona").click(function(event) {
+        var idD = $("#tf_cedula").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('verificarPersona/' + idD, function(resulVerificar) {
+            if (jQuery.isEmptyObject(resulVerificar)) {
+                $.getJSON('buscarPersona/' + idD, function(resulBusqueda) {
+                if (jQuery.isEmptyObject(resulBusqueda)) {
+                    alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+                } else {
+                    $("#tf_ape1").val(resulBusqueda[0].primerApellido);
+                    $("#tf_ape2").val(resulBusqueda[0].segundoApellido);
+                    $("#tf_nombre").val(resulBusqueda[0].nombre);
+                    $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
+                    $("#tf_genero").val(resulBusqueda[0].sexo);
+                    }
+                });
+            } else {
+                alert("Esta Persona ya se encuentra ingresado en sipce_personal, si desea hacer alguna modificación por favor diríjase a Personal->Editar...");
+            }
+        });
+        }
+    });
+
+    //Oculta Boton Buscar si es extrangero//
+    $("#tf_nacionalidad").change(function() {
+        var codigoPais = $("#tf_nacionalidad").val();
+        if (codigoPais !== "506") {
+            document.getElementById("buscarPersona").style.display = 'none';
+        }
+        else {
+            document.getElementById("buscarPersona").style.display = 'block';
+        }
+    });
+    
+    
 });

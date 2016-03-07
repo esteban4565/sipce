@@ -6,12 +6,8 @@ class Estadistica extends Controllers {
     public function __construct() {
         parent::__construct();
         Auth::handleLogin();
-        //$this->view->js = array('estadistica/js/default.js');
     }
 
-    //La funcion Index carga dos variables, "title" es utilizada para el Header de la pagina
-    //profeLista posee un array con todos los docentes que se encuentran en la tabla persona de la BD
-    //Estas variables seran utilizadas en el View del Objeto (views/horario/index y views/horario/edit)
     public function index() {
         $this->view->title = 'Estadisticas de los Estudiantes';
 
@@ -21,9 +17,6 @@ class Estadistica extends Controllers {
         $this->view->render('footer');
     }
 
-    //La funcion Index carga dos variables, "title" es utilizada para el Header de la pagina
-    //profeLista posee un array con todos los docentes que se encuentran en la tabla persona de la BD
-    //Estas variables seran utilizadas en el View del Objeto (views/horario/index y views/horario/edit)
     public function matriculaInicialSegunEdad() {
         $consulta = array();      
         $consulta['anioActual'] = 2016;

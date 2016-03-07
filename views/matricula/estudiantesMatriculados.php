@@ -43,10 +43,14 @@
             echo $value['condicion'];
             echo '</td>';
             echo '<td class="text-right" >';
+            if (Session::get('tipoUsuario') == 1){
             echo '<a class="btn-sm btn-primary" href="editarMatricula/' . $value['cedula'] . '">Editar</a>';
+            }else{
+                echo '-';
+            }
             echo '</td>';
             echo '<td>';
-            echo '<a class="btn-sm btn-warning text-left" href="imprimirMatricula/' . $value['cedula'] . '"  target="_blank">Imprimir</a>';
+            echo '<a class="btn-sm btn-warning text-left" href="imprimirMatricula/' . $value['cedula'] . '"  target="_blank">Ver Expediente</a>';
             echo '</td>';
             echo '</tr>';
             $con++;

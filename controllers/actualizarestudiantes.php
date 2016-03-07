@@ -115,5 +115,47 @@ class ActualizarEstudiantes extends Controllers {
         $consulta['especialidad'] = $_POST['especialidad'];
         $this->model->cargaListaEstudiantesMatriculados($consulta);
     }
+    
+    /* Ingreso Personal */
+    function ingresarPersonal() {
+        $this->view->title = 'Nuevo Ingreso Personal';
+
+        /* CARGAMOS LA LISTA DE PAISES */
+        $this->view->consultaPaises = $this->model->consultaPaises();
+
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/ingresarPersonal');
+        $this->view->render('footer');
+    }
+    
+    /* Guardar Ingreso Personal */
+    function guardarIngresarPersonal() {
+        $datos = array();
+        $datos['tf_nacionalidad'] = $_POST['tf_nacionalidad'];
+        $datos['tf_cedula'] = strtoupper($_POST['tf_cedula']);
+        $datos['tf_ape1'] = strtoupper($_POST['tf_ape1']);
+        $datos['tf_ape2'] = strtoupper($_POST['tf_ape2']);
+        $datos['tf_nombre'] = strtoupper($_POST['tf_nombre']);
+        $datos['tf_fnacpersona'] = $_POST['tf_fnacpersona'];
+        $datos['tf_genero'] = $_POST['tf_genero'];
+        $datos['tf_rol'] = $_POST['tf_rol'];
+        $this->model->guardarIngresarPersonal($datos);
+
+        //Se manda a ejecutar el header, contenido principal (Mensaje) y el footer
+        $this->view->mensaje = 'Personal Ingresado Correctamente';
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/msg');
+        $this->view->render('footer');
+    }
+
+    /* Busco la persona  en la BD del Colegio, para evitar duplicidad en las Llaves Primarias*/
+    function verificarPersona($cedula) {
+        $this->model->verificarPersona($cedula);
+    }
+
+    /* Busco la cedula de la persona en el BD del Registro Nacional*/
+    function buscarPersona($cedula) {
+        $this->model->buscarPersona($cedula);
+    }
 
 }

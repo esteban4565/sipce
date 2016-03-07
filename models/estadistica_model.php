@@ -12,7 +12,7 @@ class Estadistica_Model extends Models {
     //Esta Estadistica se debe realizar una vez concluida la matricula
     public function consultaEdades($consulta) {
         $arraySalida='<table class="table table-condensed"><thead><tr><th class="danger">Desde</th><th class="danger">Hasta</th><th class="text-center" colspan="3">7°</th><th class="text-center" colspan="3">8°</th><th class="text-center" colspan="3">9°</th><th class="text-center" colspan="3">10°</th><th class="text-center" colspan="3">11°</th><th class="text-center" colspan="3">12°</th></tr>' .
-        $arraySalida='<tr><th class="danger">-</th><th class="danger">-</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th></tr></thead><tbody>';
+        $arraySalida='<tr><th class="danger">16-11</th><th class="danger">15-11</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th></tr></thead><tbody>';
         for($j=0;$j<=10;$j++){
             $nivel=7;
             $arraySalida .='<tr><td class="danger">' . ($consulta['anioInicial'] - $j) . '</td><td class="danger">' . ($consulta['anioFinal'] - $j) . '</td>';
