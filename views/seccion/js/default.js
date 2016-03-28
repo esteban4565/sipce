@@ -64,10 +64,8 @@ $(function()
 {
     //Carga los Grupos//
     $("#tf_Niveles").change(function() {
+        $("#listaEstudiantes").empty();
         $("#tf_Grupos").empty();
-        $("#SecElegGrupA").empty();
-        $("#SecElegGrupB").empty();
-        $("#SecElegGrupC").empty();
         var nivelSeleccionado = $("#tf_Niveles").val();
         $.getJSON('../seccion/cargaGrupos/' + nivelSeleccionado, function(Gru) {
             $('#tf_Grupos').append('<option value="">Seleccione</option>');
@@ -77,88 +75,37 @@ $(function()
         });
     });
 
-    //Carga los SubGrupos//
+    //Carga los Estudiantes de una sección en especifico//
     $("#tf_Grupos").change(function() {
-        $("#tf_SubGrupos").empty();
-        $("#SecElegGrupA").empty();
-        $("#SecElegGrupB").empty();
-        $("#SecElegGrupC").empty();
-        var grupoSeleccionado = $("#tf_Grupos").val();
+        $("#listaEstudiantes").empty();
 
-        $("#SecEleg").empty();
+        var banderaGrupoB=0;
+        var banderaGrupoC=0;
         var consulta = {nivelSeleccionado: $("#tf_Niveles").val(), grupoSeleccionado: $("#tf_Grupos").val()};
-        $.post('../seccion/xhrSeccion2/', consulta, function(seccionElegida, success) {
-            $('#SecElegGrupA').append('<thead><tr>' +
-                    '<th colspan="5">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + ' A' + '</th>' +
-                    '</tr><tr>' +
-                    '<th>N°</th>' +
-                    '<th>Identificación</th>' +
-                    '<th>1<sup>er</sup> apellido</th>' +
-                    '<th>2<sup>do</sup> apellido</th>' +
-                    '<th>Nombre</th>' +
-                    '</tr></thead><tbody>');
-            $('#SecElegGrupB').append('<thead><tr>' +
-                    '<th colspan="5">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + ' B' + '</th>' +
-                    '</tr><tr>' +
-                    '<th>N°</th>' +
-                    '<th>Identificación</th>' +
-                    '<th>1<sup>er</sup> apellido</th>' +
-                    '<th>2<sup>do</sup> apellido</th>' +
-                    '<th>Nombre</th>' +
-                    '</tr></thead><tbody>');
-            $('#SecElegGrupC').append('<thead><tr>' +
-                    '<th colspan="5">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + ' C' + '</th>' +
-                    '</tr><tr>' +
-                    '<th>N°</th>' +
-                    '<th>Identificación</th>' +
-                    '<th>1<sup>er</sup> apellido</th>' +
-                    '<th>2<sup>do</sup> apellido</th>' +
-                    '<th>Nombre</th>' +
-                    '</tr></thead><tbody>');
+        
+        $.post('../seccion/cargaSeccion/', consulta, function(seccionElegida, success) {
+            var arraySalida="";
+            arraySalida+='<thead><tr><td colspan="4" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
+            arraySalida+='<tr><td colspan="4" class="text-center">&nbsp;</td></tr><tr><td colspan="4" class="text-center">Grupo A</td></tr>';
+            arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th><th>Condición</th></tr></thead><tbody>';
+            
             for (var linea = 0; linea < seccionElegida.length; linea++) {
-                if (seccionElegida[linea].sub_grupo === 'A') {
-                    $('#SecElegGrupA').append('<tr><td>' +
-                            (linea + 1) +
-                            '</td><td>' +
-                            seccionElegida[linea].cedula +
-                            '</td><td>' +
-                            seccionElegida[linea].apellido1 +
-                            '</td><td>' +
-                            seccionElegida[linea].apellido2 +
-                            '</td><td>' +
-                            seccionElegida[linea].nombre +
-                            '</td></tr>');
+                if(seccionElegida[linea].sub_grupo=='B' && banderaGrupoB==0){
+                    arraySalida+='<tr><td colspan="4" class="text-center">&nbsp;</td></tr><tr><td colspan="4" class="text-center">Grupo B</td></tr>';
+                    banderaGrupoB=1;
+                }else if(seccionElegida[linea].sub_grupo=='C' && banderaGrupoC==0){
+                    arraySalida+='<tr><td colspan="4" class="text-center">&nbsp;</td></tr><tr><td colspan="4" class="text-center">Grupo C</td></tr>';
+                    banderaGrupoC=1;
                 }
-                if (seccionElegida[linea].sub_grupo === 'B') {
-                    $('#SecElegGrupB').append('<tr><td>' +
-                            (linea + 1) +
-                            '</td><td>' +
-                            seccionElegida[linea].cedula +
-                            '</td><td>' +
-                            seccionElegida[linea].apellido1 +
-                            '</td><td>' +
-                            seccionElegida[linea].apellido2 +
-                            '</td><td>' +
-                            seccionElegida[linea].nombre +
-                            '</td></tr>');
-                }
-                if (seccionElegida[linea].sub_grupo === 'C') {
-                    $('#SecElegGrupC').append('<tr><td>' +
-                            (linea + 1) +
-                            '</td><td>' +
-                            seccionElegida[linea].cedula +
-                            '</td><td>' +
-                            seccionElegida[linea].apellido1 +
-                            '</td><td>' +
-                            seccionElegida[linea].apellido2 +
-                            '</td><td>' +
-                            seccionElegida[linea].nombre +
-                            '</td></tr>');
-                }
+                
+                arraySalida+='<tr><td>' + (linea + 1) + '</td><td>' +
+                        seccionElegida[linea].cedula + '</td><td>' + seccionElegida[linea].apellido1 + ' ' +
+                        seccionElegida[linea].apellido2 + ' ' + seccionElegida[linea].nombre + '</td><td>' +
+                        seccionElegida[linea].condicion + '</td></tr>';
             }
-            $('#SecElegGrupA').append('<tr><td colspan="5">Última línea</td></tr></tbody>');
-            $('#SecElegGrupB').append('<tr><td colspan="5">Última línea</td></tr></tbody>');
-            $('#SecElegGrupC').append('<tr><td colspan="5">Última línea</td></tr></tbody>');
+            
+            arraySalida+='<tr><td colspan="4" class="text-center">Ultima Línea</td></tr></tbody>';
+            $('#listaEstudiantes').append(arraySalida);
         }, "json");
     });
     

@@ -627,4 +627,33 @@ class ActualizarEstudiantes_Model extends Models {
                 . "WHERE cedula = '" . $cedula . "' ");
         echo json_encode($resultado);
     }
+
+    /* Retorna Estudiantes No encontrados */
+
+    public function buscarCedulaEstudiante() {
+        $arraySalida="";
+        if (($gestor = fopen("c:\\UpdateSeccionesTodos.csv", "r")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+                
+                $resultado = $this->db->select("SELECT * "
+                                                . "FROM sipce_grupos "
+                                                . "WHERE ced_estudiante = '" . $datos[0] . "' "
+                                                . "AND annio = " . $datos[1] . " ");
+                if($resultado == null){
+                    $arraySalida.= "Estudiante no encontrado: " . $datos[0] . " en año: " . $datos[1] . "<br />\n";
+                }else{
+                    //actualizo datos
+                    $posData = array(
+                        'nivel' => $datos[2],
+                        'grupo' => $datos[3],
+                        'sub_grupo' => $datos[4]);
+                    $this->db->update('sipce_grupos', $posData, "`ced_estudiante` = '{$datos[0]}' AND `annio` = {$datos[1]}");
+                }
+            }
+            fclose($gestor);
+        }else{
+            $arraySalida.= "Error al abrir el archivo";
+        }
+        return $arraySalida;
+    }
 }

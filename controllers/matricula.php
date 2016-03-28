@@ -583,6 +583,23 @@ class Matricula extends Controllers {
         $this->model->buscarEstuRatifSetimo($ced_estudiante);
     }
 
+    //Metodo para buscar estudiantes matriculados, pero sin Seccion-Grupo asignada//
+    function estudiantesMatriculadosSinGrupo() {
+        $this->view->estudiantesMatriculadosSinGrupo = $this->model->estudiantesMatriculadosSinGrupo();
+        
+        $this->view->render('header');
+        $this->view->render('matricula/estudiantesMatriculadosSinGrupo');
+        $this->view->render('footer');
+    }
+
+    //Metodo que brinda una estadistica por nivel sobre la condion final de los estudiantes matriculados//
+    function resumenCondicionEstudiantes() {
+        $this->view->resumenCondicionEstudiantes = $this->model->resumenCondicionEstudiantes();
+        $this->view->consultaNiveles = $this->model->consultaNiveles();
+        $this->view->render('header');
+        $this->view->render('matricula/resumenCondicionEstudiantes');
+        $this->view->render('footer');
+    }
 }
 
 ?>

@@ -4,20 +4,7 @@ class Seccion_Model extends Models {
 
     public function __construct() {
         parent::__construct();
-        $this->anioActivo = 2015;
-    }
-    
-    /* Retorna la lista de todo los usuarios */
-
-    public function listaSecciones() {
-        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,fechaNacimiento "
-                        . "FROM sipce_estudiante, sipce_grupos "
-                        . "WHERE cedula = ced_estudiante "
-                        . "AND tipoUsuario = 4 "
-                        . "AND nivel = 10 "
-                        . "AND grupo = 3 "
-                        . "AND sub_grupo = 'A' "
-                        . "ORDER BY apellido1,apellido2");
+        $this->anioActivo = 2016;
     }
 
     /* Carga todas los Niveles */
@@ -29,24 +16,29 @@ class Seccion_Model extends Models {
                                 . "ORDER BY nivel");
     }
 
-    /* Carga todos los cantones */
+    /* Carga todos los Grupos de un Nivel */
 
     public function cargaGrupos($idNivel) {
         $resultado = $this->db->select("SELECT DISTINCT grupo FROM sipce_grupos "
                                 . "WHERE nivel = :nivel "
                                 . "AND annio = ".$this->anioActivo." "
+                                . "AND grupo <> 0 "
                                 . "ORDER BY grupo", array('nivel' => $idNivel));
         echo json_encode($resultado);
     }
 
-    /* Carga todos los distritos */
-
-    public function cargaSubGrupos($idGrupo) {
-        $resultado = $this->db->select("SELECT DISTINCT sub_grupo FROM sipce_grupos "
-                                . "WHERE grupo = :grupo "
-                                . "AND annio = ".$this->anioActivo." "
-                                . "ORDER BY sub_grupo", array('grupo' => $idGrupo));
-        echo json_encode($resultado);
+    //Carga la lista de los estudiantes de una seccion en especifico
+    public function cargaSeccion($consulta) {
+        $resultado2 = $this->db->select("SELECT e.cedula,e.nombre,e.apellido1,e.apellido2,g.sub_grupo,r.condicion "
+                . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_matricularatificacion as r "
+                . "WHERE e.cedula = g.ced_estudiante "
+                . "AND e.cedula = r.ced_estudiante "
+                . "AND e.tipoUsuario = 4 "
+                . "AND g.nivel = " . $consulta['nivelSeleccionado'] . " "
+                . "AND g.grupo = " . $consulta['grupoSeleccionado'] . " "
+                . "AND g.annio = " . $this->anioActivo . " "
+                . "ORDER BY g.sub_grupo,e.apellido1,e.apellido2,e.nombre");
+        echo json_encode($resultado2);
     }
 
     /* Carga todas las Zonas guardadas en la BD */
@@ -504,18 +496,6 @@ class Seccion_Model extends Models {
                 . "AND nivel = 10 "
                 . "AND grupo = :grupo "
                 . "ORDER BY apellido1,apellido2", array(':grupo' => $idGrupo));
-        echo json_encode($resultado2);
-    }
-
-    public function xhrSeccion2($consulta) {
-        $resultado2 = $this->db->select("SELECT cedula,nombre,apellido1,apellido2,sub_grupo "
-                . "FROM sipce_estudiante, sipce_grupos "
-                . "WHERE cedula = ced_estudiante "
-                . "AND tipoUsuario = 4 "
-                . "AND nivel = :nivel "
-                . "AND grupo = :grupo "
-                . "ORDER BY sub_grupo,apellido1", array(':nivel' => $consulta['nivelSeleccionado'], 
-                                                                  ':grupo' => $consulta['grupoSeleccionado']));
         echo json_encode($resultado2);
     }
 

@@ -119,14 +119,8 @@ class Persona extends Controllers {
                 $this->view->render('persona/errorBusqueda');
                 $this->view->render('footer');
         }
-    } 
-    function listaEstudiantes(){
-        $this->view->title = 'Estudintes'; 
-        $this->view->listaEstudiantes = $this->model->listaEstudiantes();
-        $this->view->render('header');
-        $this->view->render('persona/listaEstudiantes');
-        $this->view->render('footer');
     }
+    
     /*Funcion que permite guardar el registro de un docente o estudiante*/
     function saveDocenteEstudiante(){
         
@@ -264,5 +258,41 @@ class Persona extends Controllers {
         $this->model->cargaDistritos($idCanton);
     }
     
+//**Cosas de Esteban**//
+    //Lista en orden alfabetico todos los estudiantes de la institución
+    function listaEstudiantes(){
+        $this->view->title = 'Lista Estudintes'; 
+        $this->view->listaEstudiantes = $this->model->listaEstudiantes();
+        $this->view->render('header');
+        $this->view->render('persona/listaEstudiantes');
+        $this->view->render('footer');
+    }
+    
+    //Brinda la opcion de ver datos personales de los estudiantes de la institución
+    function datosEstudiantes(){
+        $this->view->title = 'Datos Estudintes';
+        $this->view->consultaNiveles = $this->model->consultaNiveles();
+        $this->view->render('header');
+        $this->view->render('persona/datosEstudiantes');
+        $this->view->render('footer');
+    }
+    
+    /* Carga los Grupos de un nivel en especifico*/
+    function cargaGrupos($idNivel) {
+        $this->model->cargaGrupos($idNivel);
+    }
+
+    /* Carga la lista de estudiantes de una seccion en especifico */
+    function cargaSeccion() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['grupoSeleccionado'] = $_POST['grupoSeleccionado'];     
+        $consulta['chk_email'] = $_POST['chk_email'];
+        $consulta['chk_poliza'] = $_POST['chk_poliza'];
+        $consulta['chk_domicilio'] = $_POST['chk_domicilio'];
+        $consulta['chk_telefonosEstu'] = $_POST['chk_telefonosEstu'];
+        $consulta['chk_telefonosEncargado'] = $_POST['chk_telefonosEncargado'];
+        $this->model->cargaSeccion($consulta);
+    }
 }
 ?>

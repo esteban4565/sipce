@@ -71,6 +71,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Estudiantes <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="<?php echo URL; ?>persona/listaEstudiantes">Lista Estudiante</a></li>
+                          <?php if (Session::get('tipoUsuario') <= 2){ ?>
+                          <li><a href="<?php echo URL; ?>persona/datosEstudiantes">Datos Estudiante</a></li>
+                          <?php }?>
                         </ul>
                       </li>
                     <?php }?>
@@ -95,13 +98,15 @@
                             <li><a href="<?php echo URL; ?>matricula/listaprematricula">Lista Pre-Matricula</a></li>
                             <?php }?>
                             <li class="divider"></li>
-                            <?php if (Session::get('tipoUsuario') <= 3){ ?>
+                            <?php if (Session::get('tipoUsuario') <= 2){ ?>
                             <li><a href="<?php echo URL; ?>matricula/ratificarSetimo">Ratificar 7°</a></li>
                             <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar 8° - 12°</a></li>
                             <li><a href="<?php echo URL; ?>matricula/nuevoIngreso">Nuevo Ingreso</a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculados">Matriculados</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculados">Matriculados 2016</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculadosSinGrupo">Matriculados Sin Grupo Asignado</a></li>
                             <li><a href="<?php echo URL; ?>estadistica/matriculaInicialSegunEdad">Matricula Inicial Segun Edad</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/resumenCondicionEstudiantes">Resumen Condición Estudiantes</a></li>
                             <?php }?>
                         </ul>
                       </li>
@@ -118,6 +123,7 @@
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/listaEstudiantesEspecialidad">Lista de Estudiantes Matriculados</a></li>
                           <li><a href="<?php echo URL; ?>seccion/indexConfigSecciones">Configuración Secciones</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/ingresarPersonal">Ingresar Personal</a></li>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/cargaEstudiantesSeccion">Carga Estudiantes-Seccion</a></li>
                         </ul>
                       </li>
                     <?php }?>

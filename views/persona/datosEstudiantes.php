@@ -1,10 +1,15 @@
 <div class="row">
     <div class="col-xs-12">
-        <h2>Módulo secciones</h2>
+        <h2>Datos de Estudiantes</h2>
 
-        <?php
-        //print_r($this->consultaNiveles);
-        ?>
+        <h3>Defina los datos que desea visualizar</h3>
+        <input type="checkbox" name="chk_email" id="chk_email" value="chk_email">Email<br>
+        <input type="checkbox" name="chk_poliza" id="chk_poliza" value="chk_poliza">Póliza<br>
+        <input type="checkbox" name="chk_domicilio" id="chk_domicilio" value="chk_domicilio">Domicilio<br>
+        <input type="checkbox" name="chk_telefonosEstu" id="chk_telefonosEstu" value="chk_telefonosEstu">Telefonos Estudiante<br>
+        <input type="checkbox" name="chk_telefonosEncargado" id="chk_telefonosEncargado" value="chk_telefonosEncargado">Telefonos Encargado Legal<br>
+        <br>
+        <br>
 
         <div class="form-group">
             <label for="tf_Niveles" class="col-xs-2 control-label">Nivel:</label>
@@ -32,7 +37,5 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-7 col-xs-12">
-        <table class="table table-condensed" id="listaEstudiantes"></table>
-    </div>
+    <table class="table table-condensed" id="listaEstudiantes"></table>
 </div>

@@ -2,7 +2,7 @@
 class Persona_Model extends Models{
     public function __construct(){
         parent::__construct();
-        $this->anioActivo = 2015;
+        $this->anioActivo = 2016;
     }
     /*METODOS DE BUSQUEDA*/
     public function buscarDocente(){}
@@ -32,16 +32,6 @@ class Persona_Model extends Models{
         $resultado = $this->db->select("SELECT * FROM sipce_distritos WHERE IdCanton = :idCanton ORDER BY Distrito",
                 array('idCanton' => $idCanton));
         echo json_encode($resultado);  
-    }
-    /*Retorna la lista de todo los usuarios*/
-    public function listaEstudiantes(){ 
-//       $consulta= $this->db->select("SELECT * FROM sipce_estudiante"); 
-        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
-                                ."FROM sipce_estudiante, sipce_grupos "
-                                ."WHERE cedula = ced_estudiante "
-                                ."AND tipoUsuario = 4 "
-                                ."AND annio = ".$this->anioActivo." "
-                                ."ORDER BY apellido1,apellido2");
     }
 
     /*Retorna los roles de permisos*/
@@ -127,6 +117,110 @@ class Persona_Model extends Models{
         $sth->execute(array(':cedula'=>$cedula));
         
   
+    }
+    
+    
+    
+//**Cosas de Esteban**//
+
+    /*Retorna la lista de todo los usuarios*/
+    public function listaEstudiantes(){
+        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
+                                ."FROM sipce_estudiante, sipce_grupos "
+                                ."WHERE cedula = ced_estudiante "
+                                ."AND tipoUsuario = 4 "
+                                ."AND annio = ".$this->anioActivo." "
+                                ."AND grupo <> 0 "
+                                ."ORDER BY apellido1,apellido2,nombre");
+    }
+    
+    /* Carga todas los Niveles */
+    public function consultaNiveles() {
+        return $this->db->select("SELECT DISTINCT nivel "
+                                . "FROM sipce_grupos "
+                                . "WHERE annio = ".$this->anioActivo." "
+                                . "ORDER BY nivel");
+    }
+
+    /* Carga todos los Grupos de un Nivel */
+
+    public function cargaGrupos($idNivel) {
+        $resultado = $this->db->select("SELECT DISTINCT grupo FROM sipce_grupos "
+                                . "WHERE nivel = :nivel "
+                                . "AND annio = ".$this->anioActivo." "
+                                . "AND grupo <> 0 "
+                                . "ORDER BY grupo", array('nivel' => $idNivel));
+        echo json_encode($resultado);
+    }
+
+    //Carga la lista de los estudiantes de una seccion en especifico
+    public function cargaSeccion($consulta) {
+        //campos
+        $consultaSQL="SELECT e.cedula,e.nombre,e.apellido1,e.apellido2";
+        if($consulta['grupoSeleccionado']!=0){
+            $consultaSQL.=",g.sub_grupo";
+        }
+        if($consulta['chk_email']==1){
+            $consultaSQL.=",e.email";
+        }
+        if($consulta['chk_poliza']==1){
+            $consultaSQL.=",p.numero_poliza,p.fecha_vence";
+        }
+        if($consulta['chk_domicilio']==1){
+            $consultaSQL.=",e.domicilio,d.Distrito,c.Canton,pro.nombreProvincia";
+        }
+        if($consulta['chk_telefonosEstu']==1){
+            $consultaSQL.=",e.telefonoCasa,e.telefonoCelular";
+        }
+        if($consulta['chk_telefonosEncargado']==1){
+            $consultaSQL.=",encar.nombre_encargado,encar.apellido1_encargado,encar.apellido2_encargado,encar.telefonoCasaEncargado,encar.telefonoCelularEncargado";
+        }
+        
+        //tablas
+        $consultaSQL.=" FROM sipce_estudiante as e,sipce_grupos as g";
+        if($consulta['chk_poliza']==1){
+            $consultaSQL.=",sipce_poliza as p";
+        }
+        if($consulta['chk_domicilio']==1){
+            $consultaSQL.=",sipce_distritos as d,sipce_cantones as c,sipce_provincias as pro";
+        }
+        if($consulta['chk_telefonosEncargado']==1){
+            $consultaSQL.=",sipce_encargado as encar";
+        }
+        
+        //restricciones
+        $consultaSQL.=" WHERE e.cedula = g.ced_estudiante";
+        if($consulta['chk_poliza']==1){
+            $consultaSQL.=" AND e.cedula = p.ced_estudiante";
+        }
+        $consultaSQL.=" AND e.tipoUsuario = 4";
+        $consultaSQL.=" AND g.nivel = ".$consulta['nivelSeleccionado'];
+        if($consulta['grupoSeleccionado']!=0){
+            $consultaSQL.=" AND g.grupo = ".$consulta['grupoSeleccionado'];
+        }
+        if($consulta['chk_domicilio']==1){
+            $consultaSQL.=" AND d.IdDistrito = e.IdDistrito "
+                         . "AND c.IdCanton = e.IdCanton "
+                         . "AND pro.IdProvincia = e.IdProvincia "
+                         . "AND d.IdCanton = c.IdCanton "
+                         . "AND c.IdProvincia = pro.IdProvincia";
+        }
+        if($consulta['chk_telefonosEncargado']==1){
+            $consultaSQL.=" AND e.cedula = encar.ced_estudiante";
+        }
+        
+        $consultaSQL.=" AND g.annio = ".$this->anioActivo;
+        
+        //orden
+        $consultaSQL.=" ORDER BY ";
+        if($consulta['grupoSeleccionado']!=0){
+            $consultaSQL.="g.sub_grupo,";
+        }
+        $consultaSQL.="e.apellido1,e.apellido2,e.nombre";
+        
+        //consulta
+        $resultado2 = $this->db->select($consultaSQL);
+        echo json_encode($resultado2);
     }
 }
 

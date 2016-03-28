@@ -4,7 +4,7 @@ class Matricula_Model extends Models {
 
     public function __construct() {
         parent::__construct();
-        $this->anioActivo = 2015;
+        $this->anioActivo = 2016;
     }
 
     /* Carga el año lectivo */
@@ -1303,11 +1303,39 @@ class Matricula_Model extends Models {
                         . "AND p.IdDistrito = d.IdDistrito");
     }
 
-//    public function estadoMatricula() {
-//        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion "
-//                        . "FROM sipce_estudiante,sipce_matricularatificacion "
-//                        . "WHERE cedula = ced_estudiante");
-//    }
+    //Metodo para buscar estudiantes matriculados, pero sin Seccion-Grupo asignada//
+    public function estudiantesMatriculadosSinGrupo() {
+        return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
+                        . "p.telefonoCasa,p.telefonoCelular,p.domicilio,g.nivel, m.condicion "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_matricularatificacion as m "
+                        . "WHERE p.cedula = g.ced_estudiante "
+                        . "AND p.cedula = m.ced_estudiante "
+                        . "AND g.annio = " . $this->anioActivo . " "
+                        . "AND g.grupo = 0 "
+                        . "ORDER BY g.nivel");
+    }
+    
+    /* Carga todas los Niveles */
+
+    public function consultaNiveles() {
+        return $this->db->select("SELECT DISTINCT nivel "
+                                . "FROM sipce_grupos "
+                                . "WHERE annio = ".$this->anioActivo." "
+                                . "ORDER BY nivel");
+    }
+
+    //Metodo que brinda una estadistica por nivel sobre la condion final de los estudiantes matriculados//
+    public function resumenCondicionEstudiantes() {
+        return $this->db->select("SELECT p.cedula,p.sexo,m.condicion "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_matricularatificacion as m "
+                        . "WHERE p.cedula = g.ced_estudiante "
+                        . "AND p.cedula = m.ced_estudiante "
+                        . "AND g.annio = " . $this->anioActivo . " "
+                        . "AND g.grupo = 0 "
+                        . "ORDER BY g.nivel");
+    }
+
+    
 
     /* Ejemplo clasico de join entre tablas */
 

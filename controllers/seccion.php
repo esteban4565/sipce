@@ -56,13 +56,17 @@ class Seccion extends Controllers {
         $this->view->render('footer');
     }
     
-    /* Metodos */
+    /* Carga los Grupos de un nivel en especifico*/
     function cargaGrupos($idNivel) {
         $this->model->cargaGrupos($idNivel);
     }
 
-    function cargaSubGrupos($idGrupo) {
-        $this->model->cargaSubGrupos($idGrupo);
+    /* Carga la lista de estudiantes de una seccion en especifico */
+    function cargaSeccion() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['grupoSeleccionado'] = $_POST['grupoSeleccionado'];
+        $this->model->cargaSeccion($consulta);
     }
     
     //Carga los cantones de una Provincia en especifico
@@ -182,13 +186,6 @@ class Seccion extends Controllers {
     function consultaCantidadSeccionesZona($idDistrito)
     {
         $this->model->consultaCantidadSeccionesZona($idDistrito);
-    }
-
-    function xhrSeccion2() {
-        $consulta = array();      
-        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
-        $consulta['grupoSeleccionado'] = $_POST['grupoSeleccionado'];
-        $this->model->xhrSeccion2($consulta);
     }
 
     function xhrInsert() {

@@ -158,4 +158,12 @@ class ActualizarEstudiantes extends Controllers {
         $this->model->buscarPersona($cedula);
     }
 
+    /* Busco al estudiante  en la BD del Colegio, para confirmar que existe*/
+    function cargaEstudiantesSeccion() {
+        $this->view->estudiantesNoEncontrados = $this->model->buscarCedulaEstudiante();
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/cargaEstudiantesSeccion');
+        $this->view->render('footer');
+    }
+
 }
