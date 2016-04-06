@@ -1,5 +1,44 @@
+$.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '<Ant',
+ nextText: 'Sig>',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd/mm/yy',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+ 
 $(function() 
 {
+    //Fecha Nacimiento//
+    $("#tf_fnacpersona").datepicker({dateFormat: 'yy-mm-dd',
+                                    changeMonth: true,
+                                    changeYear: true
+                                    });
+                                    
+    //Fecha Vence Poliza//
+    $("#tf_polizaVence").datepicker({dateFormat: 'yy-mm-dd',
+                                    changeMonth: true,
+                                    changeYear: true
+                                    });
+                                    
+    //Edad Estudiante al cambiar fecha//
+    $("#tf_fnacpersona").change(function() {
+        $("#tf_edad").empty();
+        var fechaNacimiento=$("#tf_fnacpersona").val();
+        var anioNacimiento = 2016 - (fechaNacimiento).substring(0, 4);
+        $("#tf_edad").val(anioNacimiento);
+        });
+                                    
     //Carga los cantones//
     $("#tf_provincias").change(function(){
         $("#tf_cantones,tf_#distritos").empty();
@@ -28,10 +67,35 @@ $(function()
     
 //**Cosas de Esteban**//
     
+    //Practica AJAX
+    //    $('#nacitatATC').click(function() {
+    //    $.ajax({
+    //            xhr: function() {
+    //
+    //                    var xhr = new window.XMLHttpRequest();
+    //                    xhr.addEventListener("progress", function(e){
+    //                        var p = (e.loaded / e.total)*100;
+    //                        var prave = $("#barraProgreso").html();
+    //                              $("#barraProgreso").html(prave+"<br>"+p);
+    //                    });
+    //                return xhr;
+    //
+    //            }
+    //            , type: 'post'
+    //            , cache: false
+    //            , url: "../persona/cargaGrupos/" + 7});
+    //
+    //      });
+  
+    
+    
     //Carga los Grupos de un nivel en especifico//
     $("#tf_Niveles").change(function() {
         $("#tf_Grupos").empty();
         $("#listaEstudiantes").empty();
+        document.getElementById("divBarraProgreso").style.display = 'block';
+        $('#listaEstudiantes').append('<tr><td>Cargando...</td></tr>');
+        $('#barraProgreso').attr('aria-valuenow',50);
         
         var nivelSeleccionado = $("#tf_Niveles").val();
         $.getJSON('../persona/cargaGrupos/' + nivelSeleccionado, function(Gru) {
@@ -41,7 +105,7 @@ $(function()
             }
         });
         
-        var cantidadColumnas=5;
+        var cantidadColumnas=3;
         var chk_email=0;
         var chk_poliza=0;
         var chk_domicilio=0;
@@ -74,8 +138,16 @@ $(function()
         var consulta = {nivelSeleccionado: $("#tf_Niveles").val(), grupoSeleccionado: 0, chk_email: chk_email, 
                         chk_poliza: chk_poliza, chk_domicilio: chk_domicilio, chk_telefonosEstu: chk_telefonosEstu,
                         chk_telefonosEncargado: chk_telefonosEncargado};
+        
+        var fechaActual = new Date();
+        var dd = fechaActual.getDate();
+        var mm = fechaActual.getMonth()+1;
+        var yyyy = fechaActual.getFullYear();
+        
         $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
-            
+        $('#barraProgreso').attr('aria-valuenow',0);
+        document.getElementById("divBarraProgreso").style.display = 'none';
+        $("#listaEstudiantes").empty();
             var arraySalida="";
             arraySalida+='<thead><tr><td colspan="' + cantidadColumnas +'" class="text-center">' + consulta.nivelSeleccionado + '°</td></tr>';
             arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th>';
@@ -99,35 +171,43 @@ $(function()
             
             for (var linea = 0; linea < seccionElegida.length; linea++) {
                 arraySalida+='<tr><td>' + (linea + 1) + '</td><td>' +
-                        seccionElegida[linea].cedula + '</td><td>' + seccionElegida[linea].apellido1 + ' ' +
-                        seccionElegida[linea].apellido2 + ' ' + seccionElegida[linea].nombre + '</td>';
-                
-                        if(chk_email==1){
-                        arraySalida+='<td>' + seccionElegida[linea].email + '</td>';
-                        }
-                
-                        if(chk_poliza==1){
+                seccionElegida[linea].cedula + '</td><td>' + seccionElegida[linea].apellido1 + ' ' +
+                seccionElegida[linea].apellido2 + ' ' + seccionElegida[linea].nombre + '</td>';
+
+                if(chk_email==1){
+                arraySalida+='<td>' + seccionElegida[linea].email + '</td>';
+                }
+
+                if(chk_poliza==1){
+                    var mes = seccionElegida[linea].fecha_vence.substring(5,7);
+                    var anio = seccionElegida[linea].fecha_vence.substring(0,4);
+                    console.log(anio);
+                    if(mes<=mm && anio<=yyyy){
+                        arraySalida+='<td bgcolor="#FF0000">' + seccionElegida[linea].numero_poliza + '</td>';
+                        arraySalida+='<td bgcolor="#FF0000">' + seccionElegida[linea].fecha_vence + '</td>';
+                    }else{
                         arraySalida+='<td>' + seccionElegida[linea].numero_poliza + '</td>';
                         arraySalida+='<td>' + seccionElegida[linea].fecha_vence + '</td>';
-                        }
-                
-                        if(chk_domicilio==1){
-                        arraySalida+='<td>' + seccionElegida[linea].domicilio + ', ' + seccionElegida[linea].Distrito + 
-                                     ', ' + seccionElegida[linea].Canton  + ', ' + seccionElegida[linea].nombreProvincia  + '</td>';
-                        }
-                
-                        if(chk_telefonosEstu==1){
-                        arraySalida+='<td>' + seccionElegida[linea].telefonoCasa.substr(0, 4) + '-' + seccionElegida[linea].telefonoCasa.substr(4) + '</td>';
-                        arraySalida+='<td>' + seccionElegida[linea].telefonoCelular.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelular.substr(4) + '</td>';
-                        }
-                
-                        if(chk_telefonosEncargado==1){
-                        arraySalida+='<td>' + seccionElegida[linea].nombre_encargado + ' ' + seccionElegida[linea].apellido1_encargado + ' ' + seccionElegida[linea].apellido2_encargado + '</td>';
-                        arraySalida+='<td>' + seccionElegida[linea].telefonoCasaEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCasaEncargado.substr(4) + '</td>';
-                        arraySalida+='<td>' + seccionElegida[linea].telefonoCelularEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelularEncargado.substr(4) + '</td>';
-                        }
-                        
-                        arraySalida+='</tr>';
+                    }
+                }
+
+                if(chk_domicilio==1){
+                arraySalida+='<td>' + seccionElegida[linea].domicilio + ', ' + seccionElegida[linea].Distrito + 
+                             ', ' + seccionElegida[linea].Canton  + ', ' + seccionElegida[linea].nombreProvincia  + '</td>';
+                }
+
+                if(chk_telefonosEstu==1){
+                arraySalida+='<td>' + seccionElegida[linea].telefonoCasa.substr(0, 4) + '-' + seccionElegida[linea].telefonoCasa.substr(4) + '</td>';
+                arraySalida+='<td>' + seccionElegida[linea].telefonoCelular.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelular.substr(4) + '</td>';
+                }
+
+                if(chk_telefonosEncargado==1){
+                arraySalida+='<td>' + seccionElegida[linea].nombre_encargado + ' ' + seccionElegida[linea].apellido1_encargado + ' ' + seccionElegida[linea].apellido2_encargado + '</td>';
+                arraySalida+='<td>' + seccionElegida[linea].telefonoCasaEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCasaEncargado.substr(4) + '</td>';
+                arraySalida+='<td>' + seccionElegida[linea].telefonoCelularEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelularEncargado.substr(4) + '</td>';
+                }
+
+                arraySalida+='</tr>';
             }
             
             arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">Ultima Línea</td></tr></tbody>';
@@ -138,6 +218,9 @@ $(function()
     //Carga los Estudiantes de una sección en especifico//
     $("#tf_Grupos").change(function() {
         $("#listaEstudiantes").empty();
+        document.getElementById("divBarraProgreso").style.display = 'block';
+        $('#listaEstudiantes').append('<tr><td>Cargando...</td></tr>');
+        $('#barraProgreso').attr('aria-valuenow',50);
         
         var banderaGrupoB=0;
         var banderaGrupoC=0;
@@ -175,8 +258,17 @@ $(function()
         var consulta = {nivelSeleccionado: $("#tf_Niveles").val(), grupoSeleccionado: $("#tf_Grupos").val(),
                         chk_email: chk_email, chk_poliza: chk_poliza, chk_domicilio: chk_domicilio,
                         chk_telefonosEstu: chk_telefonosEstu, chk_telefonosEncargado: chk_telefonosEncargado};
-                    
+        
+        var fechaActual = new Date();
+        var dd = fechaActual.getDate();
+        var mm = fechaActual.getMonth()+1;
+        var yyyy = fechaActual.getFullYear();
+        
         $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
+            $('#barraProgreso').attr('aria-valuenow',0);
+            document.getElementById("divBarraProgreso").style.display = 'none';
+            $("#listaEstudiantes").empty();
+            
             var arraySalida="";
             arraySalida+='<thead><tr><td colspan="' + cantidadColumnas +'" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
             arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">&nbsp;</td></tr><tr><td colspan="' + cantidadColumnas +'" class="text-center">Grupo A</td></tr>';
@@ -216,8 +308,15 @@ $(function()
                     }
 
                 if(chk_poliza==1){
-                    arraySalida+='<td>' + seccionElegida[linea].numero_poliza + '</td>';
-                    arraySalida+='<td>' + seccionElegida[linea].fecha_vence + '</td>';
+                    var mes = seccionElegida[linea].fecha_vence.substring(5,7);
+                    var anio = seccionElegida[linea].fecha_vence.substring(0,4);
+                    if(mes<=mm && anio<=yyyy){
+                        arraySalida+='<td bgcolor="#FF0000">' + seccionElegida[linea].numero_poliza + '</td>';
+                        arraySalida+='<td bgcolor="#FF0000">' + seccionElegida[linea].fecha_vence + '</td>';
+                        }else{
+                            arraySalida+='<td>' + seccionElegida[linea].numero_poliza + '</td>';
+                            arraySalida+='<td>' + seccionElegida[linea].fecha_vence + '</td>';
+                        }
                     }
 
                 if(chk_domicilio==1){
@@ -243,6 +342,338 @@ $(function()
             $('#listaEstudiantes').append(arraySalida);
         }, "json");
     });
-
     
+    //Metodos para Expedientes de Estudiantes//
+    $("#tf_NivelesExpedientes").change(function() {
+        $("#tf_GruposExpedientes").empty();
+        $("#listaEstudiantes").empty();
+        
+        var nivelSeleccionado = $("#tf_NivelesExpedientes").val();
+        $.getJSON('../persona/cargaGrupos/' + nivelSeleccionado, function(Gru) {
+            $('#tf_GruposExpedientes').append('<option value="">Seleccione</option>');
+            for (var iP = 0; iP < Gru.length; iP++) {
+                $("#tf_GruposExpedientes").append('<option value="' + Gru[iP].grupo + '">' + Gru[iP].grupo + '</option>');
+            }
+        });
+        
+        var cantidadColumnas=5;
+        var chk_email=0;
+        var chk_poliza=0;
+        var chk_domicilio=0;
+        var chk_telefonosEstu=0;
+        var chk_telefonosEncargado=0;
+            
+        var consulta = {nivelSeleccionado: $("#tf_NivelesExpedientes").val(), grupoSeleccionado: 0, chk_email: chk_email, 
+                        chk_poliza: chk_poliza, chk_domicilio: chk_domicilio, chk_telefonosEstu: chk_telefonosEstu,
+                        chk_telefonosEncargado: chk_telefonosEncargado};
+        
+        $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
+        $("#listaEstudiantes").empty();
+            var arraySalida="";
+            arraySalida+='<thead><tr><td colspan="' + cantidadColumnas +'" class="text-center">' + consulta.nivelSeleccionado + '°</td></tr>';
+            arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th><th colspan="2" class="text-center">Acciones</th>';
+            
+            arraySalida+='</tr></thead><tbody>';
+            
+            for (var linea = 0; linea < seccionElegida.length; linea++) {
+                arraySalida+='<tr><td>' + (linea + 1) + '</td><td>' +
+                        seccionElegida[linea].cedula + '</td><td>' + seccionElegida[linea].apellido1 + ' ' +
+                        seccionElegida[linea].apellido2 + ' ' + seccionElegida[linea].nombre + '</td>';
+                        
+                arraySalida+='<td class="text-right"><a class="btn-sm btn-primary" href="editarExpedienteEstudiante/' + seccionElegida[linea].cedula + '">Editar</a></td>' +
+                             '<td><a class="btn-sm btn-warning" href="imprimirExpedienteEstudiante/' + seccionElegida[linea].cedula + '">Imprimir</a></td></tr>';
+            }
+            
+            arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">Ultima Línea</td></tr></tbody>';
+            $('#listaEstudiantes').append(arraySalida);
+        }, "json");
+    });
+
+    //Carga los Estudiantes de una sección en especifico//
+    $("#tf_GruposExpedientes").change(function() {
+        $("#listaEstudiantes").empty();
+        
+        var banderaGrupoB=0;
+        var banderaGrupoC=0;
+        
+        var cantidadColumnas=5;
+        var chk_email=0;
+        var chk_poliza=0;
+        var chk_domicilio=0;
+        var chk_telefonosEstu=0;
+        var chk_telefonosEncargado=0;
+            
+        var consulta = {nivelSeleccionado: $("#tf_NivelesExpedientes").val(), grupoSeleccionado: $("#tf_GruposExpedientes").val(),
+                        chk_email: chk_email, chk_poliza: chk_poliza, chk_domicilio: chk_domicilio,
+                        chk_telefonosEstu: chk_telefonosEstu, chk_telefonosEncargado: chk_telefonosEncargado};
+        
+        $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
+            $("#listaEstudiantes").empty();
+            
+            var arraySalida="";
+            arraySalida+='<thead><tr><td colspan="' + cantidadColumnas +'" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
+            arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">&nbsp;</td></tr><tr><td colspan="' + cantidadColumnas +'" class="text-center">Grupo A</td></tr>';
+            arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th><th colspan="2" class="text-center">Acciones</th>';
+            
+            arraySalida+='</tr></thead><tbody>';
+            
+            for (var linea = 0; linea < seccionElegida.length; linea++) {
+                if(seccionElegida[linea].sub_grupo=='B' && banderaGrupoB==0){
+                    arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">&nbsp;</td></tr><tr><td colspan="' + cantidadColumnas +'" class="text-center">Grupo B</td></tr>';
+                    banderaGrupoB=1;
+                }else if(seccionElegida[linea].sub_grupo=='C' && banderaGrupoC==0){
+                    arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">&nbsp;</td></tr><tr><td colspan="' + cantidadColumnas +'" class="text-center">Grupo C</td></tr>';
+                    banderaGrupoC=1;
+                }
+                arraySalida+='<tr><td>' + (linea + 1) + '</td><td>' +
+                        seccionElegida[linea].cedula + '</td><td>' + seccionElegida[linea].apellido1 + ' ' +
+                        seccionElegida[linea].apellido2 + ' ' + seccionElegida[linea].nombre + '</td>';
+                        
+                arraySalida+='<td class="text-right"><a class="btn-sm btn-primary" href="editarExpedienteEstudiante/' + seccionElegida[linea].cedula + '">Editar</a></td>' +
+                             '<td><a class="btn-sm btn-warning" href="imprimirExpedienteEstudiante/' + seccionElegida[linea].cedula + '">Imprimir</a></td></tr>';
+            }
+            
+            arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">Ultima Línea</td></tr></tbody>';
+            $('#listaEstudiantes').append(arraySalida);
+        }, "json");
+    });
+    
+    //CARGA CANTONES PARA LA ESCUELA//
+    $("#slt_provinciaPrim").change(function() {
+        $("#slt_cantonPrim,#slt_distritoPrim,#tf_primaria").empty();
+        var idP = $("#slt_provinciaPrim").val();
+        $.getJSON('cargaCantones/' + idP, function(canton) {
+            $('#slt_cantonPrim').append('<option value="">SELECCIONE</option>');
+            for (var iP = 0; iP < canton.length; iP++) {
+                $("#slt_cantonPrim").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
+            }
+        });
+    });
+    
+    //CARGA DISTRITOS PARA LA ESCUELA//
+    $("#slt_cantonPrim").change(function() {
+        $("#slt_distritoPrim,#tf_primaria").empty();
+        var idD = $("#slt_cantonPrim").val();
+        //var ids = $(this).attr('rel');
+        $.getJSON('cargaDistritos/' + idD, function(distrito) {
+            $('#slt_distritoPrim').append('<option value="">SELECCIONE</option>');
+            for (var iD = 0; iD < distrito.length; iD++) {
+                $("#slt_distritoPrim").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
+            }
+        });
+    });
+    
+    //CARGA LAS ESCUELAS DE ESOS DISTRITOS//
+    $("#slt_distritoPrim").change(function() {
+        $("#tf_primaria").empty();
+        
+        var idD = $("#slt_distritoPrim").val();
+        
+        //var ids = $(this).attr('rel');
+        $.getJSON('cargaEscuela/' + idD, function(escuela) {
+            $('#tf_primaria').append('<option value="0">SELECCIONE</option>');
+            for (var iD = 0; iD < escuela.length; iD++) {
+              $("#tf_primaria").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
+            }
+            $("#tf_primaria").append('<option value="0">--OTRA--</option>');
+        });
+    });
+
+    //Carga los datos del Estudiante//
+    $("#buscarEstudiante").click(function(event) {
+        var idD = $("#tf_cedulaEstudiante").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarEstudiantePadron/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombre").val(resulBusqueda[0].nombre);
+                $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
+                var anioNacimiento = 2016 - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
+                $("#tf_edad").val(anioNacimiento);
+                $("#tf_genero").val(resulBusqueda[0].sexo);
+            }
+        });
+        }
+    });
+
+
+    //Carga los datos del Encargado Legal//
+    $("#buscarEncargado_NI").click(function(event) {
+        var idD = $("#tf_cedulaEncargado_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarEncargado/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Encargado_NI").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Encargado_NI").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombreEncargado_NI").val(resulBusqueda[0].nombre);
+                $("#tf_telHabitEncargado").val("");
+                $("#tf_telcelularEncargado").val("");
+                $("#tf_ocupacionEncargado").val("");
+                $("#tf_emailEncargado").val("");
+            }
+        });
+        }
+    });
+
+    //Carga los datos de la Madre//
+    $("#buscarMadre_NI").click(function(event) {
+        var idD = $("#tf_cedulaMadre_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarMadre/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Madre_NI").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Madre_NI").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombreMadre_NI").val(resulBusqueda[0].nombre);
+                $("#tf_telCelMadre").val("");
+                $("#tf_ocupacionMadre").val("");
+            }
+        });
+        }
+    });
+
+    //Carga los datos del Padre//
+    $("#buscarPadre_NI").click(function(event) {
+        var idD = $("#tf_cedulaPadre_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarPadre/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Padre_NI").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Padre_NI").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombrePadre_NI").val(resulBusqueda[0].nombre);
+                $("#tf_telCelPadre").val("");
+                $("#tf_ocupacionPadre").val("");
+            }
+        });
+        }
+    });
+
+    //Carga datos de Encargado Legal a Padre o Madre//
+    $("#sel_parentesco_NI").change(function() {
+        var parentesco = $("#sel_parentesco_NI").val();
+        if (parentesco === 'Padre') {
+            $("#tf_cedulaEncargado_NI").val($("#tf_cedulaPadre_NI").val());
+            $("#tf_ape1Encargado_NI").val($("#tf_ape1Padre_NI").val());
+            $("#tf_ape2Encargado_NI").val($("#tf_ape2Padre_NI").val());
+            $("#tf_nombreEncargado_NI").val($("#tf_nombrePadre_NI").val());
+            $("#tf_telcelularEncargado").val($("#tf_telCelPadre").val());
+            $("#tf_ocupacionEncargado").val($("#tf_ocupacionPadre").val());
+        } else
+        {
+            if (parentesco === 'Madre') {
+                $("#tf_cedulaEncargado_NI").val($("#tf_cedulaMadre_NI").val());
+                $("#tf_ape1Encargado_NI").val($("#tf_ape1Madre_NI").val());
+                $("#tf_ape2Encargado_NI").val($("#tf_ape2Madre_NI").val());
+                $("#tf_nombreEncargado_NI").val($("#tf_nombreMadre_NI").val());
+                $("#tf_telcelularEncargado").val($("#tf_telCelMadre").val());
+                $("#tf_ocupacionEncargado").val($("#tf_ocupacionMadre").val());
+            }
+        }
+    });
+
+    //Carga datos de Padre o Madre a PersonaEmergencia//
+    $("#sel_parentescoCasoEmergencia_NI").change(function() {
+        var parentesco = $("#sel_parentescoCasoEmergencia_NI").val();
+        if (parentesco === 'Padre') {
+            $("#tf_cedulaPersonaEmergencia_NI").val($("#tf_cedulaPadre_NI").val());
+            $("#tf_ape1PersonaEmergencia_NI").val($("#tf_ape1Padre_NI").val());
+            $("#tf_ape2PersonaEmergencia_NI").val($("#tf_ape2Padre_NI").val());
+            $("#tf_nombrePersonaEmergencia_NI").val($("#tf_nombrePadre_NI").val());
+            $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelPadre").val());
+        } else
+        {
+            if (parentesco === 'Madre') {
+                $("#tf_cedulaPersonaEmergencia_NI").val($("#tf_cedulaMadre_NI").val());
+                $("#tf_ape1PersonaEmergencia_NI").val($("#tf_ape1Madre_NI").val());
+                $("#tf_ape2PersonaEmergencia_NI").val($("#tf_ape2Madre_NI").val());
+                $("#tf_nombrePersonaEmergencia_NI").val($("#tf_nombreMadre_NI").val());
+                $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelMadre").val());
+            }
+        }
+    });
+
+    //Carga los datos de de la Persona En Caso de Emergencia//
+    $("#buscarPersonaEmergencia_NI").click(function(event) {
+        var idD = $("#tf_cedulaPersonaEmergencia_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+            $("#tf_ape1PersonaEmergencia_NI").val(resulBusqueda[0].primerApellido);
+            $("#tf_ape2PersonaEmergencia_NI").val(resulBusqueda[0].segundoApellido);
+            $("#tf_nombrePersonaEmergencia_NI").val(resulBusqueda[0].nombre);
+            $("#tf_telHabitPersonaEmergencia").val("");
+            $("#tf_telcelularPersonaEmergencia").val("");
+            }
+        });
+        }
+    });
+
+    //Muestra casilla especialidad si nivel es > a 9//
+    $("#sl_nivelMatricular").change(function() {
+        var nivel = $("#sl_nivelMatricular").val();
+        if (nivel > 9) {
+            document.getElementById("especialidadLabel").style.display = 'block';
+            document.getElementById("especialidad").style.display = 'block';
+        }
+        else {
+            document.getElementById("especialidadLabel").style.display = 'none';
+            document.getElementById("especialidad").style.display = 'none';
+        }
+    });
+
+    //Muestra casilla Adelanta si el estudiante Repite//
+    $("#sl_condicion").change(function() {
+        var condicion = $("#sl_condicion").val();
+        if (condicion === "Repite") {
+            document.getElementById("sl_adelantaLabel").style.display = 'block';
+            document.getElementById("sl_adelanta").style.display = 'block';
+        }
+        else {
+            document.getElementById("sl_adelantaLabel").style.display = 'none';
+            document.getElementById("sl_adelanta").style.display = 'none';
+        }
+    });
+
+    //Oculta Boton Buscar si es extrangero//
+    $("#tf_nacionalidad").change(function() {
+        var codigoPais = $("#tf_nacionalidad").val();
+        if (codigoPais !== "506") {
+            document.getElementById("buscarEstudiante").style.display = 'none';
+        }
+        else {
+            document.getElementById("buscarEstudiante").style.display = 'block';
+        }
+    });
+
+    //Oculta Imput Enfermedad//
+    $("#sel_enfermedad").change(function() {
+        var variable = $("#sel_enfermedad").val();
+        if (variable == 0) {
+            $("#tf_enfermedadDescripcion").val("");
+            document.getElementById("tf_enfermedadDescripcion").style.display = 'none';
+        }
+        else {
+            document.getElementById("tf_enfermedadDescripcion").style.display = 'block';
+        }
+    });
 }); 

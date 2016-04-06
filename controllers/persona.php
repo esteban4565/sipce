@@ -294,5 +294,288 @@ class Persona extends Controllers {
         $consulta['chk_telefonosEncargado'] = $_POST['chk_telefonosEncargado'];
         $this->model->cargaSeccion($consulta);
     }
+
+    function nuevoIngresoTardio() {
+        $this->view->title = 'Nuevo ingreso';
+        $this->view->anio = $this->model->anio();
+
+        /* CARGAMOS TODAS LAS PROVINCIAS */
+        $this->view->consultaProvincias = $this->model->consultaProvincias();
+
+        /* CARGAMOS LA LISTA DE PAISES */
+        $this->view->consultaPaises = $this->model->consultaPaises();
+
+        /* CARGAMOS LA LISTA DE ESPECIALIDADES */
+        $this->view->consultaEspecialidades = $this->model->consultaEspecialidades();
+
+        $this->view->render('header');
+        $this->view->render('persona/nuevoIngresoTardio');
+        $this->view->render('footer');
+    }
+
+    function guardarNuevoIngresoTardio() {
+        $datos = array();
+        $datos['tf_nacionalidad'] = $_POST['tf_nacionalidad'];
+        $datos['tf_cedulaEstudiante'] = strtoupper($_POST['tf_cedulaEstudiante']);
+        $datos['tf_ape1'] = strtoupper($_POST['tf_ape1']);
+        $datos['tf_ape2'] = strtoupper($_POST['tf_ape2']);
+        $datos['tf_nombre'] = strtoupper($_POST['tf_nombre']);
+        $datos['tf_fnacpersona'] = $_POST['tf_fnacpersona'];
+        $datos['tf_genero'] = $_POST['tf_genero'];
+        $datos['tf_telHabitEstudiante'] = $_POST['tf_telHabitEstudiante'];
+        $datos['tf_telcelular'] = $_POST['tf_telcelular'];
+        $datos['tf_email'] = $_POST['tf_email'];
+        $datos['tf_domicilio'] = $_POST['tf_domicilio'];
+        $datos['tf_provincias'] = $_POST['tf_provincias_NI'];
+        $datos['tf_cantones'] = $_POST['tf_cantones_NI'];
+        $datos['tf_distritos'] = $_POST['tf_distritos_NI'];
+        $datos['tf_primaria'] = $_POST['tf_primaria'];
+        $datos['sel_enfermedad'] = $_POST['sel_enfermedad'];
+        $datos['tf_enfermedadDescripcion'] = $_POST['tf_enfermedadDescripcion'];
+        
+        $datos['tf_cedulaEncargado'] = strtoupper($_POST['tf_cedulaEncargado_NI']);
+        $datos['tf_ape1Encargado'] = strtoupper($_POST['tf_ape1Encargado_NI']);
+        $datos['tf_ape2Encargado'] = strtoupper($_POST['tf_ape2Encargado_NI']);
+        $datos['tf_nombreEncargado'] = strtoupper($_POST['tf_nombreEncargado_NI']);
+        $datos['tf_telHabitEncargado'] = $_POST['tf_telHabitEncargado'];
+        $datos['tf_telcelularEncargado'] = $_POST['tf_telcelularEncargado'];
+        $datos['tf_ocupacionEncargado'] = $_POST['tf_ocupacionEncargado'];
+        $datos['tf_emailEncargado'] = $_POST['tf_emailEncargado'];
+        $datos['sel_parentesco'] = $_POST['sel_parentesco'];
+        
+        $datos['tf_cedulaMadre'] = strtoupper($_POST['tf_cedulaMadre_NI']);
+        $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre_NI']);
+        $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre_NI']);
+        $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre_NI']);
+        $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
+        $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
+        
+        $datos['tf_cedulaPadre'] = strtoupper($_POST['tf_cedulaPadre_NI']);
+        $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre_NI']);
+        $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre_NI']);
+        $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre_NI']);
+        $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
+        $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
+        
+        $datos['tf_cedulaPersonaEmergencia'] = strtoupper($_POST['tf_cedulaPersonaEmergencia_NI']);
+        $datos['tf_ape1PersonaEmergencia'] = strtoupper($_POST['tf_ape1PersonaEmergencia_NI']);
+        $datos['tf_ape2PersonaEmergencia'] = strtoupper($_POST['tf_ape2PersonaEmergencia_NI']);
+        $datos['tf_nombrePersonaEmergencia'] = strtoupper($_POST['tf_nombrePersonaEmergencia_NI']);
+        $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
+        $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
+        $datos['sel_parentescoCasoEmergencia'] = $_POST['sel_parentescoCasoEmergencia'];
+        
+        $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];
+        if ($_POST['sl_nivelMatricular'] > 9) {
+            $datos['tf_especialidad'] = $_POST['tf_especialidad'];
+        }
+        $datos['sl_condicion'] = $_POST['sl_condicion'];
+        $datos['sl_adelanta'] = $_POST['sl_adelanta'];
+        $datos['sl_adecuacion'] = $_POST['sl_adecuacion'];
+        $datos['sl_becaAvancemos'] = $_POST['sl_becaAvancemos'];
+        $datos['sl_becaComedor'] = $_POST['sl_becaComedor'];
+        $datos['sl_becaTransporte'] = $_POST['sl_becaTransporte'];
+        $datos['tf_poliza'] = $_POST['tf_poliza'];
+        $datos['tf_polizaVence'] = $_POST['tf_polizaVence'];
+        $datos['anio'] = $this->model->anio();
+        
+        $this->model->guardarNuevoIngresoTardio($datos);
+
+        $this->view->render('header');
+        $this->view->render('persona/listaEstudiantes');
+        $this->view->render('footer');
+    }
+
+    function buscarEstudiantePadron($ced_estudiante) {
+        $this->model->buscarEstudiante($ced_estudiante);
+    }
+    
+    //Brinda la opcion de ver el expediente de los estudiantes de la institución
+    function expedientesEstudiantes(){
+        $this->view->title = 'Expedientes Estudintes';
+        $this->view->consultaNiveles = $this->model->consultaNiveles();
+        $this->view->render('header');
+        $this->view->render('persona/expedientesEstudiantes');
+        $this->view->render('footer');
+    }
+
+    function editarExpedienteEstudiante($cedulaEstudiante) {
+        $this->view->title = 'Editar Expediente';
+        $this->view->anio = $this->model->anio();
+
+        /* CARGAMOS TODAS LAS PROVINCIAS */
+        $this->view->consultaProvincias = $this->model->consultaProvincias();
+        
+        /* CARGAMOS TODOS LOS CANTONES */
+        $this->view->consultaCantones = $this->model->consultaCantones();
+        
+        /* CARGAMOS TODOS LOS DISTRITOS */
+        $this->view->consultaDistritos = $this->model->consultaDistritos();
+        
+        /* CARGAMOS TODAS LAS ESCUELAS */
+        $this->view->consultaEscuelas = $this->model->consultaEscuelas();
+
+        /* CARGAMOS LA LISTA DE PAISES */
+        $this->view->consultaPaises = $this->model->consultaPaises();
+
+        /* CARGAMOS LA LISTA DE ESPECIALIDADES */
+        $this->view->consultaEspecialidades = $this->model->consultaEspecialidades();
+
+        /* Cargo informacion del Estudiante Para Editar*/
+        $this->view->infoEstudiante = $this->model->infoEstudianteEditar($cedulaEstudiante);
+
+        /* Cargo informacion de la especialidad del Estudiante */
+        $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);
+
+        /* CARGAMOS LA ESCUELA DEL ESTUDIANTE */
+        $this->view->escuelaEstudiante = $this->model->escuelaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion del encargado Legal del Estudiante */
+        $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);
+
+        /* Cargo informacion de la Madre del Estudiante */
+        $this->view->madreEstudiante = $this->model->madreEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion del Padre del Estudiante */
+        $this->view->padreEstudiante = $this->model->padreEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la Persona en caso de Emergencia del Estudiante */
+        $this->view->personaEmergenciaEstudiante = $this->model->personaEmergenciaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de las enfermedades del Estudiante */
+        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la adecuacio del Estudiante */
+        $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de Becas */
+        $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la poliza del Estudiante */
+        $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la Condicion de Matricula */
+        $this->view->infoCondicionMatricula = $this->model->infoCondicionMatricula($cedulaEstudiante);
+
+        /* Cargo informacion de Adelanto/Arrastre */
+        $this->view->infoAdelanta = $this->model->infoAdelanta($cedulaEstudiante);
+
+        $this->view->render('header');
+        $this->view->render('persona/editarExpedienteEstudiante');
+        $this->view->render('footer');
+    }
+
+    function guardarExpedienteEstudiante() {
+        $datos = array();
+        $datos['tf_nacionalidad'] = $_POST['tf_nacionalidad'];
+        $datos['tf_telHabitEstudiante'] = $_POST['tf_telHabitEstudiante'];
+        $datos['tf_cedulaEstudiante'] = strtoupper($_POST['tf_cedulaEstudiante']);
+        $datos['tf_genero'] = $_POST['tf_genero'];
+        $datos['tf_ape1'] = strtoupper($_POST['tf_ape1']);
+        $datos['tf_ape2'] = strtoupper($_POST['tf_ape2']);
+        $datos['tf_nombre'] = strtoupper($_POST['tf_nombre']);
+        $datos['tf_fnacpersona'] = $_POST['tf_fnacpersona'];
+        $datos['tf_telcelular'] = $_POST['tf_telcelular'];
+        $datos['tf_email'] = $_POST['tf_email'];
+        $datos['tf_domicilio'] = $_POST['tf_domicilio'];
+        $datos['tf_provincias'] = $_POST['tf_provincias'];
+        $datos['tf_cantones'] = $_POST['tf_cantones'];
+        $datos['tf_distritos'] = $_POST['tf_distritos'];
+        $datos['tf_primaria'] = $_POST['tf_primaria'];
+        $datos['sel_enfermedad'] = $_POST['sel_enfermedad'];
+        $datos['tf_enfermedadDescripcion'] = $_POST['tf_enfermedadDescripcion'];
+        
+        $datos['tf_cedulaEncargado'] = strtoupper($_POST['tf_cedulaEncargado']);
+        $datos['tf_ape1Encargado'] = strtoupper($_POST['tf_ape1Encargado']);
+        $datos['tf_ape2Encargado'] = strtoupper($_POST['tf_ape2Encargado']);
+        $datos['tf_nombreEncargado'] = strtoupper($_POST['tf_nombreEncargado']);
+        $datos['tf_telHabitEncargado'] = $_POST['tf_telHabitEncargado'];
+        $datos['tf_telcelularEncargado'] = $_POST['tf_telcelularEncargado'];
+        $datos['tf_ocupacionEncargado'] = $_POST['tf_ocupacionEncargado'];
+        $datos['tf_emailEncargado'] = $_POST['tf_emailEncargado'];
+        $datos['sel_parentesco'] = $_POST['sel_parentesco'];
+        
+        $datos['tf_cedulaMadre'] = strtoupper($_POST['tf_cedulaMadre']);
+        $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre']);
+        $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre']);
+        $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre']);
+        $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
+        $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
+        
+        $datos['tf_cedulaPadre'] = strtoupper($_POST['tf_cedulaPadre']);
+        $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre']);
+        $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre']);
+        $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre']);
+        $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
+        $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
+        
+        $datos['tf_cedulaPersonaEmergencia'] = strtoupper($_POST['tf_cedulaPersonaEmergencia']);
+        $datos['tf_ape1PersonaEmergencia'] = strtoupper($_POST['tf_ape1PersonaEmergencia']);
+        $datos['tf_ape2PersonaEmergencia'] = strtoupper($_POST['tf_ape2PersonaEmergencia']);
+        $datos['tf_nombrePersonaEmergencia'] = strtoupper($_POST['tf_nombrePersonaEmergencia']);
+        $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
+        $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
+        $datos['sel_parentescoCasoEmergencia'] = $_POST['sel_parentescoCasoEmergencia'];
+        
+        $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];
+        if ($_POST['sl_nivelMatricular'] > 9) {
+            $datos['tf_especialidad'] = $_POST['tf_especialidad'];
+        }
+        $datos['sl_condicion'] = $_POST['sl_condicion'];
+        $datos['sl_adelanta'] = $_POST['sl_adelanta'];
+        $datos['sl_adecuacion'] = $_POST['sl_adecuacion'];
+        $datos['sl_becaAvancemos'] = $_POST['sl_becaAvancemos'];
+        $datos['sl_becaComedor'] = $_POST['sl_becaComedor'];
+        $datos['sl_becaTransporte'] = $_POST['sl_becaTransporte'];
+        $datos['tf_poliza'] = $_POST['tf_poliza'];
+        $datos['tf_polizaVence'] = $_POST['tf_polizaVence'];
+        $datos['anio'] = $this->model->anio();
+        
+        $this->model->guardarExpedienteEstudiante($datos);
+        
+        $this->expedientesEstudiantes();
+    }
+
+    function imprimirExpedienteEstudiante($cedulaEstudiante) {
+        //Muestro documento para impresion
+        $this->view->anio = $this->model->anio();
+        $this->view->director = $this->model->director();
+        $this->view->consultaDatosEstudiante = $this->model->consultaDatosEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de las enfermedades del Estudiante */
+        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
+        
+        /* Cargo informacion de la adecuacio del Estudiante */
+        $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de Becas */
+        $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion del encargado Legal del Estudiante */
+        $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);
+
+        /* Cargo informacion de la Madre del Estudiante */
+        $this->view->madreEstudiante = $this->model->madreEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion del Padre del Estudiante */
+        $this->view->padreEstudiante = $this->model->padreEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la Persona en caso de Emergencia del Estudiante */
+        $this->view->personaEmergenciaEstudiante = $this->model->personaEmergenciaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la poliza del Estudiante */
+        $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de la Condicion de Matricula */
+        $this->view->infoCondicionMatricula = $this->model->infoCondicionMatricula($cedulaEstudiante);
+
+        /* Cargo informacion de la especialidad del Estudiante */
+        $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);
+
+        /* Cargo informacion de Adelanto/Arrastre */
+        $this->view->infoAdelanta = $this->model->infoAdelanta($cedulaEstudiante);
+        
+        $this->view->render('persona/imprimirExpedienteEstudiante');
+    }
 }
 ?>
