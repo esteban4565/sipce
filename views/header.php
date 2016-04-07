@@ -74,7 +74,7 @@
                           <?php if (Session::get('tipoUsuario') <= 2){ ?>
                           <li><a href="<?php echo URL; ?>persona/datosEstudiantes">Datos Generales Estudiantes</a></li>
                           <li><a href="<?php echo URL; ?>persona/nuevoIngresoTardio">Nuevo Ingreso</a></li>
-                          <li><a href="<?php echo URL; ?>persona/expedientesEstudiantes">Expedientes de Ingreso</a></li>
+                          <li><a href="<?php echo URL; ?>persona/expedientesEstudiantes">Expedientes de Estudiantes</a></li>
                           <?php }?>
                         </ul>
                       </li>
