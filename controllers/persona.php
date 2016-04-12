@@ -478,10 +478,10 @@ class Persona extends Controllers {
         $datos['tf_telcelular'] = $_POST['tf_telcelular'];
         $datos['tf_email'] = $_POST['tf_email'];
         $datos['tf_domicilio'] = $_POST['tf_domicilio'];
-        $datos['tf_provincias'] = $_POST['tf_provincias'];
-        $datos['tf_cantones'] = $_POST['tf_cantones'];
-        $datos['tf_distritos'] = $_POST['tf_distritos'];
-        $datos['tf_primaria'] = $_POST['tf_primaria'];
+        $datos['tf_provincias'] = $_POST['tf_provinciasExpediente'];
+        $datos['tf_cantones'] = $_POST['tf_cantonesExpediente'];
+        $datos['tf_distritos'] = $_POST['tf_distritosExpediente'];
+        $datos['tf_primaria'] = $_POST['tf_primariaExpe'];
         $datos['sel_enfermedad'] = $_POST['sel_enfermedad'];
         $datos['tf_enfermedadDescripcion'] = $_POST['tf_enfermedadDescripcion'];
         
@@ -493,7 +493,7 @@ class Persona extends Controllers {
         $datos['tf_telcelularEncargado'] = $_POST['tf_telcelularEncargado'];
         $datos['tf_ocupacionEncargado'] = $_POST['tf_ocupacionEncargado'];
         $datos['tf_emailEncargado'] = $_POST['tf_emailEncargado'];
-        $datos['sel_parentesco'] = $_POST['sel_parentesco'];
+        $datos['sel_parentesco'] = $_POST['sel_parentescoExpediente'];
         
         $datos['tf_cedulaMadre'] = strtoupper($_POST['tf_cedulaMadre']);
         $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre']);
@@ -515,7 +515,7 @@ class Persona extends Controllers {
         $datos['tf_nombrePersonaEmergencia'] = strtoupper($_POST['tf_nombrePersonaEmergencia']);
         $datos['tf_telHabitPersonaEmergencia'] = $_POST['tf_telHabitPersonaEmergencia'];
         $datos['tf_telcelularPersonaEmergencia'] = $_POST['tf_telcelularPersonaEmergencia'];
-        $datos['sel_parentescoCasoEmergencia'] = $_POST['sel_parentescoCasoEmergencia'];
+        $datos['sel_parentescoCasoEmergencia'] = $_POST['sel_parentescoCasoEmergenciaExpediente'];
         
         $datos['sl_nivelMatricular'] = $_POST['sl_nivelMatricular'];
         if ($_POST['sl_nivelMatricular'] > 9) {
@@ -576,6 +576,28 @@ class Persona extends Controllers {
         $this->view->infoAdelanta = $this->model->infoAdelanta($cedulaEstudiante);
         
         $this->view->render('persona/imprimirExpedienteEstudiante');
+    }
+    
+    //Carga las escuela//
+    function cargaEscuela($idDistrito)
+    {
+        $this->model->cargaEscuela($idDistrito);
+    }
+
+    function buscarEncargado($ced_encargado) {
+        $this->model->buscarEncargado($ced_encargado);
+    }
+
+    function buscarMadre($ced_madre) {
+        $this->model->buscarMadre($ced_madre);
+    }
+
+    function buscarPadre($ced_padre) {
+        $this->model->buscarPadre($ced_padre);
+    }
+
+    function buscarPersonaEmergencia($ced_personaEmergencia) {
+        $this->model->buscarPersonaEmergencia($ced_personaEmergencia);
     }
 }
 ?>

@@ -82,9 +82,9 @@
                 </div>
                 <!--L6 Provincia, Canton, Distrito (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_provincias" class="col-xs-2 control-label">Provincia:</label>
+                    <label for="tf_provinciasExpediente" class="col-xs-2 control-label">Provincia:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="tf_provincias" id="tf_provincias">
+                        <select class="form-control input-sm validate[required]" name="tf_provinciasExpediente" id="tf_provinciasExpediente">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
@@ -95,9 +95,9 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="tf_cantones" class="col-xs-2 control-label">Cantón:</label>
+                    <label for="tf_cantonesExpediente" class="col-xs-2 control-label">Cantón:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm validate[required]" name="tf_cantones" id="tf_cantones">
+                        <select class="form-control input-sm validate[required]" name="tf_cantonesExpediente" id="tf_cantonesExpediente">
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaCantones as $value) {
@@ -112,9 +112,9 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="tf_distritos" class="col-xs-2 control-label">Distrito:</label>
+                    <label for="tf_distritosExpediente" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="tf_distritos" id="tf_distritos">  
+                        <select  class="form-control input-sm validate[required]" name="tf_distritosExpediente" id="tf_distritosExpediente">  
                             <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaDistritos as $value) {
@@ -155,9 +155,9 @@
                 <!--L7 Primaria (Formulario Hugo)-->
                 <h4>Primaria</h4>
                 <div class="form-group">
-                    <label for="slt_provinciaPrim" class="col-xs-2 control-label">Provincia:</label>
+                    <label for="slt_provinciaPrimExpe" class="col-xs-2 control-label">Provincia:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm" name="slt_provinciaPrim" id="slt_provinciaPrim">
+                        <select class="form-control input-sm" name="slt_provinciaPrimExpe" id="slt_provinciaPrimExpe">
                             <option value="">SELECCIONE</option>
                             <?php
                             foreach ($this->consultaProvincias as $value) {
@@ -168,9 +168,9 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="slt_cantonPrim" class="col-xs-2 control-label">Canton:</label>
+                    <label for="slt_cantonPrimExpe" class="col-xs-2 control-label">Canton:</label>
                     <div class="col-xs-2">
-                        <select class="form-control input-sm" name="slt_cantonPrim" id="slt_cantonPrim">
+                        <select class="form-control input-sm" name="slt_cantonPrimExpe" id="slt_cantonPrimExpe">
                         <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaCantones as $value) {
@@ -185,9 +185,9 @@
                             ?>  
                         </select>
                     </div>
-                    <label for="slt_distritoPrim" class="col-xs-2 control-label">Distrito:</label>
+                    <label for="slt_distritoPrimExpe" class="col-xs-2 control-label">Distrito:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm" name="slt_distritoPrim" id="slt_distritoPrim">  
+                        <select  class="form-control input-sm" name="slt_distritoPrimExpe" id="slt_distritoPrimExpe">  
                         <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaDistritos as $value) {
@@ -206,9 +206,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="slt_primaria" class="col-xs-2 control-label">Escuela:</label>
+                    <label for="tf_primariaExpe" class="col-xs-2 control-label">Escuela:</label>
                     <div class="col-xs-3">
-                        <select  class="form-control input-sm" name="tf_primaria" id="tf_primaria" value='<?php echo $this->infoEstudiante[0]['escuela_procedencia']; ?>'> 
+                        <select  class="form-control input-sm" name="tf_primariaExpe" id="tf_primariaExpe" value='<?php echo $this->infoEstudiante[0]['escuela_procedencia']; ?>'> 
                         <option value="">Seleccione</option>
                             <?php
                             foreach ($this->consultaEscuelas as $value) {
@@ -234,7 +234,7 @@
                         <input type="text" class="text-uppercase form-control input-sm " name="tf_cedulaMadre" id="tf_cedulaMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['ced_madre']; ?>'/>
                     </div>
                     <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="buscarMadre" value="Buscar" />
+                        <input type="button" class="btn-sm btn-success" id="buscarMadreExpediente" value="Buscar" />
                     </div>
                 </div> 
                 <!--L14 Nombre de la Madre (Formulario Hugo)-->
@@ -272,7 +272,7 @@
                         <input type="text" class="text-uppercase form-control input-sm " name="tf_cedulaPadre" id="tf_cedulaPadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['ced_padre']; ?>'/>
                     </div>
                     <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="buscarPadre" value="Buscar" />
+                        <input type="button" class="btn-sm btn-success" id="buscarPadreExpediente" value="Buscar" />
                     </div>
                 </div> 
                 <!--L17 Nombre del Padre (Formulario Hugo)-->
@@ -305,13 +305,13 @@
                 <h4>Encargado Legal</h4>
                 <!--L9 Cedula y parentesco* del encargado legal (Formulario Hugo)-->
                 <div class="form-group"> 
-                    <label for="tf_parentesco" class="col-xs-2 control-label">Parentesco:</label>
+                    <label for="tf_parentescoExpediente" class="col-xs-2 control-label">Parentesco:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="sel_parentesco" id="sel_parentesco"> 
+                        <select  class="form-control input-sm validate[required]" name="sel_parentescoExpediente" id="sel_parentescoExpediente"> 
                                 <option value="">Seleccione</option> 
-                                <option value="Padre" <?php if ($this->encargadoLegal[0]['parentesco'] == 'Padre') echo 'selected'; ?>>Padre</option> 
-                                <option value="Madre" <?php if ($this->encargadoLegal[0]['parentesco'] == 'Madre') echo 'selected'; ?>>Madre</option>
-                                <option value="Otro" <?php if ($this->encargadoLegal[0]['parentesco'] == 'Otro') echo 'selected'; ?>>Otro</option>
+                                <option value="Padre" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Padre') echo 'selected'; ?>>Padre</option> 
+                                <option value="Madre" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Madre') echo 'selected'; ?>>Madre</option>
+                                <option value="Otro" <?php if ($this->encargadoLegal != null && $this->encargadoLegal[0]['parentesco'] == 'Otro') echo 'selected'; ?>>Otro</option>
                         </select>
                     </div>
                     <label for="tf_cedulaEncargado" class="col-xs-2 control-label">Identificación:</label>
@@ -319,7 +319,7 @@
                         <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEncargado" id="tf_cedulaEncargado" value='<?php if ($this->encargadoLegal != null) echo $this->encargadoLegal[0]['ced_encargado']; ?>'/>
                     </div>
                     <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="buscarEncargado" value="Buscar" />
+                        <input type="button" class="btn-sm btn-success" id="buscarEncargadoExpediente" value="Buscar" />
                     </div>
                 </div> 
                 <!--L10 Nombre del encargado legal (Formulario Hugo)-->
@@ -363,9 +363,9 @@
                 <h4>En caso de emergencia llamar a</h4>
                 <!--L19 Cedula Persona En Caso de Emergencia (Formulario Hugo)-->
                 <div class="form-group"> 
-                    <label for="tf_parentescoCasoEmergencia" class="col-xs-2 control-label">Parentesco:</label>
+                    <label for="tf_parentescoCasoEmergenciaExpediente" class="col-xs-2 control-label">Parentesco:</label>
                     <div class="col-xs-2">
-                        <select  class="form-control input-sm validate[required]" name="sel_parentescoCasoEmergencia" id="sel_parentescoCasoEmergencia"> 
+                        <select  class="form-control input-sm validate[required]" name="sel_parentescoCasoEmergenciaExpediente" id="sel_parentescoCasoEmergenciaExpediente"> 
                                 <option value="">Seleccione</option> 
                                 <option value="Padre" <?php if ($this->personaEmergenciaEstudiante != null && $this->personaEmergenciaEstudiante[0]['parentesco'] == 'Padre') echo 'selected'; ?>>Padre</option> 
                                 <option value="Madre" <?php if ($this->personaEmergenciaEstudiante != null && $this->personaEmergenciaEstudiante[0]['parentesco'] == 'Madre') echo 'selected'; ?>>Madre</option>
@@ -377,7 +377,7 @@
                         <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaPersonaEmergencia" id="tf_cedulaPersonaEmergencia" value='<?php if ($this->personaEmergenciaEstudiante != null) echo $this->personaEmergenciaEstudiante[0]['ced_personaEmergencia']; ?>'/>
                     </div>
                     <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="buscarPersonaEmergencia" value="Buscar" />
+                        <input type="button" class="btn-sm btn-success" id="buscarPersonaEmergenciaExpediente" value="Buscar" />
                     </div>
                 </div> 
                 <!--L20 Nombre de la Persona En Caso de Emergencia (Formulario Hugo)-->

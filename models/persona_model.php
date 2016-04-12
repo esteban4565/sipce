@@ -1105,6 +1105,48 @@ class Persona_Model extends Models{
                         . "AND p.IdCanton = c.IdCanton "
                         . "AND p.IdDistrito = d.IdDistrito");
     }
+    
+    //Carga las escuela//
+    function cargaEscuela($idDistrito){
+       $resultado = $this->db->select("SELECT * FROM sipce_escuelas WHERE IdDistrito = :idDistrito ORDER BY nombre", array('idDistrito' => $idDistrito));
+        echo json_encode($resultado); 
+    }
+
+    /* Retorna datos del Encargado */
+
+    public function buscarEncargado($ced_encargado) {
+        $resultado = $this->db->select("SELECT nombre,primerApellido,segundoApellido "
+                . "FROM tpersonapadron "
+                . "WHERE cedula = '" . $ced_encargado . "' ");
+        echo json_encode($resultado);
+    }
+
+    /* Retorna datos de la Madre */
+
+    public function buscarMadre($ced_madre) {
+        $resultado = $this->db->select("SELECT nombre,primerApellido,segundoApellido "
+                . "FROM tpersonapadron "
+                . "WHERE cedula = '" . $ced_madre . "' ");
+        echo json_encode($resultado);
+    }
+
+    /* Retorna datos de la Madre */
+
+    public function buscarPadre($ced_padre) {
+        $resultado = $this->db->select("SELECT nombre,primerApellido,segundoApellido "
+                . "FROM tpersonapadron "
+                . "WHERE cedula = '" . $ced_padre . "' ");
+        echo json_encode($resultado);
+    }
+
+    /* Retorna datos de la Persona encargada en caso de Emergencia */
+
+    public function buscarPersonaEmergencia($ced_personaEmergencia) {
+        $resultado = $this->db->select("SELECT nombre,primerApellido,segundoApellido "
+                . "FROM tpersonapadron "
+                . "WHERE cedula = '" . $ced_personaEmergencia . "' ");
+        echo json_encode($resultado);
+    }
 }
 
 ?>

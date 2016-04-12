@@ -41,7 +41,7 @@ $(function()
                                     
     //Carga los cantones//
     $("#tf_provincias").change(function(){
-        $("#tf_cantones,tf_#distritos").empty();
+        $("#tf_cantones,#tf_distritos").empty();
         var idP = $("#tf_provincias").val();
         $.getJSON('../persona/cargaCantones/'+ idP,function(canton){
             $('#tf_cantones').append('<option value="">Seleccione</option>');
@@ -60,6 +60,31 @@ $(function()
             $('#tf_distritos').append('<option value="">Seleccione</option>');
             for (var iD = 0; iD < distrito.length; iD++){
                 $("#tf_distritos").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
+            }
+        });
+    }); 
+                                    
+    //Carga los cantones para Editar Expediente//
+    $("#tf_provinciasExpediente").change(function(){
+        $("#tf_cantonesExpediente,#tf_distritosExpediente").empty();
+        var idP = $("#tf_provinciasExpediente").val();
+        $.getJSON('../cargaCantones/'+ idP,function(canton){
+            $('#tf_cantonesExpediente').append('<option value="">Seleccione</option>');
+            for (var iP = 0; iP < canton.length; iP++){
+                $("#tf_cantonesExpediente").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
+            }
+        });
+    });
+    
+    //Carga los distritos para Editar Expediente//
+    $("#tf_cantonesExpediente").change(function(){
+        $("#tf_distritosExpediente").empty();
+        var idD = $("#tf_cantonesExpediente").val();
+        //var ids = $(this).attr('rel');
+        $.getJSON('../cargaDistritos/'+ idD,function(distrito){
+            $('#tf_distritosExpediente').append('<option value="">Seleccione</option>');
+            for (var iD = 0; iD < distrito.length; iD++){
+                $("#tf_distritosExpediente").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
             }
         });
     }); 
@@ -478,6 +503,44 @@ $(function()
             $("#tf_primaria").append('<option value="0">--OTRA--</option>');
         });
     });
+    
+    //CARGA CANTONES PARA LA ESCUELA para Editar Expediente//
+    $("#slt_provinciaPrimExpe").change(function() {
+        $("#slt_cantonPrimExpe,#slt_distritoPrimExpe,#tf_primariaExpe").empty();
+        var idP = $("#slt_provinciaPrimExpe").val();
+        $.getJSON('../cargaCantones/' + idP, function(canton) {
+            $('#slt_cantonPrimExpe').append('<option value="">SELECCIONE</option>');
+            for (var iP = 0; iP < canton.length; iP++) {
+                $("#slt_cantonPrimExpe").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
+            }
+        });
+    });
+    
+    //CARGA DISTRITOS PARA LA ESCUELA para Editar Expediente//
+    $("#slt_cantonPrimExpe").change(function() {
+        $("#slt_distritoPrimExpe,#tf_primariaExpe").empty();
+        var idD = $("#slt_cantonPrimExpe").val();
+        $.getJSON('../cargaDistritos/' + idD, function(distrito) {
+            $('#slt_distritoPrimExpe').append('<option value="">SELECCIONE</option>');
+            for (var iD = 0; iD < distrito.length; iD++) {
+                $("#slt_distritoPrimExpe").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
+            }
+        });
+    });
+    
+    //CARGA LAS ESCUELAS para Editar Expediente//
+    $("#slt_distritoPrimExpe").change(function() {
+        $("#tf_primariaExpe").empty();
+        
+        var idD = $("#slt_distritoPrimExpe").val();
+        $.getJSON('../cargaEscuela/' + idD, function(escuela) {
+            $('#tf_primariaExpe').append('<option value="0">SELECCIONE</option>');
+            for (var iD = 0; iD < escuela.length; iD++) {
+              $("#tf_primariaExpe").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
+            }
+            $("#tf_primariaExpe").append('<option value="0">--OTRA--</option>');
+        });
+    });
 
     //Carga los datos del Estudiante//
     $("#buscarEstudiante").click(function(event) {
@@ -564,6 +627,109 @@ $(function()
         }
     });
 
+    //Carga los datos de de la Persona En Caso de Emergencia//
+    $("#buscarPersonaEmergencia_NI").click(function(event) {
+        var idD = $("#tf_cedulaPersonaEmergencia_NI").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+            $("#tf_ape1PersonaEmergencia_NI").val(resulBusqueda[0].primerApellido);
+            $("#tf_ape2PersonaEmergencia_NI").val(resulBusqueda[0].segundoApellido);
+            $("#tf_nombrePersonaEmergencia_NI").val(resulBusqueda[0].nombre);
+            $("#tf_telHabitPersonaEmergencia").val("");
+            $("#tf_telcelularPersonaEmergencia").val("");
+            }
+        });
+        }
+    });
+
+
+    //Carga los datos del Encargado Legal para Editar Expediente//
+    $("#buscarEncargadoExpediente").click(function(event) {
+        var idD = $("#tf_cedulaEncargado").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('../buscarEncargado/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Encargado").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Encargado").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombreEncargado").val(resulBusqueda[0].nombre);
+                $("#tf_telHabitEncargado").val("");
+                $("#tf_telcelularEncargado").val("");
+                $("#tf_ocupacionEncargado").val("");
+                $("#tf_emailEncargado").val("");
+            }
+        });
+        }
+    });
+
+    //Carga los datos de la Madre para Editar Expediente//
+    $("#buscarMadreExpediente").click(function(event) {
+        var idD = $("#tf_cedulaMadre").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('../buscarMadre/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Madre").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Madre").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombreMadre").val(resulBusqueda[0].nombre);
+                $("#tf_telCelMadre").val("");
+                $("#tf_ocupacionMadre").val("");
+            }
+        });
+        }
+    });
+
+    //Carga los datos del Padre para Editar Expediente//
+    $("#buscarPadreExpediente").click(function(event) {
+        var idD = $("#tf_cedulaPadre").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('../buscarPadre/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+                $("#tf_ape1Padre").val(resulBusqueda[0].primerApellido);
+                $("#tf_ape2Padre").val(resulBusqueda[0].segundoApellido);
+                $("#tf_nombrePadre").val(resulBusqueda[0].nombre);
+                $("#tf_telCelPadre").val("");
+                $("#tf_ocupacionPadre").val("");
+            }
+        });
+        }
+    });
+
+    //Carga los datos de de la Persona En Caso de Emergencia para Editar Expediente//
+    $("#buscarPersonaEmergenciaExpediente").click(function(event) {
+        var idD = $("#tf_cedulaPersonaEmergencia").val();
+        if (jQuery.isEmptyObject(idD)){
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        }else{
+        $.getJSON('../buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
+            if (jQuery.isEmptyObject(resulBusqueda)) {
+                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+            } else {
+            $("#tf_ape1PersonaEmergencia").val(resulBusqueda[0].primerApellido);
+            $("#tf_ape2PersonaEmergencia").val(resulBusqueda[0].segundoApellido);
+            $("#tf_nombrePersonaEmergencia").val(resulBusqueda[0].nombre);
+            $("#tf_telHabitPersonaEmergencia").val("");
+            $("#tf_telcelularPersonaEmergencia").val("");
+            }
+        });
+        }
+    });
+
     //Carga datos de Encargado Legal a Padre o Madre//
     $("#sel_parentesco_NI").change(function() {
         var parentesco = $("#sel_parentesco_NI").val();
@@ -608,23 +774,47 @@ $(function()
         }
     });
 
-    //Carga los datos de de la Persona En Caso de Emergencia//
-    $("#buscarPersonaEmergencia_NI").click(function(event) {
-        var idD = $("#tf_cedulaPersonaEmergencia_NI").val();
-        if (jQuery.isEmptyObject(idD)){
-            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-        }else{
-        $.getJSON('buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
-            if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-            } else {
-            $("#tf_ape1PersonaEmergencia_NI").val(resulBusqueda[0].primerApellido);
-            $("#tf_ape2PersonaEmergencia_NI").val(resulBusqueda[0].segundoApellido);
-            $("#tf_nombrePersonaEmergencia_NI").val(resulBusqueda[0].nombre);
-            $("#tf_telHabitPersonaEmergencia").val("");
-            $("#tf_telcelularPersonaEmergencia").val("");
+    //Carga datos de Encargado Legal a Padre o Madre para Editar Expediente//
+    $("#sel_parentescoExpediente").change(function() {
+        var parentesco = $("#sel_parentescoExpediente").val();
+        if (parentesco === 'Padre') {
+            $("#tf_cedulaEncargado").val($("#tf_cedulaPadre").val());
+            $("#tf_ape1Encargado").val($("#tf_ape1Padre").val());
+            $("#tf_ape2Encargado").val($("#tf_ape2Padre").val());
+            $("#tf_nombreEncargado").val($("#tf_nombrePadre").val());
+            $("#tf_telcelularEncargado").val($("#tf_telCelPadre").val());
+            $("#tf_ocupacionEncargado").val($("#tf_ocupacionPadre").val());
+        } else
+        {
+            if (parentesco === 'Madre') {
+                $("#tf_cedulaEncargado").val($("#tf_cedulaMadre").val());
+                $("#tf_ape1Encargado").val($("#tf_ape1Madre").val());
+                $("#tf_ape2Encargado").val($("#tf_ape2Madre").val());
+                $("#tf_nombreEncargado").val($("#tf_nombreMadre").val());
+                $("#tf_telcelularEncargado").val($("#tf_telCelMadre").val());
+                $("#tf_ocupacionEncargado").val($("#tf_ocupacionMadre").val());
             }
-        });
+        }
+    });
+
+    //Carga datos de Padre o Madre a PersonaEmergencia para Editar Expediente//
+    $("#sel_parentescoCasoEmergenciaExpediente").change(function() {
+        var parentesco = $("#sel_parentescoCasoEmergenciaExpediente").val();
+        if (parentesco === 'Padre') {
+            $("#tf_cedulaPersonaEmergencia").val($("#tf_cedulaPadre").val());
+            $("#tf_ape1PersonaEmergencia").val($("#tf_ape1Padre").val());
+            $("#tf_ape2PersonaEmergencia").val($("#tf_ape2Padre").val());
+            $("#tf_nombrePersonaEmergencia").val($("#tf_nombrePadre").val());
+            $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelPadre").val());
+        } else
+        {
+            if (parentesco === 'Madre') {
+                $("#tf_cedulaPersonaEmergencia").val($("#tf_cedulaMadre").val());
+                $("#tf_ape1PersonaEmergencia").val($("#tf_ape1Madre").val());
+                $("#tf_ape2PersonaEmergencia").val($("#tf_ape2Madre").val());
+                $("#tf_nombrePersonaEmergencia").val($("#tf_nombreMadre").val());
+                $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelMadre").val());
+            }
         }
     });
 
