@@ -77,13 +77,23 @@ $(function()
 
     //Carga los Estudiantes de una sección en especifico//
     $("#tf_Grupos").change(function() {
+        
+        //Activo la Animación para carga de datos
         $("#listaEstudiantes").empty();
+        document.getElementById("carga").style.display = 'block';
+        $('#listaEstudiantes').append('<tr><th colspan="4" class="text-center">Cargando...</th></tr>');
 
         var banderaGrupoB=0;
         var banderaGrupoC=0;
         var consulta = {nivelSeleccionado: $("#tf_Niveles").val(), grupoSeleccionado: $("#tf_Grupos").val()};
         
+        //Realizo la consulta
         $.post('../seccion/cargaSeccion/', consulta, function(seccionElegida, success) {
+        
+            //Escondo animación de carga
+            document.getElementById("carga").style.display = 'none';
+            $("#listaEstudiantes").empty();
+            
             var arraySalida="";
             arraySalida+='<thead><tr><td colspan="4" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
             arraySalida+='<tr><td colspan="4" class="text-center">&nbsp;</td></tr><tr><td colspan="4" class="text-center">Grupo A</td></tr>';

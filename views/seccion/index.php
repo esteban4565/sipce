@@ -32,6 +32,9 @@
 </div>
 
 <div class="row">
+    <div class="col-lg-7 col-xs-12" id="carga" style="display:none;">
+        <img src="<?php echo URL; ?>public/img/animacionCargando.svg" alt="Gif Cargando" class="img-rounded center-block img-responsive"/>
+    </div>
     <div class="col-lg-7 col-xs-12">
         <table class="table table-condensed" id="listaEstudiantes"></table>
     </div>

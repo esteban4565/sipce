@@ -117,11 +117,6 @@ $(function()
     //Carga los Grupos de un nivel en especifico//
     $("#tf_Niveles").change(function() {
         $("#tf_Grupos").empty();
-        $("#listaEstudiantes").empty();
-        document.getElementById("divBarraProgreso").style.display = 'block';
-        $('#listaEstudiantes').append('<tr><td>Cargando...</td></tr>');
-        $('#barraProgreso').attr('aria-valuenow',50);
-        
         var nivelSeleccionado = $("#tf_Niveles").val();
         $.getJSON('../persona/cargaGrupos/' + nivelSeleccionado, function(Gru) {
             $('#tf_Grupos').append('<option value="">Seleccione</option>');
@@ -169,10 +164,18 @@ $(function()
         var mm = fechaActual.getMonth()+1;
         var yyyy = fechaActual.getFullYear();
         
-        $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
-        $('#barraProgreso').attr('aria-valuenow',0);
-        document.getElementById("divBarraProgreso").style.display = 'none';
+        //Activo la Animación para carga de datos
+        document.getElementById("carga").style.display = 'block';
         $("#listaEstudiantes").empty();
+        $('#listaEstudiantes').append('<tr><th colspan="' + cantidadColumnas +'" class="text-center">Cargando...</th></tr>');
+        
+        //Realizo la consulta
+        $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
+        
+            //Escondo animación de carga
+            document.getElementById("carga").style.display = 'none';
+            $("#listaEstudiantes").empty();
+
             var arraySalida="";
             arraySalida+='<thead><tr><td colspan="' + cantidadColumnas +'" class="text-center">' + consulta.nivelSeleccionado + '°</td></tr>';
             arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th>';
@@ -191,9 +194,9 @@ $(function()
             if(chk_telefonosEncargado==1){
                 arraySalida+='<th>Nombre del Encargado</th><th>Tel. Casa Encargado</th><th>Cel. Encargado</th>';
             }
-            
+
             arraySalida+='</tr></thead><tbody>';
-            
+
             for (var linea = 0; linea < seccionElegida.length; linea++) {
                 arraySalida+='<tr><td>' + (linea + 1) + '</td><td>' +
                 seccionElegida[linea].cedula + '</td><td>' + seccionElegida[linea].apellido1 + ' ' +
@@ -234,7 +237,7 @@ $(function()
 
                 arraySalida+='</tr>';
             }
-            
+
             arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">Ultima Línea</td></tr></tbody>';
             $('#listaEstudiantes').append(arraySalida);
         }, "json");
@@ -242,10 +245,6 @@ $(function()
 
     //Carga los Estudiantes de una sección en especifico//
     $("#tf_Grupos").change(function() {
-        $("#listaEstudiantes").empty();
-        document.getElementById("divBarraProgreso").style.display = 'block';
-        $('#listaEstudiantes').append('<tr><td>Cargando...</td></tr>');
-        $('#barraProgreso').attr('aria-valuenow',50);
         
         var banderaGrupoB=0;
         var banderaGrupoC=0;
@@ -289,11 +288,18 @@ $(function()
         var mm = fechaActual.getMonth()+1;
         var yyyy = fechaActual.getFullYear();
         
+        //Activo la Animación para carga de datos
+        document.getElementById("carga").style.display = 'block';
+        $("#listaEstudiantes").empty();
+        $('#listaEstudiantes').append('<tr><th colspan="' + cantidadColumnas +'" class="text-center">Cargando...</th></tr>');
+        
+        //Realizo la consulta
         $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
-            $('#barraProgreso').attr('aria-valuenow',0);
-            document.getElementById("divBarraProgreso").style.display = 'none';
-            $("#listaEstudiantes").empty();
             
+            //Escondo animación de carga
+            document.getElementById("carga").style.display = 'none';
+            $("#listaEstudiantes").empty();
+
             var arraySalida="";
             arraySalida+='<thead><tr><td colspan="' + cantidadColumnas +'" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
             arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">&nbsp;</td></tr><tr><td colspan="' + cantidadColumnas +'" class="text-center">Grupo A</td></tr>';
@@ -392,8 +398,17 @@ $(function()
                         chk_poliza: chk_poliza, chk_domicilio: chk_domicilio, chk_telefonosEstu: chk_telefonosEstu,
                         chk_telefonosEncargado: chk_telefonosEncargado};
         
+        //Activo la Animación para carga de datos
+        document.getElementById("carga").style.display = 'block';
+        $('#listaEstudiantes').append('<tr><th colspan="' + cantidadColumnas +'" class="text-center">Cargando...</th></tr>');
+        
+        //Realizo la consulta
         $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
-        $("#listaEstudiantes").empty();
+            
+            //Escondo animación de carga
+            document.getElementById("carga").style.display = 'none';
+            $("#listaEstudiantes").empty();
+
             var arraySalida="";
             arraySalida+='<thead><tr><td colspan="' + cantidadColumnas +'" class="text-center">' + consulta.nivelSeleccionado + '°</td></tr>';
             arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th><th colspan="2" class="text-center">Acciones</th>';
@@ -416,7 +431,6 @@ $(function()
 
     //Carga los Estudiantes de una sección en especifico//
     $("#tf_GruposExpedientes").change(function() {
-        $("#listaEstudiantes").empty();
         
         var banderaGrupoB=0;
         var banderaGrupoC=0;
@@ -432,9 +446,17 @@ $(function()
                         chk_email: chk_email, chk_poliza: chk_poliza, chk_domicilio: chk_domicilio,
                         chk_telefonosEstu: chk_telefonosEstu, chk_telefonosEncargado: chk_telefonosEncargado};
         
+        //Activo la Animación para carga de datos
+        document.getElementById("carga").style.display = 'block';
+        $('#listaEstudiantes').append('<tr><th colspan="' + cantidadColumnas +'" class="text-center">Cargando...</th></tr>');
+        
+        //Realizo la consulta
         $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
-            $("#listaEstudiantes").empty();
             
+            //Escondo animación de carga
+            document.getElementById("carga").style.display = 'none';
+            $("#listaEstudiantes").empty();
+
             var arraySalida="";
             arraySalida+='<thead><tr><td colspan="' + cantidadColumnas +'" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
             arraySalida+='<tr><td colspan="' + cantidadColumnas +'" class="text-center">&nbsp;</td></tr><tr><td colspan="' + cantidadColumnas +'" class="text-center">Grupo A</td></tr>';
