@@ -109,6 +109,7 @@
                             <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculadosSinGrupo">Matriculados Sin Grupo Asignado</a></li>
                             <li><a href="<?php echo URL; ?>estadistica/matriculaInicialSegunEdad">Matricula Inicial Segun Edad</a></li>
                             <li><a href="<?php echo URL; ?>estadistica/matriculaInicialSegunRepitencia">Matricula Inicial Segun Repitencia</a></li>
+                            <li><a href="<?php echo URL; ?>estadistica/matriculaInicialSegunModalidad">Matricula Inicial Segun Modalidad</a></li>
                             <li><a href="<?php echo URL; ?>estadistica/lugarDeResidencia">Estadistica Lugar De Residencia</a></li>
                             <li><a href="<?php echo URL; ?>matricula/resumenCondicionEstudiantes">Resumen Condición Estudiantes</a></li>
                             <?php }?>

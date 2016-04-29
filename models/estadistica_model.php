@@ -6,6 +6,7 @@ class Estadistica_Model extends Models {
     //db es un objeto "Database" y posee las siguientes funciones: select, insert, update y delete
     public function __construct() {
         parent::__construct();
+        $this->anioActivo = 2016;
     }
 
     //Esta Estadistica se debe realizar una vez concluida la matricula
@@ -159,6 +160,53 @@ class Estadistica_Model extends Models {
         
         //Totalizo datos y cierro tabla
         $arraySalida .='<tr><td class="text-center">Total</td><td class="text-center">' . ($totalHeredia + $totalAlajuela + $totalCarrizal) . '</td><td class="text-center">' . ($totalHombresHeredia  + $totalHombresAlajuela  + $totalHombresCarrizal)  . '</td><td class="text-center">' . ($totalMujeresHeredia  + $totalMujeresAlajuela  + $totalMujeresCarrizal) . "</td></tr>";
+        $arraySalida.="</tbody></table><br>";
+        print_r($arraySalida);
+    }
+
+    //Esta Estadistica se debe realizar una vez concluida la matricula
+    public function consultSegunModalidad() {
+        $arraySalida='<table class="table table-condensed"><thead><tr><th>Modalidad y especialidad</th><th class="text-center" colspan="3">10°</th><th class="text-center" colspan="3">11°</th><th class="text-center" colspan="3">12°</th></tr>' .
+        $arraySalida='<tr><th> &nbsp; </th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th><th>Total</th><th>Hombres</th><th>Mujeres</th></tr></thead><tbody>';
+        
+        $consultaEspecialidades = $this->db->select("SELECT * "
+                                                . "FROM sipce_especialidad ");
+        
+        foreach ($consultaEspecialidades as $especialidadIterante) {
+            $nombreEspecialidad=$especialidadIterante['nombreEspecialidad'];
+            $codEspecialidad=$especialidadIterante['codigoEspecialidad'];
+            $nivel=10;
+            $arraySalida .='<tr><td>' . $nombreEspecialidad . '</td>';
+            for($i=0;$i<=2;$i++){
+                $consultaEstudiantesSegunModalidad = $this->db->select("SELECT es.sexo "
+                                . "FROM sipce_estudiante as es, sipce_matricularatificacion as mr, sipce_especialidad_estudiante as ee "
+                                . "WHERE es.cedula = mr.ced_estudiante "
+                                . "AND es.cedula = ee.ced_estudiante "
+                                . "AND mr.anio = " . $this->anioActivo . " "
+                                . "AND mr.nivel = " . ($nivel + $i) . " "
+                                . "AND ee.cod_especialidad = " . $codEspecialidad . " ");
+                $total=0;
+                $totalMujeres=0;
+                $totalHombres=0;
+
+                foreach ($consultaEstudiantesSegunModalidad as $value) {
+                     if($value['sexo']==0){
+                         $totalMujeres++;
+                     }
+                     if($value['sexo']==1){
+                         $totalHombres++;
+                     }
+                     $total++;
+                }
+                if($total !=0 ){
+                    $arraySalida .='<td class="warning text-center">' . $total . '</td><td class="warning text-center">' . $totalHombres . '</td><td class="warning text-center">' . $totalMujeres . "</td>";
+                }else{
+                    $arraySalida .= '<td class="text-center">' . $total . '</td><td class="text-center">' . $totalHombres . '</td><td class="text-center">' . $totalMujeres . '</td>';
+                }
+            }
+            $arraySalida .='</tr>';
+        }
+        
         $arraySalida.="</tbody></table><br>";
         print_r($arraySalida);
     }

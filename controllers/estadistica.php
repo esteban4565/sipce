@@ -57,4 +57,15 @@ class Estadistica extends Controllers {
         $this->view->render('footer');
     }
 
+    public function matriculaInicialSegunModalidad() {
+        
+        $this->view->title = 'Matricula Inicial, Segun Modalidad';
+
+        //Se manda a ejecutar el header, contenido principal (views/horario/index) y el footer
+        $this->view->render('header');
+        $this->model->consultSegunModalidad();
+        $this->view->render('estadistica/matriculaInicialSegunModalidad');
+        $this->view->render('footer');
+    }
+
 }
