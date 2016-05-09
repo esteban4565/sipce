@@ -209,68 +209,53 @@ class Persona_Model extends Models{
     //Carga la lista de los estudiantes de una seccion en especifico
     public function cargaSeccion($consulta) {
         //campos
-        $consultaSQL="SELECT e.cedula,e.nombre,e.apellido1,e.apellido2";
+        $consultaSQL="SELECT sipce_estudiante.cedula, sipce_estudiante.nombre, sipce_estudiante.apellido1, sipce_estudiante.apellido2";
         if($consulta['grupoSeleccionado']!=0){
-            $consultaSQL.=",g.sub_grupo";
+            $consultaSQL.=",sipce_grupos.sub_grupo";
         }
         if($consulta['chk_email']==1){
-            $consultaSQL.=",e.email";
+            $consultaSQL.=",sipce_estudiante.email";
         }
         if($consulta['chk_poliza']==1){
-            $consultaSQL.=",p.numero_poliza,p.fecha_vence";
+            $consultaSQL.=",sipce_poliza.numero_poliza,sipce_poliza.fecha_vence";
         }
         if($consulta['chk_domicilio']==1){
-            $consultaSQL.=",e.domicilio,d.Distrito,c.Canton,pro.nombreProvincia";
+            $consultaSQL.=",sipce_estudiante.domicilio,sipce_distritos.Distrito,sipce_cantones.Canton,sipce_provincias.nombreProvincia";
         }
         if($consulta['chk_telefonosEstu']==1){
-            $consultaSQL.=",e.telefonoCasa,e.telefonoCelular";
+            $consultaSQL.=",sipce_estudiante.telefonoCasa,sipce_estudiante.telefonoCelular";
         }
         if($consulta['chk_telefonosEncargado']==1){
-            $consultaSQL.=",encar.nombre_encargado,encar.apellido1_encargado,encar.apellido2_encargado,encar.telefonoCasaEncargado,encar.telefonoCelularEncargado";
+            $consultaSQL.=",sipce_encargado.nombre_encargado,sipce_encargado.apellido1_encargado,sipce_encargado.apellido2_encargado,sipce_encargado.telefonoCasaEncargado,sipce_encargado.telefonoCelularEncargado";
         }
         
         //tablas
-        $consultaSQL.=" FROM sipce_estudiante as e,sipce_grupos as g";
+        $consultaSQL.=" FROM sipce_grupos LEFT JOIN db_sipce.sipce_estudiante ON sipce_grupos.ced_estudiante = sipce_estudiante.cedula";
         if($consulta['chk_poliza']==1){
-            $consultaSQL.=",sipce_poliza as p";
+            $consultaSQL.=" LEFT JOIN db_sipce.sipce_poliza ON sipce_estudiante.cedula = sipce_poliza.ced_estudiante";
         }
         if($consulta['chk_domicilio']==1){
-            $consultaSQL.=",sipce_distritos as d,sipce_cantones as c,sipce_provincias as pro";
+            $consultaSQL.=" LEFT JOIN db_sipce.sipce_cantones ON sipce_estudiante.IdCanton = sipce_cantones.IdCanton LEFT JOIN db_sipce.sipce_distritos ON sipce_estudiante.IdDistrito = sipce_distritos.IdDistrito LEFT JOIN db_sipce.sipce_provincias ON sipce_estudiante.IdProvincia = sipce_provincias.IdProvincia ";
         }
         if($consulta['chk_telefonosEncargado']==1){
-            $consultaSQL.=",sipce_encargado as encar";
+            $consultaSQL.=" LEFT JOIN db_sipce.sipce_encargado ON sipce_estudiante.cedula = sipce_encargado.ced_estudiante";
         }
         
         //restricciones
-        $consultaSQL.=" WHERE e.cedula = g.ced_estudiante";
-        if($consulta['chk_poliza']==1){
-            $consultaSQL.=" AND e.cedula = p.ced_estudiante";
-        }
-        $consultaSQL.=" AND e.tipoUsuario = 4";
-        $consultaSQL.=" AND g.nivel = ".$consulta['nivelSeleccionado'];
+        $consultaSQL.=" WHERE ((sipce_grupos.nivel = " . $consulta['nivelSeleccionado'] . ") AND (sipce_grupos.annio = " . $this->anioActivo . ")";
+        
         if($consulta['grupoSeleccionado']!=0){
-            $consultaSQL.=" AND g.grupo = ".$consulta['grupoSeleccionado'];
-        }
-        if($consulta['chk_domicilio']==1){
-            $consultaSQL.=" AND d.IdDistrito = e.IdDistrito "
-                         . "AND c.IdCanton = e.IdCanton "
-                         . "AND pro.IdProvincia = e.IdProvincia "
-                         . "AND d.IdCanton = c.IdCanton "
-                         . "AND c.IdProvincia = pro.IdProvincia";
-        }
-        if($consulta['chk_telefonosEncargado']==1){
-            $consultaSQL.=" AND e.cedula = encar.ced_estudiante";
+            $consultaSQL.=" AND (sipce_grupos.grupo = " . $consulta['grupoSeleccionado'] . ")";
         }
         
-        $consultaSQL.=" AND g.annio = ".$this->anioActivo;
+        $consultaSQL.=" )";
         
         //orden
         $consultaSQL.=" ORDER BY ";
         if($consulta['grupoSeleccionado']!=0){
-            $consultaSQL.="g.sub_grupo,";
+            $consultaSQL.="sipce_grupos.sub_grupo ASC,";
         }
-        $consultaSQL.="e.apellido1,e.apellido2,e.nombre";
-        
+        $consultaSQL.="sipce_estudiante.apellido1 ASC, sipce_estudiante.apellido2 ASC, sipce_estudiante.nombre ASC";
         //consulta
         $resultado2 = $this->db->select($consultaSQL);
         echo json_encode($resultado2);

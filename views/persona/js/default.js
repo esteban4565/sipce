@@ -207,15 +207,20 @@ $(function()
                 }
 
                 if(chk_poliza==1){
-                    var mes = seccionElegida[linea].fecha_vence.substring(5,7);
-                    var anio = seccionElegida[linea].fecha_vence.substring(0,4);
-                    console.log(anio);
-                    if(mes<=mm && anio<=yyyy){
-                        arraySalida+='<td bgcolor="#FF0000">' + seccionElegida[linea].numero_poliza + '</td>';
-                        arraySalida+='<td bgcolor="#FF0000">' + seccionElegida[linea].fecha_vence + '</td>';
-                    }else{
-                        arraySalida+='<td>' + seccionElegida[linea].numero_poliza + '</td>';
-                        arraySalida+='<td>' + seccionElegida[linea].fecha_vence + '</td>';
+                    if(seccionElegida[linea].fecha_vence !=null){
+                        var mes = seccionElegida[linea].fecha_vence.substring(5,7);
+                        var anio = seccionElegida[linea].fecha_vence.substring(0,4);
+                        if(mes<=mm && anio<=yyyy){
+                            arraySalida+='<td bgcolor="#FF0000">' + seccionElegida[linea].numero_poliza + '</td>';
+                            arraySalida+='<td bgcolor="#FF0000">' + seccionElegida[linea].fecha_vence + '</td>';
+                        }else{
+                            arraySalida+='<td>' + seccionElegida[linea].numero_poliza + '</td>';
+                            arraySalida+='<td>' + seccionElegida[linea].fecha_vence + '</td>';
+                        }
+                    }
+                    else{
+                    arraySalida+='<td bgcolor="#FF0000"> - </td>';
+                    arraySalida+='<td bgcolor="#FF0000"> - </td>';
                     }
                 }
 
@@ -225,14 +230,30 @@ $(function()
                 }
 
                 if(chk_telefonosEstu==1){
-                arraySalida+='<td>' + seccionElegida[linea].telefonoCasa.substr(0, 4) + '-' + seccionElegida[linea].telefonoCasa.substr(4) + '</td>';
-                arraySalida+='<td>' + seccionElegida[linea].telefonoCelular.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelular.substr(4) + '</td>';
+                    if(seccionElegida[linea].telefonoCasa !=null){
+                        arraySalida+='<td>' + seccionElegida[linea].telefonoCasa.substr(0, 4) + '-' + seccionElegida[linea].telefonoCasa.substr(4) + '</td>';
+                    }else{
+                        arraySalida+='<td> - </td>';
+                    }
+                    if(seccionElegida[linea].telefonoCelular !=null){
+                        arraySalida+='<td>' + seccionElegida[linea].telefonoCelular.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelular.substr(4) + '</td>';
+                    }else{
+                        arraySalida+='<td> - </td>';
+                    }
                 }
 
                 if(chk_telefonosEncargado==1){
                 arraySalida+='<td>' + seccionElegida[linea].nombre_encargado + ' ' + seccionElegida[linea].apellido1_encargado + ' ' + seccionElegida[linea].apellido2_encargado + '</td>';
-                arraySalida+='<td>' + seccionElegida[linea].telefonoCasaEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCasaEncargado.substr(4) + '</td>';
-                arraySalida+='<td>' + seccionElegida[linea].telefonoCelularEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelularEncargado.substr(4) + '</td>';
+                    if(seccionElegida[linea].telefonoCasaEncargado !=null){
+                        arraySalida+='<td>' + seccionElegida[linea].telefonoCasaEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCasaEncargado.substr(4) + '</td>';
+                    }else{
+                        arraySalida+='<td> - </td>';
+                    }
+                    if(seccionElegida[linea].telefonoCelularEncargado !=null){
+                        arraySalida+='<td>' + seccionElegida[linea].telefonoCelularEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelularEncargado.substr(4) + '</td>';
+                    }else{
+                        arraySalida+='<td> - </td>';
+                    }
                 }
 
                 arraySalida+='</tr>';
