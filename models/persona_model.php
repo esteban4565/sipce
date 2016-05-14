@@ -230,15 +230,15 @@ class Persona_Model extends Models{
         }
         
         //tablas
-        $consultaSQL.=" FROM sipce_grupos LEFT JOIN db_sipce.sipce_estudiante ON sipce_grupos.ced_estudiante = sipce_estudiante.cedula";
+        $consultaSQL.=" FROM sipce_grupos LEFT JOIN " . DB_NAME . ".sipce_estudiante ON sipce_grupos.ced_estudiante = sipce_estudiante.cedula";
         if($consulta['chk_poliza']==1){
-            $consultaSQL.=" LEFT JOIN db_sipce.sipce_poliza ON sipce_estudiante.cedula = sipce_poliza.ced_estudiante";
+            $consultaSQL.=" LEFT JOIN " . DB_NAME . ".sipce_poliza ON sipce_estudiante.cedula = sipce_poliza.ced_estudiante";
         }
         if($consulta['chk_domicilio']==1){
-            $consultaSQL.=" LEFT JOIN db_sipce.sipce_cantones ON sipce_estudiante.IdCanton = sipce_cantones.IdCanton LEFT JOIN db_sipce.sipce_distritos ON sipce_estudiante.IdDistrito = sipce_distritos.IdDistrito LEFT JOIN db_sipce.sipce_provincias ON sipce_estudiante.IdProvincia = sipce_provincias.IdProvincia ";
+            $consultaSQL.=" LEFT JOIN " . DB_NAME . ".sipce_cantones ON sipce_estudiante.IdCanton = sipce_cantones.IdCanton LEFT JOIN " . DB_NAME . ".sipce_distritos ON sipce_estudiante.IdDistrito = sipce_distritos.IdDistrito LEFT JOIN " . DB_NAME . ".sipce_provincias ON sipce_estudiante.IdProvincia = sipce_provincias.IdProvincia ";
         }
         if($consulta['chk_telefonosEncargado']==1){
-            $consultaSQL.=" LEFT JOIN db_sipce.sipce_encargado ON sipce_estudiante.cedula = sipce_encargado.ced_estudiante";
+            $consultaSQL.=" LEFT JOIN " . DB_NAME . ".sipce_encargado ON sipce_estudiante.cedula = sipce_encargado.ced_estudiante";
         }
         
         //restricciones
