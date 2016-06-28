@@ -600,6 +600,38 @@ class Matricula extends Controllers {
         $this->view->render('matricula/resumenCondicionEstudiantes');
         $this->view->render('footer');
     }
+
+    //Metodo que brinda la opcion de Asignar Seccion a los estudiantes matriculados//
+    function asignarSeccion($ced_estudiante) {
+        $this->view->datosEstudiante = $this->model->datosEstudiante($ced_estudiante);
+        $this->view->consultaNiveles = $this->model->consultaNiveles();
+        $this->view->render('header');
+        $this->view->render('matricula/asignarSeccion');
+        $this->view->render('footer');
+    }
+    
+    /* Carga los Grupos de un nivel en especifico*/
+    function cargaGrupos($idNivel) {
+        $this->model->cargaGrupos($idNivel);
+    }
+    
+    /* Carga los SubGrupos de un nivel en especifico*/
+    function cargaSubGrupos() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['grupoSeleccionado'] = $_POST['grupoSeleccionado'];
+        $this->model->cargaSubGrupos($consulta);
+    }
+    
+    /* Carga los SubGrupos de un nivel en especifico*/
+    function guardarAsignarSeccion() {
+        $datos = array();      
+        $datos['ced_estudiante'] = $_POST['ced_estudiante'];
+        $datos['nivel'] = $_POST['sl_NivelesAsignarSeccion'];
+        $datos['grupo'] = $_POST['sl_GruposAsignarSeccion'];
+        $datos['subGrupo'] = $_POST['sl_SubGruposAsignarSeccion'];
+        $this->model->guardarAsignarSeccion($datos);
+    }
 }
 
 ?>

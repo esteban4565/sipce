@@ -16,6 +16,7 @@
                 <th>Genero</th>
                 <th>Fecha Nacimiento</th>
                 <th>Domicilio</th>
+                <th colspan="2" class="text-center">Acción</th>
             </tr>
             <?php
             $con = 1;
@@ -54,6 +55,12 @@
                 echo '</td>';
                 echo '<td>';
                 echo $value['domicilio'];
+                echo '</td>';
+                echo '<td>';
+                echo '<a class="btn-sm btn-warning" href="asignarSeccion/' . $value['cedula'] . '">Asignar Sección</a>';
+                echo '</td>';
+                echo '<td>';
+                echo '<a class="btn-sm btn-danger" href="eliminarMatricula/' . $value['cedula'] . '">Eliminar Matrícula</a>';
                 echo '</td>';
                 echo '</tr>';
                 $con++;

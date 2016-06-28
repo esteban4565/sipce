@@ -1313,6 +1313,17 @@ class Matricula_Model extends Models {
                         . "AND g.annio = " . $this->anioActivo . " "
                         . "AND g.grupo = 0 "
                         . "ORDER BY g.nivel");
+    }    
+    
+
+    /* Retorna la informacion del Estudiante para Asignar Seccion*/
+
+    public function datosEstudiante($cedulaEstudiante) {
+        return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,g.nivel "
+                        . "FROM sipce_estudiante as p,sipce_grupos as g "
+                        . "WHERE p.cedula = g.ced_estudiante "
+                        . "AND g.annio = '" . $this->anioActivo . "' "
+                        . "AND p.cedula = '" . $cedulaEstudiante . "' ");
     }
     
     /* Carga todas los Niveles */
@@ -1322,6 +1333,58 @@ class Matricula_Model extends Models {
                                 . "FROM sipce_grupos "
                                 . "WHERE annio = ".$this->anioActivo." "
                                 . "ORDER BY nivel");
+    }
+
+    /* Carga todos los Grupos de un Nivel */
+
+    public function cargaGrupos($idNivel) {
+        $resultado = $this->db->select("SELECT DISTINCT grupo FROM sipce_grupos "
+                                . "WHERE nivel = :nivel "
+                                . "AND annio = ".$this->anioActivo." "
+                                . "AND grupo <> 0 "
+                                . "ORDER BY grupo", array('nivel' => $idNivel));
+        echo json_encode($resultado);
+    }
+
+    /* Carga todos los SubGrupos de una Sección */
+
+    public function cargaSubGrupos($consulta) {
+        $resultado = $this->db->select("SELECT DISTINCT sub_grupo FROM sipce_grupos "
+                                . "WHERE nivel = :nivel "
+                                . "AND grupo = :grupo "
+                                . "AND annio = ".$this->anioActivo." "
+                                . "ORDER BY sub_grupo", array('nivel' => $consulta['nivelSeleccionado'],
+                                                          'grupo' => $consulta['grupoSeleccionado']));
+        echo json_encode($resultado);
+    }
+
+    /* Carga todos los Grupos de un Nivel */
+
+    public function guardarAsignarSeccion($datos) {
+    //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
+        $consultaExistenciaNivel = $this->db->select("SELECT * FROM `sipce_grupos` "
+                                                    ."WHERE `ced_estudiante` = '".$datos['ced_estudiante']."' "
+                                                    ."AND `annio` = ".$this->anioActivo);
+
+//    print_r($consultaExistenciaNivel);
+//    die;
+        if ($consultaExistenciaNivel != null) {
+            //Actualizo nivel del Estudiante
+            $datosNivel = array(
+                'nivel' => $datos['nivel'],
+                'grupo' => $datos['grupo'],
+                'sub_grupo' => $datos['subGrupo']);
+
+            $this->db->update('sipce_grupos', $datosNivel, "`ced_estudiante` = '{$datos['ced_estudiante']}' AND `annio` = ".$this->anioActivo);
+        } else {
+            //Sino Inserto datos en sipce_grupos
+            $this->db->insert('sipce_grupos', array(
+                'ced_estudiante' => $datos['ced_estudiante'],
+                'nivel' => $datos['nivel'],
+                'grupo' => $datos['grupo'],
+                'subGrupo' => $datos['subGrupo'],
+                'annio' => $this->anioActivo));
+        }
     }
 
     //Metodo que brinda una estadistica por nivel sobre la condion final de los estudiantes matriculados//
