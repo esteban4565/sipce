@@ -8,10 +8,9 @@
             <tr>
                 <th>Identificación</th>
                 <th>Nombre del estudiante</th>
-                <th>Nivel</th>
                 <th>Genero</th>
                 <th>Fecha Nacimiento</th>
-                <th>Domicilio</th>
+                <th>Sección Actual</th>
             </tr>
             <?php
             foreach ($this->datosEstudiante as $lista => $value) {
@@ -21,9 +20,6 @@
                 echo '</td>';
                 echo '<td>';
                 echo $value['apellido1'] . ' ' . $value['apellido2'] . ' ' . $value['nombre'];
-                echo '</td>';
-                echo '<td>';
-                echo $value['nivel'];
                 echo '</td>';
                 echo '<td>';
                 if($value['sexo']==0){
@@ -36,7 +32,7 @@
                 echo $value['fechaNacimiento'];
                 echo '</td>';
                 echo '<td>';
-                echo $value['domicilio'];
+                echo $value['nivel'] . "-" . $value['grupo'] . " " . $value['sub_grupo'];
                 echo '</td>';
                 echo '</tr>';
             }
@@ -48,7 +44,7 @@
     </div>
     
     <div class="col-xs-12">
-        <form id="MyForm" action="<?php echo URL; ?>matricula/guardarAsignarSeccion" method="POST" enctype="multipart/form-data" class="form-horizontal">
+        <form id="MyForm" action="<?php echo URL; ?>seccion/guardarAsignarSeccion" method="POST" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group">
                  <label for="sl_NivelesAsignarSeccion" class="col-xs-2 control-label">Nivel:</label>
                  <div class="col-xs-2">

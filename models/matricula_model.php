@@ -153,7 +153,7 @@ class Matricula_Model extends Models {
     public function listaEstudiantes() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
                         . "FROM sipce_estudiante, sipce_grupos "
-                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
+                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE annio = " . ($this->anioActivo + 1) . ") "
                         . "AND cedula = ced_estudiante "
                         . "AND tipoUsuario = 4 "
                         . "AND annio = ".$this->anioActivo." "
@@ -165,7 +165,7 @@ class Matricula_Model extends Models {
     public function listaEstuSetimo() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2 "
                         . "FROM sipce_prematricula "
-                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
+                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE annio = " . ($this->anioActivo + 1) . ") "
                         . "ORDER BY apellido1,apellido2");
     }
 
@@ -1306,7 +1306,7 @@ class Matricula_Model extends Models {
     //Metodo para buscar estudiantes matriculados, pero sin Seccion-Grupo asignada//
     public function estudiantesMatriculadosSinGrupo() {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
-                        . "p.telefonoCasa,p.telefonoCelular,p.domicilio,g.nivel, m.condicion "
+                        . "p.telefonoCasa,p.telefonoCelular,g.nivel, m.condicion "
                         . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_matricularatificacion as m "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = m.ced_estudiante "
@@ -1319,7 +1319,7 @@ class Matricula_Model extends Models {
     /* Retorna la informacion del Estudiante para Asignar Seccion*/
 
     public function datosEstudiante($cedulaEstudiante) {
-        return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,g.nivel "
+        return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,p.domicilio,g.nivel "
                         . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND g.annio = '" . $this->anioActivo . "' "
@@ -1358,7 +1358,7 @@ class Matricula_Model extends Models {
         echo json_encode($resultado);
     }
 
-    /* Carga todos los Grupos de un Nivel */
+    /* Guardo la nueva seccion del estudiante*/
 
     public function guardarAsignarSeccion($datos) {
     //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
@@ -1366,8 +1366,6 @@ class Matricula_Model extends Models {
                                                     ."WHERE `ced_estudiante` = '".$datos['ced_estudiante']."' "
                                                     ."AND `annio` = ".$this->anioActivo);
 
-//    print_r($consultaExistenciaNivel);
-//    die;
         if ($consultaExistenciaNivel != null) {
             //Actualizo nivel del Estudiante
             $datosNivel = array(
@@ -1376,6 +1374,7 @@ class Matricula_Model extends Models {
                 'sub_grupo' => $datos['subGrupo']);
 
             $this->db->update('sipce_grupos', $datosNivel, "`ced_estudiante` = '{$datos['ced_estudiante']}' AND `annio` = ".$this->anioActivo);
+            $msj="Sección de Estudiante actualizada correctamente";
         } else {
             //Sino Inserto datos en sipce_grupos
             $this->db->insert('sipce_grupos', array(
@@ -1384,7 +1383,37 @@ class Matricula_Model extends Models {
                 'grupo' => $datos['grupo'],
                 'subGrupo' => $datos['subGrupo'],
                 'annio' => $this->anioActivo));
+            $msj="Se agrego nueva Sección del Estudiante";
         }
+        return $msj;
+    }
+
+    /* Elimino la Matricula del estudiante*/
+
+    public function eliminarMatricula($ced_estudiante) {
+    //Consulto si el estudiante 
+        $consultaExistenciaNivel = $this->db->select("SELECT * FROM `sipce_grupos` "
+                                                    ."WHERE `ced_estudiante` = '".$ced_estudiante."' "
+                                                    ."AND `annio` = ".$this->anioActivo);
+
+        if ($consultaExistenciaNivel != null) {
+            //Elimino la matricula del Estudiante
+            $sth = $this->db->prepare("DELETE FROM sipce_grupos "
+                                    . "WHERE ced_estudiante ='" . $ced_estudiante . "' " 
+                                    . "AND annio = ".$this->anioActivo);
+            $sth->execute();
+            
+            $sth2 = $this->db->prepare("DELETE FROM sipce_matricularatificacion "
+                                    . "WHERE ced_estudiante ='" . $ced_estudiante . "' " 
+                                    . "AND anio = ".$this->anioActivo);
+            $sth2->execute();
+            
+            $msj="Estudiante eliminado correctamente";
+        } else {
+            //Sino Imprimo error
+            $msj="Error, Estudiante no encontrado";
+        }
+        return $msj;
     }
 
     //Metodo que brinda una estadistica por nivel sobre la condion final de los estudiantes matriculados//

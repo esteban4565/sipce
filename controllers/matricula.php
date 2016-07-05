@@ -623,14 +623,25 @@ class Matricula extends Controllers {
         $this->model->cargaSubGrupos($consulta);
     }
     
-    /* Carga los SubGrupos de un nivel en especifico*/
+    /* Guardo la nueva seccion del estudiante*/
     function guardarAsignarSeccion() {
         $datos = array();      
         $datos['ced_estudiante'] = $_POST['ced_estudiante'];
         $datos['nivel'] = $_POST['sl_NivelesAsignarSeccion'];
         $datos['grupo'] = $_POST['sl_GruposAsignarSeccion'];
         $datos['subGrupo'] = $_POST['sl_SubGruposAsignarSeccion'];
-        $this->model->guardarAsignarSeccion($datos);
+        $this->view->msg = $this->model->guardarAsignarSeccion($datos);
+        $this->view->render('header');
+        $this->view->render('matricula/guardarAsignarSeccion');
+        $this->view->render('footer');
+    }
+
+    //Metodo que brinda la opcion de eliminar un estudiantes de la matricula //
+    function eliminarMatricula($ced_estudiante) {
+        $this->view->msg = $this->model->eliminarMatricula($ced_estudiante);
+        $this->view->render('header');
+        $this->view->render('matricula/eliminarMatricula');
+        $this->view->render('footer');
     }
 }
 

@@ -95,9 +95,9 @@ $(function()
             $("#listaEstudiantes").empty();
             
             var arraySalida="";
-            arraySalida+='<thead><tr><td colspan="4" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
-            arraySalida+='<tr><td colspan="4" class="text-center">&nbsp;</td></tr><tr><td colspan="4" class="text-center">Grupo A</td></tr>';
-            arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th><th>Condición</th></tr></thead><tbody>';
+            arraySalida+='<thead><tr><td colspan="5" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
+            arraySalida+='<tr><td colspan="5" class="text-center">&nbsp;</td></tr><tr><td colspan="5" class="text-center">Grupo A</td></tr>';
+            arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th><th>Condición</th><th class="text-center">Opciones</th></tr></thead><tbody>';
             
             for (var linea = 0; linea < seccionElegida.length; linea++) {
                 if(seccionElegida[linea].sub_grupo=='B' && banderaGrupoB==0){
@@ -111,10 +111,14 @@ $(function()
                 arraySalida+='<tr><td>' + (linea + 1) + '</td><td>' +
                         seccionElegida[linea].cedula + '</td><td>' + seccionElegida[linea].apellido1 + ' ' +
                         seccionElegida[linea].apellido2 + ' ' + seccionElegida[linea].nombre + '</td><td>' +
-                        seccionElegida[linea].condicion + '</td></tr>';
+                        seccionElegida[linea].condicion + '</td>';
+                if(userName<3){
+                    arraySalida+='<td><a class="btn-sm btn-primary" href="modificarSeccion/' + seccionElegida[linea].cedula + '">Modificar Sección</a></td></tr>';
+                }else{
+                    arraySalida+='<td>-</td></tr>';
+                }
             }
-            
-            arraySalida+='<tr><td colspan="4" class="text-center">Ultima Línea</td></tr></tbody>';
+            arraySalida+='<tr><td colspan="5" class="text-center">Ultima Línea</td></tr></tbody>';
             $('#listaEstudiantes').append(arraySalida);
         }, "json");
     });
@@ -346,4 +350,29 @@ $(function()
 		alert("Se produjo un error, verifique que la(s) zona(s) del nivel seleccionado posee algun(os) Distrito(s) y que esos Distrito(s) poseean estudiantes");
 	});
     });
+
+    //Carga los Grupos de un nivel en especifico//
+    $("#sl_NivelesAsignarSeccion").change(function() {
+        $("#sl_GruposAsignarSeccion").empty();
+        $("#sl_SubGruposAsignarSeccion").empty();
+        var nivelSeleccionado = $("#sl_NivelesAsignarSeccion").val();
+        $.getJSON('../cargaGrupos/' + nivelSeleccionado, function(Gru) {
+            $('#sl_GruposAsignarSeccion').append('<option value="">Seleccione</option>');
+            for (var iP = 0; iP < Gru.length; iP++) {
+                $("#sl_GruposAsignarSeccion").append('<option value="' + Gru[iP].grupo + '">' + Gru[iP].grupo + '</option>');
+            }
+        });
+     });
+
+    //Carga los SubGrupos de una Sección en especifico//
+    $("#sl_GruposAsignarSeccion").change(function() {
+        $("#sl_SubGruposAsignarSeccion").empty();
+        var consulta = {nivelSeleccionado: $("#sl_NivelesAsignarSeccion").val(), grupoSeleccionado: $("#sl_GruposAsignarSeccion").val()};
+        //Realizo la consulta
+        $.post('../cargaSubGrupos/', consulta, function(seccionElegida, success) {
+            for (var linea = 0; linea < seccionElegida.length; linea++) {
+                $("#sl_SubGruposAsignarSeccion").append('<option value="' + seccionElegida[linea].sub_grupo + '">' + seccionElegida[linea].sub_grupo + '</option>');
+            }
+        }, "json");
+     });
 });

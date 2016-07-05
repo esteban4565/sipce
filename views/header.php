@@ -63,7 +63,7 @@
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Secciones <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a href="<?php echo URL; ?>seccion/index">Index</a></li>
+                          <li><a href="<?php echo URL; ?>seccion/index">Ver Sección</a></li>
                         </ul>
                       </li>
                       <?php if (Session::get('tipoUsuario') <= 3){ ?>

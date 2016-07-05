@@ -187,6 +187,38 @@ class Seccion extends Controllers {
     {
         $this->model->consultaCantidadSeccionesZona($idDistrito);
     }
+    
+
+    /* Modificar Sección */
+    function modificarSeccion($ced_estudiante) {
+        $this->view->datosEstudiante = $this->model->datosEstudiante($ced_estudiante);
+        $this->view->consultaNiveles = $this->model->consultaNiveles();
+        $this->view->title = 'Modificar Sección';
+        $this->view->render('header');
+        $this->view->render('seccion/modificarSeccion');
+        $this->view->render('footer');
+    }
+    
+    /* Carga los SubGrupos de un nivel en especifico*/
+    function cargaSubGrupos() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['grupoSeleccionado'] = $_POST['grupoSeleccionado'];
+        $this->model->cargaSubGrupos($consulta);
+    }
+    
+    /* Guardo la nueva seccion del estudiante*/
+    function guardarAsignarSeccion() {
+        $datos = array();      
+        $datos['ced_estudiante'] = $_POST['ced_estudiante'];
+        $datos['nivel'] = $_POST['sl_NivelesAsignarSeccion'];
+        $datos['grupo'] = $_POST['sl_GruposAsignarSeccion'];
+        $datos['subGrupo'] = $_POST['sl_SubGruposAsignarSeccion'];
+        $this->view->msg = $this->model->guardarAsignarSeccion($datos);
+        $this->view->render('header');
+        $this->view->render('seccion/guardarAsignarSeccion');
+        $this->view->render('footer');
+    }
 
     function xhrInsert() {
         $this->model->xhrInsert();
