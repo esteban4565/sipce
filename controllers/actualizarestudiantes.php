@@ -166,4 +166,38 @@ class ActualizarEstudiantes extends Controllers {
         $this->view->render('footer');
     }
 
+    /* Cargo ausencias de estudiantes */
+    function cargarAusencias() {
+        $this->view->title = 'Cargar Ausencias Estudiantes';
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/cargarAusencias');
+        $this->view->render('footer');
+    }
+
+    /* Cargo ausencias de estudiantes */
+    function guardarAusencias() {
+        if ($_FILES['archivo']["error"] > 0)
+            {
+            echo "Error: " . $_FILES['archivo']['error'] . "<br>";
+            die;
+            }
+            else
+                {
+                $datosArchivo=array();
+                
+                $datosArchivo['Nombre'] = $_FILES['archivo']['name'];
+                $datosArchivo['Tipo'] = $_FILES['archivo']['type'];
+                $datosArchivo['Tamaño'] = ($_FILES["archivo"]["size"] / 1024);
+                $datosArchivo['CarpetaTemporal'] = $_FILES['archivo']['tmp_name'];
+                
+                /*Si deseo guardar el archivo en un lugar en especifico, utilizo move_uploaded_file*/
+                move_uploaded_file($_FILES['archivo']['tmp_name'],"../sipce/public/ausencias/" . $_FILES['archivo']['name']);
+                $this->view->mensaje = $this->model->guardarAusencias($datosArchivo);
+            }
+        $this->view->title = 'Cargar Ausencias Estudiantes';
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/msg');
+        $this->view->render('footer');
+    }
+
 }
