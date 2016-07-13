@@ -266,5 +266,66 @@ $(function()
         }
     });
     
+    //Metodos para Expedientes de Estudiantes//
+    $("#sl_NivelesAusencias").change(function() {
+        $("#sl_GruposAusencias").empty();
+        $("#listaEstudiantes").empty();
+        
+        var nivelSeleccionado = $("#sl_NivelesAusencias").val();
+        $.getJSON('cargaGrupos/' + nivelSeleccionado, function(Gru) {
+            $('#sl_GruposAusencias').append('<option value="">Seleccione</option>');
+            for (var iP = 0; iP < Gru.length; iP++) {
+                $("#sl_GruposAusencias").append('<option value="' + Gru[iP].grupo + '">' + Gru[iP].grupo + '</option>');
+            }
+        });
+    });
+
+    //Carga los Estudiantes de una sección en especifico//
+    $("#sl_GruposAusencias").change(function() {
+        
+        //Activo la Animación para carga de datos
+        $("#listaEstudiantes").empty();
+        document.getElementById("carga").style.display = 'block';
+        $('#listaEstudiantes').append('<tr><th colspan="4" class="text-center">Cargando...</th></tr>');
+
+        var banderaGrupoB=0;
+        var banderaGrupoC=0;
+        var consulta = {nivelSeleccionado: $("#sl_NivelesAusencias").val(), grupoSeleccionado: $("#sl_GruposAusencias").val()};
+        
+        //Realizo la consulta
+        $.post('cargaSeccion/', consulta, function(seccionElegida, success) {
+        
+            //Escondo animación de carga
+            document.getElementById("carga").style.display = 'none';
+            $("#listaEstudiantes").empty();
+            
+            var arraySalida="";
+            arraySalida+='<thead><tr><td colspan="5" class="text-center">' + consulta.nivelSeleccionado + '-' + consulta.grupoSeleccionado + '</td></tr>';
+            arraySalida+='<tr><td colspan="5" class="text-center">&nbsp;</td></tr><tr><td colspan="5" class="text-center">Grupo A</td></tr>';
+            arraySalida+='<tr><th>N°</th><th>Identificación</th><th>Nombre del Estudiante</th><th>Condición</th><th class="text-center">Opciones</th></tr></thead><tbody>';
+            
+            for (var linea = 0; linea < seccionElegida.length; linea++) {
+                if(seccionElegida[linea].sub_grupo=='B' && banderaGrupoB==0){
+                    arraySalida+='<tr><td colspan="4" class="text-center">&nbsp;</td></tr><tr><td colspan="4" class="text-center">Grupo B</td></tr>';
+                    banderaGrupoB=1;
+                }else if(seccionElegida[linea].sub_grupo=='C' && banderaGrupoC==0){
+                    arraySalida+='<tr><td colspan="4" class="text-center">&nbsp;</td></tr><tr><td colspan="4" class="text-center">Grupo C</td></tr>';
+                    banderaGrupoC=1;
+                }
+                
+                arraySalida+='<tr><td>' + (linea + 1) + '</td><td>' +
+                        seccionElegida[linea].cedula + '</td><td>' + seccionElegida[linea].apellido1 + ' ' +
+                        seccionElegida[linea].apellido2 + ' ' + seccionElegida[linea].nombre + '</td><td>' +
+                        seccionElegida[linea].condicion + '</td>';
+                if(userName<3){
+                    arraySalida+='<td><a class="btn-sm btn-primary" href="consultarAusencias/' + seccionElegida[linea].cedula + '">Consultar Ausencias</a></td></tr>';
+                }else{
+                    arraySalida+='<td>-</td></tr>';
+                }
+            }
+            arraySalida+='<tr><td colspan="5" class="text-center">Ultima Línea</td></tr></tbody>';
+            $('#listaEstudiantes').append(arraySalida);
+        }, "json");
+    });
     
 });

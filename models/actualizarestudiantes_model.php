@@ -23,6 +23,7 @@ class ActualizarEstudiantes_Model extends Models {
         return $this->db->select('SELECT cedula, nombre, apellido1, apellido2 FROM sipce_personal WHERE sexo = :texto', array('texto' => '3'));
     }
 
+    //Metodo obsoleto, re-escribia datos del estudiantes con los datos del Padron
     public function actuEstu() {
         $consulta_cedulas = $this->db->select('SELECT cedula FROM  sipce_estudiante');
         
@@ -57,7 +58,7 @@ class ActualizarEstudiantes_Model extends Models {
     }
 
     public function actuPasswordEstu() {
-        $consulta_cedulasFechaNacimiento = $this->db->select('SELECT cedula FROM  sipce_estudiante');
+        $consulta_cedulasFechaNacimiento = $this->db->select('SELECT cedula FROM sipce_estudiante');
         
             //recorro el registro de la consulta, le asigno la cedula a la variable $estudiante (array)
             foreach ($consulta_cedulasFechaNacimiento as $key => $estudiante) {
@@ -660,79 +661,90 @@ class ActualizarEstudiantes_Model extends Models {
     /* Guarda Ausencias, Recorre archivo y Retorna Estudiantes No encontrados */
 
     public function guardarAusencias($datosArchivo) {
-        $ruta= "../sipce/public/ausencias/" . $datosArchivo['Nombre'];
+        //Ruta de carpetas en localhost
+        $ruta="../sipce";
+        
+        //Ruta de carpetas en hostinger.com
+        //$ruta="../public_html";
+        
+        $archivo= $ruta . "/public/ausencias/" . $datosArchivo['Nombre'];        
+        
+        //Variables estadisticas de salida
         $registrosActualizados=0;
         $registrosAgregados=0;
         $arraySalida="";
-        $codAsignaturas = array(16,23,17,14,18,15);
-        if (($gestor = fopen($ruta, "r")) !== FALSE) {
+        $numFila=1;
+        
+        //si se puede abrir el archivo lo recorro con un while
+        if (($gestor = fopen($archivo, "r")) !== FALSE) {
             while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
-                
-                $consultaExistenciaEstudiante = $this->db->select("SELECT * "
-                                                . "FROM sipce_grupos "
-                                                . "WHERE ced_estudiante = '" . $datos[0] . "' "
-                                                . "AND annio = " . $this->anioActivo . " ");
-                
-                if($consultaExistenciaEstudiante != null){
-                    
-                        //Estudios Sociales
-                        $resultado = $this->db->select("SELECT * "
-                                                        . "FROM sipce_ausencias "
-                                                        . "WHERE ced_estudiante = '" . $datos[0] . "' "
-                                                        . "AND annio = " . $this->anioActivo . " "
-                                                        . "AND cod_asignatura = " . $codAsignaturas[0] . " ");
-                        if($resultado != null){
-                            //actualizo datos de ausencias
-                            $posData = array(
-                                'cantidadTardias' => $datos[1],
-                                'cantidadAusenciasInjustificadas' => $datos[2],
-                                'cantidadAusenciasJustificadas' => $datos[3],
-                                'cantidadEscapes' => $datos[4]);
-                            $this->db->update('sipce_ausencias', $posData, "`ced_estudiante` = '{$datos[0]}' AND `annio` = {$this->anioActivo} AND `cod_asignatura` = {$codAsignaturas[0]}");
-                            $registrosActualizados++;
-                        }else{
-                            //Inserto datos de ausencias
-                            $this->db->insert('sipce_ausencias', array(
-                                  'ced_estudiante' => $datos[0],
-                                  'annio' => $this->anioActivo,
-                                  'cod_asignatura' => $codAsignaturas[0],
-                                  'cantidadTardias' => $datos[1],
-                                  'cantidadAusenciasInjustificadas' => $datos[2],
-                                  'cantidadAusenciasJustificadas' => $datos[3],
-                                  'cantidadEscapes' => $datos[4]));
-                            $registrosAgregados++;
-                        }
-                    
-                        //Educación Cívica
-                        $resultado = $this->db->select("SELECT * "
-                                                        . "FROM sipce_ausencias "
-                                                        . "WHERE ced_estudiante = '" . $datos[0] . "' "
-                                                        . "AND annio = " . $this->anioActivo . " "
-                                                        . "AND cod_asignatura = " . $codAsignaturas[1] . " ");
-                        if($resultado != null){
-                            //actualizo datos de ausencias
-                            $posData = array(
-                                'cantidadTardias' => $datos[5],
-                                'cantidadAusenciasInjustificadas' => $datos[6],
-                                'cantidadAusenciasJustificadas' => $datos[7],
-                                'cantidadEscapes' => $datos[8]);
-                            $this->db->update('sipce_ausencias', $posData, "`ced_estudiante` = '{$datos[0]}' AND `annio` = {$this->anioActivo} AND `cod_asignatura` = {$codAsignaturas[1]}");
-                            $registrosActualizados++;
-                        }else{
-                            //Inserto datos de ausencias
-                            $this->db->insert('sipce_ausencias', array(
-                                  'ced_estudiante' => $datos[0],
-                                  'annio' => $this->anioActivo,
-                                  'cod_asignatura' => $codAsignaturas[1],
-                                  'cantidadTardias' => $datos[5],
-                                  'cantidadAusenciasInjustificadas' => $datos[6],
-                                  'cantidadAusenciasJustificadas' => $datos[7],
-                                  'cantidadEscapes' => $datos[8]));
-                            $registrosAgregados++;
-                        }
-                }  else {
-                    $arraySalida.= "Estudiante no encontrado: " . $datos[0] . " en año: " . $this->anioActivo . "<br />";
+                //Variables Locales para avanzar dentro del vector (filas del archivo csv)
+                $ced_estudiante=0;
+                $cod_asignatura=1;
+                $tardias=2;
+                $ausenciasInjustificadas=3;
+                $ausenciasJustificadas=4;
+                $escapes=5;
+
+                //Primero verifico que la fila no venga vacia !="0"
+                if($datos[$ced_estudiante]!="0" && $datos[$ced_estudiante]!=null){
+                    //Luego verifico si el estudiante existe en la tabla grupos
+                    $consultaExistenciaEstudiante = $this->db->select("SELECT * "
+                                                    . "FROM sipce_grupos "
+                                                    . "WHERE ced_estudiante = '" . $datos[$ced_estudiante] . "' "
+                                                    . "AND annio = " . $this->anioActivo . " ");
+
+                    //Si existe procedo a actualizar ausencias, sino imprimo cedula para corroborar estudiante
+                    if($consultaExistenciaEstudiante != null){
+                        //Utilizo un for para avanzar en las once asignaturas
+                        for ($i=1; $i<=14; $i++){
+                            //Corroboro de que exista el codigo de asignatura !=0
+                            if($datos[$cod_asignatura]!=0){
+                                //Consulto si el estudiante ya posee un registro de asistencia de esa asignatura en especifico
+                                $consultaAsistencia = $this->db->select("SELECT * "
+                                                                . "FROM sipce_ausencias "
+                                                                . "WHERE ced_estudiante = '" . $datos[$ced_estudiante] . "' "
+                                                                . "AND annio = " . $this->anioActivo . " "
+                                                                . "AND cod_asignatura = " . $datos[$cod_asignatura] . " ");
+                                
+                                //Si ya existe actualizo datos, sino inserto el registro
+                                if($consultaAsistencia != null){
+                                    $posData = array(
+                                        'cantidadTardias' => $datos[$tardias],
+                                        'cantidadAusenciasInjustificadas' => $datos[$ausenciasInjustificadas],
+                                        'cantidadAusenciasJustificadas' => $datos[$ausenciasJustificadas],
+                                        'cantidadEscapes' => $datos[$escapes]);
+                                    $this->db->update('sipce_ausencias', $posData, "`ced_estudiante` = '{$datos[$ced_estudiante]}' AND `annio` = {$this->anioActivo} AND `cod_asignatura` = {$datos[$cod_asignatura]}");
+                                    $registrosActualizados++;
+                                }else{
+                                    $this->db->insert('sipce_ausencias', array(
+                                          'ced_estudiante' => $datos[$ced_estudiante],
+                                          'annio' => $this->anioActivo,
+                                          'cod_asignatura' => $datos[$cod_asignatura],
+                                          'cantidadTardias' => $datos[$tardias],
+                                          'cantidadAusenciasInjustificadas' => $datos[$ausenciasInjustificadas],
+                                          'cantidadAusenciasJustificadas' => $datos[$ausenciasJustificadas],
+                                          'cantidadEscapes' => $datos[$escapes]));
+                                    $registrosAgregados++;
+                                }
+                            }else{
+                                $arraySalida.= "Código de Asignatura no encontrado: " . $datos[$cod_asignatura] . " en sipce_puestos [1 - 134]<br />";
+                            }
+                                
+                            //antes de avanzar en el ciclo del for, incremento en 5 las variables locales para avanzar dentro del vector, 
+                            //esto me deja en la posicion de la siguiente asignatura
+                            $cod_asignatura+=5;
+                            $tardias+=5;
+                            $ausenciasInjustificadas+=5;
+                            $ausenciasJustificadas+=5;
+                            $escapes+=5;
+                       }
+                    }  else {
+                        $arraySalida.= "Estudiante <font color='red'>" . $datos[$ced_estudiante] . "</font> no encontrado en el año: "
+                                    . $this->anioActivo . " -*- Fila de archivo csv: " . $numFila . "<br />";
+                    }
                 }
+                $numFila++;
             }
             fclose($gestor);
         }else{
@@ -741,5 +753,49 @@ class ActualizarEstudiantes_Model extends Models {
         $arraySalida.= "<br>Registros Actualizados: " . $registrosActualizados;
         $arraySalida.= "<br>Registros Agregados: " . $registrosAgregados;
         return $arraySalida;
+    }
+
+    /* Retorna Ausencias de un estudiante en especifico */
+
+    public function ausenciasEstudiante($ced_estudiante) {
+        $resultado = $this->db->select("SELECT p.descripcion,a.cantidadAusenciasJustificadas,a.cantidadAusenciasInjustificadas,a.cantidadTardias,a.cantidadEscapes "
+                                        . "FROM sipce_ausencias as a,sipce_puesto as p "
+                                        . "WHERE a.ced_estudiante = '" . $ced_estudiante . "' "
+                                        . "AND a.annio = " . $this->anioActivo . " "
+                                        . "AND p.codigo = a.cod_asignatura");
+        return $resultado;
+    }
+    
+    /* Carga todas los Niveles */
+    public function consultaNiveles() {
+        return $this->db->select("SELECT DISTINCT nivel "
+                                . "FROM sipce_grupos "
+                                . "WHERE annio = ".$this->anioActivo." "
+                                . "ORDER BY nivel");
+    }
+
+    /* Carga todos los Grupos de un Nivel */
+
+    public function cargaGrupos($idNivel) {
+        $resultado = $this->db->select("SELECT DISTINCT grupo FROM sipce_grupos "
+                                . "WHERE nivel = :nivel "
+                                . "AND annio = ".$this->anioActivo." "
+                                . "AND grupo <> 0 "
+                                . "ORDER BY grupo", array('nivel' => $idNivel));
+        echo json_encode($resultado);
+    }
+
+    //Carga la lista de los estudiantes de una seccion en especifico
+    public function cargaSeccion($consulta) {
+        $resultado2 = $this->db->select("SELECT e.cedula,e.nombre,e.apellido1,e.apellido2,g.sub_grupo,r.condicion "
+                . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_matricularatificacion as r "
+                . "WHERE e.cedula = g.ced_estudiante "
+                . "AND e.cedula = r.ced_estudiante "
+                . "AND e.tipoUsuario = 4 "
+                . "AND g.nivel = " . $consulta['nivelSeleccionado'] . " "
+                . "AND g.grupo = " . $consulta['grupoSeleccionado'] . " "
+                . "AND g.annio = " . $this->anioActivo . " "
+                . "ORDER BY g.sub_grupo,e.apellido1,e.apellido2,e.nombre");
+        echo json_encode($resultado2);
     }
 }

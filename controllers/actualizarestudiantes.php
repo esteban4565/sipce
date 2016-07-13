@@ -176,6 +176,12 @@ class ActualizarEstudiantes extends Controllers {
 
     /* Cargo ausencias de estudiantes */
     function guardarAusencias() {
+        //Ruta de carpetas en localhost
+        $ruta="../sipce";
+        
+        //Ruta de carpetas en hostinger.com
+        //$ruta="../public_html";
+        
         if ($_FILES['archivo']["error"] > 0)
             {
             echo "Error: " . $_FILES['archivo']['error'] . "<br>";
@@ -184,19 +190,57 @@ class ActualizarEstudiantes extends Controllers {
             else
                 {
                 $datosArchivo=array();
-                
                 $datosArchivo['Nombre'] = $_FILES['archivo']['name'];
                 $datosArchivo['Tipo'] = $_FILES['archivo']['type'];
                 $datosArchivo['Tamaño'] = ($_FILES["archivo"]["size"] / 1024);
                 $datosArchivo['CarpetaTemporal'] = $_FILES['archivo']['tmp_name'];
                 
-                /*Si deseo guardar el archivo en un lugar en especifico, utilizo move_uploaded_file*/
-                move_uploaded_file($_FILES['archivo']['tmp_name'],"../sipce/public/ausencias/" . $_FILES['archivo']['name']);
-                $this->view->mensaje = $this->model->guardarAusencias($datosArchivo);
+                /*Guardo el archivo en un lugar en especifico, utilizo move_uploaded_file, 
+                                    con el if compruebo si tuvo exito el move_uploaded_file, luego continuo con el Model */
+                if(move_uploaded_file($_FILES['archivo']['tmp_name'],$ruta . "/public/ausencias/" . $_FILES['archivo']['name'])){
+                    $this->view->mensaje = $this->model->guardarAusencias($datosArchivo);
+                }else{
+                    echo "Error: " . $_FILES['archivo']['error'] . "<br>";
+                    die;
+                }
             }
         $this->view->title = 'Cargar Ausencias Estudiantes';
         $this->view->render('header');
         $this->view->render('actualizarestudiantes/msg');
+        $this->view->render('footer');
+    }
+
+    /* Vista del administrador para ver ausencias de estudiantes */
+    function verAusencias() {
+        $this->view->title = 'Ausencias del Estudiantes';
+        $this->view->consultaNiveles = $this->model->consultaNiveles();
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/verAusencias');
+        $this->view->render('footer');
+    }
+    
+    /* Carga los Grupos de un nivel en especifico*/
+    function cargaGrupos($idNivel) {
+        $this->model->cargaGrupos($idNivel);
+    }
+
+    /* Carga la lista de estudiantes de una seccion en especifico */
+    function cargaSeccion() {
+        $consulta = array();      
+        $consulta['nivelSeleccionado'] = $_POST['nivelSeleccionado'];
+        $consulta['grupoSeleccionado'] = $_POST['grupoSeleccionado'];
+        $this->model->cargaSeccion($consulta);
+    }
+
+    /* Cargo ausencias de estudiantes */
+    function consultarAusencias($ced_estudiante) {
+        $this->view->title = 'Ausencias del Estudiantes';
+        if (Session::get('tipoUsuario') == 4){
+            $ced_estudiante=Session::get('ced_estudiante');
+        }
+        $this->view->ausenciasEstudiante = $this->model->ausenciasEstudiante($ced_estudiante);
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/consultarAusencias');
         $this->view->render('footer');
     }
 

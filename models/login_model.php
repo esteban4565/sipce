@@ -35,6 +35,7 @@ Class Login_Model extends Models{
             if($count > 0){
             Session::init();
             Session::set('tipoUsuario',$data['tipoUsuario']);
+            Session::set('ced_estudiante',$data['cedula']);
             Session::set('nombre',$data['nombre'].'  '.$data['apellido1'].'  '.$data['apellido2']);
             Session::set('loggedIn', true);
             header('location: ../dashboard');

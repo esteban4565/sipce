@@ -116,15 +116,17 @@
                         </ul>
                       </li>
                     <?php }?>
-                    <?php if (Session::get('tipoUsuario') == 1){ ?>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Ausencias <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
+                          <?php if (Session::get('tipoUsuario') <= 1){ ?>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/cargarAusencias">Cargar Ausencias</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/verAusencias">Ver Ausencias</a></li>
+                          <?php } if (Session::get('tipoUsuario') == 4){ ?>
+                          <li><a href="<?php echo URL; ?>actualizarestudiantes/consultarAusencias">Consultar Ausencias</a></li>
+                          <?php } ?>
                         </ul>
                       </li>
-                    <?php }?>
                     <?php if (Session::get('tipoUsuario') == 1){ ?>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administrador <span class="caret"></span></a>

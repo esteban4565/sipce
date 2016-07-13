@@ -1,5 +1,5 @@
 <h1>Estudiantes no encontrados...</h1>
-Las siguientes cédulas no existen en la base de datos del padrón de Registro Civil (2013), favor verificar datos... 
+Las siguientes cédulas no existen en la base de datos del padrón de Registro Civil (2016), favor verificar datos... 
 <br/><hr />
 
 <table>
@@ -11,9 +11,6 @@ Las siguientes cédulas no existen en la base de datos del padrón de Registro C
         <th>Segundo Apellido</th>
     </tr>
 <?php
-//Al cargar la pagina de "Horario", lo primero que hace es recorrer el Array "profeLista"
-//este fue creado en la funcion "Index" del Controller "Horario", su funcion es recopilar todos
-//los docentes que se encuentren el tabla persona de la BD
     $i=1;
     foreach($this->estudiantesCedulaMala as $key => $value) {
         echo '<tr>';
@@ -27,11 +24,3 @@ Las siguientes cédulas no existen en la base de datos del padrón de Registro C
     }
 ?>
 </table>
-
-
-
-Actualizar Estudiantes...
-<br />
-<form id="randomInsert" action="<?php echo URL;?>actualizarestudiantes/actuEstu" method="post">
-    <input type="submit" />
-</form>
