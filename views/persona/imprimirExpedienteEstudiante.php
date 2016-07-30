@@ -512,7 +512,7 @@
       <!Linea#28>
       <div class="row">
         <div class="col-xs-5 text-center">
-        (Funcionario que matricula)
+        (Funcionario que imprime)
         </div>
         <div class="col-xs-7 text-right">
         &nbsp;

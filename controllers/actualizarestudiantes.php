@@ -233,7 +233,7 @@ class ActualizarEstudiantes extends Controllers {
     }
 
     /* Cargo ausencias de estudiantes */
-    function consultarAusencias($ced_estudiante) {
+    function consultarAusencias($ced_estudiante = null) {
         $this->view->title = 'Ausencias del Estudiantes';
         if (Session::get('tipoUsuario') == 4){
             $ced_estudiante=Session::get('ced_estudiante');

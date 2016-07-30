@@ -7,6 +7,9 @@ class ActualizarEstudiantes_Model extends Models {
     public function __construct() {
         parent::__construct();
         $this->anioActivo = 2016;
+
+    //Ruta de carpetas en localhost o hostinger.com.....   local o web
+        $this->entorno = 'local';
     }
 
     //esta funcion retorna un Array con todos los usuarios tipo "docente" que se encuentran en la BD
@@ -661,11 +664,12 @@ class ActualizarEstudiantes_Model extends Models {
     /* Guarda Ausencias, Recorre archivo y Retorna Estudiantes No encontrados */
 
     public function guardarAusencias($datosArchivo) {
-        //Ruta de carpetas en localhost
-        $ruta="../sipce";
-        
-        //Ruta de carpetas en hostinger.com
-        //$ruta="../public_html";
+        //Ruta de carpetas en localhost o hostinger.com
+        if($this->entorno == 'local'){
+            $ruta="../sipce";
+        }else if($this->entorno == 'web'){
+            $ruta="../public_html";
+        }
         
         $archivo= $ruta . "/public/ausencias/" . $datosArchivo['Nombre'];        
         
@@ -680,11 +684,12 @@ class ActualizarEstudiantes_Model extends Models {
             while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
                 //Variables Locales para avanzar dentro del vector (filas del archivo csv)
                 $ced_estudiante=0;
-                $cod_asignatura=1;
-                $tardias=2;
-                $ausenciasInjustificadas=3;
-                $ausenciasJustificadas=4;
-                $escapes=5;
+                $periodo=1;
+                $cod_asignatura=2;
+                $tardias=3;
+                $ausenciasInjustificadas=4;
+                $ausenciasJustificadas=5;
+                $escapes=6;
 
                 //Primero verifico que la fila no venga vacia !="0"
                 if($datos[$ced_estudiante]!="0" && $datos[$ced_estudiante]!=null){
@@ -697,7 +702,7 @@ class ActualizarEstudiantes_Model extends Models {
                     //Si existe procedo a actualizar ausencias, sino imprimo cedula para corroborar estudiante
                     if($consultaExistenciaEstudiante != null){
                         //Utilizo un for para avanzar en las once asignaturas
-                        for ($i=1; $i<=14; $i++){
+                        for ($i=1; $i<=10; $i++){
                             //Corroboro de que exista el codigo de asignatura !=0
                             if($datos[$cod_asignatura]!=0){
                                 //Consulto si el estudiante ya posee un registro de asistencia de esa asignatura en especifico
@@ -705,7 +710,8 @@ class ActualizarEstudiantes_Model extends Models {
                                                                 . "FROM sipce_ausencias "
                                                                 . "WHERE ced_estudiante = '" . $datos[$ced_estudiante] . "' "
                                                                 . "AND annio = " . $this->anioActivo . " "
-                                                                . "AND cod_asignatura = " . $datos[$cod_asignatura] . " ");
+                                                                . "AND cod_asignatura = " . $datos[$cod_asignatura] . " "
+                                                                . "AND periodo = " . $datos[$periodo] . " ");
                                 
                                 //Si ya existe actualizo datos, sino inserto el registro
                                 if($consultaAsistencia != null){
@@ -714,13 +720,16 @@ class ActualizarEstudiantes_Model extends Models {
                                         'cantidadAusenciasInjustificadas' => $datos[$ausenciasInjustificadas],
                                         'cantidadAusenciasJustificadas' => $datos[$ausenciasJustificadas],
                                         'cantidadEscapes' => $datos[$escapes]);
-                                    $this->db->update('sipce_ausencias', $posData, "`ced_estudiante` = '{$datos[$ced_estudiante]}' AND `annio` = {$this->anioActivo} AND `cod_asignatura` = {$datos[$cod_asignatura]}");
+                                    $this->db->update('sipce_ausencias', $posData, "`ced_estudiante` = '{$datos[$ced_estudiante]}' 
+                                                        AND `annio` = {$this->anioActivo} AND `cod_asignatura` = {$datos[$cod_asignatura]} 
+                                                        AND `periodo` = {$datos[$periodo]}");
                                     $registrosActualizados++;
                                 }else{
                                     $this->db->insert('sipce_ausencias', array(
                                           'ced_estudiante' => $datos[$ced_estudiante],
                                           'annio' => $this->anioActivo,
                                           'cod_asignatura' => $datos[$cod_asignatura],
+                                          'periodo' => $datos[$periodo],
                                           'cantidadTardias' => $datos[$tardias],
                                           'cantidadAusenciasInjustificadas' => $datos[$ausenciasInjustificadas],
                                           'cantidadAusenciasJustificadas' => $datos[$ausenciasJustificadas],
@@ -728,7 +737,9 @@ class ActualizarEstudiantes_Model extends Models {
                                     $registrosAgregados++;
                                 }
                             }else{
+                                if($datos[$cod_asignatura] > 0){
                                 $arraySalida.= "Código de Asignatura no encontrado: " . $datos[$cod_asignatura] . " en sipce_puestos [1 - 134]<br />";
+                                }
                             }
                                 
                             //antes de avanzar en el ciclo del for, incremento en 5 las variables locales para avanzar dentro del vector, 
