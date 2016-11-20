@@ -28,7 +28,7 @@
       </div> 
       <!Linea#2>
       <div class="col-xs-4">
-        Curso Lectivo <?php echo $this->anio; ?>
+        Curso Lectivo <?php echo $this->datosSistema[0]['annio_lectivo']; ?>
       </div>
       <div class="col-xs-4">
       </div>
@@ -85,7 +85,7 @@
         <?php echo substr($this->consultaDatosEstudiante[0]['fechaNacimiento'],0,4); ?>
         </div>
         <div class="col-xs-2 text-center">
-        <?php echo $this->anio - (date(substr($this->consultaDatosEstudiante[0]['fechaNacimiento'], 0, 4))); ?>
+        <?php echo $this->datosSistema[0]['annio_lectivo'] - (date(substr($this->consultaDatosEstudiante[0]['fechaNacimiento'], 0, 4))); ?>
         </div>
       </div>
       <div class="row">
@@ -524,7 +524,7 @@
       <!Linea#29>
       <div class="row">
         <div class="col-xs-12 text-center">
-        <?php echo "Director (a): " . $this->director;?>
+        <?php echo "Director (a): " . $this->datosSistema[0]['director'];?>
         </div>
       </div>
       <div class="col-xs-12">

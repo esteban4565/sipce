@@ -4,7 +4,11 @@ class Seccion_Model extends Models {
 
     public function __construct() {
         parent::__construct();
-        $this->anioActivo = 2016;
+        $consultaAnnio=$this->db->select('SELECT annio_lectivo FROM sipce_configuracion');
+        $this->anioActivo = $consultaAnnio[0]['annio_lectivo'];
+        
+        $consultaDirector=$this->db->select('SELECT director FROM sipce_configuracion');
+        $this->director = $consultaDirector[0]['director'];
     }
 
     /* Carga todas los Niveles */

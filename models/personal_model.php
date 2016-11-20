@@ -4,18 +4,23 @@ class Personal_Model extends Models {
 
     public function __construct() {
         parent::__construct();
+        $consultaAnnio=$this->db->select('SELECT annio_lectivo FROM sipce_configuracion');
+        $this->anioActivo = $consultaAnnio[0]['annio_lectivo'];
+        
+        $consultaDirector=$this->db->select('SELECT director FROM sipce_configuracion');
+        $this->director = $consultaDirector[0]['director'];
     }
 
     /* Carga el año lectivo */
 
     public function anio() {
-        return 2016;
+        return $this->anioActivo;
     }
 
     /* Carga Director (a) */
 
     public function director() {
-        return "Msc. Ingrid Jiménez López";
+        return $this->director;
     }
     /* Carga lista de provincias */
     public function consultaProvincias() {

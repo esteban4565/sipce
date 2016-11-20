@@ -1,42 +1,45 @@
 $.datepicker.regional['es'] = {
- closeText: 'Cerrar',
- prevText: '<Ant',
- nextText: 'Sig>',
- currentText: 'Hoy',
- monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
- monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
- dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
- dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
- dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
- weekHeader: 'Sm',
- dateFormat: 'dd/mm/yy',
- firstDay: 1,
- isRTL: false,
- showMonthAfterYear: false,
- yearSuffix: ''
- };
- $.datepicker.setDefaults($.datepicker.regional['es']);
- 
+    closeText: 'Cerrar',
+    prevText: '<Ant',
+    nextText: 'Sig>',
+    currentText: 'Hoy',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+    weekHeader: 'Sm',
+    dateFormat: 'dd/mm/yy',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+};
+$.datepicker.setDefaults($.datepicker.regional['es']);
+
 $(function()
 {
     //Fecha Nacimiento//
     $("#tf_fnacpersona").datepicker({dateFormat: 'yy-mm-dd',
-                                    changeMonth: true,
-                                    changeYear: true
-                                    });
+        changeMonth: true,
+        changeYear: true
+    });
     //Fecha Vence Poliza//
     $("#tf_polizaVence").datepicker({dateFormat: 'yy-mm-dd',
-                                    changeMonth: true,
-                                    changeYear: true
-                                    });
-                                    
+        changeMonth: true,
+        changeYear: true
+    });
+
     //Edad Estudiante al cambiar fecha//
     $("#tf_fnacpersona").change(function() {
         $("#tf_edad").empty();
-        var fechaNacimiento=$("#tf_fnacpersona").val();
-        var anioNacimiento = 2015 - (fechaNacimiento).substring(0, 4);
-        $("#tf_edad").val(anioNacimiento);
+        var fechaNacimiento = $("#tf_fnacpersona").val();
+        //Consulto año lectivo para realizar la resta y asignar la edad//
+        $.getJSON('datosSistemaJavaScript', function(resul) {
+            var edad = resul[0].annio_lectivo - (fechaNacimiento).substring(0, 4);
+            $("#tf_edad").val(edad);
         });
+    });
 
     //Carga los cantones//
     $("#tf_provincias_NI").change(function() {
@@ -62,7 +65,7 @@ $(function()
             }
         });
     });
-    
+
     //CARGA CANTONES PARA LA ESCUELA//
     $("#slt_provinciaPrim").change(function() {
         $("#slt_cantonPrim,#slt_distritoPrim,#tf_primaria").empty();
@@ -89,14 +92,14 @@ $(function()
     //CARGA LAS ESCUELAS DE ESOS DISTRITOS//
     $("#slt_distritoPrim").change(function() {
         $("#tf_primaria").empty();
-        
+
         var idD = $("#slt_distritoPrim").val();
-        
+
         //var ids = $(this).attr('rel');
         $.getJSON('cargaEscuela/' + idD, function(escuela) {
             $('#tf_primaria').append('<option value="0">SELECCIONE</option>');
             for (var iD = 0; iD < escuela.length; iD++) {
-              $("#tf_primaria").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
+                $("#tf_primaria").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
             }
             $("#tf_primaria").append('<option value="0">--OTRA--</option>');
         });
@@ -105,34 +108,10 @@ $(function()
     //Carga los datos del Estudiante//
     $("#buscarEstudiante").click(function(event) {
         var idD = $("#tf_cedulaEstudiante").val();
-        if (jQuery.isEmptyObject(idD)){
+        if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-        }else{
-        $.getJSON('buscarEstudiante/' + idD, function(resulBusqueda) {
-            if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-            } else {
-                $("#tf_ape1").val(resulBusqueda[0].primerApellido);
-                $("#tf_ape2").val(resulBusqueda[0].segundoApellido);
-                $("#tf_nombre").val(resulBusqueda[0].nombre);
-                $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
-                var anioNacimiento = 2015 - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
-                $("#tf_edad").val(anioNacimiento);
-                $("#tf_genero").val(resulBusqueda[0].sexo);
-            }
-        });
-        }
-    });
-
-    //Carga los datos del Estudiante//
-    $("#buscarEstuPrematricula").click(function(event) {
-        var idD = $("#tf_cedulaEstudiante").val();
-        if (jQuery.isEmptyObject(idD)){
-            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-        }else{
-        $.getJSON('buscarEstuPrematricula/' + idD, function(resulPrematricula) {
-            if (jQuery.isEmptyObject(resulPrematricula)) {
-                $.getJSON('buscarEstudiante/' + idD, function(resulBusqueda) {
+        } else {
+            $.getJSON('buscarEstudiante/' + idD, function(resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -140,77 +119,107 @@ $(function()
                     $("#tf_ape2").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombre").val(resulBusqueda[0].nombre);
                     $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
-                    var anioNacimiento = 2015 - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
-                    $("#tf_edad").val(anioNacimiento);
+                    //Consulto año lectivo para realizar la resta y asignar la edad//
+                    $.getJSON('datosSistemaJavaScript', function(resul) {
+                        var edad = resul[0].annio_lectivo - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
+                        $("#tf_edad").val(edad);
+                    });
                     $("#tf_genero").val(resulBusqueda[0].sexo);
-                    }
-                });
-            } else {
-                alert("Este estudiante ya se encuentra ingresado en Pre-Matricula, si desea hacer alguna modificación por favor diríjase a Matricula->Lista Pre-Matricula y luego en Editar");
-            }
-        });
+                }
+            });
+        }
+    });
+
+    //Carga los datos del Estudiante//
+    $("#buscarEstuPrematricula").click(function(event) {
+        var idD = $("#tf_cedulaEstudiante").val();
+        if (jQuery.isEmptyObject(idD)) {
+            alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+        } else {
+            $.getJSON('buscarEstuPrematricula/' + idD, function(resulPrematricula) {
+                if (jQuery.isEmptyObject(resulPrematricula)) {
+                    $.getJSON('buscarEstudiante/' + idD, function(resulBusqueda) {
+                        if (jQuery.isEmptyObject(resulBusqueda)) {
+                            alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+                        } else {
+                            $("#tf_ape1").val(resulBusqueda[0].primerApellido);
+                            $("#tf_ape2").val(resulBusqueda[0].segundoApellido);
+                            $("#tf_nombre").val(resulBusqueda[0].nombre);
+                            $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
+                            //Consulto año lectivo para realizar la resta y asignar la edad//
+                            $.getJSON('datosSistemaJavaScript', function(resul) {
+                                var edad = resul[0].annio_lectivo - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
+                                $("#tf_edad").val(edad);
+                            });
+                            $("#tf_genero").val(resulBusqueda[0].sexo);
+                        }
+                    });
+                } else {
+                    alert("Este estudiante ya se encuentra ingresado en Pre-Matricula, si desea hacer alguna modificación por favor diríjase a Matricula->Lista Pre-Matricula y luego en Editar");
+                }
+            });
         }
     });
 
     //Carga los datos del Encargado Legal//
     $("#buscarEncargado_NI").click(function(event) {
         var idD = $("#tf_cedulaEncargado_NI").val();
-        if (jQuery.isEmptyObject(idD)){
+        if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-        }else{
-        $.getJSON('buscarEncargado/' + idD, function(resulBusqueda) {
-            if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-            } else {
-                $("#tf_ape1Encargado_NI").val(resulBusqueda[0].primerApellido);
-                $("#tf_ape2Encargado_NI").val(resulBusqueda[0].segundoApellido);
-                $("#tf_nombreEncargado_NI").val(resulBusqueda[0].nombre);
-                $("#tf_telHabitEncargado").val("");
-                $("#tf_telcelularEncargado").val("");
-                $("#tf_ocupacionEncargado").val("");
-                $("#tf_emailEncargado").val("");
-            }
-        });
+        } else {
+            $.getJSON('buscarEncargado/' + idD, function(resulBusqueda) {
+                if (jQuery.isEmptyObject(resulBusqueda)) {
+                    alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+                } else {
+                    $("#tf_ape1Encargado_NI").val(resulBusqueda[0].primerApellido);
+                    $("#tf_ape2Encargado_NI").val(resulBusqueda[0].segundoApellido);
+                    $("#tf_nombreEncargado_NI").val(resulBusqueda[0].nombre);
+                    $("#tf_telHabitEncargado").val("");
+                    $("#tf_telcelularEncargado").val("");
+                    $("#tf_ocupacionEncargado").val("");
+                    $("#tf_emailEncargado").val("");
+                }
+            });
         }
     });
 
     //Carga los datos de la Madre//
     $("#buscarMadre_NI").click(function(event) {
         var idD = $("#tf_cedulaMadre_NI").val();
-        if (jQuery.isEmptyObject(idD)){
+        if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-        }else{
-        $.getJSON('buscarMadre/' + idD, function(resulBusqueda) {
-            if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-            } else {
-                $("#tf_ape1Madre_NI").val(resulBusqueda[0].primerApellido);
-                $("#tf_ape2Madre_NI").val(resulBusqueda[0].segundoApellido);
-                $("#tf_nombreMadre_NI").val(resulBusqueda[0].nombre);
-                $("#tf_telCelMadre").val("");
-                $("#tf_ocupacionMadre").val("");
-            }
-        });
+        } else {
+            $.getJSON('buscarMadre/' + idD, function(resulBusqueda) {
+                if (jQuery.isEmptyObject(resulBusqueda)) {
+                    alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+                } else {
+                    $("#tf_ape1Madre_NI").val(resulBusqueda[0].primerApellido);
+                    $("#tf_ape2Madre_NI").val(resulBusqueda[0].segundoApellido);
+                    $("#tf_nombreMadre_NI").val(resulBusqueda[0].nombre);
+                    $("#tf_telCelMadre").val("");
+                    $("#tf_ocupacionMadre").val("");
+                }
+            });
         }
     });
 
     //Carga los datos del Padre//
     $("#buscarPadre_NI").click(function(event) {
         var idD = $("#tf_cedulaPadre_NI").val();
-        if (jQuery.isEmptyObject(idD)){
+        if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-        }else{
-        $.getJSON('buscarPadre/' + idD, function(resulBusqueda) {
-            if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-            } else {
-                $("#tf_ape1Padre_NI").val(resulBusqueda[0].primerApellido);
-                $("#tf_ape2Padre_NI").val(resulBusqueda[0].segundoApellido);
-                $("#tf_nombrePadre_NI").val(resulBusqueda[0].nombre);
-                $("#tf_telCelPadre").val("");
-                $("#tf_ocupacionPadre").val("");
-            }
-        });
+        } else {
+            $.getJSON('buscarPadre/' + idD, function(resulBusqueda) {
+                if (jQuery.isEmptyObject(resulBusqueda)) {
+                    alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+                } else {
+                    $("#tf_ape1Padre_NI").val(resulBusqueda[0].primerApellido);
+                    $("#tf_ape2Padre_NI").val(resulBusqueda[0].segundoApellido);
+                    $("#tf_nombrePadre_NI").val(resulBusqueda[0].nombre);
+                    $("#tf_telCelPadre").val("");
+                    $("#tf_ocupacionPadre").val("");
+                }
+            });
         }
     });
 
@@ -261,20 +270,20 @@ $(function()
     //Carga los datos de de la Persona En Caso de Emergencia//
     $("#buscarPersonaEmergencia_NI").click(function(event) {
         var idD = $("#tf_cedulaPersonaEmergencia_NI").val();
-        if (jQuery.isEmptyObject(idD)){
+        if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-        }else{
-        $.getJSON('buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
-            if (jQuery.isEmptyObject(resulBusqueda)) {
-                alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
-            } else {
-            $("#tf_ape1PersonaEmergencia_NI").val(resulBusqueda[0].primerApellido);
-            $("#tf_ape2PersonaEmergencia_NI").val(resulBusqueda[0].segundoApellido);
-            $("#tf_nombrePersonaEmergencia_NI").val(resulBusqueda[0].nombre);
-            $("#tf_telHabitPersonaEmergencia").val("");
-            $("#tf_telcelularPersonaEmergencia").val("");
-            }
-        });
+        } else {
+            $.getJSON('buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
+                if (jQuery.isEmptyObject(resulBusqueda)) {
+                    alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
+                } else {
+                    $("#tf_ape1PersonaEmergencia_NI").val(resulBusqueda[0].primerApellido);
+                    $("#tf_ape2PersonaEmergencia_NI").val(resulBusqueda[0].segundoApellido);
+                    $("#tf_nombrePersonaEmergencia_NI").val(resulBusqueda[0].nombre);
+                    $("#tf_telHabitPersonaEmergencia").val("");
+                    $("#tf_telcelularPersonaEmergencia").val("");
+                }
+            });
         }
     });
 
@@ -288,19 +297,6 @@ $(function()
         else {
             document.getElementById("especialidadLabel").style.display = 'none';
             document.getElementById("especialidad").style.display = 'none';
-        }
-    });
-
-    //Muestra casilla Adelanta si el estudiante Repite//
-    $("#sl_condicion").change(function() {
-        var condicion = $("#sl_condicion").val();
-        if (condicion === "Repite") {
-            document.getElementById("sl_adelantaLabel").style.display = 'block';
-            document.getElementById("sl_adelanta").style.display = 'block';
-        }
-        else {
-            document.getElementById("sl_adelantaLabel").style.display = 'none';
-            document.getElementById("sl_adelanta").style.display = 'none';
         }
     });
 

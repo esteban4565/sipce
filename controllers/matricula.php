@@ -8,16 +8,13 @@ class Matricula extends Controllers {
         $this->view->js = array('matricula/js/default.js', 'matricula/js/jsNuevoIngreso.js');
     }
 
+    function datosSistemaJavaScript() {
+        echo json_encode($this->model->datosSistema());
+    }
+
     function index() {
         $this->view->title = 'Matrícula';
-        $this->view->anio = $this->model->anio();
-
-        /* CARGAMOS LA LISTA DE ESTADO CIVIL */
-        $this->view->estadoCivilList = $this->model->estadoCivilList();
-
-        /* CARGAMOS LA LISTA DE PAISES */
-        $this->view->paisesList = $this->model->paisesList();
-
+        $this->view->datosSistema = $this->model->datosSistema();
         $this->view->render('header');
         $this->view->render('matricula/index');
         $this->view->render('footer');
@@ -25,7 +22,6 @@ class Matricula extends Controllers {
 
     function ratificar() {
         $this->view->title = 'Ratificar matrícula';
-        $this->view->anio = $this->model->anio();
         $this->view->listaEstudiantes = $this->model->listaEstudiantes();
 
         $this->view->render('header');
@@ -35,7 +31,6 @@ class Matricula extends Controllers {
 
     function ratificarSetimo() {
         $this->view->title = 'Ratificar Sétimo';
-        $this->view->anio = $this->model->anio();
         $this->view->listaEstuSetimo = $this->model->listaEstuSetimo();
 
         $this->view->render('header');
@@ -45,7 +40,7 @@ class Matricula extends Controllers {
 
     function ratificarEstudiante($cedulaEstudiante) {
         $this->view->title = 'Ratificar matrícula';
-        $this->view->anio = $this->model->anio();
+        $this->view->datosSistema = $this->model->datosSistema();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
@@ -108,7 +103,7 @@ class Matricula extends Controllers {
 
     function ratificarEstuSetimo($cedulaEstudiante) {
         $this->view->title = 'Ratificar matrícula';
-        $this->view->anio = $this->model->anio();
+        $this->view->datosSistema = $this->model->datosSistema();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
@@ -144,7 +139,6 @@ class Matricula extends Controllers {
 
     function nuevoIngreso() {
         $this->view->title = 'Nuevo ingreso';
-        $this->view->anio = $this->model->anio();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
@@ -162,7 +156,6 @@ class Matricula extends Controllers {
 
     function prematricula() {
         $this->view->title = 'Pre-Matricula';
-        $this->view->anio = $this->model->anio();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
@@ -177,7 +170,7 @@ class Matricula extends Controllers {
 
     function editarMatricula($cedulaEstudiante) {
         $this->view->title = 'Editar matrícula';
-        $this->view->anio = $this->model->anio();
+        $this->view->datosSistema = $this->model->datosSistema();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
@@ -246,7 +239,7 @@ class Matricula extends Controllers {
 
     function editarPreatricula($cedulaEstudiante) {
         $this->view->title = 'Editar Pre-Matrícula';
-        $this->view->anio = $this->model->anio();
+        $this->view->datosSistema = $this->model->datosSistema();
 
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
@@ -294,8 +287,7 @@ class Matricula extends Controllers {
 
     function imprimirMatricula($cedulaEstudiante) {
         //Muestro documento para impresion
-        $this->view->anio = $this->model->anio();
-        $this->view->director = $this->model->director();
+        $this->view->datosSistema = $this->model->datosSistema();
         $this->view->consultaDatosEstudiante = $this->model->consultaDatosEstudiante($cedulaEstudiante);
 
         /* Cargo informacion de las enfermedades del Estudiante */
@@ -398,7 +390,6 @@ class Matricula extends Controllers {
         $datos['sl_becaTransporte'] = $_POST['sl_becaTransporte'];
         $datos['tf_poliza'] = $_POST['tf_poliza'];
         $datos['tf_polizaVence'] = $_POST['tf_polizaVence'];
-        $datos['anio'] = $this->model->anio();
         
         $this->model->guardarRatificacion($datos);
 
@@ -467,14 +458,8 @@ class Matricula extends Controllers {
             $datos['tf_especialidad'] = $_POST['tf_especialidad'];
         }
         $datos['sl_condicion'] = $_POST['sl_condicion'];
-        $datos['sl_adelanta'] = $_POST['sl_adelanta'];
-        $datos['sl_adecuacion'] = $_POST['sl_adecuacion'];
-        $datos['sl_becaAvancemos'] = $_POST['sl_becaAvancemos'];
-        $datos['sl_becaComedor'] = $_POST['sl_becaComedor'];
-        $datos['sl_becaTransporte'] = $_POST['sl_becaTransporte'];
         $datos['tf_poliza'] = $_POST['tf_poliza'];
         $datos['tf_polizaVence'] = $_POST['tf_polizaVence'];
-        $datos['anio'] = $this->model->anio();
         
         $this->model->guardarNuevoIngreso($datos);
 
@@ -522,7 +507,6 @@ class Matricula extends Controllers {
         $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
         $datos['tf_telCasaMadre'] = $_POST['tf_telCasaMadre'];
         $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
-        $datos['anio'] = $this->model->anio();
         
         $this->model->guardarPrematricula($datos);
 

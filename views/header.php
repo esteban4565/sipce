@@ -75,6 +75,10 @@
                           <li><a href="<?php echo URL; ?>persona/datosEstudiantes">Datos Generales Estudiantes</a></li>
                           <li><a href="<?php echo URL; ?>persona/nuevoIngresoTardio">Nuevo Ingreso</a></li>
                           <li><a href="<?php echo URL; ?>persona/expedientesEstudiantes">Expedientes de Estudiantes</a></li>
+                            <li class="divider"></li>
+                          <li><a href="<?php echo URL; ?>persona/beca">Ingresar beca de Estudiantes</a></li>
+                          <li><a href="<?php echo URL; ?>persona/editarBeca">Editar beca de Estudiantes</a></li>
+                          <li><a href="<?php echo URL; ?>persona/listaBecas">Lista becas de Estudiantes</a></li>
                           <?php }?>
                         </ul>
                       </li>
@@ -141,6 +145,8 @@
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordEstu">Reiniciar contraseñas Estudaintes</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordDocente">Reiniciar contraseñas Docente</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/estudiantesVoca">Estudiantes Voca</a></li>
+                            <li class="divider"></li>
+                          <li><a href="<?php echo URL; ?>configSistema/index">Configuración del Sistema</a></li>
                         </ul>
                       </li>
                     <?php }?>

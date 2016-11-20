@@ -4,19 +4,13 @@ class Matricula_Model extends Models {
 
     public function __construct() {
         parent::__construct();
-        $this->anioActivo = 2016;
+        $this->datosSistema = $this->db->select('SELECT * FROM sipce_configuracion WHERE id=1');
     }
 
-    /* Carga el año lectivo */
+    /* Carga datos del sistema */
 
-    public function anio() {
-        return 2016;
-    }
-
-    /* Carga Director (a) */
-
-    public function director() {
-        return "Msc. Ingrid Jiménez López";
+    public function datosSistema() {
+        return $this->datosSistema;
     }
 
     /* Carga todas las provincias */
@@ -153,10 +147,10 @@ class Matricula_Model extends Models {
     public function listaEstudiantes() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
                         . "FROM sipce_estudiante, sipce_grupos "
-                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE annio = " . ($this->anioActivo + 1) . ") "
+                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE annio = " . ($this->datosSistema[0]['annio_lectivo'] + 1) . ") "
                         . "AND cedula = ced_estudiante "
                         . "AND tipoUsuario = 4 "
-                        . "AND annio = ".$this->anioActivo." "
+                        . "AND annio = ".$this->datosSistema[0]['annio_lectivo']." "
                         . "ORDER BY apellido1,apellido2");
     }
 
@@ -165,7 +159,7 @@ class Matricula_Model extends Models {
     public function listaEstuSetimo() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2 "
                         . "FROM sipce_prematricula "
-                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE annio = " . ($this->anioActivo + 1) . ") "
+                        . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE annio = " . ($this->datosSistema[0]['annio_lectivo'] + 1) . ") "
                         . "ORDER BY apellido1,apellido2");
     }
 
@@ -177,7 +171,7 @@ class Matricula_Model extends Models {
                 . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
                 . "AND cedula = ced_estudiante "
                 . "AND cedula = '" . $ced_estudiante . "'"
-                . "AND annio = ".$this->anioActivo." ");
+                . "AND annio = ".$this->datosSistema[0]['annio_lectivo']." ");
 
         echo json_encode($resultado);
     }
@@ -201,7 +195,7 @@ class Matricula_Model extends Models {
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
                         . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
-                        . "AND g.annio = '" . $this->anioActivo . "' "
+                        . "AND g.annio = '" . $this->datosSistema[0]['annio_lectivo'] . "' "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' ");
     }
 
@@ -213,7 +207,7 @@ class Matricula_Model extends Models {
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
                         . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
-                        . "AND g.annio = '" . ($this->anioActivo + 1) . "' "
+                        . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] + 1) . "' "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' ");
     }
 
@@ -328,7 +322,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT * "
                         . "FROM sipce_beca  "
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' "
-                        . "AND anio = 2016 ");
+                        . "AND anio = '" . $this->datosSistema[0]['annio_lectivo'] . "'");
     }
 
     /* Retorna informacion de la poliza del del Estudiante */
@@ -418,7 +412,7 @@ class Matricula_Model extends Models {
         //Consulto si ya existe la matricula
         $consultaExistenciaMatricula = $this->db->select("SELECT * FROM sipce_matricularatificacion "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
+                . "AND anio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($consultaExistenciaMatricula != null) {
             //Actualizo datos y 'estado' Matricula Ratificada Editada
@@ -431,7 +425,7 @@ class Matricula_Model extends Models {
             //Sino Inserto datos y 'estado' Matricula Ratificada
             $this->db->insert('sipce_matricularatificacion', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                'anio' => $datos['anio'],
+                'anio' => $this->datosSistema[0]['annio_lectivo'],
                 'nivel' => $datos['sl_nivelMatricular'],
                 'condicion' => $datos['sl_condicion'],
                 'estado' => 1));
@@ -440,7 +434,7 @@ class Matricula_Model extends Models {
         //Consulto si ya existe la Enfermedad
         $consultaExistenciaEnfermedad = $this->db->select("SELECT * FROM sipce_enfermedades "
                 . "WHERE cedula = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
+                . "AND anio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($datos['sel_enfermedad'] == 1) {
             if ($consultaExistenciaEnfermedad != null) {
@@ -452,13 +446,13 @@ class Matricula_Model extends Models {
                 //Sino Inserto datos
                 $this->db->insert('sipce_enfermedades', array(
                     'cedula' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
+                    'anio' => $this->datosSistema[0]['annio_lectivo'],
                     'descripcion' => $datos['tf_enfermedadDescripcion']));
             }
         } else {
             if ($consultaExistenciaEnfermedad != null) {
                 //Borro datos
-                $sth = $this->db->prepare("DELETE FROM sipce_enfermedades WHERE cedula ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
+                $sth = $this->db->prepare("DELETE FROM sipce_enfermedades WHERE cedula ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $this->datosSistema[0]['annio_lectivo']);
                 $sth->execute();
             }
         }
@@ -466,7 +460,7 @@ class Matricula_Model extends Models {
         //Consulto si ya existe la Adecuacion
         $consultaExistenciaAdecuacion = $this->db->select("SELECT * FROM sipce_adecuacion "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
+                . "AND anio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($datos['sl_adecuacion'] != 'No') {
             if ($consultaExistenciaAdecuacion != null) {
@@ -478,13 +472,13 @@ class Matricula_Model extends Models {
                 //Sino Inserto datos
                 $this->db->insert('sipce_adecuacion', array(
                     'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
+                    'anio' => $this->datosSistema[0]['annio_lectivo'],
                     'adecuacion' => $datos['sl_adecuacion']));
             }
         } else {
             if ($consultaExistenciaAdecuacion != null) {
                 //Borro datos
-                $sth = $this->db->prepare("DELETE FROM sipce_adecuacion WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
+                $sth = $this->db->prepare("DELETE FROM sipce_adecuacion WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $this->datosSistema[0]['annio_lectivo']);
                 $sth->execute();
             }
         }
@@ -492,7 +486,7 @@ class Matricula_Model extends Models {
         //Consulto si ya existe Becas Avancemos
         $consultaExistenciaBecaAvancemos = $this->db->select("SELECT * FROM sipce_beca "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
+                . "AND anio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($datos['sl_becaAvancemos'] != 'No') {
             if ($consultaExistenciaBecaAvancemos != null) {
@@ -504,7 +498,7 @@ class Matricula_Model extends Models {
                 //Sino Inserto datos
                 $this->db->insert('sipce_beca', array(
                     'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
+                    'anio' => $this->datosSistema[0]['annio_lectivo'],
                     'becaAvancemos' => 1));
             }
         } else {
@@ -519,7 +513,7 @@ class Matricula_Model extends Models {
         //Consulto si ya existe Becas Comedor
         $consultaExistenciaBecaComedor = $this->db->select("SELECT * FROM sipce_beca "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
+                . "AND anio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($datos['sl_becaComedor'] != 'No') {
             if ($consultaExistenciaBecaComedor != null) {
@@ -531,7 +525,7 @@ class Matricula_Model extends Models {
                 //Sino Inserto datos
                 $this->db->insert('sipce_beca', array(
                     'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
+                    'anio' => $this->datosSistema[0]['annio_lectivo'],
                     'becaComedor' => 1));
             }
         } else {
@@ -546,7 +540,7 @@ class Matricula_Model extends Models {
         //Consulto si ya existe Becas Transporte
         $consultaExistenciaBecaTransporte = $this->db->select("SELECT * FROM sipce_beca "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
+                . "AND anio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($datos['sl_becaTransporte'] != 'No') {
             if ($consultaExistenciaBecaTransporte != null) {
@@ -558,7 +552,7 @@ class Matricula_Model extends Models {
                 //Sino Inserto datos
                 $this->db->insert('sipce_beca', array(
                     'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
+                    'anio' => $this->datosSistema[0]['annio_lectivo'],
                     'becaTransporte' => 1));
             }
         } else {
@@ -573,7 +567,7 @@ class Matricula_Model extends Models {
         //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
         $consultaExistenciaNivel = $this->db->select("SELECT * FROM sipce_grupos "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND annio = " . $datos['anio']);
+                . "AND annio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($consultaExistenciaNivel != null) {
             //Actualizo nivel del Estudiante
@@ -586,7 +580,7 @@ class Matricula_Model extends Models {
             $this->db->insert('sipce_grupos', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'nivel' => $datos['sl_nivelMatricular'],
-                'annio' => $datos['anio']));
+                'annio' => $this->datosSistema[0]['annio_lectivo']));
         }
         
         
@@ -670,7 +664,7 @@ class Matricula_Model extends Models {
             $posData = array(
                 'ced_encargado' => $datos['tf_cedulaEncargado'],
                 'parentesco' => $datos['sel_parentesco'],
-                'anio' => $datos['anio'],
+                'anio' => $this->datosSistema[0]['annio_lectivo'],
                 'nombre_encargado' => $datos['tf_nombreEncargado'],
                 'apellido1_encargado' => $datos['tf_ape1Encargado'],
                 'apellido2_encargado' => $datos['tf_ape2Encargado'],
@@ -685,7 +679,7 @@ class Matricula_Model extends Models {
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'ced_encargado' => $datos['tf_cedulaEncargado'],
                 'parentesco' => $datos['sel_parentesco'],
-                'anio' => $datos['anio'],
+                'anio' => $this->datosSistema[0]['annio_lectivo'],
                 'nombre_encargado' => $datos['tf_nombreEncargado'],
                 'apellido1_encargado' => $datos['tf_ape1Encargado'],
                 'apellido2_encargado' => $datos['tf_ape2Encargado'],
@@ -796,7 +790,7 @@ class Matricula_Model extends Models {
             if ($consultaExistenciaAdelanta != null) {
                 //Si ya existe  Adelanto/Arraste, actualizo
                 $posData = array(
-                    'anio' => $datos['anio'],
+                    'anio' => $this->datosSistema[0]['annio_lectivo'],
                     'nivel' => $datos['sl_nivelMatricular'],
                     'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1);
                 $this->db->update('sipce_adelanta', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
@@ -804,14 +798,14 @@ class Matricula_Model extends Models {
                 //Si no, inserto los datos de la Poliza
                 $this->db->insert('sipce_adelanta', array(
                     'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
+                    'anio' => $this->datosSistema[0]['annio_lectivo'],
                     'nivel' => $datos['sl_nivelMatricular'],
                     'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1));
             }
         } else {
             if ($consultaExistenciaAdelanta != null) {
                 //Borro datos
-                $sth = $this->db->prepare("DELETE FROM sipce_adelanta WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
+                $sth = $this->db->prepare("DELETE FROM sipce_adelanta WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $this->datosSistema[0]['annio_lectivo']);
                 $sth->execute();
             }
         }
@@ -826,7 +820,7 @@ class Matricula_Model extends Models {
         //Consulto si ya existe la matricula
         $consultaExistenciaMatricula = $this->db->select("SELECT * FROM sipce_matricularatificacion "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
+                . "AND anio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($consultaExistenciaMatricula != null) {
             //No se puede hacer nuevo ingreso xq ya existe
@@ -836,7 +830,7 @@ class Matricula_Model extends Models {
             //Sino Inserto datos y 'estado' Matricula Nuevo Ingreso
             $this->db->insert('sipce_matricularatificacion', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                'anio' => $datos['anio'],
+                'anio' => $this->datosSistema[0]['annio_lectivo'],
                 'nivel' => $datos['sl_nivelMatricular'],
                 'condicion' => $datos['sl_condicion'],
                 'estado' => 3));
@@ -845,7 +839,7 @@ class Matricula_Model extends Models {
         //Consulto si ya existe la Enfermedad
         $consultaExistenciaEnfermedad = $this->db->select("SELECT * FROM sipce_enfermedades "
                 . "WHERE cedula = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
+                . "AND anio = " . $this->datosSistema[0]['annio_lectivo']);
 
         if ($datos['sel_enfermedad'] == 1) {
             if ($consultaExistenciaEnfermedad != null) {
@@ -856,115 +850,10 @@ class Matricula_Model extends Models {
                 //Sino Inserto datos
                 $this->db->insert('sipce_enfermedades', array(
                     'cedula' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
+                    'anio' => $this->datosSistema[0]['annio_lectivo'],
                     'descripcion' => $datos['tf_enfermedadDescripcion']));
             }
         }
-
-        //Consulto si ya existe la Adecuacion
-        $consultaExistenciaAdecuacion = $this->db->select("SELECT * FROM sipce_adecuacion "
-                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
-
-        if ($datos['sl_adecuacion'] != 'No') {
-            if ($consultaExistenciaAdecuacion != null) {
-                //No se puede hacer nuevo ingreso xq ya existe
-                echo '<h1>ya existe estudiante en sipce_adecuacion';
-                die;
-            } else {
-                //Sino Inserto datos
-                $this->db->insert('sipce_adecuacion', array(
-                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
-                    'adecuacion' => $datos['sl_adecuacion']));
-            }
-        }
-
-        //Consulto si ya existe Becas Avancemos
-        $consultaExistenciaBecaAvancemos = $this->db->select("SELECT * FROM sipce_beca "
-                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
-
-        if ($datos['sl_becaAvancemos'] != 'No') {
-            if ($consultaExistenciaBecaAvancemos != null) {
-                //Actualizo datos
-                $posData = array(
-                    'becaAvancemos' => 1);
-                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
-            } else {
-                //Sino Inserto datos
-                $this->db->insert('sipce_beca', array(
-                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
-                    'becaAvancemos' => 1));
-            }
-        } else {
-            if ($consultaExistenciaBecaAvancemos != null) {
-                //Actualizo datos
-                $posData = array(
-                    'becaAvancemos' => 0);
-                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
-            }
-        }
-
-        //Consulto si ya existe Becas Comedor
-        $consultaExistenciaBecaComedor = $this->db->select("SELECT * FROM sipce_beca "
-                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
-
-        if ($datos['sl_becaComedor'] != 'No') {
-            if ($consultaExistenciaBecaComedor != null) {
-                //Actualizo datos
-                $posData = array(
-                    'becaComedor' => 1);
-                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
-            } else {
-                //Sino Inserto datos
-                $this->db->insert('sipce_beca', array(
-                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
-                    'becaComedor' => 1));
-            }
-        } else {
-            if ($consultaExistenciaBecaComedor != null) {
-                //Actualizo datos
-                $posData = array(
-                    'becaComedor' => 0);
-                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
-            }
-        }
-
-        //Consulto si ya existe Becas Transporte
-        $consultaExistenciaBecaTransporte = $this->db->select("SELECT * FROM sipce_beca "
-                . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' "
-                . "AND anio = " . $datos['anio']);
-
-        if ($datos['sl_becaTransporte'] != 'No') {
-            if ($consultaExistenciaBecaTransporte != null) {
-                //Actualizo datos
-                $posData = array(
-                    'becaTransporte' => 1);
-                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
-            } else {
-                //Sino Inserto datos
-                $this->db->insert('sipce_beca', array(
-                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
-                    'becaTransporte' => 1));
-            }
-        } else {
-            if ($consultaExistenciaBecaTransporte != null) {
-                //Actualizo datos
-                $posData = array(
-                    'becaTransporte' => 0);
-                $this->db->update('sipce_beca', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
-            }
-        }
-
-//        print_r($datos['tf_cedulaEstudiante']);
-//        echo '<br>';
-//        print_r($datos['sl_nivelMatricular']);
-//        die;
         //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
         $consultaExistenciaNivel = $this->db->select("SELECT * FROM sipce_grupos "
                 . "WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
@@ -978,7 +867,7 @@ class Matricula_Model extends Models {
             $this->db->insert('sipce_grupos', array(
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'nivel' => $datos['sl_nivelMatricular'],
-                'annio' => $datos['anio']));
+                'annio' => $this->datosSistema[0]['annio_lectivo']));
         }
 
         //Consulto si ya existe datos en el expediente (para editarla)
@@ -1008,9 +897,6 @@ class Matricula_Model extends Models {
                 'IdCanton' => $datos['tf_cantones'],
                 'IdDistrito' => $datos['tf_distritos']));
         }
-        /* Falta
-          'estadoCivil'=>$datos['estadocivilP']
-         */
 
 
         //Consulto si el nivel es superio a Noveno
@@ -1045,7 +931,7 @@ class Matricula_Model extends Models {
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'ced_encargado' => $datos['tf_cedulaEncargado'],
                 'parentesco' => $datos['sel_parentesco'],
-                'anio' => $datos['anio'],
+                'anio' => $this->datosSistema[0]['annio_lectivo'],
                 'nombre_encargado' => $datos['tf_nombreEncargado'],
                 'apellido1_encargado' => $datos['tf_ape1Encargado'],
                 'apellido2_encargado' => $datos['tf_ape2Encargado'],
@@ -1126,33 +1012,6 @@ class Matricula_Model extends Models {
                 'ced_estudiante' => $datos['tf_cedulaEstudiante'],
                 'numero_poliza' => $datos['tf_poliza'],
                 'fecha_vence' => $datos['tf_polizaVence']));
-        }
-
-        //Consulto si ya existe Adelanto/Arraste
-        $consultaExistenciaAdelanta = $this->db->select("SELECT * FROM sipce_adelanta WHERE ced_estudiante = '" . $datos['tf_cedulaEstudiante'] . "' ");
-
-        if ($datos['sl_adelanta'] == "si" && $datos['sl_condicion'] == "Repite") {
-            if ($consultaExistenciaAdelanta != null) {
-                //Si ya existe  Adelanto/Arraste, actualizo
-                $posData = array(
-                    'anio' => $datos['anio'],
-                    'nivel' => $datos['sl_nivelMatricular'],
-                    'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1);
-                $this->db->update('sipce_adelanta', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
-            } else {
-                //Si no, inserto los datos de la Poliza
-                $this->db->insert('sipce_adelanta', array(
-                    'ced_estudiante' => $datos['tf_cedulaEstudiante'],
-                    'anio' => $datos['anio'],
-                    'nivel' => $datos['sl_nivelMatricular'],
-                    'nivel_adelanta' => $datos['sl_nivelMatricular'] + 1));
-            }
-        } else {
-            if ($consultaExistenciaAdelanta != null) {
-                //Borro datos
-                $sth = $this->db->prepare("DELETE FROM sipce_adelanta WHERE ced_estudiante ='" . $datos['tf_cedulaEstudiante'] . "' AND anio = " . $datos['anio']);
-                $sth->execute();
-            }
         }
     }
 
@@ -1295,7 +1154,7 @@ class Matricula_Model extends Models {
                         . "FROM sipce_estudiante as p,sipce_escuelas as e,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d, sipce_matricularatificacion as m "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' "
-                        . "AND g.annio = '" . ($this->anioActivo + 1) . "' "
+                        . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] + 1) . "' "
                         . "AND m.ced_estudiante = '" . $cedulaEstudiante . "' "
                         . "AND p.escuela_procedencia = e.id "
                         . "AND p.IdProvincia = j.IdProvincia "
@@ -1310,7 +1169,7 @@ class Matricula_Model extends Models {
                         . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_matricularatificacion as m "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = m.ced_estudiante "
-                        . "AND g.annio = " . $this->anioActivo . " "
+                        . "AND g.annio = " . $this->datosSistema[0]['annio_lectivo'] . " "
                         . "AND g.grupo = 0 "
                         . "ORDER BY g.nivel");
     }    
@@ -1322,7 +1181,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,p.domicilio,g.nivel "
                         . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
-                        . "AND g.annio = '" . $this->anioActivo . "' "
+                        . "AND g.annio = '" . $this->datosSistema[0]['annio_lectivo'] . "' "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' ");
     }
     
@@ -1331,7 +1190,7 @@ class Matricula_Model extends Models {
     public function consultaNiveles() {
         return $this->db->select("SELECT DISTINCT nivel "
                                 . "FROM sipce_grupos "
-                                . "WHERE annio = ".$this->anioActivo." "
+                                . "WHERE annio = ".$this->datosSistema[0]['annio_lectivo']." "
                                 . "ORDER BY nivel");
     }
 
@@ -1340,7 +1199,7 @@ class Matricula_Model extends Models {
     public function cargaGrupos($idNivel) {
         $resultado = $this->db->select("SELECT DISTINCT grupo FROM sipce_grupos "
                                 . "WHERE nivel = :nivel "
-                                . "AND annio = ".$this->anioActivo." "
+                                . "AND annio = ".$this->datosSistema[0]['annio_lectivo']." "
                                 . "AND grupo <> 0 "
                                 . "ORDER BY grupo", array('nivel' => $idNivel));
         echo json_encode($resultado);
@@ -1352,7 +1211,7 @@ class Matricula_Model extends Models {
         $resultado = $this->db->select("SELECT DISTINCT sub_grupo FROM sipce_grupos "
                                 . "WHERE nivel = :nivel "
                                 . "AND grupo = :grupo "
-                                . "AND annio = ".$this->anioActivo." "
+                                . "AND annio = ".$this->datosSistema[0]['annio_lectivo']." "
                                 . "ORDER BY sub_grupo", array('nivel' => $consulta['nivelSeleccionado'],
                                                           'grupo' => $consulta['grupoSeleccionado']));
         echo json_encode($resultado);
@@ -1364,7 +1223,7 @@ class Matricula_Model extends Models {
     //Consulto si el estudiante esta asignado a un Nivel, Grupo, Subgrupo
         $consultaExistenciaNivel = $this->db->select("SELECT * FROM `sipce_grupos` "
                                                     ."WHERE `ced_estudiante` = '".$datos['ced_estudiante']."' "
-                                                    ."AND `annio` = ".$this->anioActivo);
+                                                    ."AND `annio` = ".$this->datosSistema[0]['annio_lectivo']);
 
         if ($consultaExistenciaNivel != null) {
             //Actualizo nivel del Estudiante
@@ -1373,7 +1232,7 @@ class Matricula_Model extends Models {
                 'grupo' => $datos['grupo'],
                 'sub_grupo' => $datos['subGrupo']);
 
-            $this->db->update('sipce_grupos', $datosNivel, "`ced_estudiante` = '{$datos['ced_estudiante']}' AND `annio` = ".$this->anioActivo);
+            $this->db->update('sipce_grupos', $datosNivel, "`ced_estudiante` = '{$datos['ced_estudiante']}' AND `annio` = ".$this->datosSistema[0]['annio_lectivo']);
             $msj="Sección de Estudiante actualizada correctamente";
         } else {
             //Sino Inserto datos en sipce_grupos
@@ -1382,7 +1241,7 @@ class Matricula_Model extends Models {
                 'nivel' => $datos['nivel'],
                 'grupo' => $datos['grupo'],
                 'subGrupo' => $datos['subGrupo'],
-                'annio' => $this->anioActivo));
+                'annio' => $this->datosSistema[0]['annio_lectivo']));
             $msj="Se agrego nueva Sección del Estudiante";
         }
         return $msj;
@@ -1394,18 +1253,18 @@ class Matricula_Model extends Models {
     //Consulto si el estudiante 
         $consultaExistenciaNivel = $this->db->select("SELECT * FROM `sipce_grupos` "
                                                     ."WHERE `ced_estudiante` = '".$ced_estudiante."' "
-                                                    ."AND `annio` = ".$this->anioActivo);
+                                                    ."AND `annio` = ".$this->datosSistema[0]['annio_lectivo']);
 
         if ($consultaExistenciaNivel != null) {
             //Elimino la matricula del Estudiante
             $sth = $this->db->prepare("DELETE FROM sipce_grupos "
                                     . "WHERE ced_estudiante ='" . $ced_estudiante . "' " 
-                                    . "AND annio = ".$this->anioActivo);
+                                    . "AND annio = ".$this->datosSistema[0]['annio_lectivo']);
             $sth->execute();
             
             $sth2 = $this->db->prepare("DELETE FROM sipce_matricularatificacion "
                                     . "WHERE ced_estudiante ='" . $ced_estudiante . "' " 
-                                    . "AND anio = ".$this->anioActivo);
+                                    . "AND anio = ".$this->datosSistema[0]['annio_lectivo']);
             $sth2->execute();
             
             $msj="Estudiante eliminado correctamente";
@@ -1422,7 +1281,7 @@ class Matricula_Model extends Models {
                         . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_matricularatificacion as m "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = m.ced_estudiante "
-                        . "AND g.annio = " . $this->anioActivo . " "
+                        . "AND g.annio = " . $this->datosSistema[0]['annio_lectivo'] . " "
                         . "AND g.grupo = 0 "
                         . "ORDER BY g.nivel");
     }

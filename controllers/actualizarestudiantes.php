@@ -7,6 +7,9 @@ class ActualizarEstudiantes extends Controllers {
         parent::__construct();
         Auth::handleLogin();
         $this->view->js = array('actualizarestudiantes/js/default.js');
+
+    //Ruta de carpetas en localhost o hostinger.com.....   local o web
+        $this->entorno = 'local';
     }
 
     //La funcion Index carga dos variables, "title" es utilizada para el Header de la pagina
@@ -176,15 +179,16 @@ class ActualizarEstudiantes extends Controllers {
 
     /* Cargo ausencias de estudiantes */
     function guardarAusencias() {
-        //Ruta de carpetas en localhost
-        $ruta="../sipce";
-        
-        //Ruta de carpetas en hostinger.com
-        //$ruta="../public_html";
+        //Ruta de carpetas en localhost o hostinger.com
+        if($this->entorno == 'local'){
+            $ruta="../sipce";
+        }else if($this->entorno == 'web'){
+            $ruta="../public_html";
+        }
         
         if ($_FILES['archivo']["error"] > 0)
             {
-            echo "Error: " . $_FILES['archivo']['error'] . "<br>";
+            echo "Ocurrio un Error al copiar el archivo a la carpeta temporal: " . $_FILES['archivo']['error'] . "<br>";
             die;
             }
             else

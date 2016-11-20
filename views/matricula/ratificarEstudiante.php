@@ -46,7 +46,7 @@
                     </div>
                     <label for="tf_edad" class="col-xs-2 control-label">Edad:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad" value='<?php if ($this->anio != null) echo $this->anio - (date(substr($this->infoEstudiante[0]['fechaNacimiento'], 0, 4))); ?>' onkeyup="mayusculas(this)"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad" value='<?php if ($this->datosSistema[0]['annio_lectivo'] != null) echo $this->datosSistema[0]['annio_lectivo'] - (date(substr($this->infoEstudiante[0]['fechaNacimiento'], 0, 4))); ?>' onkeyup="mayusculas(this)"/>
                     </div>
                     <label for="tf_genero" class="col-xs-2 control-label">Género:</label>
                     <div class="col-xs-2">
