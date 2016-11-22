@@ -485,9 +485,9 @@
                             echo '</select>';
                             echo '</div>';
                         }else{
-                            echo '<label for="tf_adelanta" class="col-xs-2 control-label" id="sl_adelantaLabel">Adelanta:</label>';
+                            echo '<label for="tf_adelanta" class="col-xs-2 control-label" id="sl_adelantaLabel" style="display:none;">Adelanta:</label>';
                             echo '<div class="col-xs-2">';
-                            echo '<select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta">';
+                            echo '<select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta" style="display:none;">';
                             echo '<option value="si">Si</option>';
                             echo '<option value="no" selected>No</option>';
                             echo '</select>';

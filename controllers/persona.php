@@ -553,7 +553,12 @@ class Persona extends Controllers {
 
         $this->model->guardarExpedienteEstudiante($datos);
 
-        $this->expedientesEstudiantes();
+        
+        $this->view->title = 'Expedientes Estudintes';
+        $this->view->consultaNiveles = $this->model->consultaNiveles();
+        $this->view->render('header');
+        $this->view->render('persona/expedientesEstudiantes');
+        $this->view->render('footer');
     }
 
     function imprimirExpedienteEstudiante($cedulaEstudiante) {
@@ -674,6 +679,27 @@ class Persona extends Controllers {
         $this->view->render('footer');
     }
 
+    function modificarCedulaEstudiante() {
+        $this->view->title = 'Modificar cédula de estudiante';
+        $this->view->mensaje = '';
+
+        $this->view->render('header');
+        $this->view->render('persona/modificarCedulaEstudiante');
+        $this->view->render('footer');
+    }
+
+    function guardarCedulaNueva($ced_estudiante) {
+        $estudiante = array();
+        $estudiante['ced_estudiante'] = $ced_estudiante;
+        $estudiante['ced_nueva'] = $_POST['ced_nueva'];
+        $this->model->guardarCedulaNueva($estudiante);
+        
+        $this->view->mensaje = 'Datos modificados correctamente';
+
+        $this->view->render('header');
+        $this->view->render('persona/becas');
+        $this->view->render('footer');
+    }
 }
 
 ?>

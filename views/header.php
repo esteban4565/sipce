@@ -146,6 +146,7 @@
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/actuPasswordDocente">Reiniciar contraseñas Docente</a></li>
                           <li><a href="<?php echo URL; ?>actualizarestudiantes/estudiantesVoca">Estudiantes Voca</a></li>
                             <li class="divider"></li>
+                          <li><a href="<?php echo URL; ?>persona/modificarCedulaEstudiante">Modificar cédula de estudiante</a></li>
                           <li><a href="<?php echo URL; ?>configSistema/index">Configuración del Sistema</a></li>
                         </ul>
                       </li>
