@@ -920,6 +920,11 @@ $(function()
     //Becas 2016
     //Carga los datos del Estudiante para completar el formulario **Insertar Beca**//
     $("#buscarEstudianteBecas").click(function(event) {
+        if($("#msj").css('display'))
+            {
+                document.getElementById("msj").style.display = 'none';
+            }
+        
         var idD = $("#ced_estudiante").val();
         if (idD == "") {
             alert("Por favor ingrese una identificación");
@@ -928,77 +933,35 @@ $(function()
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2016 y solo posee Costarricenses y Nacionalizados");
                 } else {
-                    var especialidad = "-";
-                    if (typeof resulBusqueda[0].nombreEspecialidad !== 'undefined') {
-                        especialidad = resulBusqueda[0].nombreEspecialidad;
+                    $('#h5_ced_estudiante_encontrada').text(idD);
+                    $('#ced_estudiante_encontrada').val(idD);
+                    $('#nombre_encontrado').text(resulBusqueda['apellido1'] +' ' + resulBusqueda['apellido2'] + ' ' + resulBusqueda['nombre']);
+                    $('#distrito_encontrado').text(resulBusqueda['Distrito']);
+                    $('#nivel_encontrado').text(resulBusqueda['nivel']);
+                    $('#especialidad_encontrada').text(resulBusqueda['nombreEspecialidad']);
+                    if(resulBusqueda['ced_padre'] != null){
+                        $('#padre_encontrado').val(resulBusqueda['ced_padre']);
+                        $('#h5_padre_encontrado').text(resulBusqueda['apellido1_padre'] +' ' + resulBusqueda['apellido2_padre'] + ' ' + resulBusqueda['nombre_padre']);
+                    }else{
+                        $('#h5_padre_encontrado').text('-');
                     }
-                    $('#formularioBeca').empty();
-                    //rutaSitio esta declarada en becas.php
-                    $('#formularioBeca').append('<form id="MyForm" action="' + rutaSitio + 'persona/guardarDatosBeca/' + idD + '" method="POST" enctype="multipart/form-data" class="form-horizontal">' +
-                            '<fieldset>' +
-                            '<legend class="text-center">Formulario becas estudiantiles</legend>' +
-                            '<div class="form-group">' +
-                            '<label class="col-xs-2 control-label">Identificación:</label>' +
-                            '<div class="col-xs-2">' +
-                            '<h5>' + idD + '</h5>' +
-                            '</div>' +
-                            '<label class="col-xs-2 control-label">Nombre:</label>' +
-                            '<div class="col-xs-3">' +
-                            '<h5>' + resulBusqueda[0].apellido1 + ' ' + resulBusqueda[0].apellido2 + ' ' + resulBusqueda[0].nombre + '</h5>' +
-                            '</div>' +
-                            '<label class="col-xs-1 control-label">Distrito:</label>' +
-                            '<div class="col-xs-2">' +
-                            '<h5>' + resulBusqueda[0].Distrito + '</h5>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="form-group">' +
-                            '<label for="annio_lectivo" class="col-xs-2 control-label">Distancia en km:</label>' +
-                            '<div class="col-xs-1">' +
-                            '<input type="text" class="form-control input-sm validate[required]" name="distancia" id="distancia" />' +
-                            '</div>' +
-                            '<label class="col-xs-2 control-label">Grado Académico:</label>' +
-                            '<div class="col-xs-2">' +
-                            '<h5>' + resulBusqueda[0].nivel + '</h5>' +
-                            '</div>' +
-                            '<label class="col-xs-2 control-label">Especialidad:</label>' +
-                            '<div class="col-xs-3">' +
-                            '<h5>' + especialidad + '</h5>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="form-group">' +
-                            '<label for="ingreso1" class="col-xs-1 control-label">Ingreso #1:</label>' +
-                            '<div class="col-xs-2">' +
-                            '<input type="text" class="form-control input-sm validate[required]" name="ingreso1" id="ingreso1" />' +
-                            '</div>' +
-                            '<label for="ingreso2" class="col-xs-1 control-label">Ingreso #2:</label>' +
-                            '<div class="col-xs-2">' +
-                            '<input type="text" class="form-control input-sm validate[required]" name="ingreso2" id="ingreso2" />' +
-                            '</div>' +
-                            '<label for="ingreso3" class="col-xs-1 control-label">Ingreso #3:</label>' +
-                            '<div class="col-xs-2">' +
-                            '<input type="text" class="form-control input-sm validate[required]" name="ingreso3" id="ingreso3" />' +
-                            '</div>' +
-                            '<label for="ingreso4" class="col-xs-1 control-label">Ingreso #4:</label>' +
-                            '<div class="col-xs-2">' +
-                            '<input type="text" class="form-control input-sm validate[required]" name="ingreso4" id="ingreso4" />' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="form-group">' +
-                            '<label for="totalIngreso" class="col-xs-2 control-label">Cantidad de ingresos:</label>' +
-                            '<div class="col-xs-2">' +
-                            '<input type="text" class="form-control input-sm validate[required]" name="totalIngreso" id="totalIngreso" />' +
-                            '</div>' +
-                            '<div class="col-xs-2 text-center">' +
-                            '<input type="submit" class="btn btn-primary" id="guardar" value="Guardar" />' +
-                            '</div>' +
-                            '</div>' +
-                            '</fieldset>' +
-                            '</form>');
+                    if(resulBusqueda['ced_madre'] != null){
+                        $('#madre_encontrado').val(resulBusqueda['ced_madre']);
+                        $('#h5_madre_encontrado').text(resulBusqueda['apellido1_madre'] +' ' + resulBusqueda['apellido2_madre'] + ' ' + resulBusqueda['nombre_madre']);
+                    }else{
+                        $('#h5_madre_encontrado').text('-');
+                    }
+                    if(resulBusqueda['ced_encargado'] != null){
+                        $('#otro_encontrado').val(resulBusqueda['ced_encargado']);
+                        $('#h5_otro_encontrado').text(resulBusqueda['apellido1_encargado'] +' ' + resulBusqueda['apellido2_encargado'] + ' ' + resulBusqueda['nombre_encargado']);
+                    }else{
+                        $('#h5_otro_encontrado').text('-');
+                    }
                 }
             });
         }
     });
-    
+
     //Carga los datos del Estudiante para completar el formulario **Modificar Cédula**//
     $("#buscarEstudianteModifCed").click(function(event) {
         var idD = $("#ced_estudiante").val();

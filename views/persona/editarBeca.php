@@ -23,15 +23,30 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="annio_lectivo" class="col-xs-2 control-label">Distancia en km:</label>
+                <label for="distancia" class="col-xs-1 control-label">Distancia:(km)</label>
                 <div class="col-xs-1">
                     <input type="text" class="form-control input-sm validate[required]" name="distancia" id="distancia" value='<?php echo $this->datosEstudiante[0]['distancia']; ?>'/>
                 </div>
-                <label class="col-xs-2 control-label">Grado Académico:</label>
+                <label for="numeroRuta" class="col-xs-1 control-label">Ruta:</label>
                 <div class="col-xs-2">
+                    <select class="form-control input-sm validate[required]" name="numeroRuta" id="numeroRuta">
+                        <option value="">Seleccione</option>
+                        <?php
+                        if ($this->datosEstudiante[0]['numeroRuta'] == '40165') {
+                            echo '<option value="40165" selected>Heredia</option>';
+                            echo '<option value="5931">Alajuela</option>';
+                        } else {
+                            echo '<option value="5931"selected>Alajuela</option>';
+                            echo '<option value="40165">Heredia</option>';
+                        }
+                        ?>
+                    </select> 
+                </div>
+                <label class="col-xs-2 control-label">Grado Académico:</label>
+                <div class="col-xs-1">
                     <h5><?php echo $this->datosEstudiante[0]['nivel']; ?></h5>
                 </div>
-                <label class="col-xs-2 control-label">Especialidad:</label>
+                <label class="col-xs-1 control-label">Especialidad:</label>
                 <div class="col-xs-3">
                     <h5>
                         <?php
@@ -64,11 +79,18 @@
             </div>
             <div class="form-group">
                 <label for="totalIngreso" class="col-xs-2 control-label">Cantidad de ingresos:</label>
-                <div class="col-xs-2">
+                <div class="col-xs-1">
                     <input type="text" class="form-control input-sm validate[required]" name="totalIngreso" id="totalIngreso" value='<?php echo $this->datosEstudiante[0]['totalIngreso']; ?>'/>
+                </div>
+                <label for="totalMiembros" class="col-xs-2 control-label">Cantidad de miembros:</label>
+                <div class="col-xs-1">
+                    <input type="text" class="form-control input-sm validate[required,custom[integer],min[1]]" name="totalMiembros" id="totalMiembros" value='<?php echo $this->datosEstudiante[0]['totalMiembros']; ?>'/>
                 </div>
                 <div class="col-xs-2 text-center">
                     <input type="submit" class="btn btn-primary" id="guardar" value="Guardar" />
+                </div>
+                <div class="col-xs-2 text-center">
+                    <a class="btn btn-warning" href="<?php echo URL; ?>persona/listaBecas">Ver Lista Becados</a>
                 </div>
             </div>
         </fieldset>

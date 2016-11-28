@@ -553,7 +553,7 @@ class Persona extends Controllers {
 
         $this->model->guardarExpedienteEstudiante($datos);
 
-        
+
         $this->view->title = 'Expedientes Estudintes';
         $this->view->consultaNiveles = $this->model->consultaNiveles();
         $this->view->render('header');
@@ -625,12 +625,12 @@ class Persona extends Controllers {
 
     //2016 Becas
 
-    function beca() {
+    function ingresarBeca() {
         $this->view->title = 'Ingresar beca';
         $this->view->mensaje = '';
 
         $this->view->render('header');
-        $this->view->render('persona/becas');
+        $this->view->render('persona/ingresarBeca');
         $this->view->render('footer');
     }
 
@@ -638,26 +638,24 @@ class Persona extends Controllers {
         $this->model->buscarEstudianteBecas($ced_estudiante);
     }
 
-    function guardarDatosBeca($ced_estudiante = null) {
+    function guardarDatosBeca() {
         $datos = array();
-        if($ced_estudiante == null){
-            $datos['ced_estudiante'] = $_POST['ced_estudiante'];
-        }else{
-            $datos['ced_estudiante'] = $ced_estudiante;
-        }
-        
+        $datos['ced_estudiante'] = $_POST['ced_estudiante_encontrada'];
+        $datos['ced_encargadoCheque'] = $_POST['encargadoCheque'];
+        $datos['numeroRuta'] = $_POST['numeroRuta'];
         $datos['distancia'] = $_POST['distancia'];
         $datos['ingreso1'] = $_POST['ingreso1'];
         $datos['ingreso2'] = $_POST['ingreso2'];
         $datos['ingreso3'] = $_POST['ingreso3'];
         $datos['ingreso4'] = $_POST['ingreso4'];
         $datos['totalIngreso'] = $_POST['totalIngreso'];
+        $datos['totalMiembros'] = $_POST['totalMiembros'];
         $this->model->guardarDatosBeca($datos);
-        
+
         $this->view->mensaje = 'Datos guardados correctamente';
 
         $this->view->render('header');
-        $this->view->render('persona/becas');
+        $this->view->render('persona/ingresarBeca');
         $this->view->render('footer');
     }
 
@@ -679,6 +677,16 @@ class Persona extends Controllers {
         $this->view->render('footer');
     }
 
+    function eliminarBeca($ced_estudiante) {
+        $this->view->title = 'Lista becas';
+        $this->model->eliminarBeca($ced_estudiante);
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
+
+        $this->view->render('header');
+        $this->view->render('persona/listaBecas');
+        $this->view->render('footer');
+    }
+
     function modificarCedulaEstudiante() {
         $this->view->title = 'Modificar cédula de estudiante';
         $this->view->mensaje = '';
@@ -693,13 +701,14 @@ class Persona extends Controllers {
         $estudiante['ced_estudiante'] = $ced_estudiante;
         $estudiante['ced_nueva'] = $_POST['ced_nueva'];
         $this->model->guardarCedulaNueva($estudiante);
-        
+
         $this->view->mensaje = 'Datos modificados correctamente';
 
         $this->view->render('header');
         $this->view->render('persona/becas');
         $this->view->render('footer');
     }
+
 }
 
 ?>
