@@ -956,7 +956,8 @@ class Matricula_Model extends Models {
                 'nombre_padre' => $datos['tf_nombrePadre'],
                 'apellido1_padre' => $datos['tf_ape1Padre'],
                 'apellido2_padre' => $datos['tf_ape2Padre'],
-                'telefonoCasaPadre' => $datos['tf_telCelPadre'],
+                'telefonoCasaPadre' => $datos['tf_telHabitPadre'],
+                'telefonoCelPadre' => $datos['tf_telCelPadre'],
                 'ocupacionPadre' => $datos['tf_ocupacionPadre']));
         }
 
@@ -975,7 +976,8 @@ class Matricula_Model extends Models {
                 'nombre_madre' => $datos['tf_nombreMadre'],
                 'apellido1_madre' => $datos['tf_ape1Madre'],
                 'apellido2_madre' => $datos['tf_ape2Madre'],
-                'telefonoCasaMadre' => $datos['tf_telCelMadre'],
+                'telefonoCasaMadre' => $datos['tf_telHabitMadre'],
+                'telefonoCelMadre' => $datos['tf_telCelMadre'],
                 'ocupacionMadre' => $datos['tf_ocupacionMadre']));
         }
 

@@ -643,7 +643,7 @@ class Persona_Model extends Models {
 
     public function madreEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT ced_madre,nombre_madre,apellido1_madre,apellido2_madre,"
-                        . "telefonoCasaMadre,ocupacionMadre "
+                        . "telefonoCasaMadre,telefonoCelMadre,ocupacionMadre "
                         . "FROM sipce_madre  "
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }
@@ -652,7 +652,7 @@ class Persona_Model extends Models {
 
     public function padreEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT ced_padre,nombre_padre,apellido1_padre,apellido2_padre,"
-                        . "telefonoCasaPadre,ocupacionPadre "
+                        . "telefonoCasaPadre,telefonoCelPadre,ocupacionPadre "
                         . "FROM sipce_padre  "
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }

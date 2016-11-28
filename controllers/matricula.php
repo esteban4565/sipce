@@ -435,6 +435,7 @@ class Matricula extends Controllers {
         $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre_NI']);
         $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre_NI']);
         $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre_NI']);
+        $datos['tf_telHabitMadre'] = $_POST['tf_telHabitMadre'];
         $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
         $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
         
@@ -442,6 +443,7 @@ class Matricula extends Controllers {
         $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre_NI']);
         $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre_NI']);
         $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre_NI']);
+        $datos['tf_telHabitPadre'] = $_POST['tf_telHabitPadre'];
         $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
         $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
         

@@ -254,9 +254,13 @@
                 </div> 
                 <!--L15 Telefonos y Ocupación de la Madre (Formulario Hugo)-->
                 <div class="form-group">
+                    <label for="tf_telHabitMadre" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitMadre" id="tf_telHabitMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['telefonoCasaMadre']; ?>'/>
+                    </div>
                     <label for="tf_telCelMadre" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelMadre" id="tf_telCelMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['telefonoCasaMadre']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelMadre" id="tf_telCelMadre" value='<?php if ($this->madreEstudiante != null) echo $this->madreEstudiante[0]['telefonoCelMadre']; ?>'/>
                     </div>
                     <label for="tf_ocupacionMadre" class="col-xs-2 control-label">Ocupación:</label>
                     <div class="col-xs-2">
@@ -292,9 +296,13 @@
                 </div> 
                 <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
                 <div class="form-group">
+                    <label for="tf_telHabitPadre" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitPadre" id="tf_telHabitPadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['telefonoCasaPadre']; ?>'/>
+                    </div>
                     <label for="tf_telCelPadre" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelPadre" id="tf_telCelPadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['telefonoCasaPadre']; ?>'/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelPadre" id="tf_telCelPadre" value='<?php if ($this->padreEstudiante != null) echo $this->padreEstudiante[0]['telefonoCelPadre']; ?>'/>
                     </div>
                     <label for="tf_ocupacionPadre" class="col-xs-2 control-label">Ocupación:</label>
                     <div class="col-xs-2">

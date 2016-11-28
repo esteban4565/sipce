@@ -196,6 +196,10 @@
                 </div> 
                 <!--L15 Telefonos y Ocupación de la Madre (Formulario Hugo)-->
                 <div class="form-group">
+                    <label for="tf_telHabitMadre" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitMadre" id="tf_telHabitMadre"/>
+                    </div>
                     <label for="tf_telCelMadre" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelMadre" id="tf_telCelMadre"/>
@@ -234,6 +238,10 @@
                 </div> 
                 <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
                 <div class="form-group">
+                    <label for="tf_telHabitPadre" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitPadre" id="tf_telHabitPadre"/>
+                    </div>
                     <label for="tf_telCelPadre" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelPadre" id="tf_telCelPadre"/>
