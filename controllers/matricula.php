@@ -221,19 +221,13 @@ class Matricula extends Controllers {
         $this->view->personaEmergenciaEstudiante = $this->model->personaEmergenciaEstudiante($cedulaEstudiante);
 
         /* Cargo informacion de las enfermedades del Estudiante */
-        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de la adecuacio del Estudiante */
-        $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de Becas */
-        $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
+        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudianteActual($cedulaEstudiante);
 
         /* Cargo informacion de la poliza del Estudiante */
         $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
 
         /* Cargo informacion de la Condicion de Matricula */
-        $this->view->infoCondicionMatricula = $this->model->infoCondicionMatricula($cedulaEstudiante);
+        $this->view->infoCondicionMatricula = $this->model->infoCondicionActualMatricula($cedulaEstudiante);
 
         /* Cargo informacion de Adelanto/Arrastre */
         $this->view->infoAdelanta = $this->model->infoAdelanta($cedulaEstudiante);
@@ -298,13 +292,7 @@ class Matricula extends Controllers {
         $this->view->consultaDatosEstudiante = $this->model->consultaDatosEstudiante($cedulaEstudiante);
 
         /* Cargo informacion de las enfermedades del Estudiante */
-        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudiante($cedulaEstudiante);
-        
-        /* Cargo informacion de la adecuacio del Estudiante */
-        $this->view->adecuacionEstudiante = $this->model->adecuacionEstudiante($cedulaEstudiante);
-
-        /* Cargo informacion de Becas */
-        $this->view->becasEstudiante = $this->model->becasEstudiante($cedulaEstudiante);
+        $this->view->enfermedadEstudiante = $this->model->enfermedadEstudianteActual($cedulaEstudiante);
 
         /* Cargo informacion del encargado Legal del Estudiante */
         $this->view->encargadoLegal = $this->model->encargadoLegal($cedulaEstudiante);
@@ -322,7 +310,7 @@ class Matricula extends Controllers {
         $this->view->polizaEstudiante = $this->model->polizaEstudiante($cedulaEstudiante);
 
         /* Cargo informacion de la Condicion de Matricula */
-        $this->view->infoCondicionMatricula = $this->model->infoCondicionMatricula($cedulaEstudiante);
+        $this->view->infoCondicionMatricula = $this->model->infoCondicionActualMatricula($cedulaEstudiante);
 
         /* Cargo informacion de la especialidad del Estudiante */
         $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);

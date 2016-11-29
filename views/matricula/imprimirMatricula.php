@@ -85,7 +85,7 @@
         <?php echo substr($this->consultaDatosEstudiante[0]['fechaNacimiento'],0,4); ?>
         </div>
         <div class="col-xs-2 text-center">
-        <?php echo $this->datosSistema[0]['annio_lectivo'] - (date(substr($this->consultaDatosEstudiante[0]['fechaNacimiento'], 0, 4))); ?>
+        <?php echo $this->datosSistema[0]['annio_lectivo'] - (date(substr($this->consultaDatosEstudiante[0]['fechaNacimiento'], 0, 4))) - 1; ?>
         </div>
       </div>
       <div class="row">
@@ -259,7 +259,7 @@
         Celular:&nbsp;
         </div>
         <div class="col-xs-2 text-left">
-            <?php if($this->madreEstudiante[0]['telefonoCasaMadre'] != 0){echo $this->madreEstudiante[0]['telefonoCasaMadre'];}else{echo '&nbsp;';}?>
+            <?php if($this->madreEstudiante[0]['telefonoCelMadre'] != 0){echo $this->madreEstudiante[0]['telefonoCelMadre'];}else{echo '&nbsp;';}?>
         </div>
         <div class="col-xs-2 text-right">
         Ocupación:&nbsp;
@@ -295,7 +295,7 @@
         Celular:&nbsp;
         </div>
         <div class="col-xs-2 text-left">
-            <?php if($this->padreEstudiante[0]['telefonoCasaPadre']!=0){echo $this->padreEstudiante[0]['telefonoCasaPadre'];}else{echo '&nbsp;';} ?>
+            <?php if($this->padreEstudiante[0]['telefonoCelPadre']!=0){echo $this->padreEstudiante[0]['telefonoCelPadre'];}else{echo '&nbsp;';} ?>
         </div>
         <div class="col-xs-2 text-right">
         Ocupación:&nbsp;
@@ -364,12 +364,7 @@
         <div class="col-xs-1 text-center">
         <?php echo $this->consultaDatosEstudiante[0]['condicion']; ?>
         </div>
-        <div class="col-xs-3 text-right">
-        Adecuación curricular:&nbsp;
-        </div>
-        <div class="col-xs-4 text-left">
-        <?php if($this->adecuacionEstudiante != null) {echo $this->adecuacionEstudiante[0]['adecuacion'];}else{echo 'No';} ?>
-        </div>
+        <div class="col-xs-offset-7"></div>
       </div>
       <!Linea#22>
       <div class="row">
@@ -403,27 +398,6 @@
             &nbsp;
         </div>
         <?php }?>
-      </div>
-      <!Linea#23>
-      <div class="row">
-        <div class="col-xs-2 text-right">
-        Beca Avancemos:&nbsp;
-        </div>
-        <div class="col-xs-1 text-left">
-        <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaAvancemos']==1) {echo 'Si';}else{echo 'No';}?>
-        </div>
-        <div class="col-xs-2 text-right">
-        Beca Comedor:&nbsp;
-        </div>
-        <div class="col-xs-1 text-left">
-        <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaComedor']==1) {echo 'Si';}else{echo 'No';} ?>
-        </div>
-        <div class="col-xs-3 text-right">
-        Beca Transporte:&nbsp;
-        </div>
-        <div class="col-xs-3 text-left">
-        <?php if ($this->becasEstudiante != null && $this->becasEstudiante[0]['becaTransporte']==1) {echo 'Si';}else{echo 'No';} ?>
-        </div>
       </div>
       <!Linea#24>
       <div class="row">

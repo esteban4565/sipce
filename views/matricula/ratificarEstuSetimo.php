@@ -438,16 +438,8 @@
                     </div>
                 </div>
                 <!--L23 Adecuacion y Becas (Formulario Hugo)-->
-                <div class="form-group"> 
-                    <label for="tf_adecuacion" class="col-xs-2 control-label">Adecuación Curricular:</label>
-                    <div class="col-xs-2">
-                        <select class="form-control input-sm" name="sl_adecuacion" id="sl_adecuacion">
-                            <option value="No">No</option>
-                            <option value="No Significativa">No Significativa</option>
-                            <option value="Acceso">Acceso</option>
-                            <option value="Significativa">Significativa</option>
-                        </select> 
-                    </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-4"></div>
                     <label for="tf_adelanta" class="col-xs-2 control-label" id="sl_adelantaLabel" style="display:none;">Adelanta:</label>
                     <div class="col-xs-2">
                         <select class="form-control input-sm" name="sl_adelanta" id="sl_adelanta" style="display:none;">

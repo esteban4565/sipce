@@ -166,12 +166,12 @@ class Matricula_Model extends Models {
     /* Retorna Datos de Estudiante por Ratificar */
 
     public function buscarEstuRatif($ced_estudiante) {
-        $resultado = $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,grupo,sub_grupo "
-                . "FROM sipce_estudiante, sipce_grupos "
-                . "WHERE cedula NOT IN (select ced_estudiante from sipce_matricularatificacion) "
-                . "AND cedula = ced_estudiante "
-                . "AND cedula = '" . $ced_estudiante . "'"
-                . "AND annio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
+        $resultado = $this->db->select("SELECT e.cedula,e.nombre,e.apellido1,e.apellido2,g.nivel,g.grupo,g.sub_grupo "
+                . "FROM sipce_estudiante as e, sipce_grupos as g "
+                . "WHERE e.cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE anio = " . $this->datosSistema[0]['annio_lectivo'] . ") "
+                . "AND e.cedula = g.ced_estudiante "
+                . "AND e.cedula = '" . $ced_estudiante . "'"
+                . "AND g.annio = " . ($this->datosSistema[0]['annio_lectivo'] - 1) . " ");
 
         echo json_encode($resultado);
     }
@@ -195,7 +195,7 @@ class Matricula_Model extends Models {
                         . "p.IdCanton,p.IdDistrito,p.nacionalidad,g.nivel "
                         . "FROM sipce_estudiante as p,sipce_grupos as g "
                         . "WHERE p.cedula = g.ced_estudiante "
-                        . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] - 1). "' "
+                        . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] - 1) . "' "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' ");
     }
 
@@ -245,7 +245,7 @@ class Matricula_Model extends Models {
                         . "AND p.escuela_procedencia = ec.id");
     }
 
-    /* Retorna la informacion del encargado Legal Estudiante */
+    /* Retorna la informacion del encargado Legal Estudiante vigente */
 
     public function encargadoLegal($cedulaEstudiante) {
         return $this->db->select("SELECT ced_encargado,parentesco,nombre_encargado,apellido1_encargado,apellido2_encargado,"
@@ -299,12 +299,22 @@ class Matricula_Model extends Models {
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }
 
-    /* Retorna enfermedades del Estudiante */
+    /* Retorna enfermedades del Estudiante curso vigente*/
 
     public function enfermedadEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT descripcion "
                         . "FROM sipce_enfermedades  "
-                        . "WHERE cedula = '" . $cedulaEstudiante . "' ");
+                        . "WHERE cedula = '" . $cedulaEstudiante . "' "
+                        . "AND anio = " . ($this->datosSistema[0]['annio_lectivo'] -1 ). " ");
+    }
+
+    /* Retorna enfermedades del Estudiante curso nuevo*/
+
+    public function enfermedadEstudianteActual($cedulaEstudiante) {
+        return $this->db->select("SELECT descripcion "
+                        . "FROM sipce_enfermedades  "
+                        . "WHERE cedula = '" . $cedulaEstudiante . "' "
+                        . "AND anio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
     }
 
     /* Retorna adecuacio del Estudiante */
@@ -333,12 +343,22 @@ class Matricula_Model extends Models {
                         . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
     }
 
-    /* Carga todos los estudiantes matriculados */
+    /* Carga la condicion del estudiante  */
 
     public function infoCondicionMatricula($cedulaEstudiante) {
         return $this->db->select("SELECT condicion "
                         . "FROM sipce_matricularatificacion "
-                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' ");
+                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' "
+                        . "AND anio = '" . ($this->datosSistema[0]['annio_lectivo'] -1 ). "'");
+    }
+
+    /* Carga la condicion del estudiante Actual, para editar */
+
+    public function infoCondicionActualMatricula($cedulaEstudiante) {
+        return $this->db->select("SELECT condicion "
+                        . "FROM sipce_matricularatificacion "
+                        . "WHERE ced_estudiante = '" . $cedulaEstudiante . "' "
+                        . "AND anio = '" . $this->datosSistema[0]['annio_lectivo'] . "'");
     }
 
     /* Carga todos los estudiantes matriculados */
@@ -1055,7 +1075,7 @@ class Matricula_Model extends Models {
                         . "FROM sipce_estudiante as p,sipce_escuelas as e,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d, sipce_matricularatificacion as m "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' "
-                        . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] + 1) . "' "
+                        . "AND g.annio = '" . $this->datosSistema[0]['annio_lectivo'] . "' "
                         . "AND m.ced_estudiante = '" . $cedulaEstudiante . "' "
                         . "AND p.escuela_procedencia = e.id "
                         . "AND p.IdProvincia = j.IdProvincia "
