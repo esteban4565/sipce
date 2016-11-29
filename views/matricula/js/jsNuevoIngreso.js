@@ -196,6 +196,7 @@ $(function()
                     $("#tf_ape1Madre_NI").val(resulBusqueda[0].primerApellido);
                     $("#tf_ape2Madre_NI").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombreMadre_NI").val(resulBusqueda[0].nombre);
+                    $("#tf_telCasaMadre").val("");
                     $("#tf_telCelMadre").val("");
                     $("#tf_ocupacionMadre").val("");
                 }
@@ -216,6 +217,7 @@ $(function()
                     $("#tf_ape1Padre_NI").val(resulBusqueda[0].primerApellido);
                     $("#tf_ape2Padre_NI").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombrePadre_NI").val(resulBusqueda[0].nombre);
+                    $("#tf_telCasaPadre").val("");
                     $("#tf_telCelPadre").val("");
                     $("#tf_ocupacionPadre").val("");
                 }
@@ -231,7 +233,7 @@ $(function()
             $("#tf_ape1Encargado_NI").val($("#tf_ape1Padre_NI").val());
             $("#tf_ape2Encargado_NI").val($("#tf_ape2Padre_NI").val());
             $("#tf_nombreEncargado_NI").val($("#tf_nombrePadre_NI").val());
-            $("#tf_telHabitEncargado").val($("#tf_telHabitPadre").val());
+            $("#tf_telHabitEncargado").val($("#tf_telCasaPadre").val());
             $("#tf_telcelularEncargado").val($("#tf_telCelPadre").val());
             $("#tf_ocupacionEncargado").val($("#tf_ocupacionPadre").val());
         } else
@@ -241,7 +243,7 @@ $(function()
                 $("#tf_ape1Encargado_NI").val($("#tf_ape1Madre_NI").val());
                 $("#tf_ape2Encargado_NI").val($("#tf_ape2Madre_NI").val());
                 $("#tf_nombreEncargado_NI").val($("#tf_nombreMadre_NI").val());
-                $("#tf_telHabitEncargado").val($("#tf_telHabitMadre").val());
+                $("#tf_telHabitEncargado").val($("#tf_telCasaMadre").val());
                 $("#tf_telcelularEncargado").val($("#tf_telCelMadre").val());
                 $("#tf_ocupacionEncargado").val($("#tf_ocupacionMadre").val());
             }
@@ -256,7 +258,7 @@ $(function()
             $("#tf_ape1PersonaEmergencia_NI").val($("#tf_ape1Padre_NI").val());
             $("#tf_ape2PersonaEmergencia_NI").val($("#tf_ape2Padre_NI").val());
             $("#tf_nombrePersonaEmergencia_NI").val($("#tf_nombrePadre_NI").val());
-            $("#tf_telHabitPersonaEmergencia").val($("#tf_telHabitPadre").val());
+            $("#tf_telHabitPersonaEmergencia").val($("#tf_telCasaPadre").val());
             $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelPadre").val());
         } else
         {
@@ -265,7 +267,7 @@ $(function()
                 $("#tf_ape1PersonaEmergencia_NI").val($("#tf_ape1Madre_NI").val());
                 $("#tf_ape2PersonaEmergencia_NI").val($("#tf_ape2Madre_NI").val());
                 $("#tf_nombrePersonaEmergencia_NI").val($("#tf_nombreMadre_NI").val());
-                $("#tf_telHabitPersonaEmergencia").val($("#tf_telHabitMadre").val());
+                $("#tf_telHabitPersonaEmergencia").val($("#tf_telCasaMadre").val());
                 $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelMadre").val());
             }
         }

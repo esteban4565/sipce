@@ -80,47 +80,6 @@
             </div>
             <br><br>
             <legend class="text-center">DATOS DEL HOGAR</legend>
-            <h4>Padre</h4>
-            <!--L16 Cedula del Padre (Formulario Hugo)-->
-            <div class="form-group"> 
-                <label for="tf_cedulaPadre" class="col-xs-2 control-label">Identificación:</label>
-                <div class="col-xs-2">
-                    <input type="text" class="text-uppercase form-control input-sm " name="tf_cedulaPadre" id="tf_cedulaPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['ced_padre']; ?>'/>
-                </div>
-                <div class="col-xs-2">
-                    <input type="button" class="btn-sm btn-success" id="buscarPadrePrematriculaEditar" value="Buscar" />
-                </div>
-            </div> 
-            <!--L17 Nombre del Padre (Formulario Hugo)-->
-            <div class="form-group">
-                <label for="tf_ape1Padre" class="col-xs-2 control-label">1er apellido:</label>
-                <div class="col-xs-2">
-                    <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Padre" name="tf_ape1Padre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['apellido1_padre']; ?>'/>
-                </div>
-                <label for="tf_ape2Padre" class="col-xs-2 control-label">2do apellido:</label>
-                <div class="col-xs-2">
-                    <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Padre" name="tf_ape2Padre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['apellido2_padre']; ?>'/>
-                </div>
-                <label for="tf_nombrePadre" class="col-xs-2 control-label">Nombre completo:</label>
-                <div class="col-xs-2">
-                    <input type="text" class="text-uppercase form-control input-sm"  id="tf_nombrePadre" name="tf_nombrePadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['nombre_padre']; ?>'/>
-                </div> 
-            </div> 
-            <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
-            <div class="form-group">
-                <label for="tf_telCelPadre" class="col-xs-2 control-label">Tel. Celular:</label>
-                <div class="col-xs-2">
-                    <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelPadre" id="tf_telCelPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['telefonoCelPadre']; ?>'/>
-                </div>
-                <label for="tf_telCasaPadre" class="col-xs-2 control-label">Tel. Casa:</label>
-                <div class="col-xs-2">
-                    <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCasaPadre" id="tf_telCasaPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['telefonoCasaPadre']; ?>'/>
-                </div>
-                <label for="tf_ocupacionPadre" class="col-xs-2 control-label">Ocupación:</label>
-                <div class="col-xs-2">
-                    <input type="text" class="form-control input-sm" name="tf_ocupacionPadre" id="tf_ocupacionPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['ocupacionPadre']; ?>'/>
-                </div> 
-            </div>
 
             <h4>Madre</h4>
             <!--L13 Cedula de la Madre (Formulario Hugo)-->
@@ -150,17 +109,59 @@
             </div> 
             <!--L15 Telefonos y Ocupación de la Madre (Formulario Hugo)-->
             <div class="form-group">
-                <label for="tf_telCelMadre" class="col-xs-2 control-label">Tel. Celular:</label>
-                <div class="col-xs-2">
-                    <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelMadre" id="tf_telCelMadre" value='<?php if ($this->madreEstuPrematricula != null) echo $this->madreEstuPrematricula[0]['telefonoCelMadre']; ?>'/>
-                </div>
                 <label for="tf_telCasaMadre" class="col-xs-2 control-label">Tel. Casa:</label>
                 <div class="col-xs-2">
                     <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCasaMadre" id="tf_telCasaMadre" value='<?php if ($this->madreEstuPrematricula != null) echo $this->madreEstuPrematricula[0]['telefonoCasaMadre']; ?>'/>
                 </div>
+                <label for="tf_telCelMadre" class="col-xs-2 control-label">Tel. Celular:</label>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelMadre" id="tf_telCelMadre" value='<?php if ($this->madreEstuPrematricula != null) echo $this->madreEstuPrematricula[0]['telefonoCelMadre']; ?>'/>
+                </div>
                 <label for="tf_ocupacionMadre" class="col-xs-2 control-label">Ocupación:</label>
                 <div class="col-xs-2">
                     <input type="text" class="form-control input-sm" name="tf_ocupacionMadre" id="tf_ocupacionMadre" value='<?php if ($this->madreEstuPrematricula != null) echo $this->madreEstuPrematricula[0]['ocupacionMadre']; ?>'/>
+                </div> 
+            </div>
+            
+            <h4>Padre</h4>
+            <!--L16 Cedula del Padre (Formulario Hugo)-->
+            <div class="form-group"> 
+                <label for="tf_cedulaPadre" class="col-xs-2 control-label">Identificación:</label>
+                <div class="col-xs-2">
+                    <input type="text" class="text-uppercase form-control input-sm " name="tf_cedulaPadre" id="tf_cedulaPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['ced_padre']; ?>'/>
+                </div>
+                <div class="col-xs-2">
+                    <input type="button" class="btn-sm btn-success" id="buscarPadrePrematriculaEditar" value="Buscar" />
+                </div>
+            </div> 
+            <!--L17 Nombre del Padre (Formulario Hugo)-->
+            <div class="form-group">
+                <label for="tf_ape1Padre" class="col-xs-2 control-label">1er apellido:</label>
+                <div class="col-xs-2">
+                    <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape1Padre" name="tf_ape1Padre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['apellido1_padre']; ?>'/>
+                </div>
+                <label for="tf_ape2Padre" class="col-xs-2 control-label">2do apellido:</label>
+                <div class="col-xs-2">
+                    <input type="text" class="text-uppercase form-control input-sm"  id="tf_ape2Padre" name="tf_ape2Padre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['apellido2_padre']; ?>'/>
+                </div>
+                <label for="tf_nombrePadre" class="col-xs-2 control-label">Nombre completo:</label>
+                <div class="col-xs-2">
+                    <input type="text" class="text-uppercase form-control input-sm"  id="tf_nombrePadre" name="tf_nombrePadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['nombre_padre']; ?>'/>
+                </div> 
+            </div> 
+            <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
+            <div class="form-group">
+                <label for="tf_telCasaPadre" class="col-xs-2 control-label">Tel. Casa:</label>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCasaPadre" id="tf_telCasaPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['telefonoCasaPadre']; ?>'/>
+                </div>
+                <label for="tf_telCelPadre" class="col-xs-2 control-label">Tel. Celular:</label>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelPadre" id="tf_telCelPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['telefonoCelPadre']; ?>'/>
+                </div>
+                <label for="tf_ocupacionPadre" class="col-xs-2 control-label">Ocupación:</label>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control input-sm" name="tf_ocupacionPadre" id="tf_ocupacionPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['ocupacionPadre']; ?>'/>
                 </div> 
             </div>
 

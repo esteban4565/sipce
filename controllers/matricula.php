@@ -45,6 +45,12 @@ class Matricula extends Controllers {
         /* CARGAMOS TODAS LAS PROVINCIAS */
         $this->view->consultaProvincias = $this->model->consultaProvincias();
         
+        /* CARGAMOS TODOS LOS CANTONES */
+        $this->view->consultaCantones = $this->model->consultaCantones();
+        
+        /* CARGAMOS TODOS LOS DISTRITOS */
+        $this->view->consultaDistritos = $this->model->consultaDistritos();
+        
         /* CARGAMOS TODAS LAS ESCUELAS */
         $this->view->consultaEscuelas = $this->model->consultaEscuelas();
 
@@ -270,6 +276,7 @@ class Matricula extends Controllers {
     function estudiantesMatriculados() {
         //Consulto Cantidad Estudiantes Matriculados
         $this->view->estadoMatricula = $this->model->estadoMatricula();
+        $this->view->datosSistema = $this->model->datosSistema();
         
         $this->view->render('header');
         $this->view->render('matricula/estudiantesMatriculados');
@@ -360,6 +367,7 @@ class Matricula extends Controllers {
         $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre']);
         $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre']);
         $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre']);
+        $datos['tf_telCasaMadre'] = $_POST['tf_telCasaMadre'];
         $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
         $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
         
@@ -367,6 +375,7 @@ class Matricula extends Controllers {
         $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre']);
         $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre']);
         $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre']);
+        $datos['tf_telCasaPadre'] = $_POST['tf_telCasaPadre'];
         $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
         $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
         
@@ -384,10 +393,6 @@ class Matricula extends Controllers {
         }
         $datos['sl_condicion'] = $_POST['sl_condicion'];
         $datos['sl_adelanta'] = $_POST['sl_adelanta'];
-        $datos['sl_adecuacion'] = $_POST['sl_adecuacion'];
-        $datos['sl_becaAvancemos'] = $_POST['sl_becaAvancemos'];
-        $datos['sl_becaComedor'] = $_POST['sl_becaComedor'];
-        $datos['sl_becaTransporte'] = $_POST['sl_becaTransporte'];
         $datos['tf_poliza'] = $_POST['tf_poliza'];
         $datos['tf_polizaVence'] = $_POST['tf_polizaVence'];
         
@@ -395,6 +400,7 @@ class Matricula extends Controllers {
 
         //Consulto Cantidad Estudiantes Matriculados
         $this->view->estadoMatricula = $this->model->estadoMatricula();
+        $this->view->datosSistema = $this->model->datosSistema();
         
         $this->view->render('header');
         $this->view->render('matricula/estudiantesMatriculados');
@@ -435,7 +441,7 @@ class Matricula extends Controllers {
         $datos['tf_ape1Madre'] = strtoupper($_POST['tf_ape1Madre_NI']);
         $datos['tf_ape2Madre'] = strtoupper($_POST['tf_ape2Madre_NI']);
         $datos['tf_nombreMadre'] = strtoupper($_POST['tf_nombreMadre_NI']);
-        $datos['tf_telHabitMadre'] = $_POST['tf_telHabitMadre'];
+        $datos['tf_telCasaMadre'] = $_POST['tf_telCasaMadre'];
         $datos['tf_telCelMadre'] = $_POST['tf_telCelMadre'];
         $datos['tf_ocupacionMadre'] = $_POST['tf_ocupacionMadre'];
         
@@ -443,7 +449,7 @@ class Matricula extends Controllers {
         $datos['tf_ape1Padre'] = strtoupper($_POST['tf_ape1Padre_NI']);
         $datos['tf_ape2Padre'] = strtoupper($_POST['tf_ape2Padre_NI']);
         $datos['tf_nombrePadre'] = strtoupper($_POST['tf_nombrePadre_NI']);
-        $datos['tf_telHabitPadre'] = $_POST['tf_telHabitPadre'];
+        $datos['tf_telCasaPadre'] = $_POST['tf_telCasaPadre'];
         $datos['tf_telCelPadre'] = $_POST['tf_telCelPadre'];
         $datos['tf_ocupacionPadre'] = $_POST['tf_ocupacionPadre'];
         
@@ -467,6 +473,7 @@ class Matricula extends Controllers {
 
         //Consulto Cantidad Estudiantes Matriculados
         $this->view->estadoMatricula = $this->model->estadoMatricula();
+        $this->view->datosSistema = $this->model->datosSistema();
         
         $this->view->render('header');
         $this->view->render('matricula/estudiantesMatriculados');

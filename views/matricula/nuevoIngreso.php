@@ -49,7 +49,6 @@
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[required]"  id="tf_fnacpersona" name="tf_fnacpersona"/>
                     </div>
-                    <!--OJO.. el año axtual esta quemado en el documento javascript, se debe cambiar año a año o buscar solucion -->
                     <label for="tf_edad" class="col-xs-2 control-label">Edad:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad"/>
@@ -196,9 +195,9 @@
                 </div> 
                 <!--L15 Telefonos y Ocupación de la Madre (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_telHabitMadre" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <label for="tf_telCasaMadre" class="col-xs-2 control-label">Tel. Habitación:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitMadre" id="tf_telHabitMadre"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCasaMadre" id="tf_telCasaMadre"/>
                     </div>
                     <label for="tf_telCelMadre" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
@@ -238,9 +237,9 @@
                 </div> 
                 <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
                 <div class="form-group">
-                    <label for="tf_telHabitPadre" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <label for="tf_telCasaPadre" class="col-xs-2 control-label">Tel. Habitación:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telHabitPadre" id="tf_telHabitPadre"/>
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCasaPadre" id="tf_telCasaPadre"/>
                     </div>
                     <label for="tf_telCelPadre" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">

@@ -109,7 +109,7 @@
                             <li class="divider"></li>
                             <?php }?>
                             <?php if (Session::get('tipoUsuario') <= 2){ ?>
-                            <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculados">Matriculados 2016</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculados">Ver estudainte matriculados</a></li>
                             <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculadosSinGrupo">Matriculados Sin Grupo Asignado</a></li>
                             <li><a href="<?php echo URL; ?>estadistica/matriculaInicialSegunEdad">Matricula Inicial Segun Edad</a></li>
                             <li><a href="<?php echo URL; ?>estadistica/matriculaInicialSegunRepitencia">Matricula Inicial Segun Repitencia</a></li>

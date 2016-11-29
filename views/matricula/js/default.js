@@ -142,6 +142,7 @@ $(function()
                     $("#tf_ape1Madre").val(resulBusqueda[0].primerApellido);
                     $("#tf_ape2Madre").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombreMadre").val(resulBusqueda[0].nombre);
+                    $("#tf_telCasaMadre").val("");
                     $("#tf_telCelMadre").val("");
                     $("#tf_ocupacionMadre").val("");
                 }
@@ -162,6 +163,7 @@ $(function()
                     $("#tf_ape1Madre").val(resulBusqueda[0].primerApellido);
                     $("#tf_ape2Madre").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombreMadre").val(resulBusqueda[0].nombre);
+                    $("#tf_telCasaMadre").val("");
                     $("#tf_telCelMadre").val("");
                     $("#tf_ocupacionMadre").val("");
                 }
@@ -182,6 +184,7 @@ $(function()
                     $("#tf_ape1Madre").val(resulBusqueda[0].primerApellido);
                     $("#tf_ape2Madre").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombreMadre").val(resulBusqueda[0].nombre);
+                    $("#tf_telCasaMadre").val("");
                     $("#tf_telCelMadre").val("");
                     $("#tf_ocupacionMadre").val("");
                 }
@@ -202,6 +205,7 @@ $(function()
                     $("#tf_ape1Padre").val(resulBusqueda[0].primerApellido);
                     $("#tf_ape2Padre").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombrePadre").val(resulBusqueda[0].nombre);
+                    $("#tf_telCasaPadre").val("");
                     $("#tf_telCelPadre").val("");
                     $("#tf_ocupacionPadre").val("");
                 }
@@ -222,6 +226,7 @@ $(function()
                     $("#tf_ape1Padre").val(resulBusqueda[0].primerApellido);
                     $("#tf_ape2Padre").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombrePadre").val(resulBusqueda[0].nombre);
+                    $("#tf_telCasaPadre").val("");
                     $("#tf_telCelPadre").val("");
                     $("#tf_ocupacionPadre").val("");
                 }
@@ -242,6 +247,7 @@ $(function()
                     $("#tf_ape1Padre").val(resulBusqueda[0].primerApellido);
                     $("#tf_ape2Padre").val(resulBusqueda[0].segundoApellido);
                     $("#tf_nombrePadre").val(resulBusqueda[0].nombre);
+                    $("#tf_telCasaPadre").val("");
                     $("#tf_telCelPadre").val("");
                     $("#tf_ocupacionPadre").val("");
                 }
@@ -257,6 +263,7 @@ $(function()
             $("#tf_ape1Encargado").val($("#tf_ape1Padre").val());
             $("#tf_ape2Encargado").val($("#tf_ape2Padre").val());
             $("#tf_nombreEncargado").val($("#tf_nombrePadre").val());
+            $("#tf_telHabitEncargado").val($("#tf_telCasaPadre").val());
             $("#tf_telcelularEncargado").val($("#tf_telCelPadre").val());
             $("#tf_ocupacionEncargado").val($("#tf_ocupacionPadre").val());
         } else
@@ -266,6 +273,7 @@ $(function()
                 $("#tf_ape1Encargado").val($("#tf_ape1Madre").val());
                 $("#tf_ape2Encargado").val($("#tf_ape2Madre").val());
                 $("#tf_nombreEncargado").val($("#tf_nombreMadre").val());
+                $("#tf_telHabitEncargado").val($("#tf_telCasaMadre").val());
                 $("#tf_telcelularEncargado").val($("#tf_telCelMadre").val());
                 $("#tf_ocupacionEncargado").val($("#tf_ocupacionMadre").val());
             }
@@ -280,6 +288,7 @@ $(function()
             $("#tf_ape1PersonaEmergencia").val($("#tf_ape1Padre").val());
             $("#tf_ape2PersonaEmergencia").val($("#tf_ape2Padre").val());
             $("#tf_nombrePersonaEmergencia").val($("#tf_nombrePadre").val());
+            $("#tf_telHabitPersonaEmergencia").val($("#tf_telCasaPadre").val());
             $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelPadre").val());
         } else
         {
@@ -288,6 +297,7 @@ $(function()
                 $("#tf_ape1PersonaEmergencia").val($("#tf_ape1Madre").val());
                 $("#tf_ape2PersonaEmergencia").val($("#tf_ape2Madre").val());
                 $("#tf_nombrePersonaEmergencia").val($("#tf_nombreMadre").val());
+                $("#tf_telHabitPersonaEmergencia").val($("#tf_telCasaMadre").val());
                 $("#tf_telcelularPersonaEmergencia").val($("#tf_telCelMadre").val());
             }
         }

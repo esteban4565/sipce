@@ -242,6 +242,10 @@
                 </div> 
                 <!--L15 Telefonos y Ocupación de la Madre (Formulario Hugo)-->
                 <div class="form-group">
+                    <label for="tf_telCasaMadre" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCasaMadre" id="tf_telCasaMadre" value='<?php if ($this->madreEstuPrematricula != null) echo $this->madreEstuPrematricula[0]['telefonoCasaMadre']; ?>'/>
+                    </div>
                     <label for="tf_telCelMadre" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelMadre" id="tf_telCelMadre" value='<?php if ($this->madreEstuPrematricula != null) echo $this->madreEstuPrematricula[0]['telefonoCelMadre']; ?>'/>
@@ -280,6 +284,10 @@
                 </div> 
                 <!--L18 Telefonos y Ocupación del Padre (Formulario Hugo)-->
                 <div class="form-group">
+                    <label for="tf_telCasaPadre" class="col-xs-2 control-label">Tel. Habitación:</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCasaPadre" id="tf_telCasaPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['telefonoCasaPadre']; ?>'/>
+                    </div>
                     <label for="tf_telCelPadre" class="col-xs-2 control-label">Tel. Celular:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]" name="tf_telCelPadre" id="tf_telCelPadre" value='<?php if ($this->padreEstuPrematricula != null) echo $this->padreEstuPrematricula[0]['telefonoCelPadre']; ?>'/>
@@ -463,29 +471,6 @@
                     <div class="col-xs-2">
                     </div>
             </div>
-                <div class="form-group">
-                    <label for="tf_becaAvancemos" class="col-xs-2 control-label">Beca Avancemos:</label>
-                    <div class="col-xs-2">
-                        <select class="form-control input-sm" name="sl_becaAvancemos" id="sl_becaAvancemos">
-                            <option value="No">No</option>
-                            <option value="Si">Si</option>
-                        </select> 
-                    </div>
-                    <label for="tf_becaComedor" class="col-xs-2 control-label">Beca Comedor:</label>
-                    <div class="col-xs-2">
-                        <select class="form-control input-sm" name="sl_becaComedor" id="sl_becaComedor">
-                            <option value="No">No</option>
-                            <option value="Si">Si</option>
-                        </select> 
-                    </div>
-                    <label for="tf_becaTransporte" class="col-xs-2 control-label">Beca Transporte:</label>
-                    <div class="col-xs-2">
-                        <select class="form-control input-sm" name="sl_becaTransporte" id="sl_becaTransporte">
-                            <option value="No">No</option>
-                            <option value="Si">Si</option>
-                        </select> 
-                    </div>
-                </div>
             <br><br>
             <!--L26 Imprimir y Guardar (Formulario Hugo)-->
             <div class="form-group"> 

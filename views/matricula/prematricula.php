@@ -45,7 +45,6 @@
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[required]"  id="tf_fnacpersona" name="tf_fnacpersona"/>
                     </div>
-                    <!--OJO.. el año axtual esta quemado en el documento javascript, se debe cambiar año a año o buscar solucion -->
                     <label for="tf_edad" class="col-xs-2 control-label">Edad:</label>
                     <div class="col-xs-2">
                         <input type="text" class="form-control input-sm validate[custom[number]]"  id="tf_edad" name="tf_edad"/>

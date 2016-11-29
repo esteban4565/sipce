@@ -5,7 +5,7 @@
 <center>
     <table class="table table-condensed">
         <tr>
-            <th colspan="9" class="nombreTabla text-center">ESTUDIANTES MATRICULADOS</th>
+            <th colspan="9" class="nombreTabla text-center">ESTUDIANTES MATRICULADOS - CURSO LECTIVO <?php echo $this->datosSistema[0]['annio_lectivo']; ?></th>
         </tr>
         <tr>
             <th>N°</th>
@@ -50,7 +50,7 @@
             }
             echo '</td>';
             echo '<td>';
-            echo '<a class="btn-sm btn-warning text-left" href="imprimirMatricula/' . $value['cedula'] . '"  target="_blank">Ver Expediente</a>';
+            echo '<a class="btn-sm btn-warning text-left" href="imprimirMatricula/' . $value['cedula'] . '"  target="_blank">Imprimir</a>';
             echo '</td>';
             echo '</tr>';
             $con++;
