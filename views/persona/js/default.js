@@ -918,7 +918,7 @@ $(function()
 
 
     //Becas 2016
-    //Carga los datos del Estudiante para completar el formulario **Insertar Beca**//
+    //Carga los datos del Estudiante para completar el formulario **Insertar Beca Transporte**//
     $("#buscarEstudianteBecas").click(function(event) {
         if($("#msj").css('display'))
             {
@@ -940,19 +940,19 @@ $(function()
                     $('#nivel_encontrado').text(resulBusqueda['nivel']);
                     $('#especialidad_encontrada').text(resulBusqueda['nombreEspecialidad']);
                     if(resulBusqueda['ced_padre'] != null){
-                        $('#padre_encontrado').val(resulBusqueda['ced_padre']);
+                        $('#padre_encontrado').val(resulBusqueda['ced_padre'] + ',Padre');
                         $('#h5_padre_encontrado').text(resulBusqueda['apellido1_padre'] +' ' + resulBusqueda['apellido2_padre'] + ' ' + resulBusqueda['nombre_padre']);
                     }else{
                         $('#h5_padre_encontrado').text('-');
                     }
                     if(resulBusqueda['ced_madre'] != null){
-                        $('#madre_encontrado').val(resulBusqueda['ced_madre']);
+                        $('#madre_encontrado').val(resulBusqueda['ced_madre'] + ',Madre');
                         $('#h5_madre_encontrado').text(resulBusqueda['apellido1_madre'] +' ' + resulBusqueda['apellido2_madre'] + ' ' + resulBusqueda['nombre_madre']);
                     }else{
                         $('#h5_madre_encontrado').text('-');
                     }
                     if(resulBusqueda['ced_encargado'] != null){
-                        $('#otro_encontrado').val(resulBusqueda['ced_encargado']);
+                        $('#otro_encontrado').val(resulBusqueda['ced_encargado'] + ',Otro');
                         $('#h5_otro_encontrado').text(resulBusqueda['apellido1_encargado'] +' ' + resulBusqueda['apellido2_encargado'] + ' ' + resulBusqueda['nombre_encargado']);
                     }else{
                         $('#h5_otro_encontrado').text('-');
@@ -960,6 +960,39 @@ $(function()
                 }
             });
         }
+    });
+    
+    
+    //Carga los datos del Estudiante para completar el formulario **Insertar Beca Comedor**//
+    $("#buscarEstudianteBecasComedor").click(function(event) {
+        if($("#msj").css('display'))
+            {
+                document.getElementById("msj").style.display = 'none';
+            }
+        
+        var idD = $("#ced_estudiante").val();
+        if (idD == "") {
+            alert("Por favor ingrese una identificación");
+        } else {
+            $.getJSON('buscarEstudianteBecas/' + idD, function(resulBusqueda) {
+                if (jQuery.isEmptyObject(resulBusqueda)) {
+                    alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2016 y solo posee Costarricenses y Nacionalizados");
+                } else {
+                    $('#h5_ced_estudiante_encontrada').text(idD);
+                    $('#ced_estudiante_encontrada').val(idD);
+                    $('#nombre_encontrado').text(resulBusqueda['apellido1'] +' ' + resulBusqueda['apellido2'] + ' ' + resulBusqueda['nombre']);
+                    $('#distrito_encontrado').text(resulBusqueda['Distrito']);
+                    $('#nivel_encontrado').text(resulBusqueda['nivel']);
+                    $('#especialidad_encontrada').text(resulBusqueda['nombreEspecialidad']);
+                }
+            });
+        }
+    });
+    
+    
+    //Confirmar eliminar beca **//
+    $("#btnEliminar").click(function(event) {
+        confirm('Desea eliminar?')
     });
 
     //Carga los datos del Estudiante para completar el formulario **Modificar Cédula**//

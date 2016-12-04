@@ -641,14 +641,18 @@ class Persona extends Controllers {
     function guardarDatosBeca() {
         $datos = array();
         $datos['ced_estudiante'] = $_POST['ced_estudiante_encontrada'];
-        $datos['ced_encargadoCheque'] = $_POST['encargadoCheque'];
+        if (!empty($_POST['encargadoCheque'])) {
+            list($datos['ced_encargadoCheque'], $datos['parentesco']) = explode(",", $_POST['encargadoCheque']);
+        }else{
+            $datos['ced_encargadoCheque'] = null;
+            $datos['parentesco'] = null;
+        }
         $datos['numeroRuta'] = $_POST['numeroRuta'];
         $datos['distancia'] = $_POST['distancia'];
         $datos['ingreso1'] = $_POST['ingreso1'];
         $datos['ingreso2'] = $_POST['ingreso2'];
         $datos['ingreso3'] = $_POST['ingreso3'];
         $datos['ingreso4'] = $_POST['ingreso4'];
-        $datos['totalIngreso'] = $_POST['totalIngreso'];
         $datos['totalMiembros'] = $_POST['totalMiembros'];
         $this->model->guardarDatosBeca($datos);
 
@@ -671,6 +675,7 @@ class Persona extends Controllers {
     function editarBeca($ced_estudiante = null) {
         $this->view->title = 'Editar beca';
         $this->view->datosEstudiante = $this->model->datosEstudiante($ced_estudiante);
+        $this->view->datosEncargadoCheque = $this->model->datosEncargadoCheque($ced_estudiante);
 
         $this->view->render('header');
         $this->view->render('persona/editarBeca');
@@ -684,6 +689,62 @@ class Persona extends Controllers {
 
         $this->view->render('header');
         $this->view->render('persona/listaBecas');
+        $this->view->render('footer');
+    }
+
+    /* Becas Comedor */
+
+    function ingresarBecaComedor() {
+        $this->view->title = 'Ingresar beca Comedor';
+        $this->view->mensaje = '';
+
+        $this->view->render('header');
+        $this->view->render('persona/ingresarBecaComedor');
+        $this->view->render('footer');
+    }
+
+    function guardarDatosBecaComedor() {
+        $datos = array();
+        $datos['ced_estudiante'] = $_POST['ced_estudiante_encontrada'];
+        $datos['ingreso1'] = $_POST['ingreso1'];
+        $datos['ingreso2'] = $_POST['ingreso2'];
+        $datos['ingreso3'] = $_POST['ingreso3'];
+        $datos['ingreso4'] = $_POST['ingreso4'];
+        $datos['totalMiembros'] = $_POST['totalMiembros'];
+        $this->model->guardarDatosBecaComedor($datos);
+
+        $this->view->mensaje = 'Datos guardados correctamente';
+
+        $this->view->render('header');
+        $this->view->render('persona/ingresarBecaComedor');
+        $this->view->render('footer');
+    }
+
+    function listaBecasComedor() {
+        $this->view->title = 'Lista becas Comedor';
+        $this->view->listaEstudianteBecasComedor = $this->model->listaEstudianteBecasComedor();
+
+        $this->view->render('header');
+        $this->view->render('persona/listaBecasComedor');
+        $this->view->render('footer');
+    }
+
+    function editarBecaComedor($ced_estudiante = null) {
+        $this->view->title = 'Editar beca';
+        $this->view->datosEstudianteComedor = $this->model->datosEstudianteComedor($ced_estudiante);
+
+        $this->view->render('header');
+        $this->view->render('persona/editarBecaComedor');
+        $this->view->render('footer');
+    }
+
+    function eliminarBecaComedor($ced_estudiante) {
+        $this->view->title = 'Lista becas Comedor';
+        $this->model->eliminarBeca($ced_estudiante);
+        $this->view->listaEstudianteBecasComedor = $this->model->listaEstudianteBecasComedor();
+
+        $this->view->render('header');
+        $this->view->render('persona/listaBecasComedor');
         $this->view->render('footer');
     }
 

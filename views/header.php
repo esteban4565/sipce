@@ -76,9 +76,11 @@
                           <li><a href="<?php echo URL; ?>persona/nuevoIngresoTardio">Nuevo Ingreso</a></li>
                           <li><a href="<?php echo URL; ?>persona/expedientesEstudiantes">Expedientes de Estudiantes</a></li>
                             <li class="divider"></li>
-                          <li><a href="<?php echo URL; ?>persona/ingresarBeca">Ingresar beca de Estudiantes</a></li>
-                          <li><a href="<?php echo URL; ?>persona/editarBeca">Editar beca de Estudiantes</a></li>
-                          <li><a href="<?php echo URL; ?>persona/listaBecas">Lista becas de Estudiantes</a></li>
+                          <li><a href="<?php echo URL; ?>persona/ingresarBeca">Ingresar beca transporte de Estudiantes</a></li>
+                          <li><a href="<?php echo URL; ?>persona/listaBecas">Lista becas transporte de Estudiantes</a></li>
+                            <li class="divider"></li>
+                          <li><a href="<?php echo URL; ?>persona/ingresarBecaComedor">Ingresar beca comedor de Estudiantes</a></li>
+                          <li><a href="<?php echo URL; ?>persona/listaBecasComedor">Lista becas comedor de Estudiantes</a></li>
                           <?php }?>
                         </ul>
                       </li>
