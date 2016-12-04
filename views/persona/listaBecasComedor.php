@@ -73,10 +73,14 @@
                 
                 echo '</td>';
                 echo '<td>';
-                echo '<a class="btn-sm btn-warning" href="editarBeca/' . $value['ced_estudiante'] . '">Editar</a>';
+                echo '<a class="btn-sm btn-warning" href="editarBecaComedor/' . $value['ced_estudiante'] . '">Editar</a>';
                 echo '</td>';
                 echo '<td>';
-                echo '<a class="btn-sm btn-primary" href="eliminarBeca/' . $value['ced_estudiante'] . '">Eliminar</a>';
+                if (Session::get('tipoUsuario') <= 2) {
+                    ?>
+                    <a class="btn-sm btn-primary" href="<?php echo 'eliminarBecaComedor/' . $value['ced_estudiante']; ?>" onclick="return confirm('¿Está seguro que desea eliminar este registro?');">Eliminar</a>
+                    <?php
+                }
                 echo '</td>';
                 echo '</tr>';
                 $con++;

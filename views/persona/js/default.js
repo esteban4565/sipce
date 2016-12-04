@@ -988,12 +988,6 @@ $(function()
             });
         }
     });
-    
-    
-    //Confirmar eliminar beca **//
-    $("#btnEliminar").click(function(event) {
-        confirm('Desea eliminar?')
-    });
 
     //Carga los datos del Estudiante para completar el formulario **Modificar Cédula**//
     $("#buscarEstudianteModifCed").click(function(event) {

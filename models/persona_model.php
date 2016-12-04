@@ -1166,13 +1166,17 @@ class Persona_Model extends Models {
                     . "AND esp.codigoEspecialidad = ee.cod_especialidad "
                     . "AND g.annio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
 
-            //Cargo datos en un array
-            $estudiante['apellido1'] = $resultado[0]['apellido1'];
-            $estudiante['apellido2'] = $resultado[0]['apellido2'];
-            $estudiante['nombre'] = $resultado[0]['nombre'];
-            $estudiante['Distrito'] = $resultado[0]['Distrito'];
-            $estudiante['nivel'] = $resultado[0]['nivel'];
-            $estudiante['nombreEspecialidad'] = $resultado[0]['nombreEspecialidad'];
+            if ($resultado != null) {
+                //Cargo datos en un array
+                $estudiante['apellido1'] = $resultado[0]['apellido1'];
+                $estudiante['apellido2'] = $resultado[0]['apellido2'];
+                $estudiante['nombre'] = $resultado[0]['nombre'];
+                $estudiante['Distrito'] = $resultado[0]['Distrito'];
+                $estudiante['nivel'] = $resultado[0]['nivel'];
+                $estudiante['nombreEspecialidad'] = $resultado[0]['nombreEspecialidad'];
+            } else {
+                $estudiante = '';
+            }
         } else {
             $resultado = $this->db->select("SELECT e.cedula,e.nombre,e.apellido1,e.apellido2,g.nivel, d.Distrito "
                     . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d "
@@ -1181,69 +1185,74 @@ class Persona_Model extends Models {
                     . "AND e.IdDistrito = d.IdDistrito "
                     . "AND g.annio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
 
-            //Cargo datos en un array
-            $estudiante['apellido1'] = $resultado[0]['apellido1'];
-            $estudiante['apellido2'] = $resultado[0]['apellido2'];
-            $estudiante['nombre'] = $resultado[0]['nombre'];
-            $estudiante['Distrito'] = $resultado[0]['Distrito'];
-            $estudiante['nivel'] = $resultado[0]['nivel'];
-            $estudiante['nombreEspecialidad'] = '-';
+            if ($resultado != null) {
+                //Cargo datos en un array
+                $estudiante['apellido1'] = $resultado[0]['apellido1'];
+                $estudiante['apellido2'] = $resultado[0]['apellido2'];
+                $estudiante['nombre'] = $resultado[0]['nombre'];
+                $estudiante['Distrito'] = $resultado[0]['Distrito'];
+                $estudiante['nivel'] = $resultado[0]['nivel'];
+                $estudiante['nombreEspecialidad'] = '-';
+            } else {
+                $estudiante = '';
+            }
         }
 
-        //verifico si el estudiante posee padre
-        $consultaEstudiantePadre = $this->db->select("SELECT * FROM sipce_padre WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+        if ($estudiante != '') {
+            //verifico si el estudiante posee padre
+            $consultaEstudiantePadre = $this->db->select("SELECT * FROM sipce_padre WHERE ced_estudiante = '" . $ced_estudiante . "' ");
 
-        if ($consultaEstudiantePadre != null) {
-            //Cargo datos en un array
-            $estudiante['ced_padre'] = $consultaEstudiantePadre[0]['ced_padre'];
-            $estudiante['nombre_padre'] = $consultaEstudiantePadre[0]['nombre_padre'];
-            $estudiante['apellido1_padre'] = $consultaEstudiantePadre[0]['apellido1_padre'];
-            $estudiante['apellido2_padre'] = $consultaEstudiantePadre[0]['apellido2_padre'];
-        } else {
-            //Cargo datos en un array
-            $estudiante['ced_padre'] = null;
-            $estudiante['nombre_padre'] = null;
-            $estudiante['apellido1_padre'] = null;
-            $estudiante['apellido2_padre'] = null;
-        }
+            if ($consultaEstudiantePadre != null) {
+                //Cargo datos en un array
+                $estudiante['ced_padre'] = $consultaEstudiantePadre[0]['ced_padre'];
+                $estudiante['nombre_padre'] = $consultaEstudiantePadre[0]['nombre_padre'];
+                $estudiante['apellido1_padre'] = $consultaEstudiantePadre[0]['apellido1_padre'];
+                $estudiante['apellido2_padre'] = $consultaEstudiantePadre[0]['apellido2_padre'];
+            } else {
+                //Cargo datos en un array
+                $estudiante['ced_padre'] = null;
+                $estudiante['nombre_padre'] = null;
+                $estudiante['apellido1_padre'] = null;
+                $estudiante['apellido2_padre'] = null;
+            }
 
-        //verifico si el estudiante posee madre
-        $consultaEstudianteMadre = $this->db->select("SELECT * FROM sipce_madre WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+            //verifico si el estudiante posee madre
+            $consultaEstudianteMadre = $this->db->select("SELECT * FROM sipce_madre WHERE ced_estudiante = '" . $ced_estudiante . "' ");
 
-        if ($consultaEstudianteMadre != null) {
-            //Cargo datos en un array
-            $estudiante['ced_madre'] = $consultaEstudianteMadre[0]['ced_madre'];
-            $estudiante['nombre_madre'] = $consultaEstudianteMadre[0]['nombre_madre'];
-            $estudiante['apellido1_madre'] = $consultaEstudianteMadre[0]['apellido1_madre'];
-            $estudiante['apellido2_madre'] = $consultaEstudianteMadre[0]['apellido2_madre'];
-        } else {
-            //Cargo datos en un array
-            $estudiante['ced_madre'] = null;
-            $estudiante['nombre_madre'] = null;
-            $estudiante['apellido1_madre'] = null;
-            $estudiante['apellido2_madre'] = null;
-        }
+            if ($consultaEstudianteMadre != null) {
+                //Cargo datos en un array
+                $estudiante['ced_madre'] = $consultaEstudianteMadre[0]['ced_madre'];
+                $estudiante['nombre_madre'] = $consultaEstudianteMadre[0]['nombre_madre'];
+                $estudiante['apellido1_madre'] = $consultaEstudianteMadre[0]['apellido1_madre'];
+                $estudiante['apellido2_madre'] = $consultaEstudianteMadre[0]['apellido2_madre'];
+            } else {
+                //Cargo datos en un array
+                $estudiante['ced_madre'] = null;
+                $estudiante['nombre_madre'] = null;
+                $estudiante['apellido1_madre'] = null;
+                $estudiante['apellido2_madre'] = null;
+            }
 
-        //verifico si el estudiante posee otro encargado que no sea padre o madre
-        $consultaEstudianteEncargado = $this->db->select("SELECT * 
+            //verifico si el estudiante posee otro encargado que no sea padre o madre
+            $consultaEstudianteEncargado = $this->db->select("SELECT * 
                                                             FROM sipce_encargado 
                                                             WHERE ced_estudiante = '" . $ced_estudiante . "' 
                                                             AND parentesco = 'Otro'");
 
-        if ($consultaEstudianteEncargado != null) {
-            //Cargo datos en un array
-            $estudiante['ced_encargado'] = $consultaEstudianteEncargado[0]['ced_encargado'];
-            $estudiante['nombre_encargado'] = $consultaEstudianteEncargado[0]['nombre_encargado'];
-            $estudiante['apellido1_encargado'] = $consultaEstudianteEncargado[0]['apellido1_encargado'];
-            $estudiante['apellido2_encargado'] = $consultaEstudianteEncargado[0]['apellido2_encargado'];
-        } else {
-            //Cargo datos en un array
-            $estudiante['ced_encargado'] = null;
-            $estudiante['nombre_encargado'] = null;
-            $estudiante['apellido1_encargado'] = null;
-            $estudiante['apellido2_encargado'] = null;
+            if ($consultaEstudianteEncargado != null) {
+                //Cargo datos en un array
+                $estudiante['ced_encargado'] = $consultaEstudianteEncargado[0]['ced_encargado'];
+                $estudiante['nombre_encargado'] = $consultaEstudianteEncargado[0]['nombre_encargado'];
+                $estudiante['apellido1_encargado'] = $consultaEstudianteEncargado[0]['apellido1_encargado'];
+                $estudiante['apellido2_encargado'] = $consultaEstudianteEncargado[0]['apellido2_encargado'];
+            } else {
+                //Cargo datos en un array
+                $estudiante['ced_encargado'] = null;
+                $estudiante['nombre_encargado'] = null;
+                $estudiante['apellido1_encargado'] = null;
+                $estudiante['apellido2_encargado'] = null;
+            }
         }
-
         echo json_encode($estudiante);
     }
 
@@ -1521,7 +1530,40 @@ class Persona_Model extends Models {
 
     /* Becas Comedor */
 
+    public function datosEstudianteComedor($ced_estudiante) {
 
+        if ($ced_estudiante != null) {
+            //verifico si el estudiante posee especialidad
+            $consultaEstudianteEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+            if ($consultaEstudianteEspecialidad != null) {
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,"
+                        . "d.Distrito,g.nivel,esp.nombreEspecialidad,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros "
+                        . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_especialidad as esp, "
+                        . "sipce_especialidad_estudiante as ee, sipce_estudiante_beca_comedor as eb "
+                        . "WHERE e.cedula = g.ced_estudiante "
+                        . "AND e.cedula = ee.ced_estudiante "
+                        . "AND e.cedula = eb.ced_estudiante "
+                        . "AND e.cedula = '" . $ced_estudiante . "' "
+                        . "AND e.IdDistrito = d.IdDistrito "
+                        . "AND esp.codigoEspecialidad = ee.cod_especialidad "
+                        . "AND g.annio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
+            } else {
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,"
+                        . "d.Distrito,g.nivel,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros "
+                        . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_estudiante_beca_comedor as eb "
+                        . "WHERE e.cedula = g.ced_estudiante "
+                        . "AND e.cedula = eb.ced_estudiante "
+                        . "AND e.cedula = '" . $ced_estudiante . "' "
+                        . "AND e.IdDistrito = d.IdDistrito "
+                        . "AND g.annio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
+            }
+
+            return $resultado;
+        } else {
+            
+        }
+    }
 
     /* Guarda datos del formulario d **Insertar Beca* */
 

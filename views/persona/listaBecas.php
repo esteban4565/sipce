@@ -1,4 +1,10 @@
 <div class="row">
+    <div class="col-xs-3">
+        <a class="btn btn-success" href="<?php echo URL; ?>persona/listaBecasRutaHeredia">Ruta Heredia</a>
+    </div>
+    <div class="col-xs-3">
+        <a class="btn btn-success" href="<?php echo URL; ?>persona/listaBecasRutaAlajuela">Ruta Alajuela</a>
+    </div>
     <div class="col-xs-12">
         <table class="table table-condensed" id="listaBecados">
             <tr>
@@ -59,25 +65,25 @@
                 echo $value['nombreEspecialidad'];
                 echo '</td>';
                 echo '<td>';
-                
-                $subTotal=$value['ingreso1'] + $value['ingreso2'] + $value['ingreso3'] + $value['ingreso4'];
-                $descuento=$subTotal * 0.0917;
-                $total=$subTotal-$descuento;
+
+                $subTotal = $value['ingreso1'] + $value['ingreso2'] + $value['ingreso3'] + $value['ingreso4'];
+                $descuento = $subTotal * 0.0917;
+                $total = $subTotal - $descuento;
                 echo round($total / $value['totalMiembros'], 2);
-                
+
                 echo '</td>';
                 echo '<td>';
-                if($value['ced_encargadoCheque'] != ''){
-                echo $value['ced_encargadoCheque'];
-                }else{
+                if ($value['ced_encargadoCheque'] != '') {
+                    echo $value['ced_encargadoCheque'];
+                } else {
                     echo 'No encontrado';
                 }
                 echo '</td>';
                 echo '<td>';
-                
-                if($value['ced_encargadoCheque'] != ''){
-                echo $value['apellido1_encargado'] . ' ' . $value['apellido2_encargado'] . ' ' . $value['nombre_encargado'];
-                }else{
+
+                if ($value['ced_encargadoCheque'] != '') {
+                    echo $value['apellido1_encargado'] . ' ' . $value['apellido2_encargado'] . ' ' . $value['nombre_encargado'];
+                } else {
                     echo 'No encontrado';
                 }
                 echo '</td>';
@@ -85,7 +91,11 @@
                 echo '<a class="btn-sm btn-warning" href="editarBeca/' . $value['ced_estudiante'] . '">Editar</a>';
                 echo '</td>';
                 echo '<td>';
-                echo '<a id="btnEliminar" class="btn-sm btn-primary" href="eliminarBeca/' . $value['ced_estudiante'] . '">Eliminar</a>';
+                if (Session::get('tipoUsuario') <= 2) {
+                    ?>
+                    <a class="btn-sm btn-primary" href="<?php echo 'eliminarBeca/' . $value['ced_estudiante']; ?>" onclick="return confirm('¿Está seguro que desea eliminar este registro?');">Eliminar</a>
+                    <?php
+                }
                 echo '</td>';
                 echo '</tr>';
                 $con++;

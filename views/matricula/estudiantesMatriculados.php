@@ -43,7 +43,7 @@
             echo $value['condicion'];
             echo '</td>';
             echo '<td class="text-right" >';
-            if (Session::get('tipoUsuario') == 1){
+            if (Session::get('tipoUsuario') <=3 ){
             echo '<a class="btn-sm btn-primary" href="editarMatricula/' . $value['cedula'] . '">Editar</a>';
             }else{
                 echo '-';

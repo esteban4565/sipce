@@ -77,7 +77,7 @@
                     <input type="text" class="form-control input-sm validate[required]" name="ingreso4" id="ingreso4" value='<?php echo $this->datosEstudiante[0]['ingreso4']; ?>'/>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="totalMiembros" class="col-xs-2 control-label">Cantidad de miembros:</label>
                 <div class="col-xs-1">
@@ -90,39 +90,68 @@
                 <h4>Seleccione la persona encarga para canjear los cheques</h4>
                 <label for="encargadoCheque" class="col-xs-1 control-label">Padre:</label>
                 <div class="col-xs-3 text-center">
-                    <input type="radio" class="form-control validate[required]" name="encargadoCheque" id="padre_encontrado" <?php echo 'value="' . $this->datosEncargadoCheque['ced_padre'] . ',Padre" '; if($this->datosEstudiante[0]['parentesco'] != null && $this->datosEstudiante[0]['parentesco'] == 'Padre'){echo 'checked="checked"';}?>/>
+                    <input type="radio" class="form-control validate[required]" 
+                           name="encargadoCheque" id="padre_encontrado" 
+                           <?php
+                           if ($this->datosEncargadoCheque['ced_padre'] != null) {
+                               echo 'value="' . $this->datosEncargadoCheque['ced_padre'] . ',Padre" ';
+                               if ($this->datosEstudiante[0]['parentesco'] != null && $this->datosEstudiante[0]['parentesco'] == 'Padre') {
+                                   echo 'checked="checked"';
+                               }
+                           }
+                           ?>/>
                     <h5 id="h5_padre_encontrado">
-                        <?php if($this->datosEncargadoCheque['ced_padre'] != null){
+                        <?php
+                        if ($this->datosEncargadoCheque['ced_padre'] != null) {
                             echo $this->datosEncargadoCheque['nombre_padre'] . ' ' . $this->datosEncargadoCheque['apellido1_padre'] . ' ' . $this->datosEncargadoCheque['apellido2_padre'];
-                        }else{
+                        } else {
                             echo '-';
-                        } ?>
+                        }
+                        ?>
                     </h5>
                 </div>
                 <label for="encargadoCheque" class="col-xs-1 control-label">Madre:</label>
                 <div class="col-xs-3 text-center">
-                    <input type="radio" class="form-control validate[required]" name="encargadoCheque" id="madre_encontrado" <?php echo 'value="' . $this->datosEncargadoCheque['ced_madre'] . ',Madre" '; if($this->datosEstudiante[0]['parentesco'] != null && $this->datosEstudiante[0]['parentesco'] == 'Madre'){echo 'checked="checked"';}?>/>
+                    <input type="radio" class="form-control validate[required]" 
+                           name="encargadoCheque" id="madre_encontrado" 
+                           <?php
+                           if ($this->datosEncargadoCheque['ced_madre'] != null) {
+                               echo 'value="' . $this->datosEncargadoCheque['ced_madre'] . ',Madre" ';
+                               if ($this->datosEstudiante[0]['parentesco'] != null && $this->datosEstudiante[0]['parentesco'] == 'Madre') {
+                                   echo 'checked="checked"';
+                               }
+                           }
+                           ?>/>
                     <h5 id="h5_madre_encontrado">
-                        <?php if($this->datosEncargadoCheque['ced_madre'] != null){
+                        <?php
+                        if ($this->datosEncargadoCheque['ced_madre'] != null) {
                             echo $this->datosEncargadoCheque['nombre_madre'] . ' ' . $this->datosEncargadoCheque['apellido1_madre'] . ' ' . $this->datosEncargadoCheque['apellido2_madre'];
-                        }else{
+                        } else {
                             echo '-';
-                        } ?>
+                        }
+                        ?>
                     </h5>
                 </div>
                 <label for="encargadoCheque" class="col-xs-1 control-label">Otro:</label>
                 <div class="col-xs-3 text-center">
-                    <input type="radio" class="form-control validate[required]" name="encargadoCheque" id="otro_encontrado" <?php echo 'value="' . $this->datosEncargadoCheque['ced_encargado'] . ',Otro" '; if($this->datosEstudiante[0]['parentesco'] != null && $this->datosEstudiante[0]['parentesco'] == 'Otro'){echo 'checked="checked"';}?>/>
+                    <input type="radio" class="form-control validate[required]" name="encargadoCheque" id="otro_encontrado" <?php
+                    echo 'value="' . $this->datosEncargadoCheque['ced_encargado'] . ',Otro" ';
+                    if ($this->datosEstudiante[0]['parentesco'] != null && $this->datosEstudiante[0]['parentesco'] == 'Otro') {
+                        echo 'checked="checked"';
+                    }
+                    ?>/>
                     <h5 id="h5_otro_encontrado">
-                        <?php if($this->datosEncargadoCheque['ced_encargado'] != null){
+                        <?php
+                        if ($this->datosEncargadoCheque['ced_encargado'] != null) {
                             echo $this->datosEncargadoCheque['nombre_encargado'] . ' ' . $this->datosEncargadoCheque['apellido1_encargado'] . ' ' . $this->datosEncargadoCheque['apellido2_encargado'];
-                        }else{
+                        } else {
                             echo '-';
-                        } ?>
+                        }
+                        ?>
                     </h5>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <div class="col-xs-2 text-center">
                     <input type="submit" class="btn btn-primary" id="guardar" value="Guardar" />

@@ -626,7 +626,7 @@ class Persona extends Controllers {
     //2016 Becas
 
     function ingresarBeca() {
-        $this->view->title = 'Ingresar beca';
+        $this->view->title = 'Ingresar beca transporte';
         $this->view->mensaje = '';
 
         $this->view->render('header');
@@ -641,9 +641,9 @@ class Persona extends Controllers {
     function guardarDatosBeca() {
         $datos = array();
         $datos['ced_estudiante'] = $_POST['ced_estudiante_encontrada'];
-        if (!empty($_POST['encargadoCheque'])) {
+        if (($_POST['encargadoCheque']) != null && $_POST['encargadoCheque'] != 'on') {
             list($datos['ced_encargadoCheque'], $datos['parentesco']) = explode(",", $_POST['encargadoCheque']);
-        }else{
+        } else {
             $datos['ced_encargadoCheque'] = null;
             $datos['parentesco'] = null;
         }
@@ -664,7 +664,7 @@ class Persona extends Controllers {
     }
 
     function listaBecas() {
-        $this->view->title = 'Lista becas';
+        $this->view->title = 'Lista becas transporte';
         $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
 
         $this->view->render('header');
@@ -672,8 +672,26 @@ class Persona extends Controllers {
         $this->view->render('footer');
     }
 
+    function listaBecasRutaHeredia() {
+        $this->view->title = 'Lista becas transporte';
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
+
+        $this->view->render('header');
+        $this->view->render('persona/listaBecasRutaHeredia');
+        $this->view->render('footer');
+    }
+
+    function listaBecasRutaAlajuela() {
+        $this->view->title = 'Lista becas transporte';
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
+
+        $this->view->render('header');
+        $this->view->render('persona/listaBecasRutaAlajuela');
+        $this->view->render('footer');
+    }
+
     function editarBeca($ced_estudiante = null) {
-        $this->view->title = 'Editar beca';
+        $this->view->title = 'Editar beca transporte';
         $this->view->datosEstudiante = $this->model->datosEstudiante($ced_estudiante);
         $this->view->datosEncargadoCheque = $this->model->datosEncargadoCheque($ced_estudiante);
 
@@ -683,7 +701,6 @@ class Persona extends Controllers {
     }
 
     function eliminarBeca($ced_estudiante) {
-        $this->view->title = 'Lista becas';
         $this->model->eliminarBeca($ced_estudiante);
         $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
 
@@ -695,7 +712,7 @@ class Persona extends Controllers {
     /* Becas Comedor */
 
     function ingresarBecaComedor() {
-        $this->view->title = 'Ingresar beca Comedor';
+        $this->view->title = 'Ingresar beca comedor';
         $this->view->mensaje = '';
 
         $this->view->render('header');
@@ -721,7 +738,7 @@ class Persona extends Controllers {
     }
 
     function listaBecasComedor() {
-        $this->view->title = 'Lista becas Comedor';
+        $this->view->title = 'Lista becas comedor';
         $this->view->listaEstudianteBecasComedor = $this->model->listaEstudianteBecasComedor();
 
         $this->view->render('header');
@@ -730,8 +747,8 @@ class Persona extends Controllers {
     }
 
     function editarBecaComedor($ced_estudiante = null) {
-        $this->view->title = 'Editar beca';
-        $this->view->datosEstudianteComedor = $this->model->datosEstudianteComedor($ced_estudiante);
+        $this->view->title = 'Editar beca comedor';
+        $this->view->datosEstudiante = $this->model->datosEstudianteComedor($ced_estudiante);
 
         $this->view->render('header');
         $this->view->render('persona/editarBecaComedor');
@@ -739,8 +756,7 @@ class Persona extends Controllers {
     }
 
     function eliminarBecaComedor($ced_estudiante) {
-        $this->view->title = 'Lista becas Comedor';
-        $this->model->eliminarBeca($ced_estudiante);
+        $this->model->eliminarBecaComedor($ced_estudiante);
         $this->view->listaEstudianteBecasComedor = $this->model->listaEstudianteBecasComedor();
 
         $this->view->render('header');
