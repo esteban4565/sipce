@@ -311,7 +311,7 @@ class Matricula extends Controllers {
 
         /* Cargo informacion de la Condicion de Matricula */
         $this->view->infoCondicionMatricula = $this->model->infoCondicionActualMatricula($cedulaEstudiante);
-
+        
         /* Cargo informacion de la especialidad del Estudiante */
         $this->view->especialidadEstudiante = $this->model->especialidadEstudiante($cedulaEstudiante);
 

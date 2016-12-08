@@ -668,7 +668,7 @@ class Matricula_Model extends Models {
                 'apellido1_personaEmergencia' => $datos['tf_ape1PersonaEmergencia'],
                 'apellido2_personaEmergencia' => $datos['tf_ape2PersonaEmergencia'],
                 'telefonoCasaPersonaEmergencia' => $datos['tf_telHabitPersonaEmergencia'],
-                'telefonoCelularPersonaEmergencia' => $datos['tf_telHabitPersonaEmergencia']);
+                'telefonoCelularPersonaEmergencia' => $datos['tf_telcelularPersonaEmergencia']);
             $this->db->update('sipce_personaemergencia', $posData, "`ced_estudiante` = '{$datos['tf_cedulaEstudiante']}'");
         } else {
             //Si no, inserto los datos de la Persona Emergencia
@@ -1071,12 +1071,11 @@ class Matricula_Model extends Models {
     public function consultaDatosEstudiante($cedulaEstudiante) {
         return $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.sexo,p.fechaNacimiento,"
                         . "p.telefonoCasa,p.telefonoCelular,p.email,p.domicilio,e.nombre as escuela_procedencia,p.telefonoCasa,j.nombreProvincia,"
-                        . "c.Canton,d.Distrito,p.nacionalidad,g.nivel, m.condicion "
-                        . "FROM sipce_estudiante as p,sipce_escuelas as e,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d, sipce_matricularatificacion as m "
+                        . "c.Canton,d.Distrito,p.nacionalidad,g.nivel "
+                        . "FROM sipce_estudiante as p,sipce_escuelas as e,sipce_grupos as g,sipce_provincias as j,sipce_cantones as c,sipce_distritos as d "
                         . "WHERE p.cedula = g.ced_estudiante "
                         . "AND p.cedula = '" . $cedulaEstudiante . "' "
                         . "AND g.annio = '" . $this->datosSistema[0]['annio_lectivo'] . "' "
-                        . "AND m.ced_estudiante = '" . $cedulaEstudiante . "' "
                         . "AND p.escuela_procedencia = e.id "
                         . "AND p.IdProvincia = j.IdProvincia "
                         . "AND p.IdCanton = c.IdCanton "

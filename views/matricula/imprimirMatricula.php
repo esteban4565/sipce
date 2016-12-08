@@ -362,7 +362,7 @@
         Condición:&nbsp;
         </div>
         <div class="col-xs-1 text-center">
-        <?php echo $this->consultaDatosEstudiante[0]['condicion']; ?>
+        <?php echo $this->infoCondicionMatricula[0]['condicion']; ?>
         </div>
         <div class="col-xs-offset-7"></div>
       </div>

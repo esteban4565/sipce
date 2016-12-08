@@ -178,13 +178,13 @@ class ActualizarEstudiantes_Model extends Models {
         $resultado = $this->db->select("SELECT p.sexo,p.fechaNacimiento,p.nacionalidad "
                 . "FROM sipce_estudiante as p,sipce_grupos as g "
                 . "WHERE g.nivel = " . $idNivel . " "
-                . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] + 1) . "' "
+                . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo']) . "' "
                 . "AND p.cedula = g.ced_estudiante ");
 
         if ($resultado != NULL) {
             foreach ($resultado as $key => $value) {
                 $anio = substr($value['fechaNacimiento'], 0, 4);
-                $edad = ($this->datosSistema[0]['annio_lectivo'] + 1) - $anio;
+                $edad = ($this->datosSistema[0]['annio_lectivo']) - $anio;
 
                 if ($value['sexo'] == 1) {
                     $hombres++;
@@ -244,7 +244,7 @@ class ActualizarEstudiantes_Model extends Models {
 
         $resultado = $this->db->select("SELECT g.nivel "
                 . "FROM sipce_grupos as g "
-                . "WHERE g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] + 1) . "' ");
+                . "WHERE g.annio = '" . ($this->datosSistema[0]['annio_lectivo']) . "' ");
 
         if ($resultado != NULL) {
             foreach ($resultado as $key => $value) {
@@ -301,7 +301,7 @@ class ActualizarEstudiantes_Model extends Models {
         $resultado = $this->db->select("SELECT p.sexo,p.fechaNacimiento,p.nacionalidad "
                 . "FROM sipce_estudiante as p,sipce_grupos as g,sipce_especialidad_estudiante as e "
                 . "WHERE g.nivel = " . $consulta['nivelSeleccionado'] . " "
-                . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] + 1) . "' "
+                . "AND g.annio = '" . ($this->datosSistema[0]['annio_lectivo']) . "' "
                 . "AND p.cedula = g.ced_estudiante "
                 . "AND g.ced_estudiante = e.ced_estudiante "
                 . "AND e.cod_especialidad = " . $consulta['especialidad'] . " ");
@@ -309,7 +309,7 @@ class ActualizarEstudiantes_Model extends Models {
         if ($resultado != NULL) {
             foreach ($resultado as $key => $value) {
                 $anio = substr($value['fechaNacimiento'], 0, 4);
-                $edad = ($this->datosSistema[0]['annio_lectivo'] + 1) - $anio;
+                $edad = ($this->datosSistema[0]['annio_lectivo']) - $anio;
 
                 if ($value['sexo'] == 1) {
                     $hombres++;
@@ -365,7 +365,7 @@ class ActualizarEstudiantes_Model extends Models {
 
         $resultado = $this->db->select("SELECT g.nivel "
                 . "FROM sipce_grupos as g,sipce_especialidad_estudiante as e "
-                . "WHERE g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] + 1) . "' "
+                . "WHERE g.annio = '" . ($this->datosSistema[0]['annio_lectivo']) . "' "
                 . "AND g.ced_estudiante = e.ced_estudiante "
                 . "AND e.cod_especialidad = " . $consulta['especialidad'] . " ");
 
@@ -426,7 +426,7 @@ class ActualizarEstudiantes_Model extends Models {
 
         $resultado = $this->db->select("SELECT g.nivel,e.cod_especialidad "
                 . "FROM sipce_grupos as g,sipce_especialidad_estudiante as e "
-                . "WHERE g.annio = '" . ($this->datosSistema[0]['annio_lectivo'] + 1) . "' "
+                . "WHERE g.annio = '" . ($this->datosSistema[0]['annio_lectivo']) . "' "
                 . "AND g.ced_estudiante = e.ced_estudiante ");
 
         if ($resultado != NULL) {
@@ -573,7 +573,7 @@ class ActualizarEstudiantes_Model extends Models {
     public function cargaListaEstudiantesEspecialidad($consulta) {
         $resultado = $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2,p.telefonoCasa,p.telefonoCelular "
                 . "FROM sipce_grupos as g,sipce_estudiante as p,sipce_especialidad_estudiante as e  "
-                . "WHERE g.annio = " . ($this->datosSistema[0]['annio_lectivo'] + 1) . " "
+                . "WHERE g.annio = " . ($this->datosSistema[0]['annio_lectivo']) . " "
                 . "AND g.nivel = " . $consulta['nivelSeleccionado'] . " "
                 . "AND g.ced_estudiante = p.cedula "
                 . "AND g.ced_estudiante = e.ced_estudiante "
@@ -588,7 +588,7 @@ class ActualizarEstudiantes_Model extends Models {
     public function cargaListaEstudiantesMatriculados($consulta) {
         $resultado = $this->db->select("SELECT p.cedula,p.nombre,p.apellido1,p.apellido2 "
                 . "FROM sipce_grupos as g,sipce_estudiante as p "
-                . "WHERE g.annio = " . ($this->datosSistema[0]['annio_lectivo'] + 1) . " "
+                . "WHERE g.annio = " . ($this->datosSistema[0]['annio_lectivo']) . " "
                 . "AND g.nivel = " . $consulta['nivelSeleccionado'] . " "
                 . "AND g.ced_estudiante = p.cedula "
                 . "ORDER BY p.apellido1,p.apellido2 ");
