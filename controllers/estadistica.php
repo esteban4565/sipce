@@ -68,4 +68,16 @@ class Estadistica extends Controllers {
         $this->view->render('footer');
     }
 
+    public function estudiantesExtrangeros() {
+        
+        $this->view->title = 'Matricula Inicial, estudiantes extrangeros';
+
+        //Se manda a ejecutar el header, contenido principal (views/horario/index) y el footer
+        $this->view->render('header');
+        $this->view->estudiantesExtrangeros = $this->model->buscarEstudianteExtrangeros();
+        $this->view->render('estadistica/estudiantesExtrangeros');
+        $this->view->render('footer');
+    }
+
+
 }
