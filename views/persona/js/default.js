@@ -134,6 +134,8 @@ $(function()
         var chk_domicilio = 0;
         var chk_telefonosEstu = 0;
         var chk_telefonosEncargado = 0;
+        var chk_fechaNacimineto = 0;
+        var chk_genero = 0;
         if ($('#chk_email').prop('checked')) {
             chk_email = 1;
             cantidadColumnas++;
@@ -157,10 +159,18 @@ $(function()
             cantidadColumnas++;
             cantidadColumnas++;
         }
+        if ($('#chk_fechaNacimineto').prop('checked')) {
+            chk_fechaNacimineto = 1;
+            cantidadColumnas++;
+        }
+        if ($('#chk_genero').prop('checked')) {
+            chk_genero = 1;
+            cantidadColumnas++;
+        }
 
         var consulta = {nivelSeleccionado: $("#tf_Niveles").val(), grupoSeleccionado: 0, chk_email: chk_email,
             chk_poliza: chk_poliza, chk_domicilio: chk_domicilio, chk_telefonosEstu: chk_telefonosEstu,
-            chk_telefonosEncargado: chk_telefonosEncargado};
+            chk_telefonosEncargado: chk_telefonosEncargado, chk_fechaNacimineto: chk_fechaNacimineto, chk_genero: chk_genero};
 
         var fechaActual = new Date();
         var dd = fechaActual.getDate();
@@ -196,6 +206,12 @@ $(function()
             }
             if (chk_telefonosEncargado == 1) {
                 arraySalida += '<th>Nombre del Encargado</th><th>Tel. Casa Encargado</th><th>Cel. Encargado</th>';
+            }
+            if (chk_genero == 1) {
+                arraySalida += '<th>Genero</th>';
+            }
+            if (chk_fechaNacimineto == 1) {
+                arraySalida += '<th>Fecha Nacimineto</th>';
             }
 
             arraySalida += '</tr></thead><tbody>';
@@ -254,6 +270,32 @@ $(function()
                     }
                     if (seccionElegida[linea].telefonoCelularEncargado != null) {
                         arraySalida += '<td>' + seccionElegida[linea].telefonoCelularEncargado.substr(0, 4) + '-' + seccionElegida[linea].telefonoCelularEncargado.substr(4) + '</td>';
+                    } else {
+                        arraySalida += '<td> - </td>';
+                    }
+                }
+
+                if (chk_genero == 1) {
+                    if (seccionElegida[linea].sexo != null) {
+                        if(seccionElegida[linea].sexo == 1){
+                            arraySalida += '<td>Hombre</td>';
+                        }else{
+                            arraySalida += '<td>Mujer</td>';
+                        }
+                    } else {
+                        arraySalida += '<td> - </td>';
+                    }
+                }
+
+                if (chk_fechaNacimineto == 1) {
+                    if (seccionElegida[linea].fechaNacimiento != null) {
+                        
+                        var dia = seccionElegida[linea].fechaNacimiento.substring(8, 10);
+                        var mes = seccionElegida[linea].fechaNacimiento.substring(5, 7);
+                        var anio = seccionElegida[linea].fechaNacimiento.substring(0, 4);
+                        arraySalida += '<td>' + dia + '/'  + mes + '/' + anio + '</td>';
+                        
+                        //arraySalida += '<td>' + seccionElegida[linea].fechaNacimiento + '</td>';
                     } else {
                         arraySalida += '<td> - </td>';
                     }

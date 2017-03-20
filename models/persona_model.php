@@ -235,6 +235,12 @@ class Persona_Model extends Models {
         if ($consulta['chk_telefonosEncargado'] == 1) {
             $consultaSQL.=",sipce_encargado.nombre_encargado,sipce_encargado.apellido1_encargado,sipce_encargado.apellido2_encargado,sipce_encargado.telefonoCasaEncargado,sipce_encargado.telefonoCelularEncargado";
         }
+        if ($consulta['chk_fechaNacimineto'] == 1) {
+            $consultaSQL.=",sipce_estudiante.fechaNacimiento";
+        }
+        if ($consulta['chk_genero'] == 1) {
+            $consultaSQL.=",sipce_estudiante.sexo";
+        }
 
         //tablas
         $consultaSQL.=" FROM sipce_grupos LEFT JOIN " . DB_NAME . ".sipce_estudiante ON sipce_grupos.ced_estudiante = sipce_estudiante.cedula";
@@ -263,6 +269,7 @@ class Persona_Model extends Models {
             $consultaSQL.="sipce_grupos.sub_grupo ASC,";
         }
         $consultaSQL.="sipce_estudiante.apellido1 ASC, sipce_estudiante.apellido2 ASC, sipce_estudiante.nombre ASC";
+        //echo json_encode($consultaSQL);
         //consulta
         $resultado2 = $this->db->select($consultaSQL);
         echo json_encode($resultado2);
