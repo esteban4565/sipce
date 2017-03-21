@@ -313,7 +313,7 @@ class Persona extends Controllers {
         $consulta['chk_domicilio'] = $_POST['chk_domicilio'];
         $consulta['chk_telefonosEstu'] = $_POST['chk_telefonosEstu'];
         $consulta['chk_telefonosEncargado'] = $_POST['chk_telefonosEncargado'];
-        $consulta['chk_fechaNacimineto'] = $_POST['chk_fechaNacimineto'];
+        $consulta['chk_fechaNacimiento'] = $_POST['chk_fechaNacimiento'];
         $consulta['chk_genero'] = $_POST['chk_genero'];
         $this->model->cargaSeccion($consulta);
     }

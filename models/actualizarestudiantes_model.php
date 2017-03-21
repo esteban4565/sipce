@@ -821,4 +821,117 @@ class ActualizarEstudiantes_Model extends Models {
         echo json_encode($resultado2);
     }
 
+    //2017
+
+
+
+    /* Guarda Seciones de estudiantes, Recorre archivo y Retorna Estudiantes No encontrados */
+
+    public function guardarSeccionesEstudiantes($datosArchivo) {
+        //arrays para imprimir salida
+        $listaEstudiantesSinGrupo = array();
+        $listaEstudiantesSinMatricula = array();
+
+        //Ruta de carpetas en localhost o hostinger.com
+        if ($this->entorno == 'local') {
+            $ruta = "../sipce";
+        } else if ($this->entorno == 'web') {
+            $ruta = "../public_html";
+        }
+
+        $archivo = $ruta . "/public/ausencias/" . $datosArchivo['Nombre'];
+        $salida = '';
+        //Variables estadisticas de salida
+        $registrosActualizados = 0;
+        $numFila = 1;
+
+        //si se puede abrir el archivo lo recorro con un while
+        if (($gestor = fopen($archivo, "r")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+                //Variables Locales para avanzar dentro del vector (filas del archivo csv)
+                $ced_estudiante = 0;
+                $nivel = 1;
+                $grupo = 2;
+                $subGrupo = 3;
+
+                //Primero verifico que la fila no venga vacia (!="0")
+                if ($datos[$ced_estudiante] != "0" && $datos[$ced_estudiante] != null) {
+                    //Luego verifico si el estudiante existe en la tabla sipce_matricularatificacion
+                    $consultaExistenciaEstudiante = $this->db->select("SELECT * "
+                            . "FROM sipce_matricularatificacion "
+                            . "WHERE ced_estudiante = '" . $datos[$ced_estudiante] . "' "
+                            . "AND anio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
+
+                    //Si existe procedo a actualizar seccion, sino imprimo cedula para corroborar estudiante
+                    if ($consultaExistenciaEstudiante != null) {
+                        //Corroboro de que exista el nivel (!="0")
+                        if ($datos[$nivel] != 0) {
+                            //Consulto si el estudiante existe en sipce_grupos
+                            $consultaExistenciaGrupo = $this->db->select("SELECT * "
+                                    . "FROM sipce_grupos "
+                                    . "WHERE ced_estudiante = '" . $datos[$ced_estudiante] . "' "
+                                    . "AND annio = " . $this->datosSistema[0]['annio_lectivo'] . " "
+                                    . "AND nivel = " . $datos[$nivel] . " ");
+
+                            //Si ya existe actualizo datos, sino imprimo cedula para corroborar estudiante
+                            if ($consultaExistenciaGrupo != null) {
+                                $posData = array(
+                                    'grupo' => $datos[$grupo],
+                                    'sub_grupo' => $datos[$subGrupo]);
+                                $this->db->update('sipce_grupos', $posData, "`ced_estudiante` = '{$datos[$ced_estudiante]}' 
+                                                        AND `annio` = {$this->datosSistema[0]['annio_lectivo']} AND `nivel` = {$datos[$nivel]}");
+                                $registrosActualizados++;
+                            } else {
+                                $estudianteTemporal[0] = $datos[$ced_estudiante];
+                                $estudianteTemporal[1] = $datos[$nivel];
+                                $estudianteTemporal[2] = $datos[$grupo];
+                                $estudianteTemporal[3] = $datos[$subGrupo];
+                                $listaEstudiantesSinGrupo[] = $estudianteTemporal;
+                            }
+                        } else {
+                            if ($datos[$nivel] > 0) {
+                                $salida.= "Nivel no encontrado: " . $datos[$nivel] . " en sipce_grupos<br />";
+                            }
+                        }
+                    } else {
+                        $estudianteTemporal[0] = $datos[$ced_estudiante];
+                        $estudianteTemporal[1] = $datos[$nivel];
+                        $estudianteTemporal[2] = $datos[$grupo];
+                        $estudianteTemporal[3] = $datos[$subGrupo];
+                        $listaEstudiantesSinMatricula[] = $estudianteTemporal;
+                    }
+                }
+                $numFila++;
+            }
+            fclose($gestor);
+        } else {
+            $salida.= "Error al abrir el archivo";
+        }
+        $salida.= "<br>Registros Actualizados: " . $registrosActualizados . "<br><br>";
+
+
+        //Formateo la salida
+        $salida.='<h3>Lista de estudiantes sin matricula</h3>'
+                . '<p>Estan en las listas de excel pero no en el sitema de matricula</p>'
+                . '<table class="table table-condensed">';
+        $contFila = 1;
+        foreach ($listaEstudiantesSinMatricula as $fila) {
+            $salida.='<tr><td>' . $contFila . '</td><td>' . $fila[0] . '</td><td>' . $fila[1] . '</td><td>' . $fila[2] . '</td><td>' . $fila[3] . '</td></tr>';
+            $contFila++;
+        }
+        $salida.='</table>';
+
+        $salida.='<h3>Lista de estudiantes sin grupo</h3>'
+                . '<p>Estan matriculados pero no poseen el grupo correcto</p>'
+                . '<table class="table table-condensed">';
+        $contFila = 1;
+        foreach ($listaEstudiantesSinGrupo as $fila) {
+            $salida.='<tr><td>' . $contFila . '</td><td>' . $fila[0] . '</td><td>' . $fila[1] . '</td><td>' . $fila[2] . '</td><td>' . $fila[3] . '</td></tr>';
+            $contFila++;
+        }
+        $salida.='</table>';
+
+        return $salida;
+    }
+
 }

@@ -247,5 +247,55 @@ class ActualizarEstudiantes extends Controllers {
         $this->view->render('actualizarestudiantes/consultarAusencias');
         $this->view->render('footer');
     }
+    
+    
+    //2017
+    
+    
+
+    /* Vista inicial para Cargar secciones de estudiantes */
+    function cargarSeccionesEstudiantes() {
+        $this->view->title = 'Cargar secciones de estudiantes';
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/cargarSeccionesEstudiantes');
+        $this->view->render('footer');
+    }
+
+    /* Cargo secciones de estudiantes */
+    function guardarSeccionesEstudiantes() {
+        //Ruta de carpetas en localhost o hostinger.com
+        if($this->entorno == 'local'){
+            $ruta="../sipce";
+        }else if($this->entorno == 'web'){
+            $ruta="../public_html";
+        }
+        
+        if ($_FILES['archivo']["error"] > 0)
+            {
+            echo "Ocurrio un Error al copiar el archivo a la carpeta temporal: " . $_FILES['archivo']['error'] . "<br>";
+            die;
+            }
+            else
+                {
+                $datosArchivo=array();
+                $datosArchivo['Nombre'] = $_FILES['archivo']['name'];
+                $datosArchivo['Tipo'] = $_FILES['archivo']['type'];
+                $datosArchivo['Tamaño'] = ($_FILES["archivo"]["size"] / 1024);
+                $datosArchivo['CarpetaTemporal'] = $_FILES['archivo']['tmp_name'];
+                
+                /*Guardo el archivo en un lugar en especifico, utilizo move_uploaded_file,
+                 * con el if compruebo si tuvo exito el move_uploaded_file, luego continuo con el Model */
+                if(move_uploaded_file($_FILES['archivo']['tmp_name'],$ruta . "/public/ausencias/" . $_FILES['archivo']['name'])){
+                    $this->view->mensaje = $this->model->guardarSeccionesEstudiantes($datosArchivo);
+                }else{
+                    echo "Error: " . $_FILES['archivo']['error'] . "<br>";
+                    die;
+                }
+            }
+        $this->view->title = 'Cargar Secciones Estudiantes';
+        $this->view->render('header');
+        $this->view->render('actualizarestudiantes/msg');
+        $this->view->render('footer');
+    }
 
 }

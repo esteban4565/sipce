@@ -41,6 +41,7 @@ class Seccion_Model extends Models {
                 . "AND g.nivel = " . $consulta['nivelSeleccionado'] . " "
                 . "AND g.grupo = " . $consulta['grupoSeleccionado'] . " "
                 . "AND g.annio = " . $this->anioActivo . " "
+                . "AND r.anio = " . $this->anioActivo . " "
                 . "ORDER BY g.sub_grupo,e.apellido1,e.apellido2,e.nombre");
         echo json_encode($resultado2);
     }
