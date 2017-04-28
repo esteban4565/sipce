@@ -8,15 +8,35 @@
         <a class="btn-sm btn-danger" href="<?php echo URL; ?>seccion/configSecciones/11" class="btn-sm btn-danger" >11°</a>
         <a class="btn-sm btn-danger" href="<?php echo URL; ?>seccion/configSecciones/12" class="btn-sm btn-danger" >12°</a>
     </div>
+</div>
+<div class="row">
+    <hr>
+    <h2>Distribución Estudiantes por Distrito</h2>
+    <h3>Nivel: <?php echo $this->nivel; ?>°</h3>
+    <label id="nivel" style="display:none;"><?php echo $this->nivel; ?></label>
+    <div class="col-xs-6">
+        <table class="table table-condensed">
+            <thead>
+                <tr><th>Dirección Geografica</th><th>Cantidad de Estudiantes</th></tr>
+            </thead>
+            <tbody>
+                <?php
+                $totalEstudiantes = 0;
+                foreach ($this->consultaEstadisticaZona as $key => $value) {
+                    echo '<tr><td>' . $value['nombreProvincia'] . ', ' . $value['nombreCanton'] . ', ' . $value['nombreDistrito'] . '</td><td>' . $value['cantidadEstudiantes'] . '</td></tr>';
+                    $totalEstudiantes = $totalEstudiantes + $value['cantidadEstudiantes'];
+                }
+                ?>
+                <tr><td>Total:</td><td><?php echo $totalEstudiantes; ?></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
     <hr>
     <h2>Distribución Estudiantes por Especialidad</h2>
     <h3>Nivel: <?php echo $this->nivel; ?>°</h3>
     <label id="nivel" style="display:none;"><?php echo $this->nivel; ?></label>
-</div>
-<div class="row">
-    <?php
-    //print_r($this->consultaEstadisticaEspecialidad);
-    ?>
     <div class="col-xs-6">
         <table class="table table-condensed">
             <thead>

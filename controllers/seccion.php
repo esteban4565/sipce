@@ -64,6 +64,9 @@ class Seccion extends Controllers {
                 /* CARGAMOS LA ESTADISTICA DE ESPECIALIDADES */
                 $this->view->consultaEstadisticaEspecialidad = $this->model->consultaEstadisticaEspecialidad($nivel);
 
+                /* CARGAMOS cantidad de distritos */
+                $this->view->consultaEstadisticaZona = $this->model->consultaEstadisticaZona($nivel);
+
                 /* CARGAMOS SECCIONES POR NIVEL */
                 $this->view->consultaSeccionesDiversificada = $this->model->consultaSeccionesDiversificada($nivel);
 

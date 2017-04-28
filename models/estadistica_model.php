@@ -100,9 +100,11 @@ class Estadistica_Model extends Models {
 
         //Estudiantes que residen en Carrizal
         $arraySalida .='<tr><td class="text-center">Carrizal</td>';
-        $consultaEstudiantesCarrizal = $this->db->select("SELECT sexo "
-                . "FROM sipce_estudiante "
-                . "WHERE IdDistrito = 124");
+        $consultaEstudiantesCarrizal = $this->db->select("SELECT p.sexo "
+                . "FROM sipce_estudiante as p,sipce_grupos as g "
+                . "WHERE p.cedula = g.ced_estudiante "
+                . "AND p.IdDistrito = 124 "
+                . "AND g.annio = " . ($this->anioActivo) . " ");
 
         $totalCarrizal = 0;
         $totalMujeresCarrizal = 0;
@@ -121,10 +123,12 @@ class Estadistica_Model extends Models {
 
         //Estudiantes que residen en Alajuela
         $arraySalida .='<tr><td class="text-center">Alajuela</td>';
-        $consultaEstudiantesAlajuela = $this->db->select("SELECT sexo "
-                . "FROM sipce_estudiante "
-                . "WHERE IdProvincia = 2 "
-                . "AND IdDistrito <> 124");
+        $consultaEstudiantesAlajuela = $this->db->select("SELECT p.sexo "
+                . "FROM sipce_estudiante as p,sipce_grupos as g "
+                . "WHERE p.cedula = g.ced_estudiante "
+                . "AND p.IdProvincia = 2 "
+                . "AND p.IdDistrito <> 124 "
+                . "AND g.annio = " . ($this->anioActivo) . " ");
 
         $totalAlajuela = 0;
         $totalMujeresAlajuela = 0;
@@ -142,10 +146,12 @@ class Estadistica_Model extends Models {
         $arraySalida .='<td class="text-center">' . $totalAlajuela . '</td><td class="text-center">' . $totalHombresAlajuela . '</td><td class="text-center">' . $totalMujeresAlajuela . "</td></tr>";
 
         //Estudiantes que residen en Heredia
-        $arraySalida .='<tr><td class="text-center">Alajuela</td>';
-        $consultaEstudiantesHeredia = $this->db->select("SELECT sexo "
-                . "FROM sipce_estudiante "
-                . "WHERE IdProvincia = 4");
+        $arraySalida .='<tr><td class="text-center">Heredia</td>';
+        $consultaEstudiantesHeredia = $this->db->select("SELECT p.sexo "
+                . "FROM sipce_estudiante as p,sipce_grupos as g "
+                . "WHERE p.cedula = g.ced_estudiante "
+                . "AND p.IdProvincia = 4 "
+                . "AND g.annio = " . ($this->anioActivo) . " ");
 
         $totalHeredia = 0;
         $totalMujeresHeredia = 0;

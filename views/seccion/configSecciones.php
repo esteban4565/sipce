@@ -8,12 +8,12 @@
         <a class="btn-sm btn-danger" href="<?php echo URL; ?>seccion/configSecciones/11" class="btn-sm btn-danger" >11°</a>
         <a class="btn-sm btn-danger" href="<?php echo URL; ?>seccion/configSecciones/12" class="btn-sm btn-danger" >12°</a>
     </div>
+</div>
+<div class="row">
     <hr>
     <h2>Distribución Estudiantes por Distrito</h2>
     <h3>Nivel: <?php echo $this->nivel; ?>°</h3>
     <label id="nivel" style="display:none;"><?php echo $this->nivel; ?></label>
-</div>
-<div class="row">
     <div class="col-xs-6">
         <table class="table table-condensed">
             <thead>
