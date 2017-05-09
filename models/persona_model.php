@@ -5,6 +5,9 @@ class Persona_Model extends Models {
     public function __construct() {
         parent::__construct();
         $this->datosSistema = $this->db->select('SELECT * FROM sipce_configuracion WHERE id=1');
+
+        //Ruta de carpetas en localhost o hostinger.com.....   local o web
+        $this->entorno = 'local';
     }
 
     /* Carga datos del sistema */
@@ -2347,6 +2350,21 @@ class Persona_Model extends Models {
             $sth = $this->db->prepare("DELETE FROM sipce_poliza WHERE ced_estudiante ='" . $estudiante['ced_estudiante'] . "'");
             $sth->execute();
         }
+    }
+
+    /* Guarda datos del formulario de **Modificar Cédula* */
+
+    public function foto_estudianteEditar($ced_estudiante) {
+        //Ruta de carpetas en localhost o hostinger.com
+        if ($this->entorno == 'local') {
+            $ruta = "../sipce";
+        } else if ($this->entorno == 'web') {
+            $ruta = "../public_html";
+        }
+
+        $nombre_fichero = $ruta . "/public/img/" . $ced_estudiante . ".png";
+
+        return (file_exists($nombre_fichero));
     }
 
 }

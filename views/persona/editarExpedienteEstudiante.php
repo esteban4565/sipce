@@ -23,10 +23,16 @@
                         <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante" value='<?php echo $this->infoEstudiante[0]['cedula']; ?>'/>
                     </div>
                     <div class="col-xs-2">
-                         <img src="<?php echo URL; ?>public/img/people.png" id="fotoEstudiante" alt=" foto estudiante" class="img-rounded pull-left img-responsive"> 
+                        <?php 
+                        if($this->foto_estudiante != null && $this->foto_estudiante != false ){
+                            echo '<img src="'. URL .'public/img/' . $this->infoEstudiante[0]['cedula']  . '.png" id="fotoEstudiante" alt="foto estudiante" class="img-rounded pull-left img-responsive">';
+                        }else{
+                            echo '<img src="'. URL .'public/img/people.png" id="fotoEstudiante" alt="foto estudiante" class="img-rounded pull-left img-responsive">';
+                        }
+                        ?>
                     </div>
                     <div class="col-xs-2">
-                        <input type="button" class="btn-sm btn-success" id="cambiarImagen" value="cambiar Imagen" />
+                        <input class="validate[required]" type="file" name="cambiarImagen" id="uploadedfile">
                     </div>
                 </div> 
                 <!--L2 Nombre Estudiante (Formulario Hugo)-->

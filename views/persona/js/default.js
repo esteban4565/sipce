@@ -17,7 +17,7 @@ $.datepicker.regional['es'] = {
 };
 $.datepicker.setDefaults($.datepicker.regional['es']);
 
-$(function()
+$(function ()
 {
     //Fecha Nacimiento//
     $("#tf_fnacpersona").datepicker({dateFormat: 'yy-mm-dd',
@@ -32,21 +32,21 @@ $(function()
     });
 
     //Edad Estudiante al cambiar fecha//
-    $("#tf_fnacpersona").change(function() {
+    $("#tf_fnacpersona").change(function () {
         $("#tf_edad").empty();
         var fechaNacimiento = $("#tf_fnacpersona").val();
         //Consulto año lectivo para realizar la resta y asignar la edad//
-        $.getJSON('datosSistemaJavaScript', function(resul) {
+        $.getJSON('datosSistemaJavaScript', function (resul) {
             var edad = resul[0].annio_lectivo - (fechaNacimiento).substring(0, 4);
             $("#tf_edad").val(edad);
         });
     });
 
     //Carga los cantones//
-    $("#tf_provincias").change(function() {
+    $("#tf_provincias").change(function () {
         $("#tf_cantones,#tf_distritos").empty();
         var idP = $("#tf_provincias").val();
-        $.getJSON('../persona/cargaCantones/' + idP, function(canton) {
+        $.getJSON('../persona/cargaCantones/' + idP, function (canton) {
             $('#tf_cantones').append('<option value="">Seleccione</option>');
             for (var iP = 0; iP < canton.length; iP++) {
                 $("#tf_cantones").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
@@ -55,11 +55,11 @@ $(function()
     });
 
     //Carga los distritos//
-    $("#tf_cantones").change(function() {
+    $("#tf_cantones").change(function () {
         $("#tf_distritos").empty();
         var idD = $("#tf_cantones").val();
         //var ids = $(this).attr('rel');
-        $.getJSON('../persona/cargaDistritos/' + idD, function(distrito) {
+        $.getJSON('../persona/cargaDistritos/' + idD, function (distrito) {
             $('#tf_distritos').append('<option value="">Seleccione</option>');
             for (var iD = 0; iD < distrito.length; iD++) {
                 $("#tf_distritos").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
@@ -68,10 +68,10 @@ $(function()
     });
 
     //Carga los cantones para Editar Expediente//
-    $("#tf_provinciasExpediente").change(function() {
+    $("#tf_provinciasExpediente").change(function () {
         $("#tf_cantonesExpediente,#tf_distritosExpediente").empty();
         var idP = $("#tf_provinciasExpediente").val();
-        $.getJSON('../cargaCantones/' + idP, function(canton) {
+        $.getJSON('../cargaCantones/' + idP, function (canton) {
             $('#tf_cantonesExpediente').append('<option value="">Seleccione</option>');
             for (var iP = 0; iP < canton.length; iP++) {
                 $("#tf_cantonesExpediente").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
@@ -80,11 +80,11 @@ $(function()
     });
 
     //Carga los distritos para Editar Expediente//
-    $("#tf_cantonesExpediente").change(function() {
+    $("#tf_cantonesExpediente").change(function () {
         $("#tf_distritosExpediente").empty();
         var idD = $("#tf_cantonesExpediente").val();
         //var ids = $(this).attr('rel');
-        $.getJSON('../cargaDistritos/' + idD, function(distrito) {
+        $.getJSON('../cargaDistritos/' + idD, function (distrito) {
             $('#tf_distritosExpediente').append('<option value="">Seleccione</option>');
             for (var iD = 0; iD < distrito.length; iD++) {
                 $("#tf_distritosExpediente").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
@@ -118,10 +118,10 @@ $(function()
 
 
     //Carga los Grupos de un nivel en especifico//
-    $("#tf_Niveles").change(function() {
+    $("#tf_Niveles").change(function () {
         $("#tf_Grupos").empty();
         var nivelSeleccionado = $("#tf_Niveles").val();
-        $.getJSON('../persona/cargaGrupos/' + nivelSeleccionado, function(Gru) {
+        $.getJSON('../persona/cargaGrupos/' + nivelSeleccionado, function (Gru) {
             $('#tf_Grupos').append('<option value="">Seleccione</option>');
             for (var iP = 0; iP < Gru.length; iP++) {
                 $("#tf_Grupos").append('<option value="' + Gru[iP].grupo + '">' + Gru[iP].grupo + '</option>');
@@ -183,7 +183,7 @@ $(function()
         $('#listaEstudiantes').append('<tr><th colspan="' + cantidadColumnas + '" class="text-center">Cargando...</th></tr>');
 
         //Realizo la consulta
-        $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
+        $.post('../persona/cargaSeccion/', consulta, function (seccionElegida, success) {
 
             //Escondo animación de carga
             document.getElementById("carga").style.display = 'none';
@@ -277,9 +277,9 @@ $(function()
 
                 if (chk_genero == 1) {
                     if (seccionElegida[linea].sexo != null) {
-                        if(seccionElegida[linea].sexo == 1){
+                        if (seccionElegida[linea].sexo == 1) {
                             arraySalida += '<td>Hombre</td>';
-                        }else{
+                        } else {
                             arraySalida += '<td>Mujer</td>';
                         }
                     } else {
@@ -289,11 +289,11 @@ $(function()
 
                 if (chk_fechaNacimiento == 1) {
                     if (seccionElegida[linea].fechaNacimiento != null) {
-                        
+
                         var dia = seccionElegida[linea].fechaNacimiento.substring(8, 10);
                         var mes = seccionElegida[linea].fechaNacimiento.substring(5, 7);
                         var anio = seccionElegida[linea].fechaNacimiento.substring(0, 4);
-                        arraySalida += '<td>' + dia + '/'  + mes + '/' + anio + '</td>';
+                        arraySalida += '<td>' + dia + '/' + mes + '/' + anio + '</td>';
                     } else {
                         arraySalida += '<td> - </td>';
                     }
@@ -308,7 +308,7 @@ $(function()
     });
 
     //Carga los Estudiantes de una sección en especifico//
-    $("#tf_Grupos").change(function() {
+    $("#tf_Grupos").change(function () {
 
         var banderaGrupoB = 0;
         var banderaGrupoC = 0;
@@ -355,7 +355,7 @@ $(function()
 
         var consulta = {nivelSeleccionado: $("#tf_Niveles").val(), grupoSeleccionado: $("#tf_Grupos").val(),
             chk_email: chk_email, chk_poliza: chk_poliza, chk_domicilio: chk_domicilio,
-            chk_telefonosEstu: chk_telefonosEstu, chk_telefonosEncargado: chk_telefonosEncargado, 
+            chk_telefonosEstu: chk_telefonosEstu, chk_telefonosEncargado: chk_telefonosEncargado,
             chk_fechaNacimiento: chk_fechaNacimiento, chk_genero: chk_genero};
 
         var fechaActual = new Date();
@@ -369,7 +369,7 @@ $(function()
         $('#listaEstudiantes').append('<tr><th colspan="' + cantidadColumnas + '" class="text-center">Cargando...</th></tr>');
 
         //Realizo la consulta
-        $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
+        $.post('../persona/cargaSeccion/', consulta, function (seccionElegida, success) {
 
             //Escondo animación de carga
             document.getElementById("carga").style.display = 'none';
@@ -449,9 +449,9 @@ $(function()
 
                 if (chk_genero == 1) {
                     if (seccionElegida[linea].sexo != null) {
-                        if(seccionElegida[linea].sexo == 1){
+                        if (seccionElegida[linea].sexo == 1) {
                             arraySalida += '<td>Hombre</td>';
-                        }else{
+                        } else {
                             arraySalida += '<td>Mujer</td>';
                         }
                     } else {
@@ -461,11 +461,11 @@ $(function()
 
                 if (chk_fechaNacimiento == 1) {
                     if (seccionElegida[linea].fechaNacimiento != null) {
-                        
+
                         var dia = seccionElegida[linea].fechaNacimiento.substring(8, 10);
                         var mes = seccionElegida[linea].fechaNacimiento.substring(5, 7);
                         var anio = seccionElegida[linea].fechaNacimiento.substring(0, 4);
-                        arraySalida += '<td>' + dia + '/'  + mes + '/' + anio + '</td>';
+                        arraySalida += '<td>' + dia + '/' + mes + '/' + anio + '</td>';
                     } else {
                         arraySalida += '<td> - </td>';
                     }
@@ -480,12 +480,12 @@ $(function()
     });
 
     //Metodos para Expedientes de Estudiantes//
-    $("#tf_NivelesExpedientes").change(function() {
+    $("#tf_NivelesExpedientes").change(function () {
         $("#tf_GruposExpedientes").empty();
         $("#listaEstudiantes").empty();
 
         var nivelSeleccionado = $("#tf_NivelesExpedientes").val();
-        $.getJSON('../persona/cargaGrupos/' + nivelSeleccionado, function(Gru) {
+        $.getJSON('../persona/cargaGrupos/' + nivelSeleccionado, function (Gru) {
             $('#tf_GruposExpedientes').append('<option value="">Seleccione</option>');
             for (var iP = 0; iP < Gru.length; iP++) {
                 $("#tf_GruposExpedientes").append('<option value="' + Gru[iP].grupo + '">' + Gru[iP].grupo + '</option>');
@@ -503,7 +503,7 @@ $(function()
 
         var consulta = {nivelSeleccionado: $("#tf_NivelesExpedientes").val(), grupoSeleccionado: 0, chk_email: chk_email,
             chk_poliza: chk_poliza, chk_domicilio: chk_domicilio, chk_telefonosEstu: chk_telefonosEstu,
-            chk_telefonosEncargado: chk_telefonosEncargado, 
+            chk_telefonosEncargado: chk_telefonosEncargado,
             chk_fechaNacimiento: chk_fechaNacimiento, chk_genero: chk_genero};
 
         //Activo la Animación para carga de datos
@@ -511,7 +511,7 @@ $(function()
         $('#listaEstudiantes').append('<tr><th colspan="' + cantidadColumnas + '" class="text-center">Cargando...</th></tr>');
 
         //Realizo la consulta
-        $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
+        $.post('../persona/cargaSeccion/', consulta, function (seccionElegida, success) {
 
             //Escondo animación de carga
             document.getElementById("carga").style.display = 'none';
@@ -538,7 +538,7 @@ $(function()
     });
 
     //Carga los Estudiantes de una sección en especifico//
-    $("#tf_GruposExpedientes").change(function() {
+    $("#tf_GruposExpedientes").change(function () {
 
         var banderaGrupoB = 0;
         var banderaGrupoC = 0;
@@ -554,7 +554,7 @@ $(function()
 
         var consulta = {nivelSeleccionado: $("#tf_NivelesExpedientes").val(), grupoSeleccionado: $("#tf_GruposExpedientes").val(),
             chk_email: chk_email, chk_poliza: chk_poliza, chk_domicilio: chk_domicilio,
-            chk_telefonosEstu: chk_telefonosEstu, chk_telefonosEncargado: chk_telefonosEncargado, 
+            chk_telefonosEstu: chk_telefonosEstu, chk_telefonosEncargado: chk_telefonosEncargado,
             chk_fechaNacimiento: chk_fechaNacimiento, chk_genero: chk_genero};
 
         //Activo la Animación para carga de datos
@@ -562,7 +562,7 @@ $(function()
         $('#listaEstudiantes').append('<tr><th colspan="' + cantidadColumnas + '" class="text-center">Cargando...</th></tr>');
 
         //Realizo la consulta
-        $.post('../persona/cargaSeccion/', consulta, function(seccionElegida, success) {
+        $.post('../persona/cargaSeccion/', consulta, function (seccionElegida, success) {
 
             //Escondo animación de carga
             document.getElementById("carga").style.display = 'none';
@@ -597,10 +597,10 @@ $(function()
     });
 
     //CARGA CANTONES PARA LA ESCUELA//
-    $("#slt_provinciaPrim").change(function() {
+    $("#slt_provinciaPrim").change(function () {
         $("#slt_cantonPrim,#slt_distritoPrim,#tf_primaria").empty();
         var idP = $("#slt_provinciaPrim").val();
-        $.getJSON('cargaCantones/' + idP, function(canton) {
+        $.getJSON('cargaCantones/' + idP, function (canton) {
             $('#slt_cantonPrim').append('<option value="">SELECCIONE</option>');
             for (var iP = 0; iP < canton.length; iP++) {
                 $("#slt_cantonPrim").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
@@ -609,11 +609,11 @@ $(function()
     });
 
     //CARGA DISTRITOS PARA LA ESCUELA//
-    $("#slt_cantonPrim").change(function() {
+    $("#slt_cantonPrim").change(function () {
         $("#slt_distritoPrim,#tf_primaria").empty();
         var idD = $("#slt_cantonPrim").val();
         //var ids = $(this).attr('rel');
-        $.getJSON('cargaDistritos/' + idD, function(distrito) {
+        $.getJSON('cargaDistritos/' + idD, function (distrito) {
             $('#slt_distritoPrim').append('<option value="">SELECCIONE</option>');
             for (var iD = 0; iD < distrito.length; iD++) {
                 $("#slt_distritoPrim").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
@@ -622,13 +622,13 @@ $(function()
     });
 
     //CARGA LAS ESCUELAS DE ESOS DISTRITOS//
-    $("#slt_distritoPrim").change(function() {
+    $("#slt_distritoPrim").change(function () {
         $("#tf_primaria").empty();
 
         var idD = $("#slt_distritoPrim").val();
 
         //var ids = $(this).attr('rel');
-        $.getJSON('cargaEscuela/' + idD, function(escuela) {
+        $.getJSON('cargaEscuela/' + idD, function (escuela) {
             $('#tf_primaria').append('<option value="0">SELECCIONE</option>');
             for (var iD = 0; iD < escuela.length; iD++) {
                 $("#tf_primaria").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
@@ -638,10 +638,10 @@ $(function()
     });
 
     //CARGA CANTONES PARA LA ESCUELA para Editar Expediente//
-    $("#slt_provinciaPrimExpe").change(function() {
+    $("#slt_provinciaPrimExpe").change(function () {
         $("#slt_cantonPrimExpe,#slt_distritoPrimExpe,#tf_primariaExpe").empty();
         var idP = $("#slt_provinciaPrimExpe").val();
-        $.getJSON('../cargaCantones/' + idP, function(canton) {
+        $.getJSON('../cargaCantones/' + idP, function (canton) {
             $('#slt_cantonPrimExpe').append('<option value="">SELECCIONE</option>');
             for (var iP = 0; iP < canton.length; iP++) {
                 $("#slt_cantonPrimExpe").append('<option value="' + canton[iP].IdCanton + '">' + canton[iP].Canton + '</option>');
@@ -650,10 +650,10 @@ $(function()
     });
 
     //CARGA DISTRITOS PARA LA ESCUELA para Editar Expediente//
-    $("#slt_cantonPrimExpe").change(function() {
+    $("#slt_cantonPrimExpe").change(function () {
         $("#slt_distritoPrimExpe,#tf_primariaExpe").empty();
         var idD = $("#slt_cantonPrimExpe").val();
-        $.getJSON('../cargaDistritos/' + idD, function(distrito) {
+        $.getJSON('../cargaDistritos/' + idD, function (distrito) {
             $('#slt_distritoPrimExpe').append('<option value="">SELECCIONE</option>');
             for (var iD = 0; iD < distrito.length; iD++) {
                 $("#slt_distritoPrimExpe").append('<option value="' + distrito[iD].IdDistrito + '">' + distrito[iD].Distrito + '</option>');
@@ -662,11 +662,11 @@ $(function()
     });
 
     //CARGA LAS ESCUELAS para Editar Expediente//
-    $("#slt_distritoPrimExpe").change(function() {
+    $("#slt_distritoPrimExpe").change(function () {
         $("#tf_primariaExpe").empty();
 
         var idD = $("#slt_distritoPrimExpe").val();
-        $.getJSON('../cargaEscuela/' + idD, function(escuela) {
+        $.getJSON('../cargaEscuela/' + idD, function (escuela) {
             $('#tf_primariaExpe').append('<option value="0">SELECCIONE</option>');
             for (var iD = 0; iD < escuela.length; iD++) {
                 $("#tf_primariaExpe").append('<option value="' + escuela[iD].id + '">' + escuela[iD].nombre + '</option>');
@@ -676,12 +676,12 @@ $(function()
     });
 
     //Carga los datos del Estudiante//
-    $("#buscarEstudiante").click(function(event) {
+    $("#buscarEstudiante").click(function (event) {
         var idD = $("#tf_cedulaEstudiante").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('buscarEstudiantePadron/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarEstudiantePadron/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -690,7 +690,7 @@ $(function()
                     $("#tf_nombre").val(resulBusqueda[0].nombre);
                     $("#tf_fnacpersona").val(resulBusqueda[0].fechaNacimiento);
                     //Consulto año lectivo para realizar la resta y asignar la edad//
-                    $.getJSON('datosSistemaJavaScript', function(resul) {
+                    $.getJSON('datosSistemaJavaScript', function (resul) {
                         var edad = resul[0].annio_lectivo - (resulBusqueda[0].fechaNacimiento).substring(0, 4);
                         $("#tf_edad").val(edad);
                     });
@@ -702,12 +702,12 @@ $(function()
 
 
     //Carga los datos del Encargado Legal//
-    $("#buscarEncargado_NI").click(function(event) {
+    $("#buscarEncargado_NI").click(function (event) {
         var idD = $("#tf_cedulaEncargado_NI").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('buscarEncargado/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarEncargado/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -724,12 +724,12 @@ $(function()
     });
 
     //Carga los datos de la Madre//
-    $("#buscarMadre_NI").click(function(event) {
+    $("#buscarMadre_NI").click(function (event) {
         var idD = $("#tf_cedulaMadre_NI").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('buscarMadre/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarMadre/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -744,12 +744,12 @@ $(function()
     });
 
     //Carga los datos del Padre//
-    $("#buscarPadre_NI").click(function(event) {
+    $("#buscarPadre_NI").click(function (event) {
         var idD = $("#tf_cedulaPadre_NI").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('buscarPadre/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarPadre/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -764,12 +764,12 @@ $(function()
     });
 
     //Carga los datos de de la Persona En Caso de Emergencia//
-    $("#buscarPersonaEmergencia_NI").click(function(event) {
+    $("#buscarPersonaEmergencia_NI").click(function (event) {
         var idD = $("#tf_cedulaPersonaEmergencia_NI").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarPersonaEmergencia/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -785,12 +785,12 @@ $(function()
 
 
     //Carga los datos del Encargado Legal para Editar Expediente//
-    $("#buscarEncargadoExpediente").click(function(event) {
+    $("#buscarEncargadoExpediente").click(function (event) {
         var idD = $("#tf_cedulaEncargado").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('../buscarEncargado/' + idD, function(resulBusqueda) {
+            $.getJSON('../buscarEncargado/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -807,12 +807,12 @@ $(function()
     });
 
     //Carga los datos de la Madre para Editar Expediente//
-    $("#buscarMadreExpediente").click(function(event) {
+    $("#buscarMadreExpediente").click(function (event) {
         var idD = $("#tf_cedulaMadre").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('../buscarMadre/' + idD, function(resulBusqueda) {
+            $.getJSON('../buscarMadre/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -827,12 +827,12 @@ $(function()
     });
 
     //Carga los datos del Padre para Editar Expediente//
-    $("#buscarPadreExpediente").click(function(event) {
+    $("#buscarPadreExpediente").click(function (event) {
         var idD = $("#tf_cedulaPadre").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('../buscarPadre/' + idD, function(resulBusqueda) {
+            $.getJSON('../buscarPadre/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -847,12 +847,12 @@ $(function()
     });
 
     //Carga los datos de de la Persona En Caso de Emergencia para Editar Expediente//
-    $("#buscarPersonaEmergenciaExpediente").click(function(event) {
+    $("#buscarPersonaEmergenciaExpediente").click(function (event) {
         var idD = $("#tf_cedulaPersonaEmergencia").val();
         if (jQuery.isEmptyObject(idD)) {
             alert("Por favor ingrese el número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
         } else {
-            $.getJSON('../buscarPersonaEmergencia/' + idD, function(resulBusqueda) {
+            $.getJSON('../buscarPersonaEmergencia/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2013 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -867,7 +867,7 @@ $(function()
     });
 
     //Carga datos de Encargado Legal a Padre o Madre//
-    $("#sel_parentesco_NI").change(function() {
+    $("#sel_parentesco_NI").change(function () {
         var parentesco = $("#sel_parentesco_NI").val();
         if (parentesco === 'Padre') {
             $("#tf_cedulaEncargado_NI").val($("#tf_cedulaPadre_NI").val());
@@ -890,7 +890,7 @@ $(function()
     });
 
     //Carga datos de Padre o Madre a PersonaEmergencia//
-    $("#sel_parentescoCasoEmergencia_NI").change(function() {
+    $("#sel_parentescoCasoEmergencia_NI").change(function () {
         var parentesco = $("#sel_parentescoCasoEmergencia_NI").val();
         if (parentesco === 'Padre') {
             $("#tf_cedulaPersonaEmergencia_NI").val($("#tf_cedulaPadre_NI").val());
@@ -911,7 +911,7 @@ $(function()
     });
 
     //Carga datos de Encargado Legal a Padre o Madre para Editar Expediente//
-    $("#sel_parentescoExpediente").change(function() {
+    $("#sel_parentescoExpediente").change(function () {
         var parentesco = $("#sel_parentescoExpediente").val();
         if (parentesco === 'Padre') {
             $("#tf_cedulaEncargado").val($("#tf_cedulaPadre").val());
@@ -934,7 +934,7 @@ $(function()
     });
 
     //Carga datos de Padre o Madre a PersonaEmergencia para Editar Expediente//
-    $("#sel_parentescoCasoEmergenciaExpediente").change(function() {
+    $("#sel_parentescoCasoEmergenciaExpediente").change(function () {
         var parentesco = $("#sel_parentescoCasoEmergenciaExpediente").val();
         if (parentesco === 'Padre') {
             $("#tf_cedulaPersonaEmergencia").val($("#tf_cedulaPadre").val());
@@ -955,7 +955,7 @@ $(function()
     });
 
     //Muestra casilla especialidad si nivel es > a 9//
-    $("#sl_nivelMatricular").change(function() {
+    $("#sl_nivelMatricular").change(function () {
         var nivel = $("#sl_nivelMatricular").val();
         if (nivel > 9) {
             document.getElementById("especialidadLabel").style.display = 'block';
@@ -968,7 +968,7 @@ $(function()
     });
 
     //Muestra casilla Adelanta si el estudiante Repite//
-    $("#sl_condicion").change(function() {
+    $("#sl_condicion").change(function () {
         var condicion = $("#sl_condicion").val();
         if (condicion === "Repite") {
             document.getElementById("sl_adelantaLabel").style.display = 'block';
@@ -981,7 +981,7 @@ $(function()
     });
 
     //Oculta Boton Buscar si es extrangero//
-    $("#tf_nacionalidad").change(function() {
+    $("#tf_nacionalidad").change(function () {
         var codigoPais = $("#tf_nacionalidad").val();
         if (codigoPais !== "506") {
             document.getElementById("buscarEstudiante").style.display = 'none';
@@ -992,7 +992,7 @@ $(function()
     });
 
     //Oculta Imput Enfermedad//
-    $("#sel_enfermedad").change(function() {
+    $("#sel_enfermedad").change(function () {
         var variable = $("#sel_enfermedad").val();
         if (variable == 0) {
             $("#tf_enfermedadDescripcion").val("");
@@ -1006,68 +1006,68 @@ $(function()
 
     //Becas 2016
     //Carga los datos del Estudiante para completar el formulario **Insertar Beca Transporte**//
-    $("#buscarEstudianteBecas").click(function(event) {
-        if($("#msj").css('display'))
-            {
-                document.getElementById("msj").style.display = 'none';
-            }
-        
+    $("#buscarEstudianteBecas").click(function (event) {
+        if ($("#msj").css('display'))
+        {
+            document.getElementById("msj").style.display = 'none';
+        }
+
         var idD = $("#ced_estudiante").val();
         if (idD == "") {
             alert("Por favor ingrese una identificación");
         } else {
-            $.getJSON('buscarEstudianteBecas/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarEstudianteBecas/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2016 y solo posee Costarricenses y Nacionalizados");
                 } else {
                     $('#h5_ced_estudiante_encontrada').text(idD);
                     $('#ced_estudiante_encontrada').val(idD);
-                    $('#nombre_encontrado').text(resulBusqueda['apellido1'] +' ' + resulBusqueda['apellido2'] + ' ' + resulBusqueda['nombre']);
+                    $('#nombre_encontrado').text(resulBusqueda['apellido1'] + ' ' + resulBusqueda['apellido2'] + ' ' + resulBusqueda['nombre']);
                     $('#distrito_encontrado').text(resulBusqueda['Distrito']);
                     $('#nivel_encontrado').text(resulBusqueda['nivel']);
                     $('#especialidad_encontrada').text(resulBusqueda['nombreEspecialidad']);
-                    if(resulBusqueda['ced_padre'] != null){
+                    if (resulBusqueda['ced_padre'] != null) {
                         $('#padre_encontrado').val(resulBusqueda['ced_padre'] + ',Padre');
-                        $('#h5_padre_encontrado').text(resulBusqueda['apellido1_padre'] +' ' + resulBusqueda['apellido2_padre'] + ' ' + resulBusqueda['nombre_padre']);
-                    }else{
+                        $('#h5_padre_encontrado').text(resulBusqueda['apellido1_padre'] + ' ' + resulBusqueda['apellido2_padre'] + ' ' + resulBusqueda['nombre_padre']);
+                    } else {
                         $('#h5_padre_encontrado').text('-');
                     }
-                    if(resulBusqueda['ced_madre'] != null){
+                    if (resulBusqueda['ced_madre'] != null) {
                         $('#madre_encontrado').val(resulBusqueda['ced_madre'] + ',Madre');
-                        $('#h5_madre_encontrado').text(resulBusqueda['apellido1_madre'] +' ' + resulBusqueda['apellido2_madre'] + ' ' + resulBusqueda['nombre_madre']);
-                    }else{
+                        $('#h5_madre_encontrado').text(resulBusqueda['apellido1_madre'] + ' ' + resulBusqueda['apellido2_madre'] + ' ' + resulBusqueda['nombre_madre']);
+                    } else {
                         $('#h5_madre_encontrado').text('-');
                     }
-                    if(resulBusqueda['ced_encargado'] != null){
+                    if (resulBusqueda['ced_encargado'] != null) {
                         $('#otro_encontrado').val(resulBusqueda['ced_encargado'] + ',Otro');
-                        $('#h5_otro_encontrado').text(resulBusqueda['apellido1_encargado'] +' ' + resulBusqueda['apellido2_encargado'] + ' ' + resulBusqueda['nombre_encargado']);
-                    }else{
+                        $('#h5_otro_encontrado').text(resulBusqueda['apellido1_encargado'] + ' ' + resulBusqueda['apellido2_encargado'] + ' ' + resulBusqueda['nombre_encargado']);
+                    } else {
                         $('#h5_otro_encontrado').text('-');
                     }
                 }
             });
         }
     });
-    
-    
+
+
     //Carga los datos del Estudiante para completar el formulario **Insertar Beca Comedor**//
-    $("#buscarEstudianteBecasComedor").click(function(event) {
-        if($("#msj").css('display'))
-            {
-                document.getElementById("msj").style.display = 'none';
-            }
-        
+    $("#buscarEstudianteBecasComedor").click(function (event) {
+        if ($("#msj").css('display'))
+        {
+            document.getElementById("msj").style.display = 'none';
+        }
+
         var idD = $("#ced_estudiante").val();
         if (idD == "") {
             alert("Por favor ingrese una identificación");
         } else {
-            $.getJSON('buscarEstudianteBecas/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarEstudianteBecas/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2016 y solo posee Costarricenses y Nacionalizados");
                 } else {
                     $('#h5_ced_estudiante_encontrada').text(idD);
                     $('#ced_estudiante_encontrada').val(idD);
-                    $('#nombre_encontrado').text(resulBusqueda['apellido1'] +' ' + resulBusqueda['apellido2'] + ' ' + resulBusqueda['nombre']);
+                    $('#nombre_encontrado').text(resulBusqueda['apellido1'] + ' ' + resulBusqueda['apellido2'] + ' ' + resulBusqueda['nombre']);
                     $('#distrito_encontrado').text(resulBusqueda['Distrito']);
                     $('#nivel_encontrado').text(resulBusqueda['nivel']);
                     $('#especialidad_encontrada').text(resulBusqueda['nombreEspecialidad']);
@@ -1077,12 +1077,12 @@ $(function()
     });
 
     //Carga los datos del Estudiante para completar el formulario **Modificar Cédula**//
-    $("#buscarEstudianteModifCed").click(function(event) {
+    $("#buscarEstudianteModifCed").click(function (event) {
         var idD = $("#ced_estudiante").val();
         if (idD == "") {
             alert("Por favor ingrese una identificación");
         } else {
-            $.getJSON('buscarEstudianteBecas/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarEstudianteBecas/' + idD, function (resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2016 y solo posee Costarricenses y Nacionalizados");
                 } else {
@@ -1134,12 +1134,43 @@ $(function()
             });
         }
     });
-    
-    
 
-    //Carga imagen//
-    $("#cambiarImagen").click(function(event) {
-        $("#fotoEstudiante").attr("src", "http://localhost/sipce/public/img/foto.png");
+    $("#uploadedfile").on("change", function (event) {
+         // FileList object
+        //Obtenemos la imagen del campo "file". 
+        var files = event.target.files;
+        var ced_Estudiante = $("#tf_cedulaEstudiante").val();
+        for (var i = 0, f; f = files[i]; i++) {
+            //Solo admitimos imágenes.
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    // Creamos la imagen.
+                    document.getElementById("fotoEstudiante").src = e.target.result;
+                    //['<img class="img-rounded pull-left img-responsive" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                    // Usando jQuery AJAX
+                    console.log(e.target.result);
+                    $.ajax({
+                        url: "http://localhost/sipce/persona/guardarFotoEstudiante",
+                        // Enviar un parámetro post con el nombre base64 y con la imagen en el
+                        data: {
+                            base64: e.target.result,
+                            ced_estudiante: ced_Estudiante
+                        },
+                        // Método POST
+                        type: "post",
+                        complete: function () {
+                            console.log("Todo en orden");
+                        }
+                    });
+                };
+            })(f);
+            reader.readAsDataURL(f);
+        }
     });
-        
-}); 
+});

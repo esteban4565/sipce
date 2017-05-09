@@ -201,6 +201,7 @@ class ActualizarEstudiantes extends Controllers {
                 
                 /*Guardo el archivo en un lugar en especifico, utilizo move_uploaded_file, 
                                     con el if compruebo si tuvo exito el move_uploaded_file, luego continuo con el Model */
+                //../sipce/public/ausencias/NombreArchivo
                 if(move_uploaded_file($_FILES['archivo']['tmp_name'],$ruta . "/public/ausencias/" . $_FILES['archivo']['name'])){
                     $this->view->mensaje = $this->model->guardarAusencias($datosArchivo);
                 }else{
