@@ -1134,4 +1134,12 @@ $(function()
             });
         }
     });
+    
+    
+
+    //Carga imagen//
+    $("#cambiarImagen").click(function(event) {
+        $("#fotoEstudiante").attr("src", "http://localhost/sipce/public/img/foto.png");
+    });
+        
 }); 

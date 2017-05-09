@@ -22,6 +22,12 @@
                     <div class="col-xs-2">
                         <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante" value='<?php echo $this->infoEstudiante[0]['cedula']; ?>'/>
                     </div>
+                    <div class="col-xs-2">
+                         <img src="<?php echo URL; ?>public/img/people.png" id="fotoEstudiante" alt=" foto estudiante" class="img-rounded pull-left img-responsive"> 
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="button" class="btn-sm btn-success" id="cambiarImagen" value="cambiar Imagen" />
+                    </div>
                 </div> 
                 <!--L2 Nombre Estudiante (Formulario Hugo)-->
                 <div class="form-group">
