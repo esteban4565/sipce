@@ -115,6 +115,7 @@
                             <li><a href="<?php echo URL; ?>matricula/ratificar">Ratificar 8° - 12°</a></li>
                             <li><a href="<?php echo URL; ?>matricula/nuevoIngreso">Nuevo Ingreso</a></li>
                             <li><a href="<?php echo URL; ?>matricula/estudiantesMatriculados">Ver estudainte matriculados</a></li>
+                            <li><a href="<?php echo URL; ?>matricula/estudiantesNoMatriculados">Ver estudainte NO matriculados</a></li>
                             <?php }?>
                             <?php if (Session::get('tipoUsuario') <= 2){ ?>
                             <li class="divider"></li>

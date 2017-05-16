@@ -277,6 +277,16 @@ class Matricula extends Controllers {
         $this->view->render('footer');
     }
 
+    function estudiantesNoMatriculados() {
+        //Consulto Cantidad Estudiantes Matriculados
+        $this->view->listaEstudiantesNoMatricula = $this->model->listaEstudiantesNoMatricula();
+        $this->view->datosSistema = $this->model->datosSistema();
+        
+        $this->view->render('header');
+        $this->view->render('matricula/estudiantesNoMatriculados');
+        $this->view->render('footer');
+    }
+
     function listaprematricula() {
         //Consulto Cantidad Estudiantes Matriculados
         $this->view->estadoPrematricula = $this->model->estadoPrematricula();

@@ -1061,6 +1061,16 @@ class Matricula_Model extends Models {
 
     /* Carga todos los estudiantes matriculados */
 
+    public function listaEstudiantesNoMatricula() {
+        return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion,anio "
+                        . "FROM sipce_estudiante,sipce_matricularatificacion "
+                        . "WHERE cedula = ced_estudiante "
+                        . "AND cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE anio = " . $this->datosSistema[0]['annio_lectivo'] . ")"
+                        . "ORDER BY apellido1,apellido2,nombre");
+    }
+
+    /* Carga todos los estudiantes matriculados */
+
     public function estadoPrematricula() {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2 "
                         . "FROM sipce_prematricula "

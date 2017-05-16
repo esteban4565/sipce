@@ -20,7 +20,7 @@
                     </div>
                     <label for="tf_cedulaEstudiante" class="col-xs-2 control-label">Identificación:</label>
                     <div class="col-xs-2">
-                        <input type="text" class="text-uppercase form-control input-sm validate[required]" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante" value='<?php echo $this->infoEstudiante[0]['cedula']; ?>'/>
+                        <input type="text" class="text-uppercase form-control input-sm" name="tf_cedulaEstudiante" id="tf_cedulaEstudiante" value='<?php echo $this->infoEstudiante[0]['cedula']; ?>'/>
                     </div>
                     <div class="col-xs-2">
                         <?php 
@@ -32,7 +32,7 @@
                         ?>
                     </div>
                     <div class="col-xs-2">
-                        <input class="validate[required]" type="file" name="cambiarImagen" id="uploadedfile">
+                        <input type="file" name="cambiarImagen" id="uploadedfile">
                     </div>
                 </div> 
                 <!--L2 Nombre Estudiante (Formulario Hugo)-->
