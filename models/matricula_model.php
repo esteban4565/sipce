@@ -1065,6 +1065,7 @@ class Matricula_Model extends Models {
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion,anio "
                         . "FROM sipce_estudiante,sipce_matricularatificacion "
                         . "WHERE cedula = ced_estudiante "
+                        . "AND nivel <> 12 "
                         . "AND cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE anio = " . $this->datosSistema[0]['annio_lectivo'] . ")"
                         . "ORDER BY apellido1,apellido2,nombre");
     }
