@@ -37,6 +37,7 @@ $(function()
         //Consulto año lectivo para realizar la resta y asignar la edad//
         $.getJSON('datosSistemaJavaScript', function(resul) {
             var edad = resul[0].annio_lectivo - (fechaNacimiento).substring(0, 4);
+            console.log("Año: " + edad);
             $("#tf_edad").val(edad);
         });
     });

@@ -15,6 +15,10 @@ class Persona extends Controllers {
         echo json_encode($this->model->datosSistema());
     }
 
+    function rutaAplicacionServer() {
+        echo json_encode(URL);
+    }
+
     function index() {
         $this->view->title = 'Usuarios';
         $this->view->personaList = $this->model->personaList();

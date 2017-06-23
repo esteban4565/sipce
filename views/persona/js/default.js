@@ -36,8 +36,9 @@ $(function ()
         $("#tf_edad").empty();
         var fechaNacimiento = $("#tf_fnacpersona").val();
         //Consulto año lectivo para realizar la resta y asignar la edad//
-        $.getJSON('datosSistemaJavaScript', function (resul) {
+        $.getJSON('../datosSistemaJavaScript', function (resul) {
             var edad = resul[0].annio_lectivo - (fechaNacimiento).substring(0, 4);
+            console.log("Edad: " + edad);
             $("#tf_edad").val(edad);
         });
     });
@@ -1136,7 +1137,15 @@ $(function ()
     });
 
     $("#uploadedfile").on("change", function (event) {
-         // FileList object
+        // ruta del entorno
+        var ruta="";
+       
+        //Consulto año lectivo para realizar la resta y asignar la edad//
+        $.getJSON('../rutaAplicacionServer', function (resul) {
+            var ruta = resul;
+            console.log("ruta: " + ruta);
+        });
+        
         //Obtenemos la imagen del campo "file". 
         var files = event.target.files;
         var ced_Estudiante = $("#tf_cedulaEstudiante").val();
@@ -1156,7 +1165,7 @@ $(function ()
                     // Usando jQuery AJAX
                     console.log(e.target.result);
                     $.ajax({
-                        url: "http://localhost/sipce/persona/guardarFotoEstudiante",
+                        url: ruta + "persona/guardarFotoEstudiante",
                         // Enviar un parámetro post con el nombre base64 y con la imagen en el
                         data: {
                             base64: e.target.result,
