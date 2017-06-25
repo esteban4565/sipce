@@ -563,3 +563,7 @@
         </fieldset>
     </form>
 </div>
+
+<script type="text/javascript">
+    var rutaSitio = '<?php echo URL; ?>';
+</script>
