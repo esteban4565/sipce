@@ -6,6 +6,11 @@
 <div class="row">
     <form id="MyForm" action="<?php echo URL; ?>persona/guardarDatosBeca" method="POST" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
+            <h3>Marque las becas que solicita el estudiante</h3>
+            <input type="checkbox" name="chk_becaComedor" id="chk_becaComedor" value="chk_becaComedor" <?php if($this->datosEstudiante[0]['becaComedor']==1) {echo 'checked';} ?>>Comedor<br>
+            <input type="checkbox" name="chk_becaTransporte" id="chk_becaTransporte" value="chk_becaTransporte" <?php if($this->datosEstudiante[0]['becaTransporte']==1) {echo 'checked';} ?>>Transporte<br>
+            <input type="checkbox" name="chk_becaAvancemos" id="chk_becaAvancemos" value="chk_becaAvancemos" <?php if($this->datosEstudiante[0]['becaAvancemos']==1) {echo 'checked';} ?>>Avancemos (Casos nuevos)<br>
+
             <legend class="text-center">Formulario becas estudiantiles</legend>
             <div class="form-group">
                 <label class="col-xs-2 control-label">Identificación:</label>

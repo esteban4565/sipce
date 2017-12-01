@@ -36,20 +36,24 @@
 <div class="row">
     <form id="MyForm" action="<?php echo URL; ?>persona/guardarDatosBeca" method="POST" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
+            <h3>Marque las becas que solicita el estudiante</h3>
+            <input type="checkbox" name="chk_becaComedor" id="chk_becaComedor" value="chk_becaComedor">Comedor<br>
+            <input type="checkbox" name="chk_becaTransporte" id="chk_becaTransporte" value="chk_becaTransporte">Transporte<br>
+            <input type="checkbox" name="chk_becaAvancemos" id="chk_becaAvancemos" value="chk_becaAvancemos">Avancemos (Casos nuevos)<br>
             <legend class="text-center">Formulario becas estudiantiles</legend>
             <div class="form-group">
                 <label class="col-xs-2 control-label">Identificación:</label>
                 <div class="col-xs-2">
-                    <h5 id="h5_ced_estudiante_encontrada"></h5>
+                    <h5 id="h5_ced_estudiante_encontrada" style="color:red;"></h5>
                     <input type="hidden" class="form-control input-sm" name="ced_estudiante_encontrada" id="ced_estudiante_encontrada"/>
                 </div>
                 <label class="col-xs-2 control-label">Nombre:</label>
                 <div class="col-xs-3">
-                    <h5 id="nombre_encontrado"></h5>
+                    <h5 id="nombre_encontrado" style="color:red;"></h5>
                 </div>
                 <label class="col-xs-1 control-label">Distrito:</label>
                 <div class="col-xs-2">
-                    <h5 id="distrito_encontrado"></h5>
+                    <h5 id="distrito_encontrado" style="color:red;"></h5>
                 </div>
             </div>
             <div class="form-group">
@@ -67,11 +71,11 @@
                 </div>
                 <label class="col-xs-2 control-label">Grado Académico:</label>
                 <div class="col-xs-1">
-                    <h5 id="nivel_encontrado"></h5>
+                    <h5 id="nivel_encontrado" style="color:red;"></h5>
                 </div>
                 <label class="col-xs-1 control-label">Especialidad:</label>
                 <div class="col-xs-3">
-                    <h5 id="especialidad_encontrada"></h5>
+                    <h5 id="especialidad_encontrada" style="color:red;"></h5>
                 </div>
             </div>
             <div class="form-group">

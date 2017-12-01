@@ -80,13 +80,7 @@
                           <li><a href="<?php echo URL; ?>persona/nuevoIngresoTardio">Nuevo Ingreso</a></li>
                           <li><a href="<?php echo URL; ?>persona/expedientesEstudiantes">Expedientes de Estudiantes</a></li>
                           <li class="divider"></li>
-                          <?php } if (Session::get('tipoUsuario') <= 3){ ?>
-                          <li><a href="<?php echo URL; ?>persona/ingresarBeca">Ingresar beca transporte de Estudiantes</a></li>
-                          <li><a href="<?php echo URL; ?>persona/listaBecas">Lista becas transporte de Estudiantes</a></li>
-                          <li class="divider"></li>
-                          <li><a href="<?php echo URL; ?>persona/ingresarBecaComedor">Ingresar beca comedor de Estudiantes</a></li>
-                          <li><a href="<?php echo URL; ?>persona/listaBecasComedor">Lista becas comedor de Estudiantes</a></li>
-                          <?php }?>
+                          <?php }  ?>
                         </ul>
                       </li>
                     <?php }?>
@@ -130,6 +124,18 @@
                         </ul>
                       </li>
                     <?php }?>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Becas <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <?php if (Session::get('tipoUsuario') <= 3){ ?>
+                            <li><a href="<?php echo URL; ?>persona/ingresarBeca">Ingresar beca de Estudiantes</a></li>
+                            <li><a href="<?php echo URL; ?>persona/listaBecas">Lista de becas</a></li>
+                            <li><a href="<?php echo URL; ?>persona/listaBecasTransporte">Lista de becas transporte</a></li>
+                            <li><a href="<?php echo URL; ?>persona/listaBecasComedor">Lista de becas comedor</a></li>
+                            <li><a href="<?php echo URL; ?>persona/listaBecasAvancemos">Lista de becas avancemos</a></li>
+                            <?php }?>
+                        </ul>
+                      </li>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Ausencias <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">

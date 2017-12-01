@@ -666,6 +666,23 @@ class Persona extends Controllers {
         $datos['ingreso3'] = $_POST['ingreso3'];
         $datos['ingreso4'] = $_POST['ingreso4'];
         $datos['totalMiembros'] = $_POST['totalMiembros'];
+
+        //verifico cuales becas va aplicar el estudiante
+        if (isset($_POST['chk_becaComedor'])) {
+            $datos['becaComedor'] = 1;
+        } else {
+            $datos['becaComedor'] = 0;
+        }
+        if (isset($_POST['chk_becaTransporte'])) {
+            $datos['becaTransporte'] = 1;
+        } else {
+            $datos['becaTransporte'] = 0;
+        }
+        if (isset($_POST['chk_becaAvancemos'])) {
+            $datos['becaAvancemos'] = 1;
+        } else {
+            $datos['becaAvancemos'] = 0;
+        }
         $this->model->guardarDatosBeca($datos);
 
         $this->view->mensaje = 'Datos guardados correctamente';
@@ -676,8 +693,35 @@ class Persona extends Controllers {
     }
 
     function listaBecas() {
-        $this->view->title = 'Lista becas transporte';
+        $this->view->title = 'Lista becas';
         $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
+
+        $this->view->render('header');
+        $this->view->render('persona/listaBecas');
+        $this->view->render('footer');
+    }
+
+    function listaBecasTransporte() {
+        $this->view->title = 'Lista becas transporte';
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecasTransporte();
+
+        $this->view->render('header');
+        $this->view->render('persona/listaBecas');
+        $this->view->render('footer');
+    }
+
+    function listaBecasComedor() {
+        $this->view->title = 'Lista becas comedor';
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecasComedor();
+
+        $this->view->render('header');
+        $this->view->render('persona/listaBecas');
+        $this->view->render('footer');
+    }
+
+    function listaBecasAvancemos() {
+        $this->view->title = 'Lista becas avancemos';
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecasAvancemos();
 
         $this->view->render('header');
         $this->view->render('persona/listaBecas');
@@ -718,61 +762,6 @@ class Persona extends Controllers {
 
         $this->view->render('header');
         $this->view->render('persona/listaBecas');
-        $this->view->render('footer');
-    }
-
-    /* Becas Comedor */
-
-    function ingresarBecaComedor() {
-        $this->view->title = 'Ingresar beca comedor';
-        $this->view->mensaje = '';
-
-        $this->view->render('header');
-        $this->view->render('persona/ingresarBecaComedor');
-        $this->view->render('footer');
-    }
-
-    function guardarDatosBecaComedor() {
-        $datos = array();
-        $datos['ced_estudiante'] = $_POST['ced_estudiante_encontrada'];
-        $datos['ingreso1'] = $_POST['ingreso1'];
-        $datos['ingreso2'] = $_POST['ingreso2'];
-        $datos['ingreso3'] = $_POST['ingreso3'];
-        $datos['ingreso4'] = $_POST['ingreso4'];
-        $datos['totalMiembros'] = $_POST['totalMiembros'];
-        $this->model->guardarDatosBecaComedor($datos);
-
-        $this->view->mensaje = 'Datos guardados correctamente';
-
-        $this->view->render('header');
-        $this->view->render('persona/ingresarBecaComedor');
-        $this->view->render('footer');
-    }
-
-    function listaBecasComedor() {
-        $this->view->title = 'Lista becas comedor';
-        $this->view->listaEstudianteBecasComedor = $this->model->listaEstudianteBecasComedor();
-
-        $this->view->render('header');
-        $this->view->render('persona/listaBecasComedor');
-        $this->view->render('footer');
-    }
-
-    function editarBecaComedor($ced_estudiante = null) {
-        $this->view->title = 'Editar beca comedor';
-        $this->view->datosEstudiante = $this->model->datosEstudianteComedor($ced_estudiante);
-
-        $this->view->render('header');
-        $this->view->render('persona/editarBecaComedor');
-        $this->view->render('footer');
-    }
-
-    function eliminarBecaComedor($ced_estudiante) {
-        $this->model->eliminarBecaComedor($ced_estudiante);
-        $this->view->listaEstudianteBecasComedor = $this->model->listaEstudianteBecasComedor();
-
-        $this->view->render('header');
-        $this->view->render('persona/listaBecasComedor');
         $this->view->render('footer');
     }
 
