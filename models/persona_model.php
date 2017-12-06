@@ -1266,6 +1266,52 @@ class Persona_Model extends Models {
         }
         echo json_encode($estudiante);
     }
+    
+    public function buscarEstudianteEliminar($ced_estudiante) {
+        //verifico si el estudiante posee especialidad
+        $consultaEstudianteEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaEstudianteEspecialidad != null) {
+            $resultado = $this->db->select("SELECT e.cedula,e.nombre,e.apellido1,e.apellido2,g.nivel, d.Distrito, esp.nombreEspecialidad "
+                    . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_especialidad as esp, sipce_especialidad_estudiante as ee "
+                    . "WHERE e.cedula = g.ced_estudiante "
+                    . "AND e.cedula = ee.ced_estudiante "
+                    . "AND e.cedula = '" . $ced_estudiante . "'"
+                    . "AND e.IdDistrito = d.IdDistrito "
+                    . "AND esp.codigoEspecialidad = ee.cod_especialidad ");
+
+            if ($resultado != null) {
+                //Cargo datos en un array
+                $estudiante['apellido1'] = $resultado[0]['apellido1'];
+                $estudiante['apellido2'] = $resultado[0]['apellido2'];
+                $estudiante['nombre'] = $resultado[0]['nombre'];
+                $estudiante['Distrito'] = $resultado[0]['Distrito'];
+                $estudiante['nivel'] = $resultado[0]['nivel'];
+                $estudiante['nombreEspecialidad'] = $resultado[0]['nombreEspecialidad'];
+            } else {
+                $estudiante = '';
+            }
+        } else {
+            $resultado = $this->db->select("SELECT e.cedula,e.nombre,e.apellido1,e.apellido2,g.nivel, d.Distrito "
+                    . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d "
+                    . "WHERE e.cedula = g.ced_estudiante "
+                    . "AND e.cedula = '" . $ced_estudiante . "'"
+                    . "AND e.IdDistrito = d.IdDistrito ");
+
+            if ($resultado != null) {
+                //Cargo datos en un array
+                $estudiante['apellido1'] = $resultado[0]['apellido1'];
+                $estudiante['apellido2'] = $resultado[0]['apellido2'];
+                $estudiante['nombre'] = $resultado[0]['nombre'];
+                $estudiante['Distrito'] = $resultado[0]['Distrito'];
+                $estudiante['nivel'] = $resultado[0]['nivel'];
+                $estudiante['nombreEspecialidad'] = '-';
+            } else {
+                $estudiante = '';
+            }
+        }
+        echo json_encode($estudiante);
+    }
 
     /* Retorna Datos de Estudiante php */
 
@@ -1543,7 +1589,7 @@ class Persona_Model extends Models {
         return $datos;
     }
 
-    /* Retorna lista de Estudiante becados Transporte*/
+    /* Retorna lista de Estudiante becados Transporte */
 
     public function listaEstudianteBecasTransporte() {
         $datos = array();
@@ -1670,7 +1716,7 @@ class Persona_Model extends Models {
         return $datos;
     }
 
-    /* Retorna lista de Estudiante becados Comedor*/
+    /* Retorna lista de Estudiante becados Comedor */
 
     public function listaEstudianteBecasComedor() {
         $datos = array();
@@ -1797,7 +1843,7 @@ class Persona_Model extends Models {
         return $datos;
     }
 
-    /* Retorna lista de Estudiante becados Avancemos*/
+    /* Retorna lista de Estudiante becados Avancemos */
 
     public function listaEstudianteBecasAvancemos() {
         $datos = array();
@@ -1940,7 +1986,152 @@ class Persona_Model extends Models {
         }
     }
 
-    
+    /* Guarda datos del formulario de **Modificar Cédula* */
+
+    public function eliminarEstudiante($ced_estudiante) {
+        //Consulto si ya existe datos en sipce_estudiante
+        $consultaExistenciaMatriculaestudiante = $this->db->select("SELECT * FROM sipce_estudiante "
+                . "WHERE cedula = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaMatriculaestudiante != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_estudiante WHERE cedula ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_matricularatificacion
+        $consultaExistenciaMatriculaRatificacion = $this->db->select("SELECT * FROM sipce_matricularatificacion "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaMatriculaRatificacion != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_matricularatificacion WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_adecuacion
+        $consultaExistenciaadecuacion = $this->db->select("SELECT * FROM sipce_adecuacion "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaadecuacion != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_adecuacion WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_adelanta
+        $consultaExistenciaadelanta = $this->db->select("SELECT * FROM sipce_adelanta "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaadelanta != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_adelanta WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_ausencias
+        $consultaExistenciaausencias = $this->db->select("SELECT * FROM sipce_ausencias "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaausencias != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_ausencias WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_beca
+        $consultaExistenciabeca = $this->db->select("SELECT * FROM sipce_estudiante_beca "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciabeca != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_estudiante_beca WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_encargado
+        $consultaExistenciaencargado = $this->db->select("SELECT * FROM sipce_encargado "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaencargado != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_encargado WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_enfermedades
+        $consultaExistenciaenfermedades = $this->db->select("SELECT * FROM sipce_enfermedades "
+                . "WHERE cedula = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaenfermedades != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_enfermedades WHERE cedula ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_especialidad_estudiante
+        $consultaExistenciaespecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaespecialidad != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_especialidad_estudiante WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_grupos
+        $consultaExistenciaEstudiantegrupos = $this->db->select("SELECT * FROM sipce_grupos "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaEstudiantegrupos != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_grupos WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_madre
+        $consultaExistenciaEstudiantemadre = $this->db->select("SELECT * FROM sipce_madre "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaEstudiantemadre != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_madre WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_padre
+        $consultaExistenciaEstudiantepadre = $this->db->select("SELECT * FROM sipce_padre "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaEstudiantepadre != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_padre WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_personaemergencia
+        $consultaExistenciaEstudiantepersonaemergencia = $this->db->select("SELECT * FROM sipce_personaemergencia "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaEstudiantepersonaemergencia != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_personaemergencia WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Consulto si ya existe datos en sipce_poliza
+        $consultaExistenciaEstudiantepersonapoliza = $this->db->select("SELECT * FROM sipce_poliza "
+                . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
+
+        if ($consultaExistenciaEstudiantepersonapoliza != null) {
+            $sth = $this->db->prepare("DELETE FROM sipce_poliza WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth->execute();
+        }
+
+        //Borro datos antiguos
+    }
+
+    /* Guarda datos del formulario de **Modificar Cédula* */
+
+    public function foto_estudianteEditar($ced_estudiante) {
+        //Ruta de carpetas en localhost o hostinger.com
+        if ($this->entorno == 'local') {
+            $ruta = "../sipce";
+        } else if ($this->entorno == 'web') {
+            $ruta = "../public_html";
+        }
+
+        $nombre_fichero = $ruta . "/public/img/" . $ced_estudiante . ".png";
+
+        return (file_exists($nombre_fichero));
+    }
 
     /* Guarda datos del formulario de **Modificar Cédula* */
 
@@ -2603,21 +2794,6 @@ class Persona_Model extends Models {
             $sth = $this->db->prepare("DELETE FROM sipce_poliza WHERE ced_estudiante ='" . $estudiante['ced_estudiante'] . "'");
             $sth->execute();
         }
-    }
-
-    /* Guarda datos del formulario de **Modificar Cédula* */
-
-    public function foto_estudianteEditar($ced_estudiante) {
-        //Ruta de carpetas en localhost o hostinger.com
-        if ($this->entorno == 'local') {
-            $ruta = "../sipce";
-        } else if ($this->entorno == 'web') {
-            $ruta = "../public_html";
-        }
-
-        $nombre_fichero = $ruta . "/public/img/" . $ced_estudiante . ".png";
-
-        return (file_exists($nombre_fichero));
     }
 
 }

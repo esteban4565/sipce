@@ -650,6 +650,10 @@ class Persona extends Controllers {
         $this->model->buscarEstudianteBecas($ced_estudiante);
     }
 
+    function buscarEstudianteEliminar($ced_estudiante = null) {
+        $this->model->buscarEstudianteEliminar($ced_estudiante);
+    }
+
     function guardarDatosBeca() {
         $datos = array();
         $datos['ced_estudiante'] = $_POST['ced_estudiante_encontrada'];
@@ -812,6 +816,26 @@ class Persona extends Controllers {
         $filepath = $ruta . "/public/img/" . $ced_estudiante . ".png";
 // Finalmente guarda la imágen en el directorio especificado y con la informacion dada
         file_put_contents($filepath, $data);
+    }
+
+    function verEliminarEstudiante() {
+        $this->view->title = 'Eliminar Estudiante';
+        $this->view->mensaje = '';
+
+        $this->view->render('header');
+        $this->view->render('persona/eliminarEstudiante');
+        $this->view->render('footer');
+    }
+
+    function eliminarEstudiante() {
+        $ced_estudiante = $_POST['ced_estudiante_encontrada'];
+        $this->model->eliminarEstudiante($ced_estudiante);
+        $this->view->title = 'Eliminar Estudiante';
+        $this->view->mensaje = '';
+
+        $this->view->render('header');
+        $this->view->render('persona/eliminarEstudiante');
+        $this->view->render('footer');
     }
 
 }
