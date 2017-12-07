@@ -1083,7 +1083,7 @@ $(function()
         if (idD == "") {
             alert("Por favor ingrese una identificación");
         } else {
-            $.getJSON('buscarEstudianteBecas/' + idD, function(resulBusqueda) {
+            $.getJSON('buscarEstudianteModifCed/' + idD, function(resulBusqueda) {
                 if (jQuery.isEmptyObject(resulBusqueda)) {
                     alert("Persona no encontrada, verifique el formato (ceros y guiones) y número de identificación.\nEj: 2-0456-0789, 1-1122-0567.\nNota: La Base de Datos esta actualizada al 2016 y solo posee Costarricenses y Nacionalizados");
                 } else {

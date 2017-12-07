@@ -1,10 +1,4 @@
 <div class="row">
-    <div class="col-xs-3">
-        <a class="btn btn-success" href="<?php echo URL; ?>persona/listaBecasRutaHeredia">Ruta Heredia</a>
-    </div>
-    <div class="col-xs-3">
-        <a class="btn btn-success" href="<?php echo URL; ?>persona/listaBecasRutaAlajuela">Ruta Alajuela</a>
-    </div>
     <div class="col-xs-12">
         <table class="table table-condensed" id="listaBecados">
             <tr>

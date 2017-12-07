@@ -650,6 +650,10 @@ class Persona extends Controllers {
         $this->model->buscarEstudianteBecas($ced_estudiante);
     }
 
+    function buscarEstudianteModifCed($ced_estudiante = null) {
+        $this->model->buscarEstudianteModifCed($ced_estudiante);
+    }
+
     function buscarEstudianteEliminar($ced_estudiante = null) {
         $this->model->buscarEstudianteEliminar($ced_estudiante);
     }
@@ -710,7 +714,7 @@ class Persona extends Controllers {
         $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecasTransporte();
 
         $this->view->render('header');
-        $this->view->render('persona/listaBecas');
+        $this->view->render('persona/listaBecasTransporte');
         $this->view->render('footer');
     }
 
@@ -719,7 +723,7 @@ class Persona extends Controllers {
         $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecasComedor();
 
         $this->view->render('header');
-        $this->view->render('persona/listaBecas');
+        $this->view->render('persona/listaBecasComedor');
         $this->view->render('footer');
     }
 
@@ -728,7 +732,7 @@ class Persona extends Controllers {
         $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecasAvancemos();
 
         $this->view->render('header');
-        $this->view->render('persona/listaBecas');
+        $this->view->render('persona/listaBecasAvancemos');
         $this->view->render('footer');
     }
 

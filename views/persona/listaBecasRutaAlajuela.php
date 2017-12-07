@@ -28,7 +28,7 @@
             <?php
             $con = 1;
             foreach ($this->listaEstudianteBecas as $lista => $value) {
-                if ($value['numeroRuta'] == '5931') {
+                if ($value['numeroRuta'] == '5931' && $value['nivel'] >= 10 && $value['becaTransporte']==1) {
                     echo '<tr>';
                     echo '<td>';
                     echo $con;
