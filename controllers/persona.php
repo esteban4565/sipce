@@ -773,25 +773,26 @@ class Persona extends Controllers {
         $this->view->render('footer');
     }
 
-    function modificarCedulaEstudiante() {
+    function modificarCedulaEstudiante($msj = null) {
         $this->view->title = 'Modificar cédula de estudiante';
-        $this->view->mensaje = '';
+        $this->view->mensaje = $msj;
 
         $this->view->render('header');
         $this->view->render('persona/modificarCedulaEstudiante');
         $this->view->render('footer');
     }
 
-    function guardarCedulaNueva($ced_estudiante) {
+    function guardarCedulaNueva() {
         $estudiante = array();
-        $estudiante['ced_estudiante'] = $ced_estudiante;
+        $estudiante['ced_estudiante'] = $_POST['ced_estudiante_encontrada'];
         $estudiante['ced_nueva'] = $_POST['ced_nueva'];
         $this->model->guardarCedulaNueva($estudiante);
 
-        $this->view->mensaje = 'Datos modificados correctamente';
+        //header("Location: " . URL . "persona/modificarCedulaEstudiante/'Datos modificados correctamente'");
 
+        $this->view->mensaje = 'Datos modificados correctamente';
         $this->view->render('header');
-        $this->view->render('persona/becas');
+        $this->view->render('persona/modificarCedulaEstudiante');
         $this->view->render('footer');
     }
 

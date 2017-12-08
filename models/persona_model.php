@@ -2359,27 +2359,6 @@ class Persona_Model extends Models {
         $estudiante['sipce_ausencias'] = $sipce_ausencias;
 
 
-        //Consulto si ya existe datos en sipce_beca
-        $consultaExistenciabeca = $this->db->select("SELECT * FROM sipce_beca "
-                . "WHERE ced_estudiante = '" . $estudiante['ced_estudiante'] . "' ");
-
-        if ($consultaExistenciabeca != null) {
-            //Guardo datos del estudiante en el array $estudiante
-            $i = 0;
-            foreach ($consultaExistenciabeca as $lista => $value) {
-                $sipce_beca[$i]['anio'] = $value['anio'];
-                $sipce_beca[$i]['becaAvancemos'] = $value['becaAvancemos'];
-                $sipce_beca[$i]['becaComedor'] = $value['becaComedor'];
-                $sipce_beca[$i]['becaTransporte'] = $value['becaTransporte'];
-                $i++;
-            }
-        } else {
-            //Guardo nulos los datos del estudiante en el array $estudiante
-            $sipce_beca = null;
-        }
-        $estudiante['sipce_beca'] = $sipce_beca;
-
-
         //Consulto si ya existe datos en sipce_encargado
         $consultaExistenciaencargado = $this->db->select("SELECT * FROM sipce_encargado "
                 . "WHERE ced_estudiante = '" . $estudiante['ced_estudiante'] . "' ");
@@ -2457,7 +2436,11 @@ class Persona_Model extends Models {
                 $sipce_estudiante_beca[$i]['ingreso2'] = $value['ingreso2'];
                 $sipce_estudiante_beca[$i]['ingreso3'] = $value['ingreso3'];
                 $sipce_estudiante_beca[$i]['ingreso4'] = $value['ingreso4'];
-                $sipce_estudiante_beca[$i]['totalIngreso'] = $value['totalIngreso'];
+                $sipce_estudiante_beca[$i]['totalMiembros'] = $value['totalMiembros'];
+                $sipce_estudiante_beca[$i]['annio'] = $value['annio'];
+                $sipce_estudiante_beca[$i]['becaAvancemos'] = $value['becaAvancemos'];
+                $sipce_estudiante_beca[$i]['becaComedor'] = $value['becaComedor'];
+                $sipce_estudiante_beca[$i]['becaTransporte'] = $value['becaTransporte'];
                 $i++;
             }
         } else {
@@ -2669,21 +2652,6 @@ class Persona_Model extends Models {
         }
 
 
-        //sipce_beca
-        if ($estudiante['sipce_beca'] != null) {
-            $i = 0;
-            foreach ($estudiante['sipce_beca'] as $lista => $value) {
-                $this->db->insert('sipce_beca', array(
-                    'ced_estudiante' => $estudiante['ced_nueva'],
-                    'anio' => $estudiante['sipce_beca'][$i]['anio'],
-                    'becaAvancemos' => $estudiante['sipce_beca'][$i]['becaAvancemos'],
-                    'becaComedor' => $estudiante['sipce_beca'][$i]['becaComedor'],
-                    'becaTransporte' => $estudiante['sipce_beca'][$i]['becaTransporte']));
-                $i++;
-            }
-        }
-
-
         //sipce_encargado
         if ($estudiante['sipce_encargado'] != null) {
             $i = 0;
@@ -2741,7 +2709,11 @@ class Persona_Model extends Models {
                     'ingreso2' => $estudiante['sipce_estudiante_beca'][$i]['ingreso2'],
                     'ingreso3' => $estudiante['sipce_estudiante_beca'][$i]['ingreso3'],
                     'ingreso4' => $estudiante['sipce_estudiante_beca'][$i]['ingreso4'],
-                    'totalIngreso' => $estudiante['sipce_estudiante_beca'][$i]['totalIngreso']));
+                    'totalMiembros' => $estudiante['sipce_estudiante_beca'][$i]['totalMiembros'],
+                    'annio' => $estudiante['sipce_estudiante_beca'][$i]['annio'],
+                    'becaAvancemos' => $estudiante['sipce_estudiante_beca'][$i]['becaAvancemos'],
+                    'becaComedor' => $estudiante['sipce_estudiante_beca'][$i]['becaComedor'],
+                    'becaTransporte' => $estudiante['sipce_estudiante_beca'][$i]['becaTransporte']));
                 $i++;
             }
         }
@@ -2852,11 +2824,6 @@ class Persona_Model extends Models {
 
         if ($estudiante['sipce_ausencias'] != null) {
             $sth = $this->db->prepare("DELETE FROM sipce_ausencias WHERE ced_estudiante ='" . $estudiante['ced_estudiante'] . "'");
-            $sth->execute();
-        }
-
-        if ($estudiante['sipce_beca'] != null) {
-            $sth = $this->db->prepare("DELETE FROM sipce_beca WHERE ced_estudiante ='" . $estudiante['ced_estudiante'] . "'");
             $sth->execute();
         }
 
