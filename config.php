@@ -3,7 +3,7 @@
 define('LIBS','libs/'); 
 
 //variables cuando uso localhost
-define('URL','http://localhost/sipce/');
+define('URL','http://localhost:81/sipce/');
 define('DB_TYPE','mysql');
 define('DB_HOST','localhost');
 define('DB_NAME','db_sipce');
