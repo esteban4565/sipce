@@ -22,6 +22,8 @@
                 <th colspan="2" class="text-center">Acciones</th>
             </tr>
             <?php
+//            print_r($this->listaEstudianteBecas);
+//            die;
             $con = 1;
             foreach ($this->listaEstudianteBecas as $lista => $value) {
                 echo '<tr>';
@@ -73,12 +75,12 @@
                 
                 echo '</td>';
                 echo '<td>';
-                echo '<a class="btn-sm btn-warning" href="editarBecaComedor/' . $value['ced_estudiante'] . '">Editar</a>';
+                echo '<a class="btn-sm btn-warning" href="editarBeca/' . $value['ced_estudiante'] . '">Editar</a>';
                 echo '</td>';
                 echo '<td>';
                 if (Session::get('tipoUsuario') <= 2) {
                     ?>
-                    <a class="btn-sm btn-primary" href="<?php echo 'eliminarBecaComedor/' . $value['ced_estudiante']; ?>" onclick="return confirm('¿Está seguro que desea eliminar este registro?');">Eliminar</a>
+                    <a class="btn-sm btn-primary" href="<?php echo 'eliminarBeca/' . $value['ced_estudiante']; ?>" onclick="return confirm('¿Está seguro que desea eliminar este registro?');">Eliminar</a>
                     <?php
                 }
                 echo '</td>';
