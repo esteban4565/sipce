@@ -62,7 +62,7 @@
                     $subTotal = $value['ingreso1'] + $value['ingreso2'] + $value['ingreso3'] + $value['ingreso4'];
                     $descuento = $subTotal * 0.0934;
                     $total = $subTotal - $descuento;
-                    echo round($total / $value['totalMiembros'], 2);
+                    echo round($total / $value['totalMiembros'], 0);
 
                     echo '</td>';
                     echo '<td>';
