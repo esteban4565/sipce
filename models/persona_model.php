@@ -244,6 +244,9 @@ class Persona_Model extends Models {
         if ($consulta['chk_genero'] == 1) {
             $consultaSQL.=",sipce_estudiante.sexo";
         }
+        if ($consulta['chk_condicion'] == 1) {
+            $consultaSQL.=",sipce_matricularatificacion.condicion";
+        }
 
         //tablas
         $consultaSQL.=" FROM sipce_grupos LEFT JOIN " . DB_NAME . ".sipce_estudiante ON sipce_grupos.ced_estudiante = sipce_estudiante.cedula";
@@ -256,12 +259,18 @@ class Persona_Model extends Models {
         if ($consulta['chk_telefonosEncargado'] == 1) {
             $consultaSQL.=" LEFT JOIN " . DB_NAME . ".sipce_encargado ON sipce_estudiante.cedula = sipce_encargado.ced_estudiante";
         }
+        if ($consulta['chk_condicion'] == 1) {
+            $consultaSQL.=" LEFT JOIN " . DB_NAME . ".sipce_matricularatificacion ON sipce_estudiante.cedula = sipce_matricularatificacion.ced_estudiante";
+        }
 
         //restricciones
         $consultaSQL.=" WHERE ((sipce_grupos.nivel = " . $consulta['nivelSeleccionado'] . ") AND (sipce_grupos.annio = " . $this->datosSistema[0]['annio_lectivo'] . ")";
 
         if ($consulta['grupoSeleccionado'] != 0) {
             $consultaSQL.=" AND (sipce_grupos.grupo = " . $consulta['grupoSeleccionado'] . ")";
+        }
+        if ($consulta['chk_condicion'] == 1) {
+            $consultaSQL.=" AND (sipce_matricularatificacion.anio = " . $this->datosSistema[0]['annio_lectivo'] . ")";
         }
 
         $consultaSQL.=" )";

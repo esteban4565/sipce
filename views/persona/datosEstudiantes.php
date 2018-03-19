@@ -10,6 +10,7 @@
         <input type="checkbox" name="chk_telefonosEncargado" id="chk_telefonosEncargado" value="chk_telefonosEncargado">Telefonos Encargado Legal<br>
         <input type="checkbox" name="chk_fechaNacimiento" id="chk_fechaNacimiento" value="chk_fechaNacimiento">Fecha Nacimineto<br>
         <input type="checkbox" name="chk_genero" id="chk_genero" value="chk_genero">Genero<br>
+        <input type="checkbox" name="chk_condicion" id="chk_condicion" value="chk_condicion">Condicion<br>
         <br>
         <br>
 

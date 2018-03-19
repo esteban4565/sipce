@@ -18,10 +18,10 @@ class Estadistica extends Controllers {
     }
 
     public function matriculaInicialSegunEdad() {
-        $consulta = array();      
-        $consulta['anioActual'] = 2016;
-        $consulta['anioInicial'] = 2003;
-        $consulta['anioFinal'] = 2004;
+        $consulta = array();
+        $consulta['anioActual'] = $this->model->anioActivo;
+        $consulta['anioInicial'] = $this->model->anioActivo - 13;
+        $consulta['anioFinal'] = $this->model->anioActivo - 12;
         
         $this->view->title = 'Matricula Inicial, Segun Edad';
 
