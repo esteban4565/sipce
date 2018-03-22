@@ -1274,7 +1274,7 @@ class Persona_Model extends Models {
         }
         echo json_encode($estudiante);
     }
-    
+
     public function buscarEstudianteModifCed($ced_estudiante) {
         //verifico si el estudiante posee especialidad
         $consultaEstudianteEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante WHERE ced_estudiante = '" . $ced_estudiante . "' ");
@@ -1989,18 +1989,22 @@ class Persona_Model extends Models {
                     $estudiante['apellido1'] = $resultado[0]['apellido1'];
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];
-                    $estudiante['distancia'] = $resultado[0]['distancia'];
-                    $estudiante['numeroRuta'] = $resultado[0]['numeroRuta'];
-                    $estudiante['Distrito'] = $resultado[0]['Distrito'];
                     $estudiante['nivel'] = $resultado[0]['nivel'];
-                    $estudiante['nombreEspecialidad'] = $resultado[0]['nombreEspecialidad'];
-                    $estudiante['ingreso1'] = $resultado[0]['ingreso1'];
-                    $estudiante['ingreso2'] = $resultado[0]['ingreso2'];
-                    $estudiante['ingreso3'] = $resultado[0]['ingreso3'];
-                    $estudiante['ingreso4'] = $resultado[0]['ingreso4'];
+                    $estudiante['telefonoEstudiante'] = "-";
+                    $subTotal = $resultado[0]['ingreso1'] + $resultado[0]['ingreso2'] + $resultado[0]['ingreso3'] + $resultado[0]['ingreso4'];
+                    $descuento = $subTotal * 0.0934;
+                    $total = $subTotal - $descuento;
+                    $perCapita = round($total / $resultado[0]['totalMiembros'], 0);
+                    $estudiante['perCapita'] = $perCapita;
                     $estudiante['totalMiembros'] = $resultado[0]['totalMiembros'];
                     $estudiante['ced_encargadoCheque'] = $resultado[0]['ced_encargadoCheque'];
-                    $estudiante['parentesco'] = $resultado[0]['parentesco'];
+                    $estudiante['nombre_encargado'] = "-";
+                    $estudiante['apellido1_encargado'] = "-";
+                    $estudiante['apellido2_encargado'] = "-";
+                    $estudiante['nombreProvincia'] = "-";
+                    $estudiante['nombreCanton'] = "-";
+                    $estudiante['nombreDistrito'] = $resultado[0]['Distrito'];
+                    $estudiante['direccion'] = "-";
                 }
             } else {
                 $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.numeroRuta,"
@@ -2016,66 +2020,22 @@ class Persona_Model extends Models {
                     $estudiante['apellido1'] = $resultado[0]['apellido1'];
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];
-                    $estudiante['distancia'] = $resultado[0]['distancia'];
-                    $estudiante['numeroRuta'] = $resultado[0]['numeroRuta'];
-                    $estudiante['Distrito'] = $resultado[0]['Distrito'];
                     $estudiante['nivel'] = $resultado[0]['nivel'];
-                    $estudiante['nombreEspecialidad'] = "-";
-                    $estudiante['ingreso1'] = $resultado[0]['ingreso1'];
-                    $estudiante['ingreso2'] = $resultado[0]['ingreso2'];
-                    $estudiante['ingreso3'] = $resultado[0]['ingreso3'];
-                    $estudiante['ingreso4'] = $resultado[0]['ingreso4'];
+                    $estudiante['telefonoEstudiante'] = "-";
+                    $subTotal = $resultado[0]['ingreso1'] + $resultado[0]['ingreso2'] + $resultado[0]['ingreso3'] + $resultado[0]['ingreso4'];
+                    $descuento = $subTotal * 0.0934;
+                    $total = $subTotal - $descuento;
+                    $perCapita = round($total / $resultado[0]['totalMiembros'], 0);
+                    $estudiante['perCapita'] = $perCapita;
                     $estudiante['totalMiembros'] = $resultado[0]['totalMiembros'];
                     $estudiante['ced_encargadoCheque'] = $resultado[0]['ced_encargadoCheque'];
-                    $estudiante['parentesco'] = $resultado[0]['parentesco'];
-                }
-            }
-
-
-            //verifico el encargado de cangear cheques
-            if ($resultado != null) {
-                if ($estudiante['parentesco'] == 'Padre') {
-
-                    $consultaEstudiantePadre = $this->db->select("SELECT * 
-                                                            FROM sipce_padre 
-                                                            WHERE ced_estudiante = '" . $value['ced_estudiante'] . "' 
-                                                            AND ced_padre = '" . $estudiante['ced_encargadoCheque'] . "'");
-                    if ($consultaEstudiantePadre != null) {
-                        //Cargo datos del padre en el array
-                        $estudiante['nombre_encargado'] = $consultaEstudiantePadre[0]['nombre_padre'];
-                        $estudiante['apellido1_encargado'] = $consultaEstudiantePadre[0]['apellido1_padre'];
-                        $estudiante['apellido2_encargado'] = $consultaEstudiantePadre[0]['apellido2_padre'];
-                    }
-                } elseif ($estudiante['parentesco'] == 'Madre') {
-                    $consultaEstudianteMadre = $this->db->select("SELECT * 
-                                                                FROM sipce_madre 
-                                                                WHERE ced_estudiante = '" . $value['ced_estudiante'] . "' 
-                                                                AND ced_madre = '" . $estudiante['ced_encargadoCheque'] . "'");
-
-                    if ($consultaEstudianteMadre != null) {
-                        //Cargo datos de la madre en el array
-                        $estudiante['nombre_encargado'] = $consultaEstudianteMadre[0]['nombre_madre'];
-                        $estudiante['apellido1_encargado'] = $consultaEstudianteMadre[0]['apellido1_madre'];
-                        $estudiante['apellido2_encargado'] = $consultaEstudianteMadre[0]['apellido2_madre'];
-                    }
-                } elseif ($estudiante['parentesco'] == 'Otro') {
-                    $consultaEstudianteEncargado = $this->db->select("SELECT * 
-                                                                        FROM sipce_encargado 
-                                                                        WHERE ced_estudiante = '" . $value['ced_estudiante'] . "' 
-                                                                        AND ced_encargado = '" . $estudiante['ced_encargadoCheque'] . "' 
-                                                                        AND parentesco = 'Otro'");
-
-                    if ($consultaEstudianteEncargado != null) {
-                        //Cargo datos en un array
-                        $estudiante['nombre_encargado'] = $consultaEstudianteEncargado[0]['nombre_encargado'];
-                        $estudiante['apellido1_encargado'] = $consultaEstudianteEncargado[0]['apellido1_encargado'];
-                        $estudiante['apellido2_encargado'] = $consultaEstudianteEncargado[0]['apellido2_encargado'];
-                    }
-                } else {
-                    //Cargo datos en un array
-                    $estudiante['nombre_encargado'] = null;
-                    $estudiante['apellido1_encargado'] = null;
-                    $estudiante['apellido2_encargado'] = null;
+                    $estudiante['nombre_encargado'] = "-";
+                    $estudiante['apellido1_encargado'] = "-";
+                    $estudiante['apellido2_encargado'] = "-";
+                    $estudiante['nombreProvincia'] = "-";
+                    $estudiante['nombreCanton'] = "-";
+                    $estudiante['nombreDistrito'] = $resultado[0]['Distrito'];
+                    $estudiante['direccion'] = "-";
                 }
             }
             $datos[] = $estudiante;

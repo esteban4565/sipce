@@ -10,15 +10,16 @@
                 <th>1º Apellido</th>
                 <th>2º Apellido</th>
                 <th>Nombre</th>
-                <th>Distrito</th>
-                <th>Grado Académico</th>
-                <th>Especialidad</th>
-                <th>Ingreso #1</th>
-                <th>Ingreso #2</th>
-                <th>Ingreso #3</th>
-                <th>Ingreso #4</th>
-                <th>Cantidad de miembros</th>
+                <th>Nivel</th>
+                <th>Telefono</th>
                 <th>Per cápita</th>
+                <th>Cantidad de miembros</th>
+                <th>Identificación Encargado</th>
+                <th>Nombre Encargado</th>
+                <th>Provincia</th>
+                <th>Canton</th>
+                <th>Distrito</th>
+                <th>Dirección</th>
                 <th colspan="2" class="text-center">Acciones</th>
             </tr>
             <?php
@@ -41,36 +42,38 @@
                 echo $value['nombre'];
                 echo '</td>';
                 echo '<td>';
-                echo $value['Distrito'];
-                echo '</td>';
-                echo '<td>';
                 echo $value['nivel'];
                 echo '</td>';
                 echo '<td>';
-                echo $value['nombreEspecialidad'];
+                echo $value['telefonoEstudiante'];
                 echo '</td>';
                 echo '<td>';
-                echo $value['ingreso1'];
-                echo '</td>';
-                echo '<td>';
-                echo $value['ingreso2'];
-                echo '</td>';
-                echo '<td>';
-                echo $value['ingreso3'];
-                echo '</td>';
-                echo '<td>';
-                echo $value['ingreso4'];
+//                $subTotal=$value['ingreso1'] + $value['ingreso2'] + $value['ingreso3'] + $value['ingreso4'];
+//                $descuento=$subTotal * 0.0934;
+//                $total=$subTotal-$descuento;
+//                echo round($total / $value['totalMiembros'], 0);
+                echo $value['perCapita'];
                 echo '</td>';
                 echo '<td>';
                 echo $value['totalMiembros'];
                 echo '</td>';
                 echo '<td>';
-                
-                $subTotal=$value['ingreso1'] + $value['ingreso2'] + $value['ingreso3'] + $value['ingreso4'];
-                $descuento=$subTotal * 0.0934;
-                $total=$subTotal-$descuento;
-                echo round($total / $value['totalMiembros'], 0);
-                
+                echo $value['ced_encargadoCheque'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['nombre_encargado'] . ' ' . $value['apellido1_encargado'] . ' ' . $value['apellido2_encargado'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['nombreProvincia'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['nombreCanton'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['nombreDistrito'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['direccion'];
                 echo '</td>';
                 echo '<td>';
                 echo '<a class="btn-sm btn-warning" href="editarBecaComedor/' . $value['ced_estudiante'] . '">Editar</a>';
