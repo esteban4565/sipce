@@ -1553,6 +1553,10 @@ class Persona_Model extends Models {
             //print_r($consultaExistenciaEstudianteBeca);
             //die;
         } else {
+            //Consulto cantidad de expedientes para el consecutivo
+            //$consultaCantidadExpedientes = $this->db->select("select count(*) total from sipce_estudiante_beca");
+            //'id_consecutivo' => $consultaCantidadExpedientes[0]['total']
+
             //Sino Inserto datos 
             $this->db->insert('sipce_estudiante_beca', array(
                 'annio' => $this->datosSistema[0]['annio_lectivo'],
@@ -1577,8 +1581,9 @@ class Persona_Model extends Models {
     public function listaEstudianteBecas() {
         $datos = array();
         //enlisto todas las cedulas de estudiantes becados
-        $listaEstudianteBecas = $this->db->select("SELECT ced_estudiante FROM sipce_estudiante_beca "
-                . "WHERE annio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
+        $listaEstudianteBecas = $this->db->select("SELECT ced_estudiante,id_consecutivo FROM sipce_estudiante_beca "
+                . "WHERE annio = " . $this->datosSistema[0]['annio_lectivo'] 
+                . " ORDER BY id_consecutivo DESC");
         //print_r($listaEstudianteBecas);
         //die;
         foreach ($listaEstudianteBecas as $lista => $value) {
@@ -1589,7 +1594,7 @@ class Persona_Model extends Models {
             $consultaEstudianteEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante WHERE ced_estudiante = '" . $value['ced_estudiante'] . "' ");
 
             if ($consultaEstudianteEspecialidad != null) {
-                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.numeroRuta,eb.becaComedor,eb.becaTransporte,eb.becaAvancemos,"
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.id_consecutivo,eb.distancia,eb.numeroRuta,eb.becaComedor,eb.becaTransporte,eb.becaAvancemos,"
                         . "d.Distrito,g.nivel,esp.nombreEspecialidad,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros,eb.ced_encargadoCheque,eb.parentesco "
                         . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_especialidad as esp, "
                         . "sipce_especialidad_estudiante as ee, sipce_estudiante_beca as eb "
@@ -1605,6 +1610,7 @@ class Persona_Model extends Models {
                     $estudiante['apellido1'] = $resultado[0]['apellido1'];
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];
+                    $estudiante['id_consecutivo'] = $resultado[0]['id_consecutivo'];
                     $estudiante['distancia'] = $resultado[0]['distancia'];
                     $estudiante['numeroRuta'] = $resultado[0]['numeroRuta'];
                     $estudiante['becaComedor'] = $resultado[0]['becaComedor'];
@@ -1622,7 +1628,7 @@ class Persona_Model extends Models {
                     $estudiante['parentesco'] = $resultado[0]['parentesco'];
                 }
             } else {
-                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.numeroRuta,"
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.id_consecutivo,eb.distancia,eb.numeroRuta,"
                         . "d.Distrito,g.nivel,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros,eb.ced_encargadoCheque,eb.parentesco "
                         . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_estudiante_beca as eb "
                         . "WHERE e.cedula = g.ced_estudiante "
@@ -1635,6 +1641,7 @@ class Persona_Model extends Models {
                     $estudiante['apellido1'] = $resultado[0]['apellido1'];
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];
+                    $estudiante['id_consecutivo'] = $resultado[0]['id_consecutivo'];
                     $estudiante['distancia'] = $resultado[0]['distancia'];
                     $estudiante['numeroRuta'] = $resultado[0]['numeroRuta'];
                     $estudiante['Distrito'] = $resultado[0]['Distrito'];
@@ -1710,7 +1717,8 @@ class Persona_Model extends Models {
         //enlisto todas las cedulas de estudiantes becados
         $listaEstudianteBecas = $this->db->select("SELECT ced_estudiante FROM sipce_estudiante_beca "
                 . "WHERE annio = " . $this->datosSistema[0]['annio_lectivo'] . " "
-                . "AND becaTransporte = 1 ");
+                . "AND becaTransporte = 1 "
+                . "ORDER BY (ingreso1+ingreso3+ingreso3+ingreso4)/totalMiembros ");
         foreach ($listaEstudianteBecas as $lista => $value) {
             //Cedula
             $estudiante['ced_estudiante'] = $value['ced_estudiante'];
@@ -1719,7 +1727,7 @@ class Persona_Model extends Models {
             $consultaEstudianteEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante WHERE ced_estudiante = '" . $value['ced_estudiante'] . "' ");
 
             if ($consultaEstudianteEspecialidad != null) {
-                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.numeroRuta,"
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.id_consecutivo,eb.numeroRuta,"
                         . "d.Distrito,g.nivel,esp.nombreEspecialidad,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros,eb.ced_encargadoCheque,eb.parentesco "
                         . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_especialidad as esp, "
                         . "sipce_especialidad_estudiante as ee, sipce_estudiante_beca as eb "
@@ -1736,6 +1744,7 @@ class Persona_Model extends Models {
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];
                     $estudiante['distancia'] = $resultado[0]['distancia'];
+                    $estudiante['id_consecutivo'] = $resultado[0]['id_consecutivo'];
                     $estudiante['numeroRuta'] = $resultado[0]['numeroRuta'];
                     $estudiante['Distrito'] = $resultado[0]['Distrito'];
                     $estudiante['nivel'] = $resultado[0]['nivel'];
@@ -1837,7 +1846,8 @@ class Persona_Model extends Models {
         //enlisto todas las cedulas de estudiantes becados
         $listaEstudianteBecas = $this->db->select("SELECT ced_estudiante FROM sipce_estudiante_beca "
                 . "WHERE annio = " . $this->datosSistema[0]['annio_lectivo'] . " "
-                . "AND becaComedor = 1 ");
+                . "AND becaComedor = 1 "
+                . "ORDER BY (ingreso1+ingreso3+ingreso3+ingreso4)/totalMiembros ");
         foreach ($listaEstudianteBecas as $lista => $value) {
             //Cedula
             $estudiante['ced_estudiante'] = $value['ced_estudiante'];
@@ -1846,7 +1856,7 @@ class Persona_Model extends Models {
             $consultaEstudianteEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante WHERE ced_estudiante = '" . $value['ced_estudiante'] . "' ");
 
             if ($consultaEstudianteEspecialidad != null) {
-                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.numeroRuta,"
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.id_consecutivo,eb.numeroRuta,"
                         . "d.Distrito,g.nivel,esp.nombreEspecialidad,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros,eb.ced_encargadoCheque,eb.parentesco "
                         . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_especialidad as esp, "
                         . "sipce_especialidad_estudiante as ee, sipce_estudiante_beca as eb "
@@ -1863,6 +1873,7 @@ class Persona_Model extends Models {
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];
                     $estudiante['distancia'] = $resultado[0]['distancia'];
+                    $estudiante['id_consecutivo'] = $resultado[0]['id_consecutivo'];
                     $estudiante['numeroRuta'] = $resultado[0]['numeroRuta'];
                     $estudiante['Distrito'] = $resultado[0]['Distrito'];
                     $estudiante['nivel'] = $resultado[0]['nivel'];
@@ -1876,7 +1887,7 @@ class Persona_Model extends Models {
                     $estudiante['parentesco'] = $resultado[0]['parentesco'];
                 }
             } else {
-                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.numeroRuta,"
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.id_consecutivo,eb.numeroRuta,"
                         . "d.Distrito,g.nivel,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros,eb.ced_encargadoCheque,eb.parentesco "
                         . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_estudiante_beca as eb "
                         . "WHERE e.cedula = g.ced_estudiante "
@@ -1890,6 +1901,7 @@ class Persona_Model extends Models {
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];
                     $estudiante['distancia'] = $resultado[0]['distancia'];
+                    $estudiante['id_consecutivo'] = $resultado[0]['id_consecutivo'];
                     $estudiante['numeroRuta'] = $resultado[0]['numeroRuta'];
                     $estudiante['Distrito'] = $resultado[0]['Distrito'];
                     $estudiante['nivel'] = $resultado[0]['nivel'];
@@ -1964,7 +1976,8 @@ class Persona_Model extends Models {
         //enlisto todas las cedulas de estudiantes becados
         $listaEstudianteBecas = $this->db->select("SELECT ced_estudiante FROM sipce_estudiante_beca "
                 . "WHERE annio = " . $this->datosSistema[0]['annio_lectivo'] . " "
-                . "AND becaAvancemos = 1 ");
+                . "AND becaAvancemos = 1 "
+                . "ORDER BY (ingreso1+ingreso3+ingreso3+ingreso4)/totalMiembros ");
         foreach ($listaEstudianteBecas as $lista => $value) {
             //Cedula
             $estudiante['ced_estudiante'] = $value['ced_estudiante'];
@@ -1973,7 +1986,7 @@ class Persona_Model extends Models {
             $consultaEstudianteEspecialidad = $this->db->select("SELECT * FROM sipce_especialidad_estudiante WHERE ced_estudiante = '" . $value['ced_estudiante'] . "' ");
 
             if ($consultaEstudianteEspecialidad != null) {
-                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.numeroRuta,"
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.id_consecutivo,eb.numeroRuta,"
                         . "d.Distrito,g.nivel,esp.nombreEspecialidad,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros,eb.ced_encargadoCheque,eb.parentesco "
                         . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_especialidad as esp, "
                         . "sipce_especialidad_estudiante as ee, sipce_estudiante_beca as eb "
@@ -1986,6 +1999,7 @@ class Persona_Model extends Models {
                         . "AND g.annio = " . $this->datosSistema[0]['annio_lectivo'] . " "
                         . "AND eb.annio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
                 if ($resultado != null) {
+                    $estudiante['id_consecutivo'] = $resultado[0]['id_consecutivo'];
                     $estudiante['apellido1'] = $resultado[0]['apellido1'];
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];
@@ -2007,7 +2021,7 @@ class Persona_Model extends Models {
                     $estudiante['direccion'] = "-";
                 }
             } else {
-                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.numeroRuta,"
+                $resultado = $this->db->select("SELECT e.cedula,e.apellido1,e.apellido2,e.nombre,eb.distancia,eb.id_consecutivo,eb.numeroRuta,"
                         . "d.Distrito,g.nivel,eb.ingreso1,eb.ingreso2,eb.ingreso3,eb.ingreso4,eb.totalMiembros,eb.ced_encargadoCheque,eb.parentesco "
                         . "FROM sipce_estudiante as e, sipce_grupos as g, sipce_distritos as d, sipce_estudiante_beca as eb "
                         . "WHERE e.cedula = g.ced_estudiante "
@@ -2017,6 +2031,7 @@ class Persona_Model extends Models {
                         . "AND g.annio = " . $this->datosSistema[0]['annio_lectivo'] . " ");
 
                 if ($resultado != null) {
+                    $estudiante['id_consecutivo'] = $resultado[0]['id_consecutivo'];
                     $estudiante['apellido1'] = $resultado[0]['apellido1'];
                     $estudiante['apellido2'] = $resultado[0]['apellido2'];
                     $estudiante['nombre'] = $resultado[0]['nombre'];

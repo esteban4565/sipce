@@ -8,10 +8,11 @@
     <div class="col-xs-12">
         <table class="table table-condensed" id="listaBecados">
             <tr>
-                <td colspan="15" class="nombreTabla text-center">RUTA HEREDIA</td>
+                <td colspan="16" class="nombreTabla text-center">RUTA HEREDIA</td>
             </tr>
             <tr>
                 <th>N°</th>
+                <th>Id consecutivo</th>
                 <th>Identificación</th>
                 <th>1º Apellido</th>
                 <th>2º Apellido</th>
@@ -28,10 +29,13 @@
             <?php
             $con = 1;
             foreach ($this->listaEstudianteBecas as $lista => $value) {
-                if ($value['numeroRuta'] == '40165' && $value['nivel'] >= 10 && $value['becaTransporte']==1) {
+                if ($value['numeroRuta'] == '40165' && $value['nivel'] >= 10) {
                     echo '<tr>';
                     echo '<td>';
                     echo $con;
+                    echo '</td>';
+                    echo '<td>';
+                    echo $value['id_consecutivo'];
                     echo '</td>';
                     echo '<td>';
                     echo $value['ced_estudiante'];
@@ -96,10 +100,10 @@
             }
             ?>
             <tr>
-                <td colspan='15' class="text-center"></td>
+                <td colspan='16' class="text-center"></td>
             </tr>
             <tr>
-                <td colspan='15'class="text-center">Última línea</td>
+                <td colspan='16'class="text-center">Última línea</td>
             </tr>
         </table>
     </div>

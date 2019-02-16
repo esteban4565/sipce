@@ -639,7 +639,7 @@ class Persona extends Controllers {
     //2016 Becas
 
     function ingresarBeca() {
-        $this->view->title = 'Ingresar beca transporte';
+        $this->view->title = 'Ingresar beca';
         $this->view->mensaje = '';
 
         $this->view->render('header');
@@ -694,10 +694,11 @@ class Persona extends Controllers {
         }
         $this->model->guardarDatosBeca($datos);
 
-        $this->view->mensaje = 'Datos guardados correctamente';
+        $this->view->title = 'Lista becas';
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
 
         $this->view->render('header');
-        $this->view->render('persona/ingresarBeca');
+        $this->view->render('persona/listaBecas');
         $this->view->render('footer');
     }
 
@@ -748,7 +749,7 @@ class Persona extends Controllers {
 
     function listaBecasRutaAlajuela() {
         $this->view->title = 'Lista becas transporte';
-        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecasTransporte();
 
         $this->view->render('header');
         $this->view->render('persona/listaBecasRutaAlajuela');

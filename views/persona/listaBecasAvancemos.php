@@ -2,10 +2,11 @@
     <div class="col-xs-12">
         <table class="table table-condensed" id="listaBecados">
             <tr>
-                <td colspan="21" class="nombreTabla text-center">DATOS DEL ESTUDIANTE</td>
+                <td colspan="22" class="nombreTabla text-center">DATOS DEL ESTUDIANTE</td>
             </tr>
             <tr>
                 <th>N°</th>
+                <th>Id consecutivo</th>
                 <th>Identificación</th>
                 <th>1º Apellido</th>
                 <th>2º Apellido</th>
@@ -28,6 +29,9 @@
                 echo '<tr>';
                 echo '<td>';
                 echo $con;
+                echo '</td>';
+                echo '<td>';
+                echo $value['id_consecutivo'];
                 echo '</td>';
                 echo '<td>';
                 echo $value['ced_estudiante'];
@@ -90,10 +94,10 @@
             }
             ?>
             <tr>
-                <td colspan='21' class="text-center"></td>
+                <td colspan='22' class="text-center"></td>
             </tr>
             <tr>
-                <td colspan='21'class="text-center">Última línea</td>
+                <td colspan='22'class="text-center">Última línea</td>
             </tr>
         </table>
     </div>

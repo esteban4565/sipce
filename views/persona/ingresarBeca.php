@@ -37,9 +37,9 @@
     <form id="MyForm" action="<?php echo URL; ?>persona/guardarDatosBeca" method="POST" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <h3>Marque las becas que solicita el estudiante</h3>
-            <input type="checkbox" name="chk_becaComedor" id="chk_becaComedor" value="chk_becaComedor">Comedor<br>
-            <input type="checkbox" name="chk_becaTransporte" id="chk_becaTransporte" value="chk_becaTransporte">Transporte<br>
-            <input type="checkbox" name="chk_becaAvancemos" id="chk_becaAvancemos" value="chk_becaAvancemos">Avancemos (Casos nuevos)<br>
+            <input type="checkbox" name="chk_becaComedor" id="chk_becaComedor" value="chk_becaComedor" style="width: 20px; height: 20px;">Comedor<br>
+            <input type="checkbox" name="chk_becaTransporte" id="chk_becaTransporte" value="chk_becaTransporte" style="width: 20px; height: 20px;">Transporte<br>
+            <input type="checkbox" name="chk_becaAvancemos" id="chk_becaAvancemos" value="chk_becaAvancemos" style="width: 20px; height: 20px;">Avancemos (Casos nuevos)<br>
             <legend class="text-center">Formulario becas estudiantiles</legend>
             <div class="form-group">
                 <label class="col-xs-2 control-label">Identificación:</label>
