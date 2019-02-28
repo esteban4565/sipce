@@ -1062,10 +1062,13 @@ class Matricula_Model extends Models {
     /* Carga todos los estudiantes matriculados */
 
     public function listaEstudiantesNoMatricula() {
+        $anio=$this->datosSistema[0]['annio_lectivo'];
+        $anioAnterior=$anio-1;
         return $this->db->select("SELECT cedula,nombre,apellido1,apellido2,nivel,condicion,anio "
                         . "FROM sipce_estudiante,sipce_matricularatificacion "
                         . "WHERE cedula = ced_estudiante "
                         . "AND nivel <> 12 "
+                        . "AND anio = " . $anioAnterior . " "
                         . "AND cedula NOT IN (select ced_estudiante from sipce_matricularatificacion WHERE anio = " . $this->datosSistema[0]['annio_lectivo'] . ")"
                         . "ORDER BY apellido1,apellido2,nombre");
     }

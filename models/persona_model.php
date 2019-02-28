@@ -2067,7 +2067,7 @@ class Persona_Model extends Models {
                 . "WHERE ced_estudiante = '" . $ced_estudiante . "' ");
 
         if ($consultaExistenciaEstudianteBeca != null) {
-            $sth = $this->db->prepare("DELETE FROM sipce_estudiante_beca WHERE ced_estudiante ='" . $ced_estudiante . "'");
+            $sth = $this->db->prepare("DELETE FROM sipce_estudiante_beca WHERE id_consecutivo ='" . $consultaExistenciaEstudianteBeca[0]['id_consecutivo']. "'");
             $sth->execute();
         } else {
             echo 'Estudiante: ' + $ced_estudiante + 'no encontrado en sipce_estudiante_beca';

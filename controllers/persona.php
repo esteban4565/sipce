@@ -768,11 +768,13 @@ class Persona extends Controllers {
 
     function eliminarBeca($ced_estudiante) {
         $this->model->eliminarBeca($ced_estudiante);
-        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
 
-        $this->view->render('header');
-        $this->view->render('persona/listaBecas');
-        $this->view->render('footer');
+        header("Location: " . URL . "persona/listaBecas");
+        
+//        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
+//        $this->view->render('header');
+//        $this->view->render('persona/listaBecas');
+//        $this->view->render('footer');
     }
 
     function modificarCedulaEstudiante($msj = null) {
