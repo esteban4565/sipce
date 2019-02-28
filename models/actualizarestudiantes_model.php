@@ -651,16 +651,16 @@ class ActualizarEstudiantes_Model extends Models {
                 $resultado = $this->db->select("SELECT * "
                         . "FROM sipce_grupos "
                         . "WHERE ced_estudiante = '" . $datos[0] . "' "
-                        . "AND annio = " . $datos[1] . " ");
+                        . "AND annio = " . ($this->datosSistema[0]['annio_lectivo']) . " ");
                 if ($resultado == null) {
-                    $arraySalida.= "Estudiante no encontrado: " . $datos[0] . " en año: " . $datos[1] . "<br />";
+                    $arraySalida.= "El estudiante: " . $datos[0] . " no fue encontrado en el padron de matriculados del : " . ($this->datosSistema[0]['annio_lectivo']) . ". Es propuesto para la sección: " . $datos[1] . "-" . $datos[2] . " " . $datos[3] . "<br />";
                 } else {
                     //actualizo datos
                     $posData = array(
-                        'nivel' => $datos[2],
-                        'grupo' => $datos[3],
-                        'sub_grupo' => $datos[4]);
-                    $this->db->update('sipce_grupos', $posData, "`ced_estudiante` = '{$datos[0]}' AND `annio` = {$datos[1]}");
+                        'nivel' => $datos[1],
+                        'grupo' => $datos[2],
+                        'sub_grupo' => $datos[3]);
+                    $this->db->update('sipce_grupos', $posData, "`ced_estudiante` = '{$datos[0]}' AND `annio` = {$this->datosSistema[0]['annio_lectivo']}");
                 }
             }
             fclose($gestor);
