@@ -2006,7 +2006,7 @@ class Persona_Model extends Models {
                     $estudiante['nivel'] = $resultado[0]['nivel'];
                     $estudiante['telefonoEstudiante'] = "-";
                     $subTotal = $resultado[0]['ingreso1'] + $resultado[0]['ingreso2'] + $resultado[0]['ingreso3'] + $resultado[0]['ingreso4'];
-                    $descuento = $subTotal * 0.0934;
+                    $descuento = $subTotal * 0.1034;
                     $total = $subTotal - $descuento;
                     $perCapita = round($total / $resultado[0]['totalMiembros'], 0);
                     $estudiante['perCapita'] = $perCapita;
@@ -2038,7 +2038,7 @@ class Persona_Model extends Models {
                     $estudiante['nivel'] = $resultado[0]['nivel'];
                     $estudiante['telefonoEstudiante'] = "-";
                     $subTotal = $resultado[0]['ingreso1'] + $resultado[0]['ingreso2'] + $resultado[0]['ingreso3'] + $resultado[0]['ingreso4'];
-                    $descuento = $subTotal * 0.0934;
+                    $descuento = $subTotal * 0.1034;
                     $total = $subTotal - $descuento;
                     $perCapita = round($total / $resultado[0]['totalMiembros'], 0);
                     $estudiante['perCapita'] = $perCapita;
