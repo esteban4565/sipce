@@ -2,7 +2,7 @@
     <div class="col-xs-12">
         <table class="table table-condensed" id="listaBecados">
             <tr>
-                <td colspan="22" class="nombreTabla text-center">DATOS DEL ESTUDIANTE</td>
+                <td colspan="28" class="nombreTabla text-center">DATOS DEL ESTUDIANTE</td>
             </tr>
             <tr>
                 <th>N°</th>
@@ -12,11 +12,17 @@
                 <th>2º Apellido</th>
                 <th>Nombre</th>
                 <th>Nivel</th>
-                <th>Telefono</th>
-                <th>Per cápita</th>
+                <th>Telefono Estudiante</th>
+                <th>Ingreso1</th>
+                <th>Ingreso2</th>
+                <th>Ingreso3</th>
+                <th>Ingreso4</th>
                 <th>Cantidad de miembros</th>
+                <th>Per cápita</th>
                 <th>Identificación Encargado</th>
                 <th>Nombre Encargado</th>
+                <th>Tel. Cel Encargado</th>
+                <th>Tel. Hab Encargado</th>
                 <th>Provincia</th>
                 <th>Canton</th>
                 <th>Distrito</th>
@@ -52,20 +58,34 @@
                 echo $value['telefonoEstudiante'];
                 echo '</td>';
                 echo '<td>';
-//                $subTotal=$value['ingreso1'] + $value['ingreso2'] + $value['ingreso3'] + $value['ingreso4'];
-//                $descuento=$subTotal * 0.0934;
-//                $total=$subTotal-$descuento;
-//                echo round($total / $value['totalMiembros'], 0);
-                echo $value['perCapita'];
+                echo $value['ingreso1'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['ingreso2'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['ingreso3'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['ingreso4'];
                 echo '</td>';
                 echo '<td>';
                 echo $value['totalMiembros'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['perCapita'];
                 echo '</td>';
                 echo '<td>';
                 echo $value['ced_encargadoCheque'];
                 echo '</td>';
                 echo '<td>';
                 echo $value['nombre_encargado'] . ' ' . $value['apellido1_encargado'] . ' ' . $value['apellido2_encargado'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['telefonoCelularEncargado'];
+                echo '</td>';
+                echo '<td>';
+                echo $value['telefonoCasaEncargado'];
                 echo '</td>';
                 echo '<td>';
                 echo $value['nombreProvincia'];
@@ -94,10 +114,10 @@
             }
             ?>
             <tr>
-                <td colspan='22' class="text-center"></td>
+                <td colspan='28' class="text-center"></td>
             </tr>
             <tr>
-                <td colspan='22'class="text-center">Última línea</td>
+                <td colspan='28'class="text-center">Última línea</td>
             </tr>
         </table>
     </div>

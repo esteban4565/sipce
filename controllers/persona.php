@@ -741,7 +741,7 @@ class Persona extends Controllers {
 
     function listaBecasRutaHeredia() {
         $this->view->title = 'Lista becas transporte';
-        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecas();
+        $this->view->listaEstudianteBecas = $this->model->listaEstudianteBecasTransporte();
 
         $this->view->render('header');
         $this->view->render('persona/listaBecasRutaHeredia');
