@@ -84,6 +84,7 @@
                 } else {
                     echo 'No encontrado';
                 }
+                //Hola
                 echo '</td>';
                 echo '<td>';
                 echo '<a class="btn-sm btn-warning" href="editarBeca/' . $value['ced_estudiante'] . '">Editar</a>';
